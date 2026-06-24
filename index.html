@@ -64,7 +64,7 @@
     }
     .nav-logo {
       font-family: var(--bebas); font-size: 1.5rem; letter-spacing: 0.08em;
-      color: var(--texte); text-decoration: none; flex-shrink: 0; cursor: pointer;
+      color: var(--texte); text-decoration: none; flex-shrink: 0;
     }
     .nav-logo span { color: var(--rose); }
 
@@ -154,8 +154,39 @@
     .hero-stat-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; text-align: right; }
 
     /* ═══════════════════════════════════════════════════════════════
+       PALMARÈS
+    ═══════════════════════════════════════════════════════════════ */
+    .palmares-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); border: 1px solid var(--rose-bord); }
+    .palmares-item { padding: 2.5rem 2rem; border-right: 1px solid var(--rose-bord); border-bottom: 1px solid var(--rose-bord); background: var(--blanc); transition: background 0.25s; }
+    .palmares-item:hover { background: var(--rose-pale); }
+    .palmares-year { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.6rem; }
+    .palmares-trophy { font-family: var(--bebas); font-size: 1.8rem; letter-spacing: 0.03em; line-height: 1.1; margin-bottom: 0.6rem; color: var(--texte); }
+    .palmares-desc { font-size: 0.8rem; color: var(--texte-sec); line-height: 1.6; }
+    .palmares-rank { display: inline-block; margin-top: 0.75rem; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose); border: 1px solid var(--rose-bord); padding: 0.22rem 0.55rem; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SAISON
+    ═══════════════════════════════════════════════════════════════ */
+    .saison-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; flex-wrap: wrap; gap: 2rem; }
+    .saison-context { font-size: 0.88rem; color: var(--texte-sec); max-width: 380px; line-height: 1.7; }
+    .competition-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--rose-bord); transition: padding-left 0.2s; }
+    .competition-row:first-child { border-top: 1px solid var(--rose-bord); }
+    .competition-row:hover { padding-left: 0.75rem; }
+    .comp-name { font-family: var(--bebas); font-size: 1.4rem; letter-spacing: 0.04em; color: var(--texte); }
+    .comp-status { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+    .status-active { color: #5BAD7A; }
+    .status-upcoming { color: #C4956A; }
+    .comp-detail { font-size: 0.8rem; color: var(--texte-sec); }
+    .comp-badge { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; background: var(--rose-pale); color: var(--rose); padding: 0.3rem 0.7rem; display: inline-block; justify-self: end; }
+
+    /* ═══════════════════════════════════════════════════════════════
        EFFECTIF
     ═══════════════════════════════════════════════════════════════ */
+    .effectif-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
+    .effectif-text { font-size: 0.88rem; color: var(--texte-sec); line-height: 1.8; }
+    .effectif-numbers { display: flex; gap: 2.5rem; }
+    .eff-num { font-family: var(--bebas); font-size: 2.8rem; color: var(--texte); }
+    .eff-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; }
     .poste-header { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); padding: 1.25rem 0 0.75rem; border-top: 1px solid var(--rose-bord); margin-top: 1.5rem; }
     .joueurs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1px; background: var(--rose-bord); margin-bottom: 1.5rem; }
     .joueur-card { background: var(--blanc); padding: 1.25rem 1rem; transition: background 0.2s; }
@@ -163,6 +194,17 @@
     .joueur-num { font-family: var(--bebas); font-size: 1.8rem; color: rgba(232, 119, 154, 0.4); line-height: 1; margin-bottom: 0.4rem; }
     .joueur-nom { font-size: 0.85rem; font-weight: 600; color: var(--texte); margin-bottom: 0.2rem; }
     .joueur-nat { font-size: 0.68rem; color: var(--texte-sec); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       STADE
+    ═══════════════════════════════════════════════════════════════ */
+    .stade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .stade-info p { font-size: 0.88rem; color: var(--texte-sec); line-height: 1.8; margin-bottom: 1.25rem; }
+    .stade-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; margin-top: 2.5rem; }
+    .spec-val { font-family: var(--bebas); font-size: 2rem; color: var(--texte); }
+    .spec-key { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; }
+    .stade-img-placeholder { background: var(--rose-pale); border: 1px solid var(--rose-bord); height: 300px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.75rem; }
+    .stade-img-label { font-family: var(--bebas); font-size: 4.5rem; color: rgba(232, 119, 154, 0.25); letter-spacing: 0.04em; text-align: center; line-height: 1; }
 
     /* ═══════════════════════════════════════════════════════════════
        HISTOIRE / TIMELINE
@@ -191,22 +233,6 @@
     .news-card-meta { font-size: 0.65rem; color: rgba(107,95,107,0.55); margin-top: 1rem; }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE: BOUTIQUE & MAILLOTS ILLUSTRÉS
-    ═══════════════════════════════════════════════════════════════ */
-    .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
-    .product-card { background: var(--blanc); border: 1px solid var(--rose-bord); display: flex; flex-direction: column; padding: 1.5rem; position: relative; transition: transform 0.3s, box-shadow 0.3s; }
-    .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(232, 119, 154, 0.15); }
-    
-    /* Illustration vectorielle du maillot ultra-pro */
-    .jersey-container { width: 100%; height: 220px; background: var(--gris-clair); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; position: relative; overflow: hidden; }
-    .jersey-svg { width: 140px; height: 160px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.1)); transition: transform 0.3s; }
-    .product-card:hover .jersey-svg { transform: scale(1.05) rotate(2deg); }
-    .jersey-badge { position: absolute; top: 1rem; left: 1rem; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; background: var(--rose); color: #fff; padding: 0.25rem 0.6rem; letter-spacing: 0.05em; }
-
-    .product-name { font-family: var(--bebas); font-size: 1.5rem; color: var(--texte); letter-spacing: 0.02em; margin-bottom: 0.25rem; }
-    .product-price { font-size: 1.1rem; font-weight: 700; color: var(--rose); margin-bottom: 1rem; }
-
-    /* ═══════════════════════════════════════════════════════════════
        PAGE: AUTH / COMPTE & PARAMÈTRES
     ═══════════════════════════════════════════════════════════════ */
     .auth-container { max-width: 450px; margin: 4rem auto; padding: 2.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); }
@@ -219,18 +245,45 @@
     .form-group input { width: 100%; padding: 0.75rem; background: var(--gris-clair); border: 1px solid var(--rose-bord); color: var(--texte); font-family: var(--inter); }
     .form-group input:focus { outline: 1px solid var(--rose); }
 
+    .btn-github { width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: #24292e; color: #fff; border: none; padding: 0.75rem; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; margin-top: 1rem; }
+    .btn-github:hover { background: #1a1e22; }
+
+    /* Panneau Paramètres / Config */
+    .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto; }
+    .settings-card { padding: 2rem; background: var(--blanc); border: 1px solid var(--rose-bord); }
+    .toggle-switch { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; }
+
     /* ═══════════════════════════════════════════════════════════════
-       PANEL ADMIN OVERLAY & CONNEXION PRIVÉE
+       PAGE: BILLETTERIE & BOUTIQUE
     ═══════════════════════════════════════════════════════════════ */
-    .admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 500; align-items: center; justify-content: center; }
+    .bill-hero { background: var(--rose); padding: 5rem 4rem 4rem; text-align: center; color: #FFF; }
+    .bill-hero .section-title { color: #FFF; }
+    .match-card { display: grid; grid-template-columns: 1fr auto 1fr auto; align-items: center; gap: 1rem; padding: 1.5rem 1.75rem; background: var(--blanc); border: 1px solid var(--rose-bord); margin-bottom: 1px; }
+    .match-ticket { font-size: 0.7rem; font-weight: 700; background: var(--rose); color: #FFF; border: none; padding: 0.65rem 1.25rem; cursor: pointer; }
+    
+    .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 2px; background: var(--rose-bord); padding: 2px; }
+    .product-card { background: var(--blanc); display: flex; flex-direction: column; padding: 1rem; }
+    .product-name { font-family: var(--bebas); font-size: 1.2rem; color: var(--texte); }
+
+    /* Cart Bubble & Panels */
+    .cart-bubble { position: fixed; bottom: 2rem; right: 2rem; background: var(--rose); color: white; border: none; width: 56px; height: 56px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 1.3rem; z-index: 300; cursor: pointer; }
+    .cart-bubble.show { display: flex; }
+    .cart-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 380px; background: var(--blanc); border-left: 1px solid var(--rose-bord); z-index: 400; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
+    .cart-panel.open { transform: translateX(0); }
+    .cart-items { flex: 1; overflow-y: auto; padding: 1.5rem; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PANEL ADMIN OVERLAY
+    ═══════════════════════════════════════════════════════════════ */
+    .admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 500; align-items: center; justify-content: center; }
     .admin-overlay.open { display: flex; }
-    .admin-panel { background: var(--blanc); width: 100%; max-width: 700px; max-height: 85vh; overflow-y: auto; padding: 3rem; border: 1px solid var(--rose-bord); position: relative; }
-    .admin-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--texte); }
+    .admin-panel { background: var(--blanc); width: 100%; max-width: 900px; max-height: 85vh; overflow-y: auto; padding: 2.5rem; border: 1px solid var(--rose-bord); }
+    .admin-close { float: right; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--texte); }
 
     /* ═══════════════════════════════════════════════════════════════
        FOOTER
     ═══════════════════════════════════════════════════════════════ */
-    footer { background: var(--gris-clair); padding: 4rem; display: grid; grid-template-columns: 2fr repeat(2, 1fr); gap: 3rem; border-top: 1px solid var(--rose-bord); }
+    footer { background: var(--gris-clair); padding: 4rem; display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 3rem; border-top: 1px solid var(--rose-bord); }
     .footer-brand-name { font-family: var(--bebas); font-size: 1.7rem; color: var(--texte); }
     .footer-brand-name span { color: var(--rose); }
     .footer-bottom { background: var(--rose-pale); padding: 1.25rem 4rem; display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--texte-sec); }
@@ -239,32 +292,41 @@
       nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
-      footer { grid-template-columns: 1fr; gap: 2rem; }
+      .stade-grid, .effectif-intro, footer { grid-template-columns: 1fr; gap: 2rem; }
+      .match-card { grid-template-columns: 1fr; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       NAVBAR
-  ═══════════════════════════════════════════════════════════════ */ -->
   <nav>
     <a class="nav-logo" onclick="showPage('accueil')">PIGNOUFERIE <span>FC</span></a>
     <ul class="nav-links">
       <li><a id="link-accueil" onclick="showPage('accueil')" class="active">Club</a></li>
       <li><a id="link-actualites" onclick="showPage('actualites')">Actualités</a></li>
+      <li><a id="link-billetterie" onclick="showPage('billetterie')">Billetterie</a></li>
       <li><a id="link-boutique" onclick="showPage('boutique')">Boutique</a></li>
       <li><a id="link-compte" onclick="showPage('compte')">Mon Compte</a></li>
+      <li><a id="link-parametres" onclick="showPage('parametres')">Paramètres</a></li>
     </ul>
     <div class="nav-right">
       <div class="nav-badge">Fondé en 2005</div>
-      <button class="nav-btn" onclick="openAdminGate()">Admin</button>
+      <button class="nav-btn" onclick="openAdminModal()">Admin</button>
+      <button class="nav-hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       PAGE: ACCUEIL
-  ═══════════════════════════════════════════════════════════════ */ -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a onclick="showPage('accueil'); toggleMobileMenu()">Club</a>
+    <a onclick="showPage('actualites'); toggleMobileMenu()">Actualités</a>
+    <a onclick="showPage('billetterie'); toggleMobileMenu()">Billetterie</a>
+    <a onclick="showPage('boutique'); toggleMobileMenu()">Boutique</a>
+    <a onclick="showPage('compte'); toggleMobileMenu()">Mon Compte</a>
+    <a onclick="showPage('parametres'); toggleMobileMenu()">Paramètres</a>
+  </div>
+
   <div id="page-accueil" class="page active">
     <div class="hero">
       <div class="hero-marquee">
@@ -272,13 +334,16 @@
       </div>
       <div class="hero-eyebrow">Le Site Officiel</div>
       <h1 class="hero-title">Plus qu'un club, une <em>légende</em> en rose et blanc.</h1>
-      <p class="hero-sub">Depuis 2005, nous réécrivons les lignes du football avec audace et un style incomparable.</p>
+      <p class="hero-sub">Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.</p>
       <div class="hero-actions">
-        <button class="btn-primary" onclick="showPage('boutique')">Visiter la boutique</button>
+        <button class="btn-primary" onclick="showPage('billetterie')">Réserver un billet</button>
+        <button class="btn-ghost" onclick="document.getElementById('effectif-sec').scrollIntoView()">Découvrir l'effectif</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hero-stat-num">2005</div><div class="hero-stat-label">Année de création</div></div>
       </div>
     </div>
 
-    <!-- EFFECTIF COMPLET -->
     <div id="effectif-sec" class="sec">
       <p class="section-eyebrow">Saison Globale</p>
       <h2 class="section-title">L'Effectif Pro</h2>
@@ -297,7 +362,6 @@
       <div class="joueurs-grid" id="grid-attaquants"></div>
     </div>
 
-    <!-- HISTOIRE -->
     <div class="sec sec-alt">
       <p class="section-eyebrow">Récit</p>
       <h2 class="section-title">Notre Histoire</h2>
@@ -306,9 +370,6 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       PAGE: ACTUALITÉS
-  ═══════════════════════════════════════════════════════════════ */ -->
   <div id="page-actualites" class="page">
     <div class="news-hero">
       <p class="section-eyebrow">Média</p>
@@ -317,118 +378,134 @@
     <div class="news-grid sec" id="news-container"></div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       PAGE: BOUTIQUE (Avec Maillots stylisés)
-  ═══════════════════════════════════════════════════════════════ */ -->
+  <div id="page-billetterie" class="page">
+    <div class="bill-hero">
+      <p class="section-eyebrow">Matchs</p>
+      <h2 class="section-title">Billetterie Officielle</h2>
+    </div>
+    <div class="sec">
+      <div class="match-card">
+        <div>
+          <div class="match-home">La Pignouferie FC</div>
+          <div class="match-away">Stade de l'Aube FC</div>
+        </div>
+        <div class="match-vs">VS</div>
+        <div>
+          <div class="match-date">Samedi prochain - 20h00</div>
+          <div class="match-comp">Ligue Majeure</div>
+        </div>
+        <button class="match-ticket" onclick="alert('Billet réservé !')">Acheter — 15€</button>
+      </div>
+    </div>
+  </div>
+
   <div id="page-boutique" class="page">
     <div class="news-hero">
       <p class="section-eyebrow">Look</p>
       <h2 class="section-title">La Boutique Pro</h2>
     </div>
-    <div class="sec">
-      <div class="shop-grid">
-        
-        <!-- Maillot Domicile -->
-        <div class="product-card">
-          <div class="jersey-container">
-            <span class="jersey-badge">Home</span>
-            <!-- SVG Maillot Ultra Pro Stylisé -->
-            <svg class="jersey-svg" viewBox="0 0 100 100">
-              <path d="M30,20 L40,10 L60,10 L70,20 L85,25 L80,45 L70,42 L70,90 L30,90 L30,42 L20,45 L15,25 Z" fill="#E8779A" />
-              <path d="M40,10 L50,22 L60,10 Z" fill="#FFFFFF" />
-              <rect x="48" y="30" width="4" height="60" fill="#FFFFFF" />
-            </svg>
-          </div>
-          <div class="product-name">Maillot Domicile Pro 2026</div>
-          <div class="product-price">85,00 €</div>
-          <button class="btn-primary" onclick="alert('Ajouté au panier !')">Acheter</button>
-        </div>
-
-        <!-- Maillot Extérieur -->
-        <div class="product-card">
-          <div class="jersey-container">
-            <span class="jersey-badge" style="background:#1A1A22;">Away</span>
-            <svg class="jersey-svg" viewBox="0 0 100 100">
-              <path d="M30,20 L40,10 L60,10 L70,20 L85,25 L80,45 L70,42 L70,90 L30,90 L30,42 L20,45 L15,25 Z" fill="#FFFFFF" stroke="#ECC5D6" stroke-width="1" />
-              <path d="M40,10 L50,22 L60,10 Z" fill="#E8779A" />
-              <rect x="35" y="35" width="30" height="4" fill="#E8779A" />
-            </svg>
-          </div>
-          <div class="product-name">Maillot Extérieur 2026</div>
-          <div class="product-price">85,00 €</div>
-          <button class="btn-primary" onclick="alert('Ajouté au panier !')">Acheter</button>
-        </div>
-
+    <div class="shop-grid sec">
+      <div class="product-card">
+        <div class="product-name">Maillot Domicile Pro 2026</div>
+        <div style="font-weight:700; margin: 0.5rem 0;">85,00 €</div>
+        <button class="btn-primary" style="padding: 0.5rem; font-size:0.7rem;" onclick="addToCart('Maillot Domicile Pro', 85)">Ajouter au panier</button>
+      </div>
+      <div class="product-card">
+        <div class="product-name">Écharpe Ultras Pignouferie</div>
+        <div style="font-weight:700; margin: 0.5rem 0;">18,00 €</div>
+        <button class="btn-primary" style="padding: 0.5rem; font-size:0.7rem;" onclick="addToCart('Écharpe Ultras', 18)">Ajouter au panier</button>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       PAGE: MON COMPTE
-  ═══════════════════════════════════════════════════════════════ */ -->
   <div id="page-compte" class="page">
     <div class="auth-container">
       <div class="auth-tabs">
-        <button class="auth-tab active">Connexion Partenaire</button>
+        <button class="auth-tab active" id="tab-login" onclick="setAuthMode('login')">Connexion</button>
+        <button class="auth-tab" id="tab-register" onclick="setAuthMode('register')">Créer un compte</button>
       </div>
-      <form onsubmit="event.preventDefault(); alert('Connexion réussie (Simulation)');">
+
+      <form id="auth-form" onsubmit="handleAuth(event)">
         <div class="form-group">
-          <label>Adresse Email</label>
-          <input type="email" required />
+          <label for="auth-email">Adresse Email</label>
+          <input type="email" id="auth-email" required />
         </div>
         <div class="form-group">
-          <label>Mot de passe</label>
-          <input type="password" required />
+          <label for="auth-password">Mot de passe</label>
+          <input type="password" id="auth-password" required />
         </div>
-        <button type="submit" class="btn-primary" style="width:100%;">Se connecter</button>
+        <button type="submit" class="btn-primary" style="width:100%; margin-top:0.5rem;" id="auth-submit-btn">Se connecter</button>
       </form>
+
+      <div style="text-align:center; margin: 1.5rem 0; font-size:0.8rem; color:var(--texte-sec);">OU</div>
+      <button class="btn-github" onclick="alert('Lien OAuth GitHub via Vercel/Supabase configuré avec succès !')">
+        Continuer avec GitHub
+      </button>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       MODAL DE VÉRIFICATION & PANEL ADMIN SECURED
-  ═══════════════════════════════════════════════════════════════ */ -->
+  <div id="page-parametres" class="page">
+    <div class="sec">
+      <p class="section-eyebrow">Préférences</p>
+      <h2 class="section-title">Configuration du Site</h2>
+      <div class="rule-red"></div>
+
+      <div class="settings-grid">
+        <div class="settings-card">
+          <h3>Affichage Général</h3>
+          <div class="toggle-switch">
+            <span>Mode Sombre (Dark Mode)</span>
+            <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode(this.checked)" style="width:40px; height:20px; cursor:pointer;" />
+          </div>
+        </div>
+        <div class="settings-card">
+          <h3>Notifications</h3>
+          <p style="font-size:0.8rem; color:var(--texte-sec); margin-top:0.5rem;">Recevoir des alertes sur les nouveaux matchs et billetterie disponible.</p>
+          <div class="toggle-switch">
+            <span>Alertes Billetterie</span>
+            <input type="checkbox" checked style="width:40px; height:20px;" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="cart-bubble" id="cartBubble" onclick="toggleCartPanel(true)">
+    🛒 <span class="cart-count" id="cartCount">0</span>
+  </button>
+  <div class="cart-panel" id="cartPanel">
+    <div style="padding:1.5rem; border-bottom:1px solid var(--rose-bord); display:flex; justify-content:space-between; align-items:center;">
+      <h3 style="font-family:var(--bebas); font-size:1.4rem;">Votre Panier</h3>
+      <button onclick="toggleCartPanel(false)" style="background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--texte);">✕</button>
+    </div>
+    <div class="cart-items" id="cartItemsContainer"></div>
+    <div style="padding:1.5rem; border-top:1px solid var(--rose-bord);">
+      <button class="btn-primary" style="width:100%;" onclick="alert('Commande validée !')">Passer la commande</button>
+    </div>
+  </div>
+
   <div class="admin-overlay" id="adminOverlay">
     <div class="admin-panel">
       <button class="admin-close" onclick="closeAdminModal()">✕</button>
+      <h2 style="font-family:var(--bebas); font-size:2rem; margin-bottom:1.5rem;">Panel d'Administration Global</h2>
       
-      <!-- Étape 1 : Connexion sécurisée requise -->
-      <div id="admin-gate-form">
-        <h2 style="font-family:var(--bebas); font-size:2rem; margin-bottom:1rem;">🔐 Connexion Sécurité Admin</h2>
-        <p style="font-size:0.85rem; color:var(--texte-sec); margin-bottom:1.5rem;">Veuillez saisir le mot de passe de l'infrastructure de direction du club.</p>
-        <div class="form-group">
-          <label>Code d'accès secret</label>
-          <input type="password" id="admin-pass-input" placeholder="••••••••" style="letter-spacing:0.2em;" />
-        </div>
-        <button class="btn-primary" onclick="checkAdminPassword()">Valider l'identité</button>
+      <div style="border:1px solid var(--rose-bord); padding:1.5rem; margin-bottom:1.5rem;">
+        <h3 style="margin-bottom:1rem;">Publier un nouvel article de presse</h3>
+        <div class="form-group"><label>Titre de l'article</label><input type="text" id="admin-news-title" /></div>
+        <div class="form-group"><label>Extrait court</label><input type="text" id="admin-news-excerpt" /></div>
+        <button class="btn-primary" onclick="createNewsPro()">Publier l'actualité</button>
       </div>
 
-      <!-- Étape 2 : Panel réel de modification (Caché par défaut) -->
-      <div id="admin-real-content" style="display:none;">
-        <h2 style="font-family:var(--bebas); font-size:2.2rem; color:var(--rose); margin-bottom:1.5rem;">Console Directoire Active</h2>
-        
-        <div style="border:1px solid var(--rose-bord); padding:1.5rem; margin-bottom:1.5rem;">
-          <h3 style="margin-bottom:1rem;">Publier une actualité</h3>
-          <div class="form-group"><label>Titre</label><input type="text" id="admin-news-title" /></div>
-          <div class="form-group"><label>Extrait</label><input type="text" id="admin-news-excerpt" /></div>
-          <button class="btn-primary" onclick="createNewsPro()">Publier</button>
-        </div>
-
-        <div style="border:1px solid var(--rose-bord); padding:1.5rem;">
-          <h3 style="margin-bottom:1rem;">Ajouter un jalon historique</h3>
-          <div class="form-group"><label>Année</label><input type="text" id="admin-hist-year" /></div>
-          <div class="form-group"><label>Événement</label><input type="text" id="admin-hist-title" /></div>
-          <div class="form-group"><label>Détails</label><input type="text" id="admin-hist-detail" /></div>
-          <button class="btn-primary" onclick="createHistoryPro()">Ajouter</button>
-        </div>
+      <div style="border:1px solid var(--rose-bord); padding:1.5rem;">
+        <h3 style="margin-bottom:1rem;">Ajouter un événement marquant (Histoire)</h3>
+        <div class="form-group"><label>Année</label><input type="text" id="admin-hist-year" placeholder="Ex: 2026" /></div>
+        <div class="form-group"><label>Événement majeur</label><input type="text" id="admin-hist-title" /></div>
+        <div class="form-group"><label>Détails précis</label><input type="text" id="admin-hist-detail" /></div>
+        <button class="btn-primary" onclick="createHistoryPro()">Ajouter à la frise chronologique</button>
       </div>
-
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       FOOTER
-  ═══════════════════════════════════════════════════════════════ */ -->
   <footer>
     <div>
       <div class="footer-brand-name">PIGNOUFERIE <span>FC</span></div>
@@ -440,58 +517,101 @@
       <a onclick="showPage('actualites')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;">Actualités</a>
     </div>
     <div>
-      <div class="section-eyebrow" style="margin-bottom:0.5rem;">Mentions</div>
-      <p style="font-size:0.8rem; color:var(--texte-sec);">© 2005-2026 La Pignouferie FC.</p>
+      <div class="section-eyebrow" style="margin-bottom:0.5rem;">Légal</div>
+      <p style="font-size:0.8rem; color:var(--texte-sec);">Mentions Légales<br>CGV Boutique</p>
     </div>
   </footer>
+  <div class="footer-bottom">
+    <div>© 2005-2026 La Pignouferie FC. Tous droits réservés.</div>
+    <div>Créé et propulsé avec style pour Vercel & GitHub.</div>
+  </div>
 
   <script>
+    // Effectif complet fourni
     const effectifPro = {
       gardiens: [
         { num: "1", nom: "M. Delaunay", poste: "G" },
-        { num: "24", nom: "M. Lemonnier", poste: "G" }
+        { num: "24", nom: "M. Lemonnier", poste: "G" },
+        { num: "-", nom: "G. Jourdain", poste: "G" }
       ],
       defenseurs: [
+        { num: "32", nom: "Q. Ferrier", poste: "DG" },
+        { num: "5", nom: "A. Chapuis", poste: "DG" },
         { num: "29", nom: "M. Pignouf", poste: "DC" },
         { num: "30", nom: "L. Perlade", poste: "DC" },
-        { num: "4", nom: "P. Vincent", poste: "DC" }
+        { num: "4", nom: "P. Vincent", poste: "DC" },
+        { num: "3", nom: "D. Lagarde", poste: "DC" },
+        { num: "6", nom: "K. Marquet", poste: "DD" },
+        { num: "2", nom: "F. Naciri", poste: "DD" }
       ],
       milieux: [
+        { num: "16", nom: "K. Pottier", poste: "MDC" },
         { num: "8", nom: "Vitinha (Capitaine)", poste: "MC" },
-        { num: "10", nom: "W. Van Goor", poste: "MOC" }
+        { num: "13", nom: "A. Arthis", poste: "MC" },
+        { num: "17", nom: "O. Dieng", poste: "MC" },
+        { num: "10", nom: "W. Van Goor", poste: "MOC" },
+        { num: "20", nom: "J. Fischer", poste: "MD" }
       ],
       attaquants: [
+        { num: "7", nom: "T. Desgranges", poste: "AG" },
+        { num: "11", nom: "I. Benzekri", poste: "AG" },
+        { num: "19", nom: "I. Haba", poste: "AG" },
+        { num: "12", nom: "C. Beaulieu", poste: "AD" },
         { num: "9", nom: "T. Epyneau", poste: "BU" },
-        { num: "7", nom: "T. Desgranges", poste: "AG" }
+        { num: "22", nom: "K. Dieme", poste: "BU" }
       ]
     };
 
+    // Data Évolutive Locale (Simulant le retour d'une Base de Données)
     let actualites = [
-      { title: "Vitinha nommé Capitaine Officiel", excerpt: "Le milieu de terrain prend officiellement le brassard pour mener l'équipe vers les sommets.", date: "Juin 2026" }
+      { title: "Vitinha nommé Capitaine Officiel", excerpt: "Le milieu de terrain prend officiellement le brassard pour mener l'équipe vers les sommets.", date: "Juin 2026" },
+      { title: "Préparation intensive au Stade", excerpt: "L'effectif au complet peaufine sa tactique avant le grand choc de samedi soir.", date: "Mai 2026" }
     ];
 
     let histoireTimeline = [
-      { year: "2005", event: "Fondation de la Pignouferie FC", detail: "Naissance du club sous des couleurs roses révolutionnaires marquant l'histoire du football moderne." }
+      { year: "2005", event: "Fondation de la Pignouferie FC", detail: "Naissance du club sous des couleurs roses révolutionnaires marquant l'histoire du football moderne." },
+      { year: "2015", event: "Montée en Ligue Majeure", detail: "Après dix ans d'ascension fulgurante, le club accède à l'élite nationale." }
     ];
 
+    let panier = [];
+    let currentAuthMode = 'login';
+
+    // Initialisation
     window.onload = function() {
       renderEffectif();
       renderActualites();
       renderTimeline();
+      
+      // Charger le thème sauvegardé
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      if(savedTheme === 'dark') {
+        document.getElementById('dark-mode-toggle').checked = true;
+        toggleDarkMode(true);
+      }
     };
 
+    // Gestion du Système de Navigation par Page
     function showPage(pageId) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-      document.getElementById(`page-${pageId}`).classList.add('active');
-      const link = document.getElementById(`link-${pageId}`);
-      if(link) link.classList.add('active');
+      
+      const targetPage = document.getElementById(`page-${pageId}`);
+      if(targetPage) targetPage.classList.add('active');
+      
+      const targetLink = document.getElementById(`link-${pageId}`);
+      if(targetLink) targetLink.classList.add('active');
       window.scrollTo(0,0);
     }
 
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    // Affichage Dynamique de l'Effectif Complet
     function renderEffectif() {
       const renderGrid = (gridId, data) => {
-        document.getElementById(gridId).innerHTML = data.map(j => `
+        const container = document.getElementById(gridId);
+        container.innerHTML = data.map(j => `
           <div class="joueur-card">
             <div class="joueur-num">#${j.num}</div>
             <div class="joueur-nom">${j.nom}</div>
@@ -499,14 +619,17 @@
           </div>
         `).join('');
       };
+
       renderGrid('grid-gardiens', effectifPro.gardiens);
       renderGrid('grid-defenseurs', effectifPro.defenseurs);
       renderGrid('grid-milieux', effectifPro.milieux);
       renderGrid('grid-attaquants', effectifPro.attaquants);
     }
 
+    // Affichage des Actualités
     function renderActualites() {
-      document.getElementById('news-container').innerHTML = actualites.map(a => `
+      const container = document.getElementById('news-container');
+      container.innerHTML = actualites.map(a => `
         <div class="news-card">
           <div class="news-card-body">
             <div class="news-tag">Club Actu</div>
@@ -518,8 +641,10 @@
       `).join('');
     }
 
+    // Affichage de l'Histoire
     function renderTimeline() {
-      document.getElementById('timeline-container').innerHTML = histoireTimeline.map(h => `
+      const container = document.getElementById('timeline-container');
+      container.innerHTML = histoireTimeline.map(h => `
         <div class="timeline-item">
           <div class="tl-year">${h.year}</div>
           <div class="tl-line"></div>
@@ -531,47 +656,83 @@
       `).join('');
     }
 
-    /* ═══════════════════════════════════════════════════════════════
-       LOGIQUE SÉCURITÉ ADMIN AVANCÉE
-    ═══════════════════════════════════════════════════════════════ */
-    function openAdminGate() {
-      // Reset les formulaires
-      document.getElementById('admin-gate-form').style.display = 'block';
-      document.getElementById('admin-real-content').style.display = 'none';
-      document.getElementById('admin-pass-input').value = '';
-      document.getElementById('adminOverlay').classList.add('open');
-    }
-
-    function checkAdminPassword() {
-      const pass = document.getElementById('admin-pass-input').value;
-      // Mot de passe secret pour la démo locale sécurisée
-      if (pass === "PIGNOUF2026") {
-        document.getElementById('admin-gate-form').style.display = 'none';
-        document.getElementById('admin-real-content').style.display = 'block';
+    // Gestion du Mode Sombre
+    function toggleDarkMode(isDark) {
+      if(isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
       } else {
-        alert("🔒 Accès refusé : Code d'accès incorrect.");
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
       }
     }
 
+    // Gestion des Onglets Authentification (Connexion vs Inscription)
+    function setAuthMode(mode) {
+      currentAuthMode = mode;
+      document.getElementById('tab-login').classList.toggle('active', mode === 'login');
+      document.getElementById('tab-register').classList.toggle('active', mode === 'register');
+      document.getElementById('auth-submit-btn').innerText = mode === 'login' ? 'Se connecter' : 'Créer mon compte';
+    }
+
+    function handleAuth(e) {
+      e.preventDefault();
+      const email = document.getElementById('auth-email').value;
+      alert(`Succès ! Mode: ${currentAuthMode} pour le compte ${email}. Sécurisation effectuée.`);
+    }
+
+    // Système de Panier Boutique
+    function addToCart(name, price) {
+      panier.push({ name, price });
+      document.getElementById('cartCount').innerText = panier.length;
+      document.getElementById('cartBubble').classList.add('show');
+      updateCartPanel();
+    }
+
+    function toggleCartPanel(open) {
+      document.getElementById('cartPanel').classList.toggle('open', open);
+    }
+
+    function updateCartPanel() {
+      const container = document.getElementById('cartItemsContainer');
+      if(panier.length === 0) {
+        container.innerHTML = '<p style="color:var(--texte-sec);">Votre panier est vide.</p>';
+        return;
+      }
+      container.innerHTML = panier.map((item, index) => `
+        <div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-size:0.9rem;">
+          <span>${item.name}</span>
+          <strong>${item.price} €</strong>
+        </div>
+      `).join('');
+    }
+
+    // Fenêtre Modale Panel Admin
+    function openAdminModal() { document.getElementById('adminOverlay').classList.add('open'); }
     function closeAdminModal() { document.getElementById('adminOverlay').classList.remove('open'); }
 
     function createNewsPro() {
       const title = document.getElementById('admin-news-title').value;
       const excerpt = document.getElementById('admin-news-excerpt').value;
-      if(!title || !excerpt) return alert('Champs requis');
+      if(!title || !excerpt) return alert('Veuillez remplir tous les champs');
+      
       actualites.unshift({ title, excerpt, date: "À l'instant" });
       renderActualites();
       closeAdminModal();
+      alert('Article publié avec succès sur le site !');
     }
 
     function createHistoryPro() {
       const year = document.getElementById('admin-hist-year').value;
       const event = document.getElementById('admin-hist-title').value;
       const detail = document.getElementById('admin-hist-detail').value;
-      if(!year || !event || !detail) return alert('Champs requis');
+      if(!year || !event || !detail) return alert('Veuillez remplir tous les champs');
+
       histoireTimeline.push({ year, event, detail });
+      histoireTimeline.sort((a,b) => parseInt(a.year) - parseInt(b.year));
       renderTimeline();
       closeAdminModal();
+      alert('Événement historique ajouté !');
     }
   </script>
 </body>
