@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     /* ═══════════════════════════════════════════════════════════════
-       RESET & VARIABLES (Gérant le Mode Sombre)
+       RESET & VARIABLES
     ═══════════════════════════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -26,20 +26,7 @@
       --succes:    #5BAD7A;
       --bebas: 'Bebas Neue', sans-serif;
       --inter: 'Inter', sans-serif;
-      --nav-bg: rgba(255, 255, 255, 0.96);
     }
-
-    [data-theme="dark"] {
-      --blanc:     #121214;
-      --rose-pale: #22161A;
-      --rose-mid:  #44232E;
-      --rose-bord: #5C323F;
-      --texte:     #F5F5F7;
-      --texte-sec: #A192A1;
-      --gris-clair:#1A1A1E;
-      --nav-bg: rgba(18, 18, 20, 0.96);
-    }
-
     html { scroll-behavior: smooth; }
     body {
       background: var(--blanc);
@@ -48,7 +35,6 @@
       font-size: 16px;
       line-height: 1.6;
       overflow-x: hidden;
-      transition: background 0.3s, color 0.3s;
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -57,55 +43,87 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 3rem; height: 68px;
-      background: var(--nav-bg);
+      padding: 0 3rem;
+      height: 68px;
+      background: rgba(255,255,255,0.96);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--rose-bord);
     }
     .nav-logo {
-      font-family: var(--bebas); font-size: 1.5rem; letter-spacing: 0.08em;
-      color: var(--texte); text-decoration: none; flex-shrink: 0;
+      font-family: var(--bebas);
+      font-size: 1.5rem;
+      letter-spacing: 0.08em;
+      color: var(--texte);
+      text-decoration: none;
+      flex-shrink: 0;
     }
     .nav-logo span { color: var(--rose); }
 
-    .nav-links { display: flex; gap: 0; list-style: none; }
+    .nav-links {
+      display: flex; gap: 0; list-style: none;
+    }
     .nav-links a {
-      color: var(--texte-sec); text-decoration: none; font-size: 0.72rem;
-      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-      transition: color 0.2s; padding: 0.4rem 0.9rem; border-radius: 2px; cursor: pointer;
+      color: var(--texte-sec);
+      text-decoration: none;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s, background 0.2s;
+      padding: 0.4rem 0.9rem;
+      border-radius: 2px;
+      cursor: pointer;
     }
     .nav-links a:hover, .nav-links a.active { color: var(--rose); }
 
-    .nav-right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
+    .nav-right {
+      display: flex; align-items: center; gap: 1rem; flex-shrink: 0;
+    }
     .nav-badge {
-      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--rose); border: 1px solid var(--rose-bord);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--rose);
+      border: 1px solid var(--rose-bord);
       padding: 0.28rem 0.7rem;
     }
-    .nav-btn {
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-      background: var(--texte); color: var(--blanc); border: none; padding: 0.4rem 0.9rem;
-      cursor: pointer; transition: background 0.2s, color 0.2s;
-    }
-    .nav-btn:hover { background: var(--rose); color: #FFF; }
     .nav-hamburger {
-      display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px;
+      display: none;
+      flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
     }
-    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--texte); transition: all 0.3s; }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--texte); transition: all 0.3s;
+    }
 
     /* Mobile menu */
     .mobile-menu {
-      display: none; position: fixed; top: 68px; left: 0; right: 0;
-      background: var(--nav-bg); backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--rose-bord); z-index: 199;
-      flex-direction: column; padding: 1rem 1.5rem; gap: 0.25rem;
+      display: none;
+      position: fixed; top: 68px; left: 0; right: 0;
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--rose-bord);
+      z-index: 199;
+      flex-direction: column;
+      padding: 1rem 1.5rem;
+      gap: 0.25rem;
     }
     .mobile-menu.open { display: flex; }
     .mobile-menu a {
-      color: var(--texte-sec); text-decoration: none; font-size: 0.8rem; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase; padding: 0.7rem 0;
-      border-bottom: 1px solid var(--rose-bord); cursor: pointer;
+      color: var(--texte-sec);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--rose-bord);
+      cursor: pointer;
+      transition: color 0.2s;
     }
+    .mobile-menu a:hover { color: var(--rose); }
 
     /* ═══════════════════════════════════════════════════════════════
        PAGE SYSTEM
@@ -116,48 +134,154 @@
     /* ═══════════════════════════════════════════════════════════════
        SHARED COMPONENTS
     ═══════════════════════════════════════════════════════════════ */
-    .section-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.75rem; }
-    .section-title { font-family: var(--bebas); font-size: clamp(2.5rem, 5vw, 4.5rem); letter-spacing: 0.02em; line-height: 1; margin-bottom: 2.5rem; color: var(--texte); }
+    .section-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--bebas);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin-bottom: 2.5rem;
+      color: var(--texte);
+    }
     .rule-red { width: 48px; height: 2px; background: var(--rose); margin-bottom: 2rem; }
     .sec { padding: 6rem 4rem; }
     .sec-alt { background: var(--gris-clair); }
     .sec-pale { background: var(--rose-pale); }
 
     .btn-primary {
-      display: inline-block; background: var(--rose); color: #FFF; text-decoration: none; font-size: 0.78rem;
-      font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.85rem 2.2rem;
-      transition: background 0.2s; border: none; cursor: pointer;
+      display: inline-block;
+      background: var(--rose);
+      color: var(--blanc);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.85rem 2.2rem;
+      transition: background 0.2s;
+      border: none; cursor: pointer;
     }
     .btn-primary:hover { background: var(--rose-f); }
 
     .btn-ghost {
-      display: inline-block; color: var(--texte); text-decoration: none; font-size: 0.78rem; font-weight: 500;
-      letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid var(--rose-bord);
-      padding-bottom: 0.15rem; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; cursor: pointer;
+      display: inline-block;
+      color: var(--texte);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--rose-bord);
+      padding-bottom: 0.15rem;
+      transition: border-color 0.2s, color 0.2s;
+      background: none; border-top: none; border-left: none; border-right: none;
+      cursor: pointer;
     }
     .btn-ghost:hover { border-color: var(--rose); color: var(--rose); }
 
     /* ═══════════════════════════════════════════════════════════════
+       REVEAL ANIMATION
+    ═══════════════════════════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ═══════════════════════════════════════════════════════════════
        PAGE: ACCUEIL — HERO
     ═══════════════════════════════════════════════════════════════ */
-    .hero { position: relative; min-height: calc(100vh - 68px); display: flex; flex-direction: column; justify-content: flex-end; padding: 0 4rem 6rem; overflow: hidden; background: var(--rose-pale); }
-    .hero-marquee { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-58%); white-space: nowrap; pointer-events: none; user-select: none; }
-    .hero-marquee-inner { display: inline-block; animation: marquee 28s linear infinite; font-family: var(--bebas); font-size: clamp(8rem, 17vw, 17rem); color: transparent; -webkit-text-stroke: 1px rgba(232, 119, 154, 0.18); letter-spacing: 0.04em; }
-    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .hero-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); margin-bottom: 1.25rem; }
-    .hero-title { font-family: var(--bebas); font-size: clamp(4rem, 10vw, 9rem); line-height: 0.9; letter-spacing: 0.02em; max-width: 900px; position: relative; color: var(--texte); }
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 68px);
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 4rem 6rem;
+      overflow: hidden;
+      background: var(--rose-pale);
+    }
+    .hero-marquee {
+      position: absolute; top: 50%; left: 0; right: 0;
+      transform: translateY(-58%);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+    .hero-marquee-inner {
+      display: inline-block;
+      animation: marquee 28s linear infinite;
+      font-family: var(--bebas);
+      font-size: clamp(8rem, 17vw, 17rem);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(232, 119, 154, 0.18);
+      letter-spacing: 0.04em;
+    }
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 1.25rem;
+    }
+    .hero-title {
+      font-family: var(--bebas);
+      font-size: clamp(4rem, 10vw, 9rem);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      max-width: 900px;
+      position: relative;
+      color: var(--texte);
+    }
     .hero-title em { font-style: normal; color: var(--rose); }
-    .hero-sub { margin-top: 1.75rem; font-size: 1rem; color: var(--texte-sec); font-weight: 300; max-width: 460px; line-height: 1.7; }
-    .hero-actions { margin-top: 2.5rem; display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
-    .hero-stats { position: absolute; right: 4rem; bottom: 6rem; display: flex; flex-direction: column; gap: 1.75rem; align-items: flex-end; }
+    .hero-sub {
+      margin-top: 1.75rem;
+      font-size: 1rem;
+      color: var(--texte-sec);
+      font-weight: 300;
+      max-width: 460px;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      margin-top: 2.5rem;
+      display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap;
+    }
+    .hero-stats {
+      position: absolute; right: 4rem; bottom: 6rem;
+      display: flex; flex-direction: column; gap: 1.75rem;
+      align-items: flex-end;
+    }
     .hero-stat-num { font-family: var(--bebas); font-size: 3rem; line-height: 1; color: var(--texte); }
     .hero-stat-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; text-align: right; }
+    .hero-stat-line { width: 1px; height: 40px; background: var(--rose-bord); margin-left: auto; }
 
     /* ═══════════════════════════════════════════════════════════════
        PALMARÈS
     ═══════════════════════════════════════════════════════════════ */
-    .palmares-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); border: 1px solid var(--rose-bord); }
-    .palmares-item { padding: 2.5rem 2rem; border-right: 1px solid var(--rose-bord); border-bottom: 1px solid var(--rose-bord); background: var(--blanc); transition: background 0.25s; }
+    .palmares-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      border: 1px solid var(--rose-bord);
+    }
+    .palmares-item {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--rose-bord);
+      border-bottom: 1px solid var(--rose-bord);
+      background: var(--blanc);
+      transition: background 0.25s;
+    }
     .palmares-item:hover { background: var(--rose-pale); }
     .palmares-year { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.6rem; }
     .palmares-trophy { font-family: var(--bebas); font-size: 1.8rem; letter-spacing: 0.03em; line-height: 1.1; margin-bottom: 0.6rem; color: var(--texte); }
@@ -169,7 +293,14 @@
     ═══════════════════════════════════════════════════════════════ */
     .saison-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; flex-wrap: wrap; gap: 2rem; }
     .saison-context { font-size: 0.88rem; color: var(--texte-sec); max-width: 380px; line-height: 1.7; }
-    .competition-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--rose-bord); transition: padding-left 0.2s; }
+    .competition-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      align-items: center;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--rose-bord);
+      transition: padding-left 0.2s;
+    }
     .competition-row:first-child { border-top: 1px solid var(--rose-bord); }
     .competition-row:hover { padding-left: 0.75rem; }
     .comp-name { font-family: var(--bebas); font-size: 1.4rem; letter-spacing: 0.04em; color: var(--texte); }
@@ -187,11 +318,11 @@
     .effectif-numbers { display: flex; gap: 2.5rem; }
     .eff-num { font-family: var(--bebas); font-size: 2.8rem; color: var(--texte); }
     .eff-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; }
-    .poste-header { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); padding: 1.25rem 0 0.75rem; border-top: 1px solid var(--rose-bord); margin-top: 1.5rem; }
-    .joueurs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1px; background: var(--rose-bord); margin-bottom: 1.5rem; }
+    .poste-header { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); padding: 1.25rem 0 0.75rem; border-top: 1px solid var(--rose-bord); margin-top: 0.5rem; }
+    .joueurs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 1px; background: var(--rose-bord); margin-bottom: 0; }
     .joueur-card { background: var(--blanc); padding: 1.25rem 1rem; transition: background 0.2s; }
     .joueur-card:hover { background: var(--rose-pale); }
-    .joueur-num { font-family: var(--bebas); font-size: 1.8rem; color: rgba(232, 119, 154, 0.4); line-height: 1; margin-bottom: 0.4rem; }
+    .joueur-num { font-family: var(--bebas); font-size: 1.8rem; color: rgba(232, 119, 154, 0.3); line-height: 1; margin-bottom: 0.4rem; }
     .joueur-nom { font-size: 0.85rem; font-weight: 600; color: var(--texte); margin-bottom: 0.2rem; }
     .joueur-nat { font-size: 0.68rem; color: var(--texte-sec); }
 
@@ -205,6 +336,8 @@
     .spec-key { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; }
     .stade-img-placeholder { background: var(--rose-pale); border: 1px solid var(--rose-bord); height: 300px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.75rem; }
     .stade-img-label { font-family: var(--bebas); font-size: 4.5rem; color: rgba(232, 119, 154, 0.25); letter-spacing: 0.04em; text-align: center; line-height: 1; }
+    .stade-cap { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--texte-sec); }
+    .stade-img-placeholder img { width: 100%; height: 100%; object-fit: cover; }
 
     /* ═══════════════════════════════════════════════════════════════
        HISTOIRE / TIMELINE
@@ -218,522 +351,1163 @@
     .tl-detail { font-size: 0.8rem; color: var(--texte-sec); line-height: 1.6; }
 
     /* ═══════════════════════════════════════════════════════════════
+       STAFF
+    ═══════════════════════════════════════════════════════════════ */
+    .staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px; background: var(--rose-bord); border: 1px solid var(--rose-bord); }
+    .staff-card { background: var(--blanc); padding: 2rem 1.75rem; transition: background 0.2s; }
+    .staff-card:hover { background: var(--rose-pale); }
+    .staff-role { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.6rem; }
+    .staff-name { font-family: var(--bebas); font-size: 1.5rem; letter-spacing: 0.03em; margin-bottom: 0.4rem; color: var(--texte); }
+    .staff-bio { font-size: 0.76rem; color: var(--texte-sec); line-height: 1.6; }
+
+    /* ═══════════════════════════════════════════════════════════════
        PAGE: ACTUALITÉS
     ═══════════════════════════════════════════════════════════════ */
     .news-hero { background: var(--texte); padding: 5rem 4rem 4rem; }
     .news-hero .section-eyebrow { color: rgba(232,119,154,0.7); }
     .news-hero .section-title { color: var(--blanc); margin-bottom: 0; }
     .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; background: var(--rose-bord); }
-    .news-card { background: var(--blanc); transition: background 0.2s; cursor: pointer; display: flex; flex-direction: column; }
+    .news-card {
+      background: var(--blanc);
+      transition: background 0.2s;
+      cursor: pointer;
+      display: flex; flex-direction: column;
+    }
     .news-card:hover { background: var(--rose-pale); }
+    .news-img {
+      width: 100%; height: 200px;
+      object-fit: cover;
+      background: var(--rose-mid);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .news-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .news-img-placeholder {
+      width: 100%; height: 200px;
+      background: var(--rose-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--bebas);
+      font-size: 3rem;
+      color: rgba(232,119,154,0.3);
+      letter-spacing: 0.08em;
+    }
     .news-card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
     .news-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.6rem; }
     .news-card-title { font-family: var(--bebas); font-size: 1.3rem; letter-spacing: 0.02em; color: var(--texte); margin-bottom: 0.5rem; line-height: 1.15; }
     .news-card-excerpt { font-size: 0.8rem; color: var(--texte-sec); line-height: 1.6; flex: 1; }
-    .news-card-meta { font-size: 0.65rem; color: rgba(107,95,107,0.55); margin-top: 1rem; }
+    .news-card-meta { font-size: 0.65rem; color: rgba(107,95,107,0.55); margin-top: 1rem; letter-spacing: 0.06em; }
+    .news-video-badge { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; background: var(--rose); color: var(--blanc); padding: 0.2rem 0.5rem; display: inline-block; margin-left: 0.5rem; }
+
+    /* Article detail */
+    .article-detail { max-width: 780px; margin: 0 auto; padding: 4rem; }
+    .article-back { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--texte-sec); cursor: pointer; display: flex; align-items: center; gap: 0.4rem; margin-bottom: 2rem; transition: color 0.2s; background: none; border: none; padding: 0; }
+    .article-back:hover { color: var(--rose); }
+    .article-back::before { content: '←'; font-size: 1rem; }
+    .article-hero-img { width: 100%; max-height: 400px; object-fit: cover; display: block; margin-bottom: 2.5rem; background: var(--rose-pale); min-height: 200px; }
+    .article-title { font-family: var(--bebas); font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1; letter-spacing: 0.02em; color: var(--texte); margin-bottom: 1rem; }
+    .article-meta { font-size: 0.72rem; color: var(--texte-sec); margin-bottom: 2rem; letter-spacing: 0.06em; }
+    .article-body { font-size: 0.95rem; color: var(--texte); line-height: 1.8; }
+    .article-body p { margin-bottom: 1.25rem; }
+    .article-yt { width: 100%; aspect-ratio: 16/9; border: none; margin: 2rem 0; }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE: AUTH / COMPTE & PARAMÈTRES
+       PAGE: BILLETTERIE
     ═══════════════════════════════════════════════════════════════ */
-    .auth-container { max-width: 450px; margin: 4rem auto; padding: 2.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); }
-    .auth-tabs { display: flex; border-bottom: 1px solid var(--rose-bord); margin-bottom: 2rem; }
-    .auth-tab { flex: 1; padding: 0.75rem; background: none; border: none; font-family: var(--bebas); font-size: 1.2rem; color: var(--texte-sec); cursor: pointer; text-align: center; }
-    .auth-tab.active { color: var(--rose); border-bottom: 2px solid var(--rose); }
-    
-    .form-group { margin-bottom: 1.25rem; }
-    .form-group label { display: block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; color: var(--texte-sec); }
-    .form-group input { width: 100%; padding: 0.75rem; background: var(--gris-clair); border: 1px solid var(--rose-bord); color: var(--texte); font-family: var(--inter); }
-    .form-group input:focus { outline: 1px solid var(--rose); }
+    .bill-hero { background: var(--rose); padding: 5rem 4rem 4rem; text-align: center; }
+    .bill-hero .section-eyebrow { color: rgba(255,255,255,0.6); }
+    .bill-hero .section-title { color: var(--blanc); margin-bottom: 1rem; }
+    .bill-hero-sub { font-size: 0.9rem; color: rgba(255,255,255,0.7); max-width: 460px; margin: 0 auto; line-height: 1.7; }
 
-    .btn-github { width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: #24292e; color: #fff; border: none; padding: 0.75rem; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; margin-top: 1rem; }
-    .btn-github:hover { background: #1a1e22; }
+    .matches-section { padding: 4rem; }
+    .matches-section h3 { font-family: var(--bebas); font-size: 1.6rem; letter-spacing: 0.04em; color: var(--texte); margin-bottom: 1.5rem; }
+    .match-card {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem 1.75rem;
+      background: var(--blanc);
+      border: 1px solid var(--rose-bord);
+      margin-bottom: 1px;
+      transition: border-color 0.2s;
+    }
+    .match-card:hover { border-color: var(--rose); }
+    .match-teams { display: flex; flex-direction: column; gap: 0.2rem; }
+    .match-home { font-weight: 700; font-size: 0.95rem; color: var(--texte); }
+    .match-away { font-size: 0.88rem; color: var(--texte-sec); }
+    .match-vs { font-family: var(--bebas); font-size: 1.2rem; color: rgba(232,119,154,0.4); letter-spacing: 0.08em; text-align: center; }
+    .match-info { display: flex; flex-direction: column; gap: 0.2rem; }
+    .match-date { font-size: 0.8rem; font-weight: 600; color: var(--texte); }
+    .match-comp { font-size: 0.68rem; color: var(--texte-sec); letter-spacing: 0.06em; text-transform: uppercase; }
+    .match-ticket { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--rose); color: var(--blanc); border: none; padding: 0.65rem 1.25rem; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+    .match-ticket:hover { background: var(--rose-f); }
+    .match-ticket.sold-out { background: var(--texte-sec); cursor: default; }
 
-    /* Panneau Paramètres / Config */
-    .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto; }
-    .settings-card { padding: 2rem; background: var(--blanc); border: 1px solid var(--rose-bord); }
-    .toggle-switch { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; }
+    /* Abonnements */
+    .abo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2px; background: var(--rose-bord); }
+    .abo-card {
+      background: var(--blanc); padding: 2.5rem 2rem;
+      display: flex; flex-direction: column;
+      transition: background 0.2s;
+    }
+    .abo-card.featured { background: var(--rose); }
+    .abo-card:hover:not(.featured) { background: var(--rose-pale); }
+    .abo-name { font-family: var(--bebas); font-size: 1.6rem; letter-spacing: 0.04em; margin-bottom: 0.5rem; }
+    .abo-card:not(.featured) .abo-name { color: var(--texte); }
+    .abo-card.featured .abo-name { color: var(--blanc); }
+    .abo-price { font-family: var(--bebas); font-size: 3rem; line-height: 1; margin-bottom: 0.25rem; }
+    .abo-card:not(.featured) .abo-price { color: var(--texte); }
+    .abo-card.featured .abo-price { color: var(--blanc); }
+    .abo-period { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem; }
+    .abo-card:not(.featured) .abo-period { color: var(--texte-sec); }
+    .abo-card.featured .abo-period { color: rgba(255,255,255,0.65); }
+    .abo-features { list-style: none; flex: 1; margin-bottom: 2rem; }
+    .abo-features li { font-size: 0.8rem; padding: 0.45rem 0; border-bottom: 1px solid; display: flex; align-items: center; gap: 0.5rem; }
+    .abo-card:not(.featured) .abo-features li { color: var(--texte-sec); border-color: var(--rose-bord); }
+    .abo-card.featured .abo-features li { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.2); }
+    .abo-features li::before { content: '✓'; font-weight: 700; flex-shrink: 0; }
+    .abo-card:not(.featured) .abo-features li::before { color: var(--rose); }
+    .abo-card.featured .abo-features li::before { color: var(--blanc); }
+    .abo-btn { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem; text-align: center; border: none; cursor: pointer; transition: background 0.2s, color 0.2s; }
+    .abo-card:not(.featured) .abo-btn { background: var(--texte); color: var(--blanc); }
+    .abo-card:not(.featured) .abo-btn:hover { background: var(--rose); }
+    .abo-card.featured .abo-btn { background: var(--blanc); color: var(--rose); }
+    .abo-card.featured .abo-btn:hover { background: var(--texte); color: var(--blanc); }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE: BILLETTERIE & BOUTIQUE
+       PAGE: BOUTIQUE
     ═══════════════════════════════════════════════════════════════ */
-    .bill-hero { background: var(--rose); padding: 5rem 4rem 4rem; text-align: center; color: #FFF; }
-    .bill-hero .section-title { color: #FFF; }
-    .match-card { display: grid; grid-template-columns: 1fr auto 1fr auto; align-items: center; gap: 1rem; padding: 1.5rem 1.75rem; background: var(--blanc); border: 1px solid var(--rose-bord); margin-bottom: 1px; }
-    .match-ticket { font-size: 0.7rem; font-weight: 700; background: var(--rose); color: #FFF; border: none; padding: 0.65rem 1.25rem; cursor: pointer; }
-    
+    .shop-hero { background: var(--texte); padding: 5rem 4rem 4rem; }
+    .shop-hero .section-eyebrow { color: rgba(232,119,154,0.6); }
+    .shop-hero .section-title { color: var(--blanc); margin-bottom: 0; }
+
+    .shop-filters { padding: 1.5rem 4rem; display: flex; gap: 0.5rem; flex-wrap: wrap; border-bottom: 1px solid var(--rose-bord); }
+    .filter-btn { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 0.9rem; border: 1px solid var(--rose-bord); background: none; cursor: pointer; transition: all 0.2s; color: var(--texte-sec); }
+    .filter-btn:hover, .filter-btn.active { background: var(--rose); color: var(--blanc); border-color: var(--rose); }
+
     .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 2px; background: var(--rose-bord); padding: 2px; }
-    .product-card { background: var(--blanc); display: flex; flex-direction: column; padding: 1rem; }
-    .product-name { font-family: var(--bebas); font-size: 1.2rem; color: var(--texte); }
+    .product-card {
+      background: var(--blanc); display: flex; flex-direction: column;
+      transition: background 0.2s; cursor: pointer;
+    }
+    .product-card:hover { background: var(--rose-pale); }
+    .product-img {
+      width: 100%; aspect-ratio: 1/1;
+      background: var(--rose-pale);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .product-img img { width: 100%; height: 100%; object-fit: cover; }
+    .product-img-placeholder { font-family: var(--bebas); font-size: 2.5rem; color: rgba(232, 119, 154, 0.25); letter-spacing: 0.06em; }
+    .product-badge { position: absolute; top: 0.75rem; right: 0.75rem; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--rose); color: var(--blanc); padding: 0.2rem 0.45rem; }
+    .product-body { padding: 1.25rem; }
+    .product-cat { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.4rem; }
+    .product-name { font-family: var(--bebas); font-size: 1.2rem; letter-spacing: 0.02em; color: var(--texte); margin-bottom: 0.5rem; }
+    .product-price { font-size: 1.1rem; font-weight: 700; color: var(--texte); }
+    .product-add { width: 100%; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.70rem; background: var(--texte); color: var(--blanc); border: none; cursor: pointer; transition: background 0.2s; margin-top: 0.75rem; }
+    .product-add:hover { background: var(--rose); }
 
-    /* Cart Bubble & Panels */
-    .cart-bubble { position: fixed; bottom: 2rem; right: 2rem; background: var(--rose); color: white; border: none; width: 56px; height: 56px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 1.3rem; z-index: 300; cursor: pointer; }
+    /* Cart */
+    .cart-bubble {
+      position: fixed; bottom: 2rem; right: 2rem;
+      background: var(--rose); color: var(--blanc);
+      border: none; cursor: pointer;
+      width: 56px; height: 56px;
+      display: none; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      z-index: 300;
+      transition: background 0.2s;
+    }
+    .cart-bubble:hover { background: var(--rose-f); }
     .cart-bubble.show { display: flex; }
-    .cart-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 380px; background: var(--blanc); border-left: 1px solid var(--rose-bord); z-index: 400; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
-    .cart-panel.open { transform: translateX(0); }
-    .cart-items { flex: 1; overflow-y: auto; padding: 1.5rem; }
+    .cart-count { position: absolute; top: -6px; right: -6px; background: var(--texte); color: var(--blanc); width: 20px; height: 20px; border-radius: 50%; font-size: 0.65rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
 
-    /* ═══════════════════════════════════════════════════════════════
-       PANEL ADMIN OVERLAY
-    ═══════════════════════════════════════════════════════════════ */
-    .admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 500; align-items: center; justify-content: center; }
-    .admin-overlay.open { display: flex; }
-    .admin-panel { background: var(--blanc); width: 100%; max-width: 900px; max-height: 85vh; overflow-y: auto; padding: 2.5rem; border: 1px solid var(--rose-bord); }
-    .admin-close { float: right; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--texte); }
+    .cart-panel {
+      position: fixed; right: 0; top: 0; bottom: 0; width: 380px;
+      background: var(--blanc);
+      border-left: 1px solid var(--rose-bord);
+      z-index: 400;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      display: flex; flex-direction: column;
+    }
+    .cart-panel.open { transform: translateX(0); }
+    .cart-header { padding: 1.5rem; border-bottom: 1px solid var(--rose-bord); display: flex; justify-content: space-between; align-items: center; }
+    .cart-header h3 { font-family: var(--bebas); font-size: 1.4rem; letter-spacing: 0.04em; }
+    .cart-close { background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--texte-sec); }
+    .cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; }
+    .cart-item { display: flex; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--rose-bord); align-items: center; }
+    .cart-item-name { font-size: 0.85rem; font-weight: 600; flex: 1; }
+    .cart-item-price { font-size: 0.85rem; font-weight: 700; }
+    .cart-item-remove { background: none; border: none; color: var(--texte-sec); cursor: pointer; font-size: 0.8rem; }
+    .cart-footer { padding: 1.5rem; border-top: 1px solid var(--rose-bord); }
+    .cart-total { font-family: var(--bebas); font-size: 1.8rem; margin-bottom: 1rem; display: flex; justify-content: space-between; }
+    .cart-checkout { width: 100%; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 1rem; background: var(--rose); color: var(--blanc); border: none; cursor: pointer; transition: background 0.2s; }
+    .cart-checkout:hover { background: var(--rose-f); }
+    .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 390; display: none; }
+    .cart-overlay.show { display: block; }
 
     /* ═══════════════════════════════════════════════════════════════
        FOOTER
     ═══════════════════════════════════════════════════════════════ */
-    footer { background: var(--gris-clair); padding: 4rem; display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 3rem; border-top: 1px solid var(--rose-bord); }
-    .footer-brand-name { font-family: var(--bebas); font-size: 1.7rem; color: var(--texte); }
+    footer { background: var(--gris-clair); padding: 4rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; border-top: 1px solid var(--rose-bord); }
+    .footer-brand-name { font-family: var(--bebas); font-size: 1.7rem; letter-spacing: 0.06em; margin-bottom: 0.6rem; color: var(--texte); }
     .footer-brand-name span { color: var(--rose); }
-    .footer-bottom { background: var(--rose-pale); padding: 1.25rem 4rem; display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--texte-sec); }
+    .footer-brand-sub { font-size: 0.76rem; color: var(--texte-sec); line-height: 1.7; max-width: 230px; }
+    .footer-col-title { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); margin-bottom: 1.1rem; }
+    .footer-links { display: flex; flex-direction: column; gap: 0.5rem; list-style: none; }
+    .footer-links a { color: var(--texte-sec); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; cursor: pointer; }
+    .footer-links a:hover { color: var(--texte); }
+    .footer-bottom { background: var(--rose-pale); padding: 1.25rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--rose-bord); flex-wrap: wrap; gap: 0.5rem; }
+    .footer-copy { font-size: 0.68rem; color: var(--texte-sec); }
+    .footer-mention { font-size: 0.68rem; color: rgba(107,95,107,0.5); }
+    .link-admin-footer { color: rgba(107,95,107,0.4) !important; font-size: 0.65rem !important; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; }
+    .link-admin-footer:hover { color: var(--rose) !important; }
 
-    @media(max-width: 768px) {
+    /* ═══════════════════════════════════════════════════════════════
+       MODAL AUTHENTIFICATION & PANEL ADMIN UNIVERSEL
+    ═══════════════════════════════════════════════════════════════ */
+    .admin-overlay { display: none; position: fixed; inset: 0; background: rgba(26,26,34,0.6); z-index: 500; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+    .admin-overlay.open { display: flex; }
+    .admin-login { background: var(--blanc); padding: 2.5rem; width: 100%; max-width: 380px; border: 1px solid var(--rose-bord); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .admin-login h2 { font-family: var(--bebas); font-size: 1.8rem; color: var(--texte); margin-bottom: 0.25rem; }
+    .admin-login p { font-size: 0.78rem; color: var(--texte-sec); margin-bottom: 1.75rem; }
+    
+    .admin-panel { background: var(--blanc); width: 100%; max-width: 1100px; height: 85vh; display: flex; flex-direction: column; border: 1px solid var(--rose-bord); box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
+    .admin-panel-header { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; background: var(--texte); color: var(--blanc); }
+    .admin-panel-header h2 { font-family: var(--bebas); font-size: 1.4rem; letter-spacing: 0.05em; }
+    .admin-close { background: none; border: none; color: rgba(255,255,255,0.6); font-size: 1.5rem; cursor: pointer; transition: color 0.2s; }
+    .admin-close:hover { color: var(--blanc); }
+    
+    .admin-body { display: flex; flex: 1; overflow: hidden; }
+    .admin-nav { width: 220px; background: var(--gris-clair); border-right: 1px solid var(--rose-bord); display: flex; flex-direction: column; overflow-y: auto; }
+    .admin-nav-btn { background: none; border: none; text-align: left; padding: 1rem 1.5rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--texte-sec); border-bottom: 1px solid rgba(236,197,214,0.4); cursor: pointer; transition: all 0.2s; }
+    .admin-nav-btn:hover, .admin-nav-btn.active { background: var(--blanc); color: var(--rose); font-weight: 700; }
+    .admin-content { flex: 1; padding: 2rem; overflow-y: auto; background: var(--blanc); }
+    
+    .admin-tab-content { display: none; }
+    .admin-tab-content.active { display: block; }
+    
+    .admin-form-group { margin-bottom: 1.25rem; }
+    .admin-form-group label { display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--texte); margin-bottom: 0.4rem; }
+    .admin-input, .admin-textarea, .admin-select { width: 100%; padding: 0.65rem 0.85rem; font-family: var(--inter); font-size: 0.85rem; border: 1px solid var(--rose-bord); background: var(--blanc); color: var(--texte); border-radius: 0; outline: none; transition: border-color 0.2s; }
+    .admin-input:focus, .admin-textarea:focus, .admin-select:focus { border-color: var(--rose); }
+    .admin-textarea { height: 90px; resize: vertical; }
+    
+    .admin-btn-action { background: var(--rose); color: var(--blanc); border: none; padding: 0.65rem 1.5rem; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background 0.2s; }
+    .admin-btn-action:hover { background: var(--rose-f); }
+    
+    .admin-list-items { margin-top: 2rem; border-top: 1px solid var(--rose-bord); padding-top: 1.5rem; }
+    .admin-item-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: var(--gris-clair); border: 1px solid var(--rose-bord); margin-bottom: 0.5rem; font-size: 0.82rem; }
+    .admin-item-info { font-weight: 600; color: var(--texte); }
+    .admin-delete-btn { background: #D9534F; color: white; border: none; padding: 0.25rem 0.6rem; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; cursor: pointer; }
+    .admin-delete-btn:hover { background: #C9302C; }
+
+    @media(max-width: 900px) {
       nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
-      .stade-grid, .effectif-intro, footer { grid-template-columns: 1fr; gap: 2rem; }
-      .match-card { grid-template-columns: 1fr; text-align: center; }
+      .hero { padding: 0 1.5rem 4rem; }
+      .hero-stats { position: static; margin-top: 3rem; align-items: flex-start; }
+      .hero-stat-label { text-align: left; }
+      .hero-stat-line { margin-left: 0; }
+      .effectif-intro, .stade-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .competition-row { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .comp-badge { justify-self: start; }
+      .match-card { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+      footer { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+      .admin-body { flex-direction: column; }
+      .admin-nav { width: 100%; height: auto; flex-direction: row; overflow-x: auto; }
+      .admin-nav-btn { white-space: nowrap; padding: 0.75rem 1rem; }
     }
   </style>
 </head>
 <body>
 
   <nav>
-    <a class="nav-logo" onclick="showPage('accueil')">PIGNOUFERIE <span>FC</span></a>
+    <a class="nav-logo" onclick="switchPage('accueil')">LA PIGNOUFERIE<span>.FC</span></a>
     <ul class="nav-links">
-      <li><a id="link-accueil" onclick="showPage('accueil')" class="active">Club</a></li>
-      <li><a id="link-actualites" onclick="showPage('actualites')">Actualités</a></li>
-      <li><a id="link-billetterie" onclick="showPage('billetterie')">Billetterie</a></li>
-      <li><a id="link-boutique" onclick="showPage('boutique')">Boutique</a></li>
-      <li><a id="link-compte" onclick="showPage('compte')">Mon Compte</a></li>
-      <li><a id="link-parametres" onclick="showPage('parametres')">Paramètres</a></li>
+      <li><a onclick="switchPage('accueil')" id="link-accueil" class="active">Club</a></li>
+      <li><a onclick="switchPage('actualites')" id="link-actualites">Actualités</a></li>
+      <li><a onclick="switchPage('billetterie')" id="link-billetterie">Billetterie</a></li>
+      <li><a onclick="switchPage('boutique')" id="link-boutique">Boutique</a></li>
     </ul>
     <div class="nav-right">
-      <div class="nav-badge">Fondé en 2005</div>
-      <button class="nav-btn" onclick="openAdminModal()">Admin</button>
-      <button class="nav-hamburger" onclick="toggleMobileMenu()">
+      <div class="nav-badge">Club Officiel</div>
+      <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a onclick="showPage('accueil'); toggleMobileMenu()">Club</a>
-    <a onclick="showPage('actualites'); toggleMobileMenu()">Actualités</a>
-    <a onclick="showPage('billetterie'); toggleMobileMenu()">Billetterie</a>
-    <a onclick="showPage('boutique'); toggleMobileMenu()">Boutique</a>
-    <a onclick="showPage('compte'); toggleMobileMenu()">Mon Compte</a>
-    <a onclick="showPage('parametres'); toggleMobileMenu()">Paramètres</a>
+    <a onclick="switchPage('accueil'); toggleMobileMenu()">Club</a>
+    <a onclick="switchPage('actualites'); toggleMobileMenu()">Actualités</a>
+    <a onclick="switchPage('billetterie'); toggleMobileMenu()">Billetterie</a>
+    <a onclick="switchPage('boutique'); toggleMobileMenu()">Boutique</a>
   </div>
 
-  <div id="page-accueil" class="page active">
-    <div class="hero">
+  <main class="page active" id="page-accueil">
+    <section class="hero">
       <div class="hero-marquee">
-        <div class="hero-marquee-inner">PIGNOUFERIE FC • PIGNOUFERIE FC •</div>
+        <div class="hero-marquee-inner">LA PIGNOUFERIE FC LA PIGNOUFERIE FC </div>
       </div>
-      <div class="hero-eyebrow">Le Site Officiel</div>
-      <h1 class="hero-title">Plus qu'un club, une <em>légende</em> en rose et blanc.</h1>
-      <p class="hero-sub">Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.</p>
-      <div class="hero-actions">
-        <button class="btn-primary" onclick="showPage('billetterie')">Réserver un billet</button>
-        <button class="btn-ghost" onclick="document.getElementById('effectif-sec').scrollIntoView()">Découvrir l'effectif</button>
+      <div style="position:relative; z-index:2;">
+        <div class="hero-eyebrow" id="club-eyebrow-view">Fondé en 2024 — L'Élite Alternative</div>
+        <h1 class="hero-title" id="club-title-view">Plus qu'un club, une <em>philosophie de jeu</em>.</h1>
+        <p class="hero-sub" id="club-sub-view">Né de la passion pure et d'un grain de folie collective, le Pignouferie FC réinvente le football local avec audace, élégance et une ferveur inégalée.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="switchPage('billetterie')">Réserver un billet</button>
+          <button class="btn-ghost" onclick="document.getElementById('palmares').scrollIntoView()">Découvrir l'histoire</button>
+        </div>
       </div>
       <div class="hero-stats">
-        <div><div class="hero-stat-num">2005</div><div class="hero-stat-label">Année de création</div></div>
+        <div>
+          <div class="hero-stat-num" id="stat-num1-view">4 800+</div>
+          <div class="hero-stat-label" id="stat-lbl1-view">Membres Actifs</div>
+        </div>
+        <div class="hero-stat-line"></div>
+        <div>
+          <div class="hero-stat-num" id="stat-num2-view">18</div>
+          <div class="hero-stat-label" id="stat-lbl2-view">Trophées Majeurs</div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div id="effectif-sec" class="sec">
-      <p class="section-eyebrow">Saison Globale</p>
-      <h2 class="section-title">L'Effectif Pro</h2>
+    <section class="sec" id="palmares">
+      <div class="section-eyebrow">Tableau d'Honneur</div>
+      <h2 class="section-title">Le Palmarès</h2>
       <div class="rule-red"></div>
+      <div class="palmares-grid" id="palmares-container"></div>
+    </section>
 
-      <div class="poste-header">Gardiens (G)</div>
-      <div class="joueurs-grid" id="grid-gardiens"></div>
+    <section class="sec sec-alt">
+      <div class="saison-header">
+        <div>
+          <div class="section-eyebrow">Campagnes En Cours</div>
+          <h2 class="section-title" style="margin-bottom:0;">La Saison</h2>
+        </div>
+        <div class="saison-context" id="saison-context-view">Engagé sur quatre fronts majeurs cette saison, le club poursuit sa quête de suprématie avec une rigueur tactique exclusive.</div>
+      </div>
+      <div class="rule-red"></div>
+      <div id="saison-container"></div>
+    </section>
 
-      <div class="poste-header">Défenseurs (D)</div>
-      <div class="joueurs-grid" id="grid-defenseurs"></div>
+    <section class="sec">
+      <div class="effectif-intro">
+        <div>
+          <div class="section-eyebrow">Groupe Professionnel</div>
+          <h2 class="section-title" style="margin-bottom:0;">L'Effectif</h2>
+        </div>
+        <div class="effectif-text" id="effectif-intro-view">Un alliage parfait d'expérience internationale et de jeunes talents formés à l'académie du club.</div>
+      </div>
+      <div class="rule-red"></div>
+      <div id="effectif-container"></div>
+    </section>
 
-      <div class="poste-header">Milieux (M)</div>
-      <div class="joueurs-grid" id="grid-milieux"></div>
+    <section class="sec sec-pale">
+      <div class="stade-grid">
+        <div class="stade-info">
+          <div class="section-eyebrow">Notre Forteresse</div>
+          <h2 class="section-title" id="stade-title-view">L'Arène des Pignoufs</h2>
+          <div class="rule-red"></div>
+          <p id="stade-desc-view">Inauguré récemment, notre stade est un chef-d'œuvre architectural conçu pour maximiser l'impact acoustique et offrir une expérience immersive absolue aux supporters.</p>
+          <div class="stade-specs">
+            <div>
+              <div class="spec-val" id="stade-cap-view">45 000</div>
+              <div class="spec-key">Places assises</div>
+            </div>
+            <div>
+              <div class="spec-val" id="stade-loc-view">Montamisé</div>
+              <div class="spec-key">Localisation</div>
+            </div>
+          </div>
+        </div>
+        <div class="stade-img-placeholder">
+          <div class="stade-img-label">PFC ARENA</div>
+          <div class="stade-cap">Architecture & Passion</div>
+        </div>
+      </div>
+    </section>
 
-      <div class="poste-header">Attaquants (A)</div>
-      <div class="joueurs-grid" id="grid-attaquants"></div>
-    </div>
-
-    <div class="sec sec-alt">
-      <p class="section-eyebrow">Récit</p>
+    <section class="sec">
+      <div class="section-eyebrow">Chronologie</div>
       <h2 class="section-title">Notre Histoire</h2>
       <div class="rule-red"></div>
-      <div class="timeline" id="timeline-container"></div>
-    </div>
-  </div>
+      <div class="timeline" id="history-container"></div>
+    </section>
 
-  <div id="page-actualites" class="page">
-    <div class="news-hero">
-      <p class="section-eyebrow">Média</p>
-      <h2 class="section-title">Actualités & Presse</h2>
-    </div>
-    <div class="news-grid sec" id="news-container"></div>
-  </div>
-
-  <div id="page-billetterie" class="page">
-    <div class="bill-hero">
-      <p class="section-eyebrow">Matchs</p>
-      <h2 class="section-title">Billetterie Officielle</h2>
-    </div>
-    <div class="sec">
-      <div class="match-card">
-        <div>
-          <div class="match-home">La Pignouferie FC</div>
-          <div class="match-away">Stade de l'Aube FC</div>
-        </div>
-        <div class="match-vs">VS</div>
-        <div>
-          <div class="match-date">Samedi prochain - 20h00</div>
-          <div class="match-comp">Ligue Majeure</div>
-        </div>
-        <button class="match-ticket" onclick="alert('Billet réservé !')">Acheter — 15€</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="page-boutique" class="page">
-    <div class="news-hero">
-      <p class="section-eyebrow">Look</p>
-      <h2 class="section-title">La Boutique Pro</h2>
-    </div>
-    <div class="shop-grid sec">
-      <div class="product-card">
-        <div class="product-name">Maillot Domicile Pro 2026</div>
-        <div style="font-weight:700; margin: 0.5rem 0;">85,00 €</div>
-        <button class="btn-primary" style="padding: 0.5rem; font-size:0.7rem;" onclick="addToCart('Maillot Domicile Pro', 85)">Ajouter au panier</button>
-      </div>
-      <div class="product-card">
-        <div class="product-name">Écharpe Ultras Pignouferie</div>
-        <div style="font-weight:700; margin: 0.5rem 0;">18,00 €</div>
-        <button class="btn-primary" style="padding: 0.5rem; font-size:0.7rem;" onclick="addToCart('Écharpe Ultras', 18)">Ajouter au panier</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="page-compte" class="page">
-    <div class="auth-container">
-      <div class="auth-tabs">
-        <button class="auth-tab active" id="tab-login" onclick="setAuthMode('login')">Connexion</button>
-        <button class="auth-tab" id="tab-register" onclick="setAuthMode('register')">Créer un compte</button>
-      </div>
-
-      <form id="auth-form" onsubmit="handleAuth(event)">
-        <div class="form-group">
-          <label for="auth-email">Adresse Email</label>
-          <input type="email" id="auth-email" required />
-        </div>
-        <div class="form-group">
-          <label for="auth-password">Mot de passe</label>
-          <input type="password" id="auth-password" required />
-        </div>
-        <button type="submit" class="btn-primary" style="width:100%; margin-top:0.5rem;" id="auth-submit-btn">Se connecter</button>
-      </form>
-
-      <div style="text-align:center; margin: 1.5rem 0; font-size:0.8rem; color:var(--texte-sec);">OU</div>
-      <button class="btn-github" onclick="alert('Lien OAuth GitHub via Vercel/Supabase configuré avec succès !')">
-        Continuer avec GitHub
-      </button>
-    </div>
-  </div>
-
-  <div id="page-parametres" class="page">
-    <div class="sec">
-      <p class="section-eyebrow">Préférences</p>
-      <h2 class="section-title">Configuration du Site</h2>
+    <section class="sec sec-alt">
+      <div class="section-eyebrow">Direction Sportive</div>
+      <h2 class="section-title">Le Staff Technique</h2>
       <div class="rule-red"></div>
+      <div class="staff-grid" id="staff-container"></div>
+    </section>
+  </main>
 
-      <div class="settings-grid">
-        <div class="settings-card">
-          <h3>Affichage Général</h3>
-          <div class="toggle-switch">
-            <span>Mode Sombre (Dark Mode)</span>
-            <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode(this.checked)" style="width:40px; height:20px; cursor:pointer;" />
-          </div>
+  <main class="page" id="page-actualites">
+    <div class="news-hero">
+      <div class="section-eyebrow">Journal Du Club</div>
+      <h2 class="section-title">Actualités</h2>
+      <div class="rule-red" style="margin-bottom:0;"></div>
+    </div>
+    <div class="news-grid" id="news-container"></div>
+    <div id="article-detail-container" class="active" style="display:none; background:var(--blanc);"></div>
+  </main>
+
+  <main class="page" id="page-billetterie">
+    <div class="bill-hero">
+      <div class="section-eyebrow">Prochains Matchs & Abonnements</div>
+      <h2 class="section-title">Billetterie</h2>
+      <p class="bill-hero-sub">Prenez votre place au cœur de l'action. Les grands rendez-vous se préparent dès aujourd'hui.</p>
+    </div>
+    <div class="matches-section">
+      <h3>Rencontres à venir</h3>
+      <div id="matches-container"></div>
+    </div>
+    <div class="matches-section" style="background:var(--gris-clair); border-top:1px solid var(--rose-bord);">
+      <h3>Campagne d'abonnement 2026/2027</h3>
+      <div class="abo-grid">
+        <div class="abo-card">
+          <div class="abo-name">Tribune Populaire</div>
+          <div class="abo-price">180€</div>
+          <div class="abo-period">Par saison</div>
+          <ul class="abo-features">
+            <li>Accès aux 19 matchs de championnat</li>
+            <li>Priorité billetterie coupes</li>
+          </ul>
+          <button class="abo-btn" onclick="alert('Bientôt disponible !')">S'abonner</button>
         </div>
-        <div class="settings-card">
-          <h3>Notifications</h3>
-          <p style="font-size:0.8rem; color:var(--texte-sec); margin-top:0.5rem;">Recevoir des alertes sur les nouveaux matchs et billetterie disponible.</p>
-          <div class="toggle-switch">
-            <span>Alertes Billetterie</span>
-            <input type="checkbox" checked style="width:40px; height:20px;" />
-          </div>
+        <div class="abo-card featured">
+          <div class="abo-name" style="color:var(--blanc)">Club pignouf Privilège</div>
+          <div class="abo-price" style="color:var(--blanc)">450€</div>
+          <div class="abo-period" style="color:rgba(255,255,255,0.7)">Par saison</div>
+          <ul class="abo-features">
+            <li>Placement central garanti</li>
+            <li>Écharpe officielle de la saison offerte</li>
+            <li>Accès aux événements abonnés</li>
+          </ul>
+          <button class="abo-btn" onclick="alert('Bientôt disponible !')">S'abonner</button>
         </div>
       </div>
     </div>
-  </div>
+  </main>
 
-  <button class="cart-bubble" id="cartBubble" onclick="toggleCartPanel(true)">
+  <main class="page" id="page-boutique">
+    <div class="shop-hero">
+      <div class="section-eyebrow">Équipement & Style</div>
+      <h2 class="section-title">Boutique Officielle</h2>
+      <div class="rule-red" style="margin-bottom:0;"></div>
+    </div>
+    <div class="shop-filters">
+      <button class="filter-btn active" id="f-all" onclick="filterShop('all')">Tous les articles</button>
+      <button class="filter-btn" id="f-maillots" onclick="filterShop('maillots')">Maillots</button>
+      <button class="filter-btn" id="f-accessoires" onclick="filterShop('accessoires')">Accessoires</button>
+    </div>
+    <div class="shop-grid" id="shop-container"></div>
+  </main>
+
+  <button class="cart-bubble" id="cartBubble" onclick="toggleCart(true)">
     🛒 <span class="cart-count" id="cartCount">0</span>
   </button>
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart(false)"></div>
   <div class="cart-panel" id="cartPanel">
-    <div style="padding:1.5rem; border-bottom:1px solid var(--rose-bord); display:flex; justify-content:space-between; align-items:center;">
-      <h3 style="font-family:var(--bebas); font-size:1.4rem;">Votre Panier</h3>
-      <button onclick="toggleCartPanel(false)" style="background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--texte);">✕</button>
+    <div class="cart-header">
+      <h3>Votre Panier</h3>
+      <button class="cart-close" onclick="toggleCart(false)">×</button>
     </div>
-    <div class="cart-items" id="cartItemsContainer"></div>
-    <div style="padding:1.5rem; border-top:1px solid var(--rose-bord);">
-      <button class="btn-primary" style="width:100%;" onclick="alert('Commande validée !')">Passer la commande</button>
-    </div>
-  </div>
-
-  <div class="admin-overlay" id="adminOverlay">
-    <div class="admin-panel">
-      <button class="admin-close" onclick="closeAdminModal()">✕</button>
-      <h2 style="font-family:var(--bebas); font-size:2rem; margin-bottom:1.5rem;">Panel d'Administration Global</h2>
-      
-      <div style="border:1px solid var(--rose-bord); padding:1.5rem; margin-bottom:1.5rem;">
-        <h3 style="margin-bottom:1rem;">Publier un nouvel article de presse</h3>
-        <div class="form-group"><label>Titre de l'article</label><input type="text" id="admin-news-title" /></div>
-        <div class="form-group"><label>Extrait court</label><input type="text" id="admin-news-excerpt" /></div>
-        <button class="btn-primary" onclick="createNewsPro()">Publier l'actualité</button>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">0.00€</span>
       </div>
-
-      <div style="border:1px solid var(--rose-bord); padding:1.5rem;">
-        <h3 style="margin-bottom:1rem;">Ajouter un événement marquant (Histoire)</h3>
-        <div class="form-group"><label>Année</label><input type="text" id="admin-hist-year" placeholder="Ex: 2026" /></div>
-        <div class="form-group"><label>Événement majeur</label><input type="text" id="admin-hist-title" /></div>
-        <div class="form-group"><label>Détails précis</label><input type="text" id="admin-hist-detail" /></div>
-        <button class="btn-primary" onclick="createHistoryPro()">Ajouter à la frise chronologique</button>
-      </div>
+      <button class="cart-checkout" onclick="checkout()">Passer la commande</button>
     </div>
   </div>
 
   <footer>
     <div>
-      <div class="footer-brand-name">PIGNOUFERIE <span>FC</span></div>
-      <p style="font-size:0.8rem; color:var(--texte-sec);">Club mythique fondé en 2005. Performance, excellence et couleur rose affirmée sur tous les terrains.</p>
+      <div class="footer-brand-name">LA PIGNOUFERIE<span>.FC</span></div>
+      <div class="footer-brand-sub">L'institution sportive indépendante basée à Montamisé. Identité forte, football total.</div>
     </div>
     <div>
-      <div class="section-eyebrow" style="margin-bottom:0.5rem;">Navigation</div>
-      <a onclick="showPage('accueil')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;">Club</a>
-      <a onclick="showPage('actualites')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;">Actualités</a>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a onclick="switchPage('accueil')">Le Club</a></li>
+        <li><a onclick="switchPage('actualites')">Actualités</a></li>
+        <li><a onclick="switchPage('billetterie')">Billetterie</a></li>
+        <li><a onclick="switchPage('boutique')">Boutique</a></li>
+      </ul>
     </div>
     <div>
-      <div class="section-eyebrow" style="margin-bottom:0.5rem;">Légal</div>
-      <p style="font-size:0.8rem; color:var(--texte-sec);">Mentions Légales<br>CGV Boutique</p>
+      <div class="footer-col-title">Réseaux</div>
+      <ul class="footer-links">
+        <li><a onclick="alert('Suivez-nous sur @PignouferieFC')">Instagram</a></li>
+        <li><a onclick="alert('Suivez-nous sur @PignouferieFC')">TikTok</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:contact@pignouferiefc.fr">contact@pignouferiefc.fr</a></li>
+      </ul>
     </div>
   </footer>
+
   <div class="footer-bottom">
-    <div>© 2005-2026 La Pignouferie FC. Tous droits réservés.</div>
-    <div>Créé et propulsé avec style pour Vercel & GitHub.</div>
+    <div class="footer-copy">&copy; 2026 La Pignouferie FC. Tous droits réservés.</div>
+    <div class="footer-mention">
+      Mentions légales &bull; Design Minimaliste &bull; 
+      <a class="link-admin-footer" onclick="openLoginModal()">Espace Admin</a>
+    </div>
+  </div>
+
+  <div class="admin-overlay" id="adminOverlay">
+    
+    <div class="admin-login" id="adminLoginBox">
+      <h2>Connexion Admin</h2>
+      <p>Veuillez entrer vos identifiants pour accéder au panel.</p>
+      
+      <div class="admin-form-group">
+        <label>Identifiant</label>
+        <input type="text" id="adminUser" class="admin-input" placeholder="ex: admin" />
+      </div>
+      <div class="admin-form-group">
+        <label>Mot de passe</label>
+        <input type="password" id="adminPass" class="admin-input" placeholder="••••••••" />
+      </div>
+      <div style="display:flex; gap:1rem; margin-top:1.5rem;">
+        <button class="admin-btn-action" onclick="submitAdminLogin()">Se connecter</button>
+        <button class="admin-btn-action" style="background:var(--texte-sec);" onclick="closeAdminModal()">Annuler</button>
+      </div>
+    </div>
+
+    <div class="admin-panel" id="adminControlBox" style="display:none;">
+      <div class="admin-panel-header">
+        <h2>Panel Administration Global &mdash; Édition Directe</h2>
+        <button class="admin-close" onclick="closeAdminModal()">&times;</button>
+      </div>
+      <div class="admin-body">
+        <nav class="admin-nav">
+          <button class="admin-nav-btn active" onclick="switchAdminTab('tab-global', this)">Données Club</button>
+          <button class="admin-nav-btn" onclick="switchAdminTab('tab-news', this)">Actualités</button>
+          <button class="admin-nav-btn" onclick="switchAdminTab('tab-matches', this)">Matchs</button>
+          <button class="admin-nav-btn" onclick="switchAdminTab('tab-shop', this)">Boutique</button>
+          <button class="admin-nav-btn" onclick="switchAdminTab('tab-palmares', this)">Palmarès</button>
+          <button class="admin-nav-btn" onclick="switchAdminTab('tab-effectif', this)">Effectif</button>
+          <button class="admin-nav-btn" onclick="switchAdminTab('tab-history', this)">Histoire</button>
+          <button class="admin-nav-btn" onclick="switchAdminTab('tab-staff', this)">Staff</button>
+          <button class="admin-nav-btn" style="color:#D9534F; margin-top:auto;" onclick="logoutAdmin()">Déconnexion</button>
+        </nav>
+        <div class="admin-content">
+          
+          <div class="admin-tab-content active" id="tab-global">
+            <h3>Modifier les Informations du Club</h3>
+            <p style="font-size:0.8rem; color:var(--texte-sec); margin-bottom:1.5rem;">Modifiez instantanément les slogans, statistiques et textes de l'accueil.</p>
+            <div class="admin-form-group">
+              <label>Slogan (Haut de page)</label>
+              <input type="text" id="inp-club-eyebrow" class="admin-input">
+            </div>
+            <div class="admin-form-group">
+              <label>Titre Principal (HTML supporté, utilisez &lt;em&gt;texte&lt;/em&gt; pour le rose)</label>
+              <input type="text" id="inp-club-title" class="admin-input">
+            </div>
+            <div class="admin-form-group">
+              <label>Sous-titre Introduction</label>
+              <textarea id="inp-club-sub" class="admin-textarea"></textarea>
+            </div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+              <div class="admin-form-group">
+                <label>Statistique 1 (Chiffre)</label>
+                <input type="text" id="inp-stat-num1" class="admin-input">
+              </div>
+              <div class="admin-form-group">
+                <label>Statistique 1 (Label)</label>
+                <input type="text" id="inp-stat-lbl1" class="admin-input">
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+              <div class="admin-form-group">
+                <label>Statistique 2 (Chiffre)</label>
+                <input type="text" id="inp-stat-num2" class="admin-input">
+              </div>
+              <div class="admin-form-group">
+                <label>Statistique 2 (Label)</label>
+                <input type="text" id="inp-stat-lbl2" class="admin-input">
+              </div>
+            </div>
+            <div class="admin-form-group">
+              <label>Contexte de la Saison</label>
+              <textarea id="inp-saison-context" class="admin-textarea"></textarea>
+            </div>
+            <div class="admin-form-group">
+              <label>Introduction de l'Effectif</label>
+              <textarea id="inp-effectif-intro" class="admin-textarea"></textarea>
+            </div>
+            <div class="admin-form-group">
+              <label>Nom du Stade</label>
+              <input type="text" id="inp-stade-title" class="admin-input">
+            </div>
+            <div class="admin-form-group">
+              <label>Description du Stade</label>
+              <textarea id="inp-stade-desc" class="admin-textarea"></textarea>
+            </div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+              <div class="admin-form-group">
+                <label>Capacité du Stade</label>
+                <input type="text" id="inp-stade-cap" class="admin-input">
+              </div>
+              <div class="admin-form-group">
+                <label>Localisation</label>
+                <input type="text" id="inp-stade-loc" class="admin-input">
+              </div>
+            </div>
+            <button class="admin-btn-action" onclick="saveGlobalTexts()">Enregistrer les modifications</button>
+          </div>
+
+          <div class="admin-tab-content" id="tab-news">
+            <h3>Ajouter un Article d'Actualité</h3>
+            <div class="admin-form-group"><label>Catégorie / Tag</label><input type="text" id="act-tag" class="admin-input" placeholder="COMMUNIQUÉ"></div>
+            <div class="admin-form-group"><label>Titre de l'article</label><input type="text" id="act-title" class="admin-input"></div>
+            <div class="admin-form-group"><label>Extrait court</label><input type="text" id="act-excerpt" class="admin-input"></div>
+            <div class="admin-form-group"><label>Date d'affichage</label><input type="text" id="act-date" class="admin-input" placeholder="24 Juin 2026"></div>
+            <div class="admin-form-group"><label>Contenu complet (Séparez vos paragraphes par des retours à la ligne)</label><textarea id="act-body" class="admin-textarea" style="height:120px;"></textarea></div>
+            <div class="admin-form-group"><label>ID Vidéo YouTube optionnel (Ex: dQw4w9WgXcQ)</label><input type="text" id="act-yt" class="admin-input"></div>
+            <button class="admin-btn-action" onclick="addArticleAdmin()">Publier l'article</button>
+            <div class="admin-list-items"><h4>Articles en ligne</h4><div id="list-news-admin"></div></div>
+          </div>
+
+          <div class="admin-tab-content" id="tab-matches">
+            <h3>Ajouter un Match à la Billetterie</h3>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+              <div class="admin-form-group"><label>Équipe Domicile</label><input type="text" id="mat-home" class="admin-input" value="La Pignouferie FC"></div>
+              <div class="admin-form-group"><label>Équipe Extérieur</label><input type="text" id="mat-away" class="admin-input"></div>
+            </div>
+            <div class="admin-form-group"><label>Date & Heure</label><input type="text" id="mat-date" class="admin-input" placeholder="Samedi 12 Septembre — 20:00"></div>
+            <div class="admin-form-group"><label>Compétition</label><input type="text" id="mat-comp" class="admin-input" placeholder="Ligue Alternative / Coupe"></div>
+            <div class="admin-form-group"><label>Statut</label><select id="mat-sold" class="admin-select"><option value="false">Disponible</option><option value="true">Complet (Guichets fermés)</option></select></div>
+            <button class="admin-btn-action" onclick="addMatchAdmin()">Ajouter la rencontre</button>
+            <div class="admin-list-items"><h4>Matchs programmés</h4><div id="list-matches-admin"></div></div>
+          </div>
+
+          <div class="admin-tab-content" id="tab-shop">
+            <h3>Ajouter un Produit</h3>
+            <div class="admin-form-group"><label>Catégorie</label><select id="prod-cat" class="admin-select"><option value="maillots">Maillots</option><option value="accessoires">Accessoires</option></select></div>
+            <div class="admin-form-group"><label>Nom de l'article</label><input type="text" id="prod-name" class="admin-input"></div>
+            <div class="admin-form-group"><label>Prix (en €, ex: 75)</label><input type="number" id="prod-price" class="admin-input"></div>
+            <div class="admin-form-group"><label>Badge optionnel</label><input type="text" id="prod-badge" class="admin-input" placeholder="Nouveau / Édition Limitée"></div>
+            <button class="admin-btn-action" onclick="addProductAdmin()">Ajouter à la boutique</button>
+            <div class="admin-list-items"><h4>Produits en vente</h4><div id="list-shop-admin"></div></div>
+          </div>
+
+          <div class="admin-tab-content" id="tab-palmares">
+            <h3>Ajouter une Ligne au Palmarès</h3>
+            <div style="display:grid; grid-template-columns:1fr 2fr; gap:1rem;">
+              <div class="admin-form-group"><label>Année</label><input type="text" id="palm-year" class="admin-input" placeholder="2025"></div>
+              <div class="admin-form-group"><label>Trophée / Titre</label><input type="text" id="palm-trophy" class="admin-input"></div>
+            </div>
+            <div class="admin-form-group"><label>Description abrégée</label><input type="text" id="palm-desc" class="admin-input"></div>
+            <div class="admin-form-group"><label>Rang / Badge</label><input type="text" id="palm-rank" class="admin-input" placeholder="Vainqueur / Finaliste"></div>
+            <button class="admin-btn-action" onclick="addPalmaresAdmin()">Ajouter au Palmarès</button>
+            <div class="admin-list-items"><h4>Titres répertoriés</h4><div id="list-palmares-admin"></div></div>
+          </div>
+
+          <div class="admin-tab-content" id="tab-effectif">
+            <h3>Ajouter un Joueur à l'Effectif</h3>
+            <div class="admin-form-group"><label>Poste</label><select id="jou-poste" class="admin-select"><option value="Gardiens">Gardien</option><option value="Défenseurs">Défenseur</option><option value="Milieux">Milieu de terrain</option><option value="Attaquants">Attaquant</option></select></div>
+            <div style="display:grid; grid-template-columns:1fr 3fr; gap:1rem;">
+              <div class="admin-form-group"><label>Numéro</label><input type="text" id="jou-num" class="admin-input" placeholder="10"></div>
+              <div class="admin-form-group"><label>Nom Complet</label><input type="text" id="jou-nom" class="admin-input"></div>
+            </div>
+            <div class="admin-form-group"><label>Nationalité / Infos additionnelles</label><input type="text" id="jou-nat" class="admin-input" placeholder="France"></div>
+            <button class="admin-btn-action" onclick="addJoueurAdmin()">Ajouter le joueur</button>
+            <div class="admin-list-items"><h4>Joueurs enregistrés</h4><div id="list-effectif-admin"></div></div>
+          </div>
+
+          <div class="admin-tab-content" id="tab-history">
+            <h3>Ajouter un Événement Historique</h3>
+            <div style="display:grid; grid-template-columns:1fr 3fr; gap:1rem;">
+              <div class="admin-form-group"><label>Année</label><input type="text" id="hist-year" class="admin-input" placeholder="2024"></div>
+              <div class="admin-form-group"><label>Événement</label><input type="text" id="hist-event" class="admin-input"></div>
+            </div>
+            <div class="admin-form-group"><label>Détails / Récit de l'événement</label><textarea id="hist-detail" class="admin-textarea"></textarea></div>
+            <button class="admin-btn-action" onclick="addHistoireAdmin()">Créer le point d'ancrage historique</button>
+            <div class="admin-list-items"><h4>Timeline Historique</h4><div id="list-history-admin"></div></div>
+          </div>
+
+          <div class="admin-tab-content" id="tab-staff">
+            <h3>Ajouter un Membre au Staff Technique</h3>
+            <div class="admin-form-group"><label>Rôle / Fonction</label><input type="text" id="stf-role" class="admin-input" placeholder="Entraîneur Principal"></div>
+            <div class="admin-form-group"><label>Nom Complet</label><input type="text" id="stf-name" class="admin-input"></div>
+            <div class="admin-form-group"><label>Biographie succincte</label><input type="text" id="stf-bio" class="admin-input"></div>
+            <button class="admin-btn-action" onclick="addStaffAdmin()">Enregistrer dans le staff</button>
+            <div class="admin-list-items"><h4>Membres du Staff</h4><div id="list-staff-admin"></div></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script>
-    // Effectif complet fourni
-    const effectifPro = {
-      gardiens: [
-        { num: "1", nom: "M. Delaunay", poste: "G" },
-        { num: "24", nom: "M. Lemonnier", poste: "G" },
-        { num: "-", nom: "G. Jourdain", poste: "G" }
-      ],
-      defenseurs: [
-        { num: "32", nom: "Q. Ferrier", poste: "DG" },
-        { num: "5", nom: "A. Chapuis", poste: "DG" },
-        { num: "29", nom: "M. Pignouf", poste: "DC" },
-        { num: "30", nom: "L. Perlade", poste: "DC" },
-        { num: "4", nom: "P. Vincent", poste: "DC" },
-        { num: "3", nom: "D. Lagarde", poste: "DC" },
-        { num: "6", nom: "K. Marquet", poste: "DD" },
-        { num: "2", nom: "F. Naciri", poste: "DD" }
-      ],
-      milieux: [
-        { num: "16", nom: "K. Pottier", poste: "MDC" },
-        { num: "8", nom: "Vitinha (Capitaine)", poste: "MC" },
-        { num: "13", nom: "A. Arthis", poste: "MC" },
-        { num: "17", nom: "O. Dieng", poste: "MC" },
-        { num: "10", nom: "W. Van Goor", poste: "MOC" },
-        { num: "20", nom: "J. Fischer", poste: "MD" }
-      ],
-      attaquants: [
-        { num: "7", nom: "T. Desgranges", poste: "AG" },
-        { num: "11", nom: "I. Benzekri", poste: "AG" },
-        { num: "19", nom: "I. Haba", poste: "AG" },
-        { num: "12", nom: "C. Beaulieu", poste: "AD" },
-        { num: "9", nom: "T. Epyneau", poste: "BU" },
-        { num: "22", nom: "K. Dieme", poste: "BU" }
-      ]
+    /* ⚙️ IDENTIFIANTS DU COMPTE ADMIN (MODIFIABLES ICI) */
+    const CONFIG_ADMIN_USER = "admin";
+    const CONFIG_ADMIN_PASS = "pignouferie2026";
+
+    /* STATE MANAGEMENT ET JEU DE DONNÉES UNIVERSEL */
+    let globalData = {
+      eyebrow: "Fondé en 2024 — L'Élite Alternative",
+      title: "Plus qu'un club, une <em>philosophie de jeu</em>.",
+      sub: "Né de la passion pure et d'un grain de folie collective, le Pignouferie FC réinvente le football local avec audace, élégance et une ferveur inégalée.",
+      statNum1: "4 800+", statLbl1: "Membres Actifs",
+      statNum2: "18", statLbl2: "Trophées Majeurs",
+      saisonContext: "Engagé sur quatre fronts majeurs cette saison, le club poursuit sa quête de suprématie avec une rigueur tactique exclusive.",
+      effectifIntro: "Un alliage parfait d'expérience internationale et de jeunes talents formés à l'académie du club.",
+      stadeTitle: "L'Arène des Pignoufs",
+      stadeDesc: "Inauguré récemment, notre stade est un chef-d'œuvre architectural conçu pour maximiser l'impact acoustique et offrir une expérience immersive absolue aux supporters.",
+      stadeCap: "45 000", stadeLoc: "Montamisé"
     };
 
-    // Data Évolutive Locale (Simulant le retour d'une Base de Données)
+    let palmares = [
+      { year: "2025", trophy: "Coupe de la Ligue Alternative", desc: "Victoire mémorable aux tirs au but face aux rivaux historiques.", rank: "Vainqueur" },
+      { year: "2024", trophy: "Championnat Régional Élite", desc: "Saison d'invincibilité totale avec 24 victoires en 26 rencontres.", rank: "Champion" }
+    ];
+
+    let saison = [
+      { name: "Ligue Alternative", status: "En Cours", detail: "Actuellement 1er &bull; 14 matchs joués", badge: "Objectif Titre" },
+      { name: "Coupe des Pignoufs", status: "En Cours", detail: "Qualifié pour les Quarts de Finale", badge: "Tenant du titre" },
+      { name: "Trophée des Champions Locaux", status: "À venir", detail: "Match programmé en Août 2026", badge: "Finale" }
+    ];
+
+    let effectif = [
+      { poste: "Gardiens", num: "1", nom: "Lucas Trapp", nat: "France" },
+      { poste: "Défenseurs", num: "4", nom: "Marc 'Le Rocher' Volant", nat: "Belgique" },
+      { poste: "Défenseurs", num: "5", nom: "Alessandro Rosa", nat: "Italie" },
+      { poste: "Milieux", num: "8", nom: "Maxime Alerte", nat: "France" },
+      { poste: "Milieux", num: "10", nom: "Julien Maestro", nat: "Espagne" },
+      { poste: "Attaquants", num: "9", nom: "Kylian Doublé", nat: "France" },
+      { poste: "Attaquants", num: "11", nom: "Nico Arrière", nat: "Brésil" }
+    ];
+
+    let histoire = [
+      { year: "2024", event: "Fondation de l'Institution", detail: "Un collectif de passionnés de football minimaliste s'unit à Montamisé pour bâtir un projet axé sur le beau jeu et l'indépendance." },
+      { year: "2025", event: "Le Premier Sacre Majeur", detail: "Pour sa première année d'affiliation, l'équipe surprend l'ensemble de la ligue en s'octroyant le doublé Coupe-Championnat." }
+    ];
+
+    let staff = [
+      { role: "Entraîneur Principal", name: "Aurélien Tactico", bio: "Adepte d'un pressing ultra-haut et d'un jeu de transition léché. Plus de 150 matchs sur le banc alternatif." },
+      { role: "Directeur Technique", name: "Pierre Strategio", bio: "Architecte du centre de formation et dénicheur de talents émérite à travers l'Europe." }
+    ];
+
     let actualites = [
-      { title: "Vitinha nommé Capitaine Officiel", excerpt: "Le milieu de terrain prend officiellement le brassard pour mener l'équipe vers les sommets.", date: "Juin 2026" },
-      { title: "Préparation intensive au Stade", excerpt: "L'effectif au complet peaufine sa tactique avant le grand choc de samedi soir.", date: "Mai 2026" }
+      { tag: "COMMUNIQUÉ", title: "Le Pignouferie FC dévoile sa feuille de route stratégique pour 2026/2027", excerpt: "Découvrez les grandes orientations et ambitions pour la saison prochaine.", date: "15 Juin 2026", body: "L'ambition du club reste inchangée : performer au plus haut niveau tout en conservant notre modèle associatif fort. Les chantiers incluent la modernisation des infrastructures d'entraînement et le recrutement ciblé de trois profils d'expérience internationale pour encadrer nos jeunes talents.", yt: "" },
+      { tag: "ANALYSE", title: "Retour en vidéo sur la masterclass tactique face au FC Montamisé", excerpt: "Une démonstration collective décryptée par notre cellule d'analyse.", date: "10 Juin 2026", body: "Notre victoire 4-0 n'est pas le fruit du hasard. Ce match de référence valide les choix forts de notre entraîneur avec un bloc équipe compact et un jeu de transition direct déstabilisant.", yt: "dQw4w9WgXcQ" }
     ];
 
-    let histoireTimeline = [
-      { year: "2005", event: "Fondation de la Pignouferie FC", detail: "Naissance du club sous des couleurs roses révolutionnaires marquant l'histoire du football moderne." },
-      { year: "2015", event: "Montée en Ligue Majeure", detail: "Après dix ans d'ascension fulgurante, le club accède à l'élite nationale." }
+    let matches = [
+      { home: "La Pignouferie FC", away: "Olympique Alternatif", date: "Samedi 12 Septembre — 20:00", comp: "Ligue Alternative — J1", soldOut: false },
+      { home: "La Pignouferie FC", away: "Athletic Club Galaxie", date: "Mardi 22 Septembre — 21:00", comp: "Coupe des Pignoufs — 1/4", soldOut: true }
     ];
 
-    let panier = [];
-    let currentAuthMode = 'login';
+    let boutique = [
+      { cat: "maillots", name: "Maillot Domicile Pro 2026/27", price: 85, badge: "Nouveau" },
+      { cat: "maillots", name: "Maillot Extérieur Édition Épure", price: 85, badge: "" },
+      { cat: "accessoires", name: "Écharpe Tissée Haute Densité", price: 25, badge: "Premium" },
+      { cat: "accessoires", name: "Casquette Pignouf Minimaliste", price: 30, badge: "" }
+    ];
 
-    // Initialisation
-    window.onload = function() {
-      renderEffectif();
-      renderActualites();
-      renderTimeline();
-      
-      // Charger le thème sauvegardé
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      if(savedTheme === 'dark') {
-        document.getElementById('dark-mode-toggle').checked = true;
-        toggleDarkMode(true);
-      }
-    };
+    let cart = [];
 
-    // Gestion du Système de Navigation par Page
-    function showPage(pageId) {
+    /* SYSTEME DE NAVIGATION DE PAGES */
+    function switchPage(pageId) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
       
-      const targetPage = document.getElementById(`page-${pageId}`);
-      if(targetPage) targetPage.classList.add('active');
+      const targetPage = document.getElementById('page-' + pageId);
+      if (targetPage) targetPage.classList.add('active');
       
-      const targetLink = document.getElementById(`link-${pageId}`);
-      if(targetLink) targetLink.classList.add('active');
+      const targetLink = document.getElementById('link-' + pageId);
+      if (targetLink) targetLink.classList.add('active');
+      
       window.scrollTo(0,0);
+      if(pageId === 'actualites') {
+        document.getElementById('news-container').style.display = 'grid';
+        document.getElementById('article-detail-container').style.display = 'none';
+      }
     }
 
     function toggleMobileMenu() {
       document.getElementById('mobileMenu').classList.toggle('open');
     }
 
-    // Affichage Dynamique de l'Effectif Complet
-    function renderEffectif() {
-      const renderGrid = (gridId, data) => {
-        const container = document.getElementById(gridId);
-        container.innerHTML = data.map(j => `
-          <div class="joueur-card">
-            <div class="joueur-num">#${j.num}</div>
-            <div class="joueur-nom">${j.nom}</div>
-            <div class="joueur-nat">${j.poste}</div>
-          </div>
-        `).join('');
-      };
-
-      renderGrid('grid-gardiens', effectifPro.gardiens);
-      renderGrid('grid-defenseurs', effectifPro.defenseurs);
-      renderGrid('grid-milieux', effectifPro.milieux);
-      renderGrid('grid-attaquants', effectifPro.attaquants);
+    /* AUTHENTIFICATION SÉCURISÉE (IDENTIFIANT ET MDP) */
+    function openLoginModal() {
+      document.getElementById('adminOverlay').classList.add('open');
+      document.getElementById('adminLoginBox').style.display = 'block';
+      document.getElementById('adminControlBox').style.display = 'none';
+    }
+    
+    function closeAdminModal() {
+      document.getElementById('adminOverlay').classList.remove('open');
     }
 
-    // Affichage des Actualités
-    function renderActualites() {
-      const container = document.getElementById('news-container');
-      container.innerHTML = actualites.map(a => `
-        <div class="news-card">
-          <div class="news-card-body">
-            <div class="news-tag">Club Actu</div>
-            <h3 class="news-card-title">${a.title}</h3>
-            <p class="news-card-excerpt">${a.excerpt}</p>
-            <div class="news-card-meta">${a.date}</div>
-          </div>
+    function submitAdminLogin() {
+      const u = document.getElementById('adminUser').value;
+      const p = document.getElementById('adminPass').value;
+      if(u === CONFIG_ADMIN_USER && p === CONFIG_ADMIN_PASS) {
+        document.getElementById('adminLoginBox').style.display = 'none';
+        document.getElementById('adminControlBox').style.display = 'flex';
+        initAdminPanelFields();
+      } else {
+        alert("Identifiants incorrects. Veuillez réessayer.");
+      }
+    }
+
+    function logoutAdmin() {
+      document.getElementById('adminUser').value = '';
+      document.getElementById('adminPass').value = '';
+      document.getElementById('adminControlBox').style.display = 'none';
+      document.getElementById('adminLoginBox').style.display = 'block';
+      alert("Vous avez été déconnecté.");
+    }
+
+    /* GESTION DES ONGLETS DU PANEL ADMIN */
+    function switchAdminTab(tabId, btn) {
+      document.querySelectorAll('.admin-tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.admin-nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    /* INITIALISATION DES FORMULAIRES DE L'ADMIN */
+    function initAdminPanelFields() {
+      document.getElementById('inp-club-eyebrow').value = globalData.eyebrow;
+      document.getElementById('inp-club-title').value = globalData.title;
+      document.getElementById('inp-club-sub').value = globalData.sub;
+      document.getElementById('inp-stat-num1').value = globalData.statNum1;
+      document.getElementById('inp-stat-lbl1').value = globalData.statLbl1;
+      document.getElementById('inp-stat-num2').value = globalData.statNum2;
+      document.getElementById('inp-stat-lbl2').value = globalData.statLbl2;
+      document.getElementById('inp-saison-context').value = globalData.saisonContext;
+      document.getElementById('inp-effectif-intro').value = globalData.effectifIntro;
+      document.getElementById('inp-stade-title').value = globalData.stadeTitle;
+      document.getElementById('inp-stade-desc').value = globalData.stadeDesc;
+      document.getElementById('inp-stade-cap').value = globalData.stadeCap;
+      document.getElementById('inp-stade-loc').value = globalData.stadeLoc;
+      renderAdminLists();
+    }
+
+    function renderAdminLists() {
+      document.getElementById('list-news-admin').innerHTML = actualites.map((a,i) => `<div class="admin-item-row"><span class="admin-item-info">${esc(a.title)}</span><button class="admin-delete-btn" onclick="deleteNews(${i})">Supprimer</button></div>`).join('');
+      document.getElementById('list-matches-admin').innerHTML = matches.map((m,i) => `<div class="admin-item-row"><span class="admin-item-info">${esc(m.home)} vs ${esc(m.away)}</span><button class="admin-delete-btn" onclick="deleteMatch(${i})">Supprimer</button></div>`).join('');
+      document.getElementById('list-shop-admin').innerHTML = boutique.map((p,i) => `<div class="admin-item-row"><span class="admin-item-info">${esc(p.name)} (${p.price}€)</span><button class="admin-delete-btn" onclick="deleteProduct(${i})">Supprimer</button></div>`).join('');
+      document.getElementById('list-palmares-admin').innerHTML = palmares.map((p,i) => `<div class="admin-item-row"><span class="admin-item-info">${p.year} - ${esc(p.trophy)}</span><button class="admin-delete-btn" onclick="deletePalmares(${i})">Supprimer</button></div>`).join('');
+      document.getElementById('list-effectif-admin').innerHTML = effectif.map((j,i) => `<div class="admin-item-row"><span class="admin-item-info">[${esc(j.poste)}] N°${j.num} ${esc(j.nom)}</span><button class="admin-delete-btn" onclick="deleteJoueur(${i})">Supprimer</button></div>`).join('');
+      document.getElementById('list-history-admin').innerHTML = histoire.map((h,i) => `<div class="admin-item-row"><span class="admin-item-info">${h.year} - ${esc(h.event)}</span><button class="admin-delete-btn" onclick="deleteHistoire(${i})">Supprimer</button></div>`).join('');
+      document.getElementById('list-staff-admin').innerHTML = staff.map((s,i) => `<div class="admin-item-row"><span class="admin-item-info">${esc(s.role)} - ${esc(s.name)}</span><button class="admin-delete-btn" onclick="deleteStaff(${i})">Supprimer</button></div>`).join('');
+    }
+
+    /* COMPORTEMENTS ET ACTIONS DU PANEL ADMIN */
+    function saveGlobalTexts() {
+      globalData.eyebrow = document.getElementById('inp-club-eyebrow').value;
+      globalData.title = document.getElementById('inp-club-title').value;
+      globalData.sub = document.getElementById('inp-club-sub').value;
+      globalData.statNum1 = document.getElementById('inp-stat-num1').value;
+      globalData.statLbl1 = document.getElementById('inp-stat-lbl1').value;
+      globalData.statNum2 = document.getElementById('inp-stat-num2').value;
+      globalData.statLbl2 = document.getElementById('inp-stat-lbl2').value;
+      globalData.saisonContext = document.getElementById('inp-saison-context').value;
+      globalData.effectifIntro = document.getElementById('inp-effectif-intro').value;
+      globalData.stadeTitle = document.getElementById('inp-stade-title').value;
+      globalData.stadeDesc = document.getElementById('inp-stade-desc').value;
+      globalData.stadeCap = document.getElementById('inp-stade-cap').value;
+      globalData.stadeLoc = document.getElementById('inp-stade-loc').value;
+      renderClubView();
+      alert("Données générales sauvegardées avec succès.");
+    }
+
+    function addArticleAdmin() {
+      const tag = document.getElementById('act-tag').value || 'ACTU';
+      const title = document.getElementById('act-title').value;
+      const excerpt = document.getElementById('act-excerpt').value;
+      const date = document.getElementById('act-date').value || 'Juin 2026';
+      const body = document.getElementById('act-body').value;
+      const yt = document.getElementById('act-yt').value;
+      if(!title || !body) return alert("Veuillez remplir le titre et le contenu.");
+      actualites.unshift({tag, title, excerpt, date, body, yt});
+      renderNewsView(); renderAdminLists();
+      document.getElementById('act-title').value = ''; document.getElementById('act-body').value = ''; document.getElementById('act-excerpt').value = ''; document.getElementById('act-yt').value = '';
+    }
+    function deleteNews(i) { actualites.splice(i,1); renderNewsView(); renderAdminLists(); }
+
+    function addMatchAdmin() {
+      const home = document.getElementById('mat-home').value;
+      const away = document.getElementById('mat-away').value;
+      const date = document.getElementById('mat-date').value;
+      const comp = document.getElementById('mat-comp').value;
+      const soldOut = document.getElementById('mat-sold').value === "true";
+      if(!away || !date) return alert("Remplissez l'adversaire et la date.");
+      matches.push({home, away, date, comp, soldOut});
+      renderMatchesView(); renderAdminLists();
+    }
+    function deleteMatch(i) { matches.splice(i,1); renderMatchesView(); renderAdminLists(); }
+
+    function addProductAdmin() {
+      const cat = document.getElementById('prod-cat').value;
+      const name = document.getElementById('prod-name').value;
+      const price = parseFloat(document.getElementById('prod-price').value);
+      const badge = document.getElementById('prod-badge').value;
+      if(!name || isNaN(price)) return alert("Veuillez configurer un nom et un prix valide.");
+      boutique.push({cat, name, price, badge});
+      renderShopView(); renderAdminLists();
+    }
+    function deleteProduct(i) { boutique.splice(i,1); renderShopView(); renderAdminLists(); }
+
+    function addPalmaresAdmin() {
+      const year = document.getElementById('palm-year').value;
+      const trophy = document.getElementById('palm-trophy').value;
+      const desc = document.getElementById('palm-desc').value;
+      const rank = document.getElementById('palm-rank').value || 'Vainqueur';
+      if(!year || !trophy) return alert("Remplissez l'année et l'intitulé.");
+      palmares.unshift({year, trophy, desc, rank});
+      renderPalmaresView(); renderAdminLists();
+    }
+    function deletePalmares(i) { palmares.splice(i,1); renderPalmaresView(); renderAdminLists(); }
+
+    function addJoueurAdmin() {
+      const poste = document.getElementById('jou-poste').value;
+      const num = document.getElementById('jou-num').value;
+      const nom = document.getElementById('jou-nom').value;
+      const nat = document.getElementById('jou-nat').value;
+      if(!num || !nom) return alert("Numéro et Nom requis.");
+      effectif.push({poste, num, nom, nat});
+      renderEffectifView(); renderAdminLists();
+    }
+    function deleteJoueur(i) { effectif.splice(i,1); renderEffectifView(); renderAdminLists(); }
+
+    function addHistoireAdmin() {
+      const year = document.getElementById('hist-year').value;
+      const event = document.getElementById('hist-event').value;
+      const detail = document.getElementById('hist-detail').value;
+      if(!year || !event) return alert("Année et titre de l'événement obligatoires.");
+      histoire.unshift({year, event, detail});
+      renderHistoryView(); renderAdminLists();
+    }
+    function deleteHistoire(i) { histoire.splice(i,1); renderHistoryView(); renderAdminLists(); }
+
+    function addStaffAdmin() {
+      const role = document.getElementById('stf-role').value;
+      const name = document.getElementById('stf-name').value;
+      const bio = document.getElementById('stf-bio').value;
+      if(!role || !name) return alert("Rôle et nom requis.");
+      staff.push({role, name, bio});
+      renderStaffView(); renderAdminLists();
+    }
+    function deleteStaff(i) { staff.splice(i,1); renderStaffView(); renderAdminLists(); }
+
+
+    /* AFFICHAGE EN TEMPS RÉEL (RENDU DYNAMIQUE) */
+    function renderClubView() {
+      document.getElementById('club-eyebrow-view').innerText = globalData.eyebrow;
+      document.getElementById('club-title-view').innerHTML = globalData.title;
+      document.getElementById('club-sub-view').innerText = globalData.sub;
+      document.getElementById('stat-num1-view').innerText = globalData.statNum1;
+      document.getElementById('stat-lbl1-view').innerText = globalData.statLbl1;
+      document.getElementById('stat-num2-view').innerText = globalData.statNum2;
+      document.getElementById('stat-lbl2-view').innerText = globalData.statLbl2;
+      document.getElementById('saison-context-view').innerText = globalData.saisonContext;
+      document.getElementById('effectif-intro-view').innerText = globalData.effectifIntro;
+      document.getElementById('stade-title-view').innerText = globalData.stadeTitle;
+      document.getElementById('stade-desc-view').innerText = globalData.stadeDesc;
+      document.getElementById('stade-cap-view').innerText = globalData.stadeCap;
+      document.getElementById('stade-loc-view').innerText = globalData.stadeLoc;
+
+      // Rendu de la Saison (Fixe mais dynamique)
+      document.getElementById('saison-container').innerHTML = saison.map(s => `
+        <div class="competition-row">
+          <div class="comp-name">${esc(s.name)}</div>
+          <div class="comp-status status-active">${esc(s.status)}</div>
+          <div class="comp-detail">${esc(s.detail)}</div>
+          <div class="comp-badge">${esc(s.badge)}</div>
         </div>
       `).join('');
     }
 
-    // Affichage de l'Histoire
-    function renderTimeline() {
-      const container = document.getElementById('timeline-container');
-      container.innerHTML = histoireTimeline.map(h => `
+    function renderPalmaresView() {
+      document.getElementById('palmares-container').innerHTML = palmares.map(p => `
+        <div class="palmares-item">
+          <div class="palmares-year">${esc(p.year)}</div>
+          <div class="palmares-trophy">${esc(p.trophy)}</div>
+          <div class="palmares-desc">${esc(p.desc)}</div>
+          <div class="palmares-rank">${esc(p.rank)}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderEffectifView() {
+      const postes = ["Gardiens", "Défenseurs", "Milieux", "Attaquants"];
+      let html = "";
+      postes.forEach(p => {
+        const filtered = effectif.filter(j => j.poste === p);
+        if(filtered.length > 0) {
+          html += `<div class="poste-header">${p}</div><div class="joueurs-grid">`;
+          html += filtered.map(j => `
+            <div class="joueur-card">
+              <div class="joueur-num">${esc(j.num)}</div>
+              <div class="joueur-nom">${esc(j.nom)}</div>
+              <div class="joueur-nat">${esc(j.nat)}</div>
+            </div>
+          `).join('');
+          html += `</div>`;
+        }
+      });
+      document.getElementById('effectif-container').innerHTML = html;
+    }
+
+    function renderHistoryView() {
+      document.getElementById('history-container').innerHTML = histoire.map(h => `
         <div class="timeline-item">
-          <div class="tl-year">${h.year}</div>
+          <div class="tl-year">${esc(h.year)}</div>
           <div class="tl-line"></div>
           <div>
-            <div class="tl-event">${h.event}</div>
-            <div class="tl-detail">${h.detail}</div>
+            <div class="tl-event">${esc(h.event)}</div>
+            <div class="tl-detail">${esc(h.detail)}</div>
           </div>
         </div>
       `).join('');
     }
 
-    // Gestion du Mode Sombre
-    function toggleDarkMode(isDark) {
-      if(isDark) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-        localStorage.setItem('theme', 'light');
-      }
-    }
-
-    // Gestion des Onglets Authentification (Connexion vs Inscription)
-    function setAuthMode(mode) {
-      currentAuthMode = mode;
-      document.getElementById('tab-login').classList.toggle('active', mode === 'login');
-      document.getElementById('tab-register').classList.toggle('active', mode === 'register');
-      document.getElementById('auth-submit-btn').innerText = mode === 'login' ? 'Se connecter' : 'Créer mon compte';
-    }
-
-    function handleAuth(e) {
-      e.preventDefault();
-      const email = document.getElementById('auth-email').value;
-      alert(`Succès ! Mode: ${currentAuthMode} pour le compte ${email}. Sécurisation effectuée.`);
-    }
-
-    // Système de Panier Boutique
-    function addToCart(name, price) {
-      panier.push({ name, price });
-      document.getElementById('cartCount').innerText = panier.length;
-      document.getElementById('cartBubble').classList.add('show');
-      updateCartPanel();
-    }
-
-    function toggleCartPanel(open) {
-      document.getElementById('cartPanel').classList.toggle('open', open);
-    }
-
-    function updateCartPanel() {
-      const container = document.getElementById('cartItemsContainer');
-      if(panier.length === 0) {
-        container.innerHTML = '<p style="color:var(--texte-sec);">Votre panier est vide.</p>';
-        return;
-      }
-      container.innerHTML = panier.map((item, index) => `
-        <div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-size:0.9rem;">
-          <span>${item.name}</span>
-          <strong>${item.price} €</strong>
+    function renderStaffView() {
+      document.getElementById('staff-container').innerHTML = staff.map(s => `
+        <div class="staff-card">
+          <div class="staff-role">${esc(s.role)}</div>
+          <div class="staff-name">${esc(s.name)}</div>
+          <div class="staff-bio">${esc(s.bio)}</div>
         </div>
       `).join('');
     }
 
-    // Fenêtre Modale Panel Admin
-    function openAdminModal() { document.getElementById('adminOverlay').classList.add('open'); }
-    function closeAdminModal() { document.getElementById('adminOverlay').classList.remove('open'); }
+    function renderNewsView() {
+      document.getElementById('news-container').innerHTML = actualites.map((a, i) => `
+        <div class="news-card" onclick="openArticle(${i})">
+          <div class="news-img-placeholder">NEWS</div>
+          <div class="news-card-body">
+            <div class="news-tag">${esc(a.tag)}${a.yt ? '<span class="news-video-badge">Vidéo</span>' : ''}</div>
+            <h3 class="news-card-title">${esc(a.title)}</h3>
+            <p class="news-card-excerpt">${esc(a.excerpt)}</p>
+            <div class="news-card-meta">${esc(a.date)}</div>
+          </div>
+        </div>
+      `).join('');
+    }
 
-    function createNewsPro() {
-      const title = document.getElementById('admin-news-title').value;
-      const excerpt = document.getElementById('admin-news-excerpt').value;
-      if(!title || !excerpt) return alert('Veuillez remplir tous les champs');
+    function openArticle(i) {
+      const a = actualites[i];
+      document.getElementById('news-container').style.display = 'none';
+      let videoHtml = a.yt ? `<iframe class="article-yt" src="https://www.youtube.com/embed/${esc(a.yt)}" allowfullscreen></iframe>` : '';
       
-      actualites.unshift({ title, excerpt, date: "À l'instant" });
-      renderActualites();
-      closeAdminModal();
-      alert('Article publié avec succès sur le site !');
+      let pMap = a.body.split('\n').map(p => `<p>${esc(p)}</p>`).join('');
+
+      document.getElementById('article-detail-container').innerHTML = `
+        <div class="article-detail">
+          <button class="article-back" onclick="switchPage('actualites')">Retour aux actualités</button>
+          <div class="news-tag" style="margin-bottom:1rem;">${esc(a.tag)}</div>
+          <h1 class="article-title">${esc(a.title)}</h1>
+          <div class="article-meta">Publié le ${esc(a.date)} &bull; Par Direction Médias</div>
+          <div class="article-body">${pMap}</div>
+          ${videoHtml}
+        </div>
+      `;
+      document.getElementById('article-detail-container').style.display = 'block';
     }
 
-    function createHistoryPro() {
-      const year = document.getElementById('admin-hist-year').value;
-      const event = document.getElementById('admin-hist-title').value;
-      const detail = document.getElementById('admin-hist-detail').value;
-      if(!year || !event || !detail) return alert('Veuillez remplir tous les champs');
-
-      histoireTimeline.push({ year, event, detail });
-      histoireTimeline.sort((a,b) => parseInt(a.year) - parseInt(b.year));
-      renderTimeline();
-      closeAdminModal();
-      alert('Événement historique ajouté !');
+    function renderMatchesView() {
+      document.getElementById('matches-container').innerHTML = matches.map(m => `
+        <div class="match-card">
+          <div class="match-teams">
+            <div class="match-home">${esc(m.home)}</div>
+            <div class="match-away">${esc(m.away)}</div>
+          </div>
+          <div class="match-vs">VS</div>
+          <div class="match-info">
+            <div class="match-date">${esc(m.date)}</div>
+            <div class="match-comp">${esc(m.comp)}</div>
+          </div>
+          <div>
+            ${m.soldOut ? '<button class="match-ticket sold-out">Complet</button>' : '<button class="match-ticket" onclick="alert(\'Achat de billet simulé avec succès.\')">Acheter</button>'}
+          </div>
+        </div>
+      `).join('');
     }
+
+    function renderShopView(filter = 'all') {
+      let fList = boutique;
+      if(filter !== 'all') fList = boutique.filter(p => p.cat === filter);
+      
+      document.getElementById('shop-container').innerHTML = fList.map(p => `
+        <div class="product-card">
+          <div class="product-img">
+            <div class="product-img-placeholder">PFC</div>
+            ${p.badge ? `<div class="product-badge">${esc(p.badge)}</div>` : ''}
+          </div>
+          <div class="product-body">
+            <div class="product-cat">${esc(p.cat)}</div>
+            <h3 class="product-name">${esc(p.name)}</h3>
+            <div class="product-price">${p.price.toFixed(2)}€</div>
+            <button class="product-add" onclick="addToCart('${esc(p.name)}', ${p.price}); event.stopPropagation();">Ajouter au panier</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterShop(cat) {
+      document.querySelectorAll('.shop-filters .filter-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('f-' + cat).classList.add('active');
+      renderShopView(cat);
+    }
+
+    /* PANIER LOGIQUE COEXISTANTE */
+    function addToCart(name, price) {
+      cart.push({name, price});
+      updateCart();
+      toggleCart(true);
+    }
+    function updateCart() {
+      document.getElementById('cartCount').innerText = cart.length;
+      document.getElementById('cartBubble').classList.toggle('show', cart.length > 0);
+      document.getElementById('cartItems').innerHTML = cart.map((item, idx) => `
+        <div class="cart-item">
+          <div class="cart-item-name">${esc(item.name)}</div>
+          <div class="cart-item-price">${item.price.toFixed(2)}€</div>
+          <button class="cart-item-remove" onclick="removeFromCart(${idx})">×</button>
+        </div>
+      `).join('');
+      let total = cart.reduce((sum, item) => sum + item.price, 0);
+      document.getElementById('cartTotal').innerText = total.toFixed(2) + '€';
+    }
+    function removeFromCart(idx) { cart.splice(idx,1); updateCart(); if(cart.length===0) toggleCart(false); }
+    function toggleCart(open) {
+      document.getElementById('cartPanel').classList.toggle('open', open);
+      document.getElementById('cartOverlay').classList.toggle('show', open);
+    }
+    function checkout() { alert("Paiement sécurisé simulé. Merci de votre soutien au club !"); cart=[]; updateCart(); toggleCart(false); }
+
+    /* UTILS & SECURITÉ CONTRE LES SCRIPTS MALVEILLANTS */
+    function esc(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+    /* RUNTIME INITIALIZATION */
+    window.onload = function() {
+      renderClubView();
+      renderPalmaresView();
+      renderEffectifView();
+      renderHistoryView();
+      renderStaffView();
+      renderNewsView();
+      renderMatchesView();
+      renderShopView();
+    };
   </script>
 </body>
 </html>
