@@ -114,7 +114,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE SYSTEM
+       PAGE SYSTEM & STYLISH UPGRADES
     ═══════════════════════════════════════════════════════════════ */
     .page { display: none; padding-top: 68px; min-height: 100vh; }
     .page.active { display: block; animation: fadeIn 0.5s ease-out; }
@@ -143,7 +143,20 @@
       border-bottom: 1px solid var(--rose-bord);
       overflow: hidden;
     }
-    
+    .premium-header::before {
+      content: "PIGNOUFERIE FC";
+      position: absolute;
+      right: -5%;
+      bottom: -20%;
+      font-family: var(--bebas);
+      font-size: clamp(6rem, 15vw, 12rem);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(232, 119, 154, 0.08);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+
     .btn-primary {
       display: inline-block; background: var(--rose); color: #FFF; text-decoration: none; font-size: 0.78rem;
       font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.85rem 2.2rem;
@@ -156,6 +169,9 @@
       background: #cccccc !important;
       color: #777777 !important;
       cursor: not-allowed !important;
+      box-shadow: none !important;
+      transform: none !important;
+      border: 1px solid #bbbbbb !important;
     }
 
     .btn-ghost {
@@ -182,12 +198,15 @@
     @media (max-width: 768px) { .hero-stats { position: relative; right: auto; bottom: auto; align-items: flex-start; margin-top: 2rem; } }
     .hero-stat-num { font-family: var(--bebas); font-size: 3rem; line-height: 1; color: var(--texte); }
     .hero-stat-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; text-align: right; }
+    @media (max-width: 768px) { .hero-stat-label { text-align: left; } }
 
     /* ═══════════════════════════════════════════════════════════════
        EFFECTIF
     ═══════════════════════════════════════════════════════════════ */
     .effectif-intro { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 4rem; align-items: end; }
     @media (min-width: 768px) { .effectif-intro { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+    .effectif-text { font-size: 0.88rem; color: var(--texte-sec); line-height: 1.8; }
+    .effectif-numbers { display: flex; gap: 2.5rem; }
     .eff-num { font-family: var(--bebas); font-size: 2.8rem; color: var(--texte); }
     .eff-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; }
     .poste-header { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); padding: 1.25rem 0 0.75rem; border-top: 1px solid var(--rose-bord); margin-top: 1.5rem; }
@@ -200,39 +219,147 @@
     
     .admin-action-btn { display: none; position: absolute; top: 5px; background: var(--texte); color: white; border: none; font-size: 0.6rem; padding: 2px 6px; cursor: pointer; z-index: 10; font-family: var(--inter); font-weight: 600; text-transform: uppercase; }
     .admin-del { right: 5px; background: var(--rose); }
+    .admin-edit { right: 35px; background: #333; }
     body.is-admin-mode .admin-action-btn { display: block; }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE: MINI-JEUX (AMÉLIORÉ)
+       HISTOIRE / TIMELINE
     ═══════════════════════════════════════════════════════════════ */
-    .games-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 1100px; margin: 0 auto; }
-    @media (min-width: 768px) { .games-grid { grid-template-columns: 1fr 1fr; } }
-    .game-card { background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 8px; padding: 2rem; box-shadow: var(--card-shadow); display: flex; flex-direction: column; }
-    .game-arena { background: var(--gris-clair); border: 1px solid var(--rose-bord); border-radius: 6px; padding: 1.5rem; margin: 1.5rem 0; min-height: 250px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
-    
-    /* Simulateur de Tirs au but (AMÉLIORÉ) */
-    .penalty-cage { width: 100%; height: 150px; border: 4px solid var(--texte-sec); border-bottom: none; position: relative; margin-top: 1rem; background: rgba(232, 119, 154, 0.03); }
-    .penalty-target { position: absolute; width: 40px; height: 40px; background: var(--rose); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; transition: transform 0.2s; }
-    .penalty-target:hover { transform: scale(1.1); }
-    .penalty-keeper { position: absolute; bottom: 0; left: calc(50% - 20px); width: 40px; height: 60px; background: var(--texte); color: white; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease-out; border-radius: 4px; }
-
-    /* Baby-Foot (NOUVEAU) */
-    .babyfoot-table { width: 100%; height: 200px; background: #5a8e6e; border: 4px solid #3d664b; position: relative; border-radius: 4px; overflow: hidden; cursor: pointer; }
-    .babyfoot-ball { position: absolute; width: 12px; height: 12px; background: white; border-radius: 50%; transition: all 0.3s ease; }
-    .babyfoot-bar { position: absolute; width: 100%; height: 4px; background: #333; top: 50%; }
-
-    /* Leaderboard */
-    .leaderboard { width: 100%; margin-top: 1rem; border-collapse: collapse; font-size: 0.85rem; }
-    .leaderboard th { color: var(--rose); text-align: left; padding: 0.5rem; border-bottom: 1px solid var(--rose-bord); }
-    .leaderboard td { padding: 0.5rem; border-bottom: 1px solid var(--rose-pale); }
+    .timeline { display: flex; flex-direction: column; max-width: 780px; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 40px; top: 0; bottom: 0; width: 1px; background: var(--rose-bord); }
+    @media (min-width: 768px) { .timeline::before { left: 100px; } }
+    .timeline-item { display: grid; grid-template-columns: 50px 1fr; gap: 0 1.5rem; padding: 2.5rem 0; border-bottom: 1px solid var(--rose-pale); position: relative; }
+    @media (min-width: 768px) { .timeline-item { grid-template-columns: 100px 1fr; gap: 0 3rem; } }
+    .timeline-item:last-child { border-bottom: none; }
+    .tl-year { font-family: var(--bebas); font-size: 2rem; color: var(--rose); padding-top: 0.1rem; position: relative; z-index: 2; }
+    .tl-event { font-weight: 700; font-size: 1.1rem; color: var(--texte); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+    .tl-detail { font-size: 0.88rem; color: var(--texte-sec); line-height: 1.7; font-weight: 300; }
 
     /* ═══════════════════════════════════════════════════════════════
-       FOOTER & AUTRES
+       PAGE: ACTUALITÉS
+    ═══════════════════════════════════════════════════════════════ */
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; background: transparent; }
+    .news-card { background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 6px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; display: flex; flex-direction: column; position: relative; overflow: hidden; box-shadow: var(--card-shadow); }
+    .news-card:hover { transform: translateY(-6px); border-color: var(--rose); box-shadow: 0 16px 40px rgba(232, 119, 154, 0.12); }
+    .news-card-body { padding: 1.75rem; flex: 1; display: flex; flex-direction: column; }
+    .news-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.6rem; }
+    .news-card-title { font-family: var(--bebas); font-size: 1.6rem; letter-spacing: 0.02em; color: var(--texte); margin-bottom: 0.6rem; line-height: 1.15; }
+    .news-card-excerpt { font-size: 0.85rem; color: var(--texte-sec); line-height: 1.6; flex: 1; font-weight: 300; }
+    .news-card-meta { font-size: 0.68rem; color: var(--texte-sec); margin-top: 1.25rem; font-weight: 500; opacity: 0.8; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE: BILLETTERIE
+    ═══════════════════════════════════════════════════════════════ */
+    .match-container-box { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+    .match-card { display: grid; grid-template-columns: 1fr; align-items: center; gap: 1.5rem; padding: 2rem 1.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; position: relative; transition: all 0.3s; text-align: center; }
+    @media (min-width: 768px) { .match-card { grid-template-columns: 1.5fr 0.5fr 1.5fr 1.2fr; gap: 2rem; padding: 2rem 2.5rem; text-align: left; } }
+    .match-card:hover { border-color: var(--rose); }
+    .match-team-side { display: flex; flex-direction: column; gap: 4px; }
+    .match-home, .match-away { font-family: var(--bebas); font-size: 1.6rem; color: var(--texte); letter-spacing: 0.02em; }
+    .match-vs { font-family: var(--bebas); font-size: 1.2rem; color: var(--rose); background: var(--rose-pale); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; justify-self: center; border: 1px solid var(--rose-bord); margin: 0 auto; }
+    .match-details-side { display: flex; flex-direction: column; gap: 2px; }
+    .match-date { font-weight: 600; font-size: 0.9rem; color: var(--texte); }
+    .match-comp { font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--texte-sec); letter-spacing: 0.05em; }
+    .match-ticket { font-family: var(--inter); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: var(--rose); color: #FFF; border: none; padding: 0.85rem 1.5rem; cursor: pointer; transition: all 0.3s; text-align: center; border-radius: 3px; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE: BOUTIQUE
+    ═══════════════════════════════════════════════════════════════ */
+    .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
+    .product-card { background: var(--blanc); border: 1px solid var(--rose-bord); display: flex; flex-direction: column; padding: 1.75rem; position: relative; transition: transform 0.3s, box-shadow 0.3s; box-shadow: var(--card-shadow); border-radius: 6px; }
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 16px 35px rgba(232, 119, 154, 0.16); border-color: var(--rose); }
+    .jersey-container { width: 100%; height: 200px; background: var(--gris-clair); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; position: relative; overflow: hidden; border-radius: 4px; }
+    .product-name { font-family: var(--bebas); font-size: 1.6rem; color: var(--texte); letter-spacing: 0.02em; margin-bottom: 0.3rem; line-height: 1.2; }
+    .product-price { font-size: 1.15rem; font-weight: 700; color: var(--rose); margin-bottom: 1.25rem; }
+
+    /* Cart Bubble & Panels */
+    .cart-bubble { position: fixed; bottom: 2rem; right: 2rem; background: var(--rose); color: white; border: none; width: 56px; height: 56px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 1.3rem; z-index: 300; cursor: pointer; box-shadow: 0 4px 16px rgba(232, 119, 154, 0.4); }
+    .cart-bubble.show { display: flex; }
+    .cart-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 100%; max-width: 380px; background: var(--blanc); border-left: 1px solid var(--rose-bord); z-index: 400; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -10px 0 40px rgba(0,0,0,0.05); }
+    .cart-panel.open { transform: translateX(0); }
+    .cart-items { flex: 1; overflow-y: auto; padding: 1.5rem; }
+    .cart-item-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--rose-bord); font-size: 0.9rem; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE: AUTH / COMPTE
+    ═══════════════════════════════════════════════════════════════ */
+    .auth-container { max-width: 480px; margin: 4rem auto; padding: 3rem 1.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; }
+    @media (min-width: 768px) { .auth-container { padding: 3rem 2.5rem; } }
+    .auth-tabs { display: flex; border-bottom: 1px solid var(--rose-bord); margin-bottom: 2rem; gap: 5px; }
+    .auth-tab { flex: 1; padding: 0.85rem; background: none; border: none; font-family: var(--bebas); font-size: 1.25rem; color: var(--texte-sec); cursor: pointer; text-align: center; transition: all 0.2s; border-radius: 4px 4px 0 0; }
+    .auth-tab:hover { background: var(--rose-pale); color: var(--rose); }
+    .auth-tab.active { color: var(--rose); border-bottom: 2px solid var(--rose); background: linear-gradient(to top, var(--rose-pale), transparent); font-weight: bold; }
+    
+    .form-group { margin-bottom: 1.4rem; }
+    .form-group label { display: block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; color: var(--texte-sec); }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.85rem; background: var(--gris-clair); border: 1px solid var(--rose-bord); color: var(--texte); font-family: var(--inter); border-radius: 4px; transition: border 0.2s; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--rose); background: var(--blanc); }
+
+    .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto; }
+    .settings-card { padding: 2rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; }
+    .settings-card h3 { font-family: var(--bebas); font-size: 1.5rem; color: var(--rose); margin-bottom: 1.25rem; border-bottom: 1px solid var(--rose-pale); padding-bottom: 0.4rem; letter-spacing: 0.01em; }
+    .toggle-switch { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       NOUVEAUTÉ : ZONE PROFIL ULTRA-PERSONNALISABLE
+    ═══════════════════════════════════════════════════════════════ */
+    .profile-dashboard { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 1000px; margin: 0 auto; }
+    @media (min-width: 768px) { .profile-dashboard { grid-template-columns: 320px 1fr; } }
+    .profile-sidebar { background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 8px; padding: 2rem; text-align: center; box-shadow: var(--card-shadow); }
+    .profile-avatar-container { position: relative; width: 120px; height: 120px; margin: 0 auto 1.5rem; border-radius: 50%; border: 3px solid var(--rose); overflow: hidden; background: var(--gris-clair); }
+    .profile-avatar-container img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-badge-tag { display: inline-block; background: var(--rose-pale); color: var(--rose); border: 1px solid var(--rose-bord); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; padding: 0.3rem 0.8rem; letter-spacing: 0.05em; border-radius: 20px; margin-top: 0.5rem; }
+    .profile-main-content { display: flex; flex-direction: column; gap: 2rem; }
+    .avatar-picker-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 0.5rem; }
+    .avatar-option { width: 100%; aspect-ratio: 1; border-radius: 50%; cursor: pointer; border: 2px solid transparent; overflow: hidden; background: var(--gris-clair); transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .avatar-option:hover, .avatar-option.selected { border-color: var(--rose); transform: scale(1.05); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       NOUVEAUTÉ : SYSTEME MINI-JEUX FOOT INTERACTIFS
+    ═══════════════════════════════════════════════════════════════ */
+    .games-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 950px; margin: 0 auto; }
+    @media (min-width: 768px) { .games-grid { grid-template-columns: 1fr 1fr; } }
+    .game-card { background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 8px; padding: 2rem; box-shadow: var(--card-shadow); display: flex; flex-direction: column; justify-content: space-between; }
+    .game-arena { background: var(--gris-clair); border: 1px solid var(--rose-bord); border-radius: 6px; padding: 1.5rem; margin: 1.5rem 0; min-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden; }
+    
+    /* Simulateur de Tirs au but */
+    .penalty-cage { width: 100%; height: 120px; border: 4px dashed var(--texte-sec); border-bottom: none; position: relative; margin-top: 1rem; background: rgba(232, 119, 154, 0.03); }
+    .penalty-target { position: absolute; width: 32px; height: 32px; background: var(--rose); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; font-weight: bold; transition: all 0.2s; }
+    .target-top-left { top: 10px; left: 10px; }
+    .target-top-right { top: 10px; right: 10px; }
+    .target-bottom-left { bottom: 10px; left: 10px; }
+    .target-bottom-right { bottom: 10px; right: 10px; }
+    .target-center { top: 45px; left: calc(50% - 16px); }
+    .penalty-keeper { position: absolute; bottom: 0; left: calc(50% - 20px); width: 40px; height: 50px; background: var(--texte); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: all 0.3s ease; border-radius: 4px 4px 0 0; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PANEL ADMIN UNIVERSEL
+    ═══════════════════════════════════════════════════════════════ */
+    .admin-dashboard-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .admin-stat-card { background: var(--rose-pale); border: 1px solid var(--rose-bord); padding: 1rem; border-radius: 4px; text-align: center; }
+    .admin-stat-card h4 { font-size: 0.7rem; text-transform: uppercase; color: var(--texte-sec); }
+    .admin-stat-card p { font-family: var(--bebas); font-size: 2rem; color: var(--rose); }
+
+    .admin-sections-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; padding: 2rem 0; }
+    .admin-block { border: 1px solid var(--rose-bord); padding: 1.75rem; background: var(--blanc); box-shadow: var(--card-shadow); border-radius: 6px; }
+    .admin-block h3 { font-family: var(--bebas); font-size: 1.5rem; margin-bottom: 1.25rem; color: var(--rose); border-bottom: 1px solid var(--rose-pale); padding-bottom: 0.4rem; }
+    .admin-scroll-list { max-height: 200px; overflow-y: auto; border: 1px solid var(--rose-bord); padding: 0.5rem; margin-bottom: 1rem; background: var(--gris-clair); }
+    .admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; border-bottom: 1px solid var(--rose-mid); font-size: 0.8rem; }
+    .admin-list-item:last-child { border-bottom: none; }
+    .admin-list-actions { display: flex; gap: 4px; }
+    .admin-mini-btn { padding: 2px 6px; font-size: 0.65rem; text-transform: uppercase; border: none; cursor: pointer; font-weight: bold; color: #fff; }
+    .btn-edit-mini { background: #333; }
+    .btn-del-mini { background: var(--rose); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       FOOTER
     ═══════════════════════════════════════════════════════════════ */
     footer { background: var(--gris-clair); padding: 4rem 2rem; display: grid; grid-template-columns: 1fr; gap: 3rem; border-top: 1px solid var(--rose-bord); }
     @media (min-width: 768px) { footer { grid-template-columns: 2fr repeat(3, 1fr); padding: 4rem; } }
     .footer-brand-name { font-family: var(--bebas); font-size: 1.7rem; color: var(--texte); }
     .footer-brand-name span { color: var(--rose); }
+    .footer-bottom { background: var(--rose-pale); padding: 1.25rem 2rem; display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--texte-sec); border-top: 1px solid var(--rose-bord); flex-wrap: wrap; gap: 1rem; }
+    @media (min-width: 768px) { .footer-bottom { padding: 1.25rem 4rem; } }
 
     @media(max-width: 768px) {
       .nav-links { display: none; }
@@ -254,6 +381,7 @@
       <li><a id="link-boutique" onclick="showPage('boutique')">Boutique</a></li>
       <li><a id="link-jeux" onclick="showPage('jeux')">Mini-Jeux</a></li>
       <li><a id="link-compte" onclick="showPage('compte')">Mon Profil</a></li>
+      <li><a id="link-parametres" onclick="showPage('parametres')">Paramètres</a></li>
       <li id="nav-admin-link" style="display:none;"><a id="link-admin" onclick="showPage('admin')" style="color:var(--rose); font-weight:bold;">Panel Admin</a></li>
     </ul>
     <div class="nav-right">
@@ -265,201 +393,994 @@
   </nav>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a onclick="showPage('accueil'); toggleMobileMenu()">Club</a>
-    <a onclick="showPage('actualites'); toggleMobileMenu()">Actualités</a>
-    <a onclick="showPage('jeux'); toggleMobileMenu()">Mini-Jeux</a>
-    <a onclick="showPage('compte'); toggleMobileMenu()">Mon Profil</a>
+    <a id="mob-link-club" onclick="showPage('accueil'); toggleMobileMenu()">Club</a>
+    <a id="mob-link-actu" onclick="showPage('actualites'); toggleMobileMenu()">Actualités</a>
+    <a id="mob-link-bill" onclick="showPage('billetterie'); toggleMobileMenu()">Billetterie</a>
+    <a id="mob-link-bout" onclick="showPage('boutique'); toggleMobileMenu()">Boutique</a>
+    <a id="mob-link-jeux" onclick="showPage('jeux'); toggleMobileMenu()">Mini-Jeux</a>
+    <a id="mob-link-comp" onclick="showPage('compte'); toggleMobileMenu()">Mon Profil</a>
+    <a id="mob-link-para" onclick="showPage('parametres'); toggleMobileMenu()">Paramètres</a>
+    <a id="mobile-admin-link" onclick="showPage('admin'); toggleMobileMenu()" style="display:none; color:var(--rose);">Panel Admin</a>
   </div>
 
   <div id="page-accueil" class="page active">
     <div class="hero">
-      <h1 class="hero-title">Le site officiel de la <em>Pignouferie</em></h1>
-      <p class="hero-sub">Bienvenue sur le portail officiel. Progressez, jouez et soutenez votre club favori.</p>
+      <div class="hero-marquee">
+        <div class="hero-marquee-inner" id="hero-marquee-text">PIGNOUFERIE FC • PIGNOUFERIE FC •</div>
+      </div>
+      <div class="hero-eyebrow" id="hero-eyebrow-text">Le Site Officiel</div>
+      <h1 class="hero-title" id="hero-title-text">Plus qu'un club, une <em>légende</em> en rose et blanc.</h1>
+      <p class="hero-sub" id="hero-sub-text">Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.</p>
       <div class="hero-actions">
-        <button class="btn-primary" onclick="showPage('jeux')">Jouer aux mini-jeux</button>
+        <button class="btn-primary" id="hero-btn-ticket" onclick="showPage('billetterie')">Réserver un billet</button>
+        <button class="btn-ghost" id="hero-btn-eff" onclick="document.getElementById('effectif-sec').scrollIntoView()">Découvrir l'effectif</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hero-stat-num" id="hero-stat-year-val">2005</div><div class="hero-stat-label" id="hero-stat-lbl-year">Année de création</div></div>
       </div>
     </div>
+
     <div id="effectif-sec" class="sec">
-      <h2 class="section-title">L'Effectif</h2>
-      <div class="joueurs-grid" id="grid-effectif"></div>
+      <div class="effectif-intro">
+        <div>
+          <p class="section-eyebrow" id="eff-eyebrow">Saison Globale</p>
+          <h2 class="section-title" id="eff-title">L'Effectif Pro</h2>
+          <div class="rule-red"></div>
+        </div>
+        <div class="effectif-numbers">
+          <div><div class="eff-num" id="eff-total-count">24</div><div class="eff-label" id="eff-lbl-players">Joueurs Pro</div></div>
+          <div><div class="eff-num" id="eff-goal-num">1</div><div class="eff-label" id="eff-lbl-goal">Objectif : Gagner</div></div>
+        </div>
+      </div>
+
+      <div class="poste-header" id="header-g">Gardiens (G)</div>
+      <div class="joueurs-grid" id="grid-gardiens"></div>
+
+      <div class="poste-header" id="header-d">Défenseurs (D)</div>
+      <div class="joueurs-grid" id="grid-defenseurs"></div>
+
+      <div class="poste-header" id="header-m">Milieux (M)</div>
+      <div class="joueurs-grid" id="grid-milieux"></div>
+
+      <div class="poste-header" id="header-a">Attaquants (A)</div>
+      <div class="joueurs-grid" id="grid-attaquants"></div>
+    </div>
+
+    <div class="sec sec-alt">
+      <p class="section-eyebrow" id="hist-eyebrow">Récit</p>
+      <h2 class="section-title" id="hist-title">Notre Histoire</h2>
+      <div class="rule-red"></div>
+      <div class="timeline" id="timeline-container"></div>
+    </div>
+  </div>
+
+  <div id="page-actualites" class="page">
+    <div class="premium-header">
+      <p class="section-eyebrow" id="news-eyebrow">Média</p>
+      <h2 class="section-title" id="news-title">Actualités & <em>Presse</em></h2>
+    </div>
+    <div class="sec">
+      <div class="news-grid" id="news-container"></div>
+    </div>
+  </div>
+
+  <div id="page-billetterie" class="page">
+    <div class="premium-header">
+      <p class="section-eyebrow" id="bill-eyebrow">Matchs</p>
+      <h2 class="section-title" id="bill-title">Billetterie <em>Officielle</em></h2>
+    </div>
+    <div class="sec">
+      <div class="match-container-box" id="matchs-container"></div>
+    </div>
+  </div>
+
+  <div id="page-boutique" class="page">
+    <div class="premium-header">
+      <p class="section-eyebrow" id="shop-eyebrow">Look</p>
+      <h2 class="section-title" id="shop-title">La Boutique <em>Pro</em></h2>
+    </div>
+    <div class="sec">
+      <div class="shop-grid" id="boutique-container"></div>
+    </div>
+  </div>
+
+  <button class="cart-bubble" id="cartBubble" onclick="toggleCartPanel(true)">
+    🛒 <span class="cart-count" id="cartCount">0</span>
+  </button>
+  <div class="cart-panel" id="cartPanel">
+    <div style="padding:1.5rem; border-bottom:1px solid var(--rose-bord); display:flex; justify-content:space-between; align-items:center;">
+      <h3 style="font-family:var(--bebas); font-size:1.4rem;" id="cart-title">Votre Panier</h3>
+      <button onclick="toggleCartPanel(false)" style="background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--texte);">✕</button>
+    </div>
+    <div class="cart-items" id="cartItemsContainer"></div>
+    <div style="padding:1.5rem; border-top:1px solid var(--rose-bord);">
+      <div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-weight:bold;">
+         <span>Total :</span><span id="cart-total-price">0.00 €</span>
+      </div>
+      <button class="btn-primary" style="width:100%;" id="cart-btn-checkout" onclick="validateCartOrder()">Passer la commande</button>
     </div>
   </div>
 
   <div id="page-jeux" class="page">
     <div class="premium-header">
-      <h2 class="section-title">Zone <em>Gaming</em></h2>
+      <p class="section-eyebrow">Divertissement</p>
+      <h2 class="section-title">Espace <em>Gaming</em> Pignouferie</h2>
     </div>
     <div class="sec">
       <div class="games-grid">
-        <!-- Jeu Penalty -->
         <div class="game-card">
-          <h3 style="font-family:var(--bebas);">Tirs au but</h3>
-          <div class="game-arena" id="penalty-arena">
-             <div class="penalty-cage">
-                <div class="penalty-keeper" id="gk-player">🧤</div>
-                <div class="penalty-target" style="top:20px; left:20px;" onclick="kickPenalty('tl')">1</div>
-                <div class="penalty-target" style="top:20px; right:20px;" onclick="kickPenalty('tr')">2</div>
-                <div class="penalty-target" style="bottom:20px; left:20px;" onclick="kickPenalty('bl')">3</div>
-                <div class="penalty-target" style="bottom:20px; right:20px;" onclick="kickPenalty('br')">4</div>
-             </div>
-             <p id="penalty-feedback" style="margin-top:1rem;"></p>
+          <div>
+            <span class="section-eyebrow">Jeu d'esprit</span>
+            <h3 style="font-family:var(--bebas); font-size:1.8rem; margin:0.5rem 0;">Le Quiz Flash Foot</h3>
+            <p style="font-size:0.85rem; color:var(--texte-sec);">Testez vos connaissances en football. 5 questions, aucun droit à l'erreur !</p>
+            
+            <div class="game-arena" id="quiz-arena">
+              <p id="quiz-question" style="font-weight:600; text-align:center; margin-bottom:1rem;">Cliquez sur lancer pour démarrer la partie !</p>
+              <div id="quiz-options-box" style="width:100%; display:flex; flex-direction:column; gap:8px;"></div>
+            </div>
           </div>
+          <button class="btn-primary" id="btn-quiz-ctrl" onclick="startQuizGame()">Lancer le Quiz</button>
         </div>
 
-        <!-- Jeu Baby-Foot -->
         <div class="game-card">
-          <h3 style="font-family:var(--bebas);">Baby-Foot Express</h3>
-          <div class="game-arena" id="babyfoot-arena" onclick="shootBall()">
-             <div class="babyfoot-table">
-                <div class="babyfoot-bar"></div>
-                <div class="babyfoot-ball" id="bb-ball" style="top:50%; left:50%;"></div>
-             </div>
-             <p style="margin-top:1rem; font-size:0.8rem;">Cliquez pour shooter la balle !</p>
+          <div>
+            <span class="section-eyebrow">Action</span>
+            <h3 style="font-family:var(--bebas); font-size:1.8rem; margin:0.5rem 0;">Séance de Tirs au But</h3>
+            <p style="font-size:0.85rem; color:var(--texte-sec);">Affrontez le gardien du club. Choisissez une zone stratégique pour placer votre plus belle frappe.</p>
+            
+            <div class="game-arena" id="penalty-arena">
+              <div style="display:flex; justify-content:space-between; width:100%; font-size:0.8rem; font-weight:bold; color:var(--rose);">
+                <span>Série : <span id="pen-score-strikes">0</span>/5</span>
+                <span>Buts : <span id="pen-score-goals">0</span></span>
+              </div>
+              <div class="penalty-cage">
+                <div class="penalty-keeper" id="gk-player">🕴️</div>
+                <div class="penalty-target target-top-left" onclick="kickPenalty('tl')">🎯</div>
+                <div class="penalty-target target-top-right" onclick="kickPenalty('tr')">🎯</div>
+                <div class="penalty-target target-center" onclick="kickPenalty('c')">🎯</div>
+                <div class="penalty-target target-bottom-left" onclick="kickPenalty('bl')">🎯</div>
+                <div class="penalty-target target-bottom-right" onclick="kickPenalty('br')">🎯</div>
+              </div>
+              <p id="penalty-feedback" style="margin-top:1rem; font-size:0.85rem; font-weight:600; text-align:center;"></p>
+            </div>
           </div>
+          <button class="btn-ghost" onclick="resetPenaltyGame()">Réinitialiser la séance</button>
         </div>
-      </div>
-      
-      <!-- Classement -->
-      <div class="sec">
-        <h3 class="section-title" style="font-size: 2rem;">Classement des joueurs</h3>
-        <table class="leaderboard">
-          <thead><tr><th>Rang</th><th>Joueur</th><th>Points</th></tr></thead>
-          <tbody id="leaderboard-body"></tbody>
-        </table>
       </div>
     </div>
   </div>
 
   <div id="page-compte" class="page">
+    <div class="auth-container" id="auth-unlogged-view">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="setAuthMode('login')">Connexion</button>
+        <button class="auth-tab" id="tab-register" onclick="setAuthMode('register')">Créer un compte</button>
+        <button class="auth-tab" id="tab-admin" onclick="setAuthMode('admin')">Staff Admin</button>
+      </div>
+      
+      <form id="auth-form" onsubmit="handleAuth(event)">
+        <div class="form-group">
+          <label id="label-identifiant" for="auth-email">Adresse Email</label>
+          <input type="text" id="auth-email" required />
+        </div>
+        <div class="form-group">
+          <label id="label-password" for="auth-password">Mot de passe</label>
+          <input type="password" id="auth-password" required />
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%; margin-top:0.5rem;" id="auth-submit-btn">Se connecter</button>
+      </form>
+    </div>
+
+    <div class="sec" id="auth-logged-view" style="display:none;">
+      <div class="premium-header" style="padding:2rem 0; background:none; border-bottom:none; margin-bottom:2rem;">
+        <p class="section-eyebrow">Espace Privé</p>
+        <h2 class="section-title">Votre Espace <em>Supporter</em></h2>
+      </div>
+
+      <div class="profile-dashboard">
+        <div class="profile-sidebar" id="profile-card-preview">
+          <div class="profile-avatar-container">
+            <span id="user-avatar-disp" style="font-size:4.5rem; display:block; line-height:115px;">👤</span>
+          </div>
+          <h3 id="user-pseudo-disp" style="font-family:var(--bebas); font-size:1.8rem; margin-bottom:0.2rem;">Supporter_Pignouf</h3>
+          <p id="user-email-disp" style="font-size:0.8rem; color:var(--texte-sec); margin-bottom:1rem;">user@pignouferie.com</p>
+          <div class="profile-badge-tag" id="user-badge-disp">Fidèle Abonné</div>
+          
+          <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--rose-bord); text-align:left; font-size:0.8rem;">
+            <p style="margin-bottom:0.4rem;">🏆 Score Quiz : <strong id="stats-quiz-score">0</strong></p>
+            <p>⚽ Tirs au but réussis : <strong id="stats-pen-score">0</strong></p>
+          </div>
+          <button class="btn-ghost" style="margin-top:2rem; color:var(--danger); border-color:var(--rose-bord); font-size:0.7rem;" onclick="logoutUser()">Se déconnecter</button>
+        </div>
+
+        <div class="profile-main-content">
+          <div class="settings-card" style="box-shadow:var(--card-shadow); border:1px solid var(--rose-bord);">
+            <h3 style="font-size:1.2rem; color:var(--texte);">Personnalisez votre Identité</h3>
+            
+            <div class="form-group" style="margin-top:1.5rem;">
+              <label>Votre Pseudo de Supporter</label>
+              <input type="text" id="input-profile-pseudo" value="Supporter_Pignouf" oninput="updateProfileLive()" />
+            </div>
+
+            <div class="form-group">
+              <label>Choisir un Avatar Officiel</label>
+              <div class="avatar-picker-grid">
+                <div class="avatar-option selected" onclick="selectAvatar('👤', this)">👤</div>
+                <div class="avatar-option" onclick="selectAvatar('🦁', this)">🦁</div>
+                <div class="avatar-option" onclick="selectAvatar('⚽', this)">⚽</div>
+                <div class="avatar-option" onclick="selectAvatar('👑', this)">👑</div>
+                <div class="avatar-option" onclick="selectAvatar('🦅', this)">🦅</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Titre / Badge honorifique</label>
+              <select id="input-profile-badge" onchange="updateProfileLive()">
+                <option value="Fidèle Abonné">Fidèle Abonné</option>
+                <option value="Capo des Ultras">Capo des Ultras</option>
+                <option value="Légende du Club">Légende du Club</option>
+                <option value="Tacticien Rose">Tacticien Rose</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Thème exclusif du Profil</label>
+              <select id="input-profile-theme" onchange="updateProfileTheme(this.value)">
+                <option value="classic">Rose Pignouferie d'origine</option>
+                <option value="gold">Édition Or Premium</option>
+                <option value="darkcard">Charbon Obscur d'élite</option>
+              </select>
+            </div>
+            
+            <button class="btn-primary" style="font-size:0.7rem; width:100%;" onclick="saveProfileData()">Enregistrer mon profil</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="page-parametres" class="page">
     <div class="sec">
-       <h2 class="section-title">Mon Profil</h2>
-       <div id="login-box">
-          <p>Connectez-vous pour accéder aux jeux et au classement.</p>
-          <input type="text" id="username" placeholder="Pseudo" style="padding:10px; margin:10px 0; display:block; width:100%;">
-          <button class="btn-primary" onclick="login()">Se connecter</button>
-       </div>
-       <div id="profile-box" style="display:none;">
-          <p>Bienvenue, <span id="display-user"></span> !</p>
-          <button class="btn-ghost" onclick="logout()">Déconnexion</button>
-       </div>
+      <p class="section-eyebrow" id="param-eyebrow">Préférences</p>
+      <h2 class="section-title" id="param-title">Configuration du Site</h2>
+      <div class="rule-red"></div>
+      <div class="settings-grid">
+        
+        <div class="settings-card">
+          <h3 id="setting-h-display">Affichage Général</h3>
+          <div class="toggle-switch">
+            <span id="setting-lbl-dark">Mode Sombre (Dark Mode)</span>
+            <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode(this.checked)" style="width:40px; height:20px; cursor:pointer;" />
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3 id="setting-h-lang">Langue de l'interface</h3>
+          <div class="form-group" style="margin-top:0.5rem;">
+            <select id="setting-lang" onchange="changeLanguage(this.value)">
+              <option value="fr">Français (FR)</option>
+              <option value="en">English (UK)</option>
+              <option value="es">Español (ES)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3 id="setting-h-notif">Système & Notifications</h3>
+          <div class="toggle-switch">
+            <span id="setting-lbl-notif1">Alertes de Billetterie</span>
+            <input type="checkbox" checked onclick="alert('Notification alert updated')" style="width:40px; height:20px;" />
+          </div>
+          <div class="toggle-switch" style="margin-top:0.5rem;">
+            <span id="setting-lbl-notif2">Newsletters Boutique</span>
+            <input type="checkbox" onclick="alert('Newsletter alert updated')" style="width:40px; height:20px;" />
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3 id="setting-h-access">Accessibilité</h3>
+          <label style="font-size:0.8rem; color:var(--texte-sec);" id="setting-lbl-font">Taille globale de la police :</label>
+          <select onchange="document.documentElement.style.setProperty('--font-modifier', this.value)" style="margin-top:0.5rem;">
+            <option value="100%" id="opt-font-n">Normale (Par défaut)</option>
+            <option value="110%" id="opt-font-l">Grande (+10%)</option>
+            <option value="120%" id="opt-font-xl">Très Grande (+20%)</option>
+          </select>
+        </div>
+
+        <div class="settings-card">
+          <h3 id="setting-h-cache">Données Locales</h3>
+          <p style="font-size:0.75rem; color:var(--texte-sec); margin-bottom:1rem;" id="setting-lbl-cache">Réinitialiser les préférences stockées dans votre navigateur.</p>
+          <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.65rem;" id="setting-btn-cache" onclick="localStorage.clear(); alert('Cache local vidé ! Rechargez la page.'); location.reload();">Vider le cache système</button>
+        </div>
+
+      </div>
     </div>
   </div>
 
   <div id="page-admin" class="page">
-     <div class="sec">
-        <h2 class="section-title">Admin (Suppression)</h2>
-        <div id="admin-list-container"></div>
-     </div>
+    <div class="sec">
+      <p class="section-eyebrow" id="adm-eyebrow">Administration Globale</p>
+      <h2 class="section-title" id="adm-title">Console Directoire Active</h2>
+      <div class="rule-red"></div>
+
+      <div class="admin-dashboard-stats">
+        <div class="admin-stat-card">
+          <h4>Joueurs Actifs</h4>
+          <p id="stat-count-players">0</p>
+        </div>
+        <div class="admin-stat-card">
+          <h4>Articles de Presse</h4>
+          <p id="stat-count-news">0</p>
+        </div>
+        <div class="admin-stat-card">
+          <h4>Jalons Histoire</h4>
+          <p id="stat-count-hist">0</p>
+        </div>
+        <div class="admin-stat-card">
+          <h4>Ventes Simulées</h4>
+          <p id="stat-count-sales">0.00 €</p>
+        </div>
+      </div>
+
+      <div class="admin-sections-grid">
+        <div class="admin-block">
+          <h3 id="adm-h-home">Modifier la Page d'Accueil & Infos</h3>
+          <div class="form-group"><label id="adm-lbl-marq">Slogan Marquee</label><input type="text" id="adm-hero-marquee" /></div>
+          <div class="form-group"><label id="adm-lbl-eye">Eyebrow Text</label><input type="text" id="adm-hero-eyebrow" /></div>
+          <div class="form-group"><label id="adm-lbl-tit">Titre Principal (HTML supporté)</label><textarea id="adm-hero-title" rows="2"></textarea></div>
+          <div class="form-group"><label id="adm-lbl-sub">Sous-titre Description</label><textarea id="adm-hero-sub" rows="3"></textarea></div>
+          <div class="form-group"><label id="adm-lbl-year">Année de création du club</label><input type="text" id="adm-creation-year" /></div>
+          <button class="btn-primary" style="width:100%; font-size:0.7rem;" onclick="saveHeroInfosCloud()">Sauvegarder l'Accueil pour tous</button>
+        </div>
+
+        <div class="admin-block">
+          <h3 id="adm-h-eff">Gérer l'Effectif Pro</h3>
+          <div class="form-group">
+            <label id="adm-lbl-pos">Poste</label>
+            <select id="adm-player-poste">
+              <option value="gardiens">Gardien</option>
+              <option value="defenseurs">Défenseur</option>
+              <option value="milieux">Milieu</option>
+              <option value="attaquants">Attaquant</option>
+            </select>
+          </div>
+          <div class="form-group"><label id="adm-lbl-pnum">Numéro (#)</label><input type="text" id="adm-player-num" placeholder="Ex: 9" /></div>
+          <div class="form-group"><label id="adm-lbl-pnom">Nom Complet</label><input type="text" id="adm-player-nom" placeholder="Ex: T. Epyneau" /></div>
+          <div class="form-group"><label id="adm-lbl-prole">Rôle/Poste abrégé</label><input type="text" id="adm-player-role" placeholder="Ex: BU" /></div>
+          <button class="btn-primary" style="width:100%; font-size:0.7rem;" id="adm-btn-addp" onclick="addPlayerPro()">Ajouter le Joueur</button>
+        </div>
+
+        <div class="admin-block">
+          <h3 id="adm-h-news">Éditeur d'Articles / Actualités</h3>
+          <div class="admin-scroll-list" id="adm-news-list"></div>
+          <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord); border-radius:4px;">
+            <h4 style="font-size:0.8rem; margin-bottom:0.5rem;" id="article-form-title">Créer / Modifier un Article</h4>
+            <input type="hidden" id="admin-news-id" value="" />
+            <div class="form-group"><label id="adm-lbl-atit">Titre Actu</label><input type="text" id="admin-news-title" /></div>
+            <div class="form-group"><label id="adm-lbl-abdy">Extrait / Corps</label><textarea id="admin-news-excerpt" rows="2"></textarea></div>
+            <div class="form-group"><label id="adm-lbl-aimg">URL Image d'illustration (Optionnel)</label><input type="text" id="admin-news-img" placeholder="https://images..." /></div>
+            <div class="form-group"><label id="adm-lbl-ayt">ID Vidéo YouTube (Optionnel)</label><input type="text" id="admin-news-yt" placeholder="Ex: dQw4w9WgXcQ" /></div>
+            <div class="form-group"><label id="adm-lbl-adat">Date d'affichage</label><input type="text" id="admin-news-date" placeholder="Ex: Juin 2026" /></div>
+            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" id="adm-btn-saven" onclick="saveNewsPro()">Sauvegarder l'article</button>
+            <button class="btn-ghost" style="font-size:0.65rem; margin-left:0.5rem;" id="adm-btn-resetn" onclick="resetNewsForm()">Annuler / Reset</button>
+          </div>
+        </div>
+
+        <div class="admin-block">
+          <h3 id="adm-h-hist">Éditeur de Récits Historiques</h3>
+          <div class="admin-scroll-list" id="adm-hist-list"></div>
+          <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord); border-radius:4px;">
+            <h4 style="font-size:0.8rem; margin-bottom:0.5rem;" id="hist-form-title">Nouveau / Modifier Jalon</h4>
+            <input type="hidden" id="admin-hist-id" value="" />
+            <div class="form-group"><label id="adm-lbl-hyear">Année</label><input type="text" id="admin-hist-year" /></div>
+            <div class="form-group"><label id="adm-lbl-htit">Événement</label><input type="text" id="admin-hist-title" /></div>
+            <div class="form-group"><label id="adm-lbl-hdet">Détails</label><textarea id="admin-hist-detail" rows="2"></textarea></div>
+            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" id="adm-btn-saveh" onclick="saveHistoryPro()">Sauvegarder le jalon</button>
+            <button class="btn-ghost" style="font-size:0.65rem; margin-left:0.5rem;" onclick="resetHistoryForm()">Annuler</button>
+          </div>
+        </div>
+
+        <div class="admin-block">
+          <h3 id="adm-h-bill">Gérer les Matchs & États de Vente</h3>
+          <div class="form-group"><label id="adm-lbl-mhom">Équipe Domicile</label><input type="text" id="adm-match-home" value="La Pignouferie FC" /></div>
+          <div class="form-group"><label id="adm-lbl-mawy">Équipe Extérieur</label><input type="text" id="adm-match-away" /></div>
+          <div class="form-group"><label id="adm-lbl-mdat">Date & Heure</label><input type="text" id="adm-match-date" placeholder="Samedi prochain - 20h00" /></div>
+          <div class="form-group"><label id="adm-lbl-mcmp">Compétition</label><input type="text" id="adm-match-comp" placeholder="Ligue Majeure" /></div>
+          <div class="form-group"><label id="adm-lbl-mprc">Prix du billet (€)</label><input type="number" id="adm-match-price" value="15" /></div>
+          <div class="form-group">
+            <label>Statut des places de billetterie</label>
+            <select id="adm-match-status" onchange="toggleTicketSales(this.value)">
+              <option value="disabled">Indisponible (Fermé)</option>
+              <option value="enabled">Disponible (Ouvert à l'achat)</option>
+            </select>
+          </div>
+          <button class="btn-primary" style="width:100%; font-size:0.7rem;" id="adm-btn-savem" onclick="updateMatchPro()">Mettre à jour le match</button>
+        </div>
+
+        <div class="admin-block">
+          <h3 id="adm-h-shop">Modifier la Boutique Pro</h3>
+          <div class="form-group">
+            <label>État de la Boutique Globale</label>
+            <select id="adm-shop-status" onchange="toggleShopSales(this.value)">
+               <option value="disabled">Indisponible (Fermé)</option>
+               <option value="enabled">Disponible (Ouvert à l'achat)</option>
+            </select>
+          </div>
+          <div id="adm-products-list"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-brand-name">PIGNOUFERIE <span id="footer-logo-span">FC</span></div>
+      <p style="font-size:0.8rem; color:var(--texte-sec);" id="footer-desc">Club mythique fondé en 2005. Performance, excellence et couleur rose affirmée sur tous les terrains.</p>
+    </div>
+    <div>
+      <div class="section-eyebrow" style="margin-bottom:0.5rem;" id="footer-h-nav">Navigation</div>
+      <a onclick="showPage('accueil')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;" id="footer-link-club">Club</a>
+      <a onclick="showPage('actualites')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;" id="footer-link-news">Actualités</a>
+    </div>
+    <div>
+      <div class="section-eyebrow" style="margin-bottom:0.5rem;" id="footer-h-legal">Légal</div>
+      <p style="font-size:0.8rem; color:var(--texte-sec);" id="footer-legal-text">Mentions Légales<br>CGV Boutique</p>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <div id="footer-copyright-text">© 2005-2026 La Pignouferie FC. Tous droits réservés.</div>
   </div>
 
   <script>
-    // --- APP STATE ---
-    let currentUser = localStorage.getItem('pignouf_user') || null;
-    let users = JSON.parse(localStorage.getItem('pignouf_users') || '{"Joueur_1": 150, "Supporter_X": 210}');
-
-    // --- ACCÈS AUX JEUX ---
-    function showPage(pageId) {
-      if ((pageId === 'jeux') && !currentUser) {
-         alert("Connectez-vous pour jouer !");
-         pageId = 'compte';
-      }
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page-' + pageId).classList.add('active');
-    }
-
-    // --- AUTHENTIFICATION ---
-    function login() {
-      const u = document.getElementById('username').value;
-      if(u) {
-        currentUser = u;
-        localStorage.setItem('pignouf_user', u);
-        if(!users[u]) users[u] = 0;
-        localStorage.setItem('pignouf_users', JSON.stringify(users));
-        renderLogin();
-      }
-    }
-
-    function logout() {
-      currentUser = null;
-      localStorage.removeItem('pignouf_user');
-      renderLogin();
-    }
-
-    function renderLogin() {
-      if(currentUser) {
-        document.getElementById('login-box').style.display = 'none';
-        document.getElementById('profile-box').style.display = 'block';
-        document.getElementById('display-user').innerText = currentUser;
-      } else {
-        document.getElementById('login-box').style.display = 'block';
-        document.getElementById('profile-box').style.display = 'none';
-      }
-      updateLeaderboard();
-    }
-
-    // --- MINI-JEUX ---
-    // 1. Tir au but
-    function kickPenalty(zone) {
-      const gk = document.getElementById('gk-player');
-      const feedback = document.getElementById('penalty-feedback');
-      const zones = ['tl', 'tr', 'bl', 'br'];
-      const keeperChoice = zones[Math.floor(Math.random() * zones.length)];
-      
-      gk.style.transform = (keeperChoice === 'tl' || keeperChoice === 'bl') ? 'translateX(-40px)' : 'translateX(40px)';
-      
-      if (zone !== keeperChoice) {
-         feedback.innerText = "⚽ BUT ! +10 pts";
-         users[currentUser] += 10;
-      } else {
-         feedback.innerText = "🧤 Arrêt du gardien...";
-      }
-      localStorage.setItem('pignouf_users', JSON.stringify(users));
-      updateLeaderboard();
-    }
-
-    // 2. Baby-foot
-    function shootBall() {
-      const ball = document.getElementById('bb-ball');
-      ball.style.left = "90%";
-      setTimeout(() => {
-        ball.style.left = "50%";
-        alert("But ! +5 pts");
-        users[currentUser] += 5;
-        localStorage.setItem('pignouf_users', JSON.stringify(users));
-        updateLeaderboard();
-      }, 300);
-    }
-
-    // --- LEADERBOARD ---
-    function updateLeaderboard() {
-      const body = document.getElementById('leaderboard-body');
-      body.innerHTML = Object.entries(users)
-        .sort((a,b) => b[1] - a[1])
-        .map(([u, score], i) => `<tr><td>${i+1}</td><td>${u}</td><td>${score}</td></tr>`)
-        .join('');
-    }
-
-    // --- ADMIN (POUR SUPPRESSION) ---
-    // Dummy effectif pour démo
-    let effectif = ["Joueur A", "Joueur B", "Joueur C"]; 
-    function renderAdmin() {
-       document.getElementById('admin-list-container').innerHTML = effectif.map((n, i) => `
-         <div style="padding:10px; border:1px solid #ccc; margin:5px;">
-           ${n} <button class="admin-del" onclick="deletePlayer(${i})">Supprimer</button>
-         </div>
-       `).join('');
-    }
-    function deletePlayer(i) {
-       effectif.splice(i, 1);
-       renderAdmin();
-    }
-
-    // --- INIT ---
-    window.onload = () => {
-      renderLogin();
-      renderAdmin();
-      updateLeaderboard();
+    // Configuration Realtime Database d'Origine
+    const firebaseConfig = {
+      apiKey: "AIzaSyBMEno-arAeHeJNNB597sDDTM_noePLV4I",
+      authDomain: "lapigouferie-fc.firebaseapp.com",
+      databaseURL: "https://lapigouferie-fc-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "lapigouferie-fc",
+      storageBucket: "lapigouferie-fc.firebasestorage.app",
+      messagingSenderId: "154004936337",
+      appId: "1:154004936337:web:c5345eb0710a7d36c69130"
     };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Structures de données d'Origine
+    let effectifPro = { gardiens: [], defenseurs: [], milieux: [], attaquants: [] };
+    let actualites = [];
+    let actualitesKeys = [];
+    let histoireTimeline = [];
+    let histoireKeys = [];
+    let matchData = { home: "La Pignouferie FC", away: "Stade de l'Aube FC", vs: "VS", date: "Samedi prochain - 20h00", comp: "Ligue Majeure", price: 15, salesStatus: "disabled" };
+    let boutiqueProduits = [
+      { id: 0, type: "jersey", badge: "Home", name: "Maillot Domicile Pro 2026", price: 85, color: "#E8779A", subColor: "#FFFFFF", emoji: "👕", salesStatus: "disabled" },
+      { id: 1, type: "jersey", badge: "Away", name: "Maillot Extérieur 2026", price: 85, color: "#FFFFFF", subColor: "#E8779A", emoji: "👕", salesStatus: "disabled" },
+      { id: 2, type: "accessory", emoji: "🧣", name: "Écharpe Ultras Pignouferie", price: 18, salesStatus: "disabled" }
+    ];
+
+    let currentLang = 'fr';
+    let panier = [];
+    let currentAuthMode = 'login';
+    let isAdminLoggedIn = false;
+    let isUserLoggedIn = false;
+    let simulatedEarnings = 0;
+    
+    // États Utilisateur local personnalisable
+    let userProfile = {
+      pseudo: "Supporter_Pignouf",
+      email: "user@pignouferie.com",
+      avatar: "👤",
+      badge: "Fidèle Abonné",
+      theme: "classic",
+      scoreQuiz: 0,
+      scorePen: 0
+    };
+
+    // Configuration des questions du Mini-Jeu Quiz
+    const quizQuestions = [
+      { q: "En quelle année a été fondé La Pignouferie FC ?", o: ["2001", "2005", "2010", "1998"], a: 1 },
+      { q: "Quelles sont les couleurs officielles du club ?", o: ["Rouge et Bleu", "Rose et Blanc", "Vert et Noir", "Jaune"], a: 1 },
+      { q: "Combien de joueurs pro composent l'effectif global ?", o: ["11", "18", "24", "30"], a: 2 },
+      { q: "Quel est l'objectif premier du club mentionné ?", o: ["Ne pas descendre", "Gagner", "Faire du spectacle", "Former"], a: 1 },
+      { q: "Qui est désigné comme Capitaine au milieu de terrain ?", o: ["W. Van Goor", "Vitinha", "K. Pottier", "M. Pignouf"], a: 1 }
+    ];
+    let currentQuizIndex = 0;
+    let tempQuizScore = 0;
+
+    // Synchronisation Cloud Réseau Firebase Realtime
+    db.ref('site_infos').on('value', (snapshot) => {
+      const data = snapshot.val();
+      if(data) {
+        if(data.marquee) document.getElementById('hero-marquee-text').innerText = data.marquee;
+        if(data.eyebrow) document.getElementById('hero-eyebrow-text').innerText = data.eyebrow;
+        if(data.title) document.getElementById('hero-title-text').innerHTML = data.title;
+        if(data.sub) document.getElementById('hero-sub-text').innerText = data.sub;
+        if(data.year) {
+          document.getElementById('hero-stat-year-val').innerText = data.year;
+          document.getElementById('nav-creation-badge').innerText = "Fondé en " + data.year;
+          document.getElementById('footer-copyright-text').innerText = `© ${data.year}-2026 La Pignouferie FC. Tous droits réservés.`;
+        }
+      }
+    });
+
+    db.ref('effectif').on('value', (snapshot) => {
+      const data = snapshot.val();
+      if(snapshot.exists()) { effectifPro = data; } else {
+        effectifPro = {
+          gardiens: [{ num: "1", nom: "M. Delaunay", poste: "G" }, { num: "24", nom: "M. Lemonnier", poste: "G" }, { num: "-", nom: "G. Jourdain", poste: "G" }],
+          defenseurs: [{ num: "32", nom: "Q. Ferrier", poste: "DG" }, { num: "5", nom: "A. Chapuis", poste: "DG" }, { num: "29", nom: "M. Pignouf", poste: "DC" }, { num: "30", nom: "L. Perlade", poste: "DC" }, { num: "4", nom: "P. Vincent", poste: "DC" }, { num: "3", nom: "D. Lagarde", poste: "DC" }, { num: "6", nom: "K. Marquet", poste: "DD" }, { num: "2", nom: "F. Naciri", poste: "DD" }],
+          milieux: [{ num: "16", nom: "K. Pottier", poste: "MDC" }, { num: "8", nom: "Vitinha (Capitaine)", poste: "MC" }, { num: "13", nom: "A. Arthis", poste: "MC" }, { num: "17", nom: "O. Dieng", poste: "MC" }, { num: "10", nom: "W. Van Goor", poste: "MOC" }, { num: "20", nom: "J. Fischer", poste: "MD" }],
+          attaquants: [{ num: "7", nom: "T. Desgranges", poste: "AG" }, { num: "11", nom: "I. Benzekri", poste: "AG" }, { num: "19", nom: "I. Haba", poste: "AG" }, { num: "12", nom: "C. Beaulieu", poste: "AD" }, { num: "9", nom: "T. Epyneau", poste: "BU" }, { num: "22", nom: "K. Dieme", poste: "BU" }]
+        };
+      }
+      renderEffectif();
+      updateDashboardStats();
+    });
+
+    db.ref('actualites').on('value', (snapshot) => {
+      const data = snapshot.val();
+      actualites = []; actualitesKeys = [];
+      if(data) {
+        Object.keys(data).forEach(key => { actualites.push(data[key]); actualitesKeys.push(key); });
+      }
+      renderActualites();
+      updateDashboardStats();
+    });
+
+    db.ref('histoire').on('value', (snapshot) => {
+      const data = snapshot.val();
+      histoireTimeline = []; histoireKeys = [];
+      if(data) {
+        Object.keys(data).forEach(key => { histoireTimeline.push(data[key]); histoireKeys.push(key); });
+      }
+      renderTimeline();
+      updateDashboardStats();
+    });
+
+    db.ref('match').on('value', (snapshot) => {
+      if(snapshot.exists()) { matchData = snapshot.val(); }
+      renderMatchs();
+    });
+
+    db.ref('boutique').on('value', (snapshot) => {
+      if(snapshot.exists()) { boutiqueProduits = snapshot.val(); }
+      renderBoutique();
+    });
+
+    window.onload = function() {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      if(savedTheme === 'dark') {
+        document.getElementById('dark-mode-toggle').checked = true;
+        toggleDarkMode(true);
+      }
+      // Charger le profil utilisateur s'il existe localement
+      const savedProfile = localStorage.getItem('pignouf_user_profile');
+      if(savedProfile) {
+        userProfile = JSON.parse(savedProfile);
+      }
+      applyLanguage(currentLang);
+    };
+
+    function updateDashboardStats() {
+      let totalPlayers = (effectifPro.gardiens?.length || 0) + (effectifPro.defenseurs?.length || 0) + (effectifPro.milieux?.length || 0) + (effectifPro.attaquants?.length || 0);
+      document.getElementById('stat-count-players').innerText = totalPlayers;
+      document.getElementById('stat-count-news').innerText = actualites.length;
+      document.getElementById('stat-count-hist').innerText = histoireTimeline.length;
+      document.getElementById('stat-count-sales').innerText = simulatedEarnings.toFixed(2) + " €";
+    }
+
+    // AUTHENTIFICATION ET MODES LOGGÉS
+    function setAuthMode(mode) {
+      currentAuthMode = mode;
+      document.getElementById('tab-login').classList.toggle('active', mode === 'login');
+      document.getElementById('tab-register').classList.toggle('active', mode === 'register');
+      document.getElementById('tab-admin').classList.toggle('active', mode === 'admin');
+      
+      const submitBtn = document.getElementById('auth-submit-btn');
+      const labelId = document.getElementById('label-identifiant');
+
+      if (mode === 'admin') {
+        labelId.innerText = "Identifiant Secrétariat Admin";
+        submitBtn.innerText = "Se connecter à l'espace Admin";
+      } else if(mode === 'register') {
+        labelId.innerText = "Adresse Email";
+        submitBtn.innerText = "Créer mon compte";
+      } else {
+        labelId.innerText = "Adresse Email";
+        submitBtn.innerText = "Se connecter";
+      }
+    }
+
+    function handleAuth(e) {
+      e.preventDefault();
+      const identifiant = document.getElementById('auth-email').value;
+      const mdp = document.getElementById('auth-password').value;
+
+      if(currentAuthMode === 'admin') {
+        if(identifiant === "admin" && mdp === "admin2026") {
+          isAdminLoggedIn = true;
+          document.body.classList.add('is-admin-mode');
+          document.getElementById('nav-admin-link').style.display = 'block';
+          document.getElementById('mobile-admin-link').style.display = 'block';
+          alert('Connexion d\'infrastructure réussie !');
+          showPage('admin');
+        } else {
+          alert('🚫 Identifiants administratifs incorrects.');
+        }
+      } else if (currentAuthMode === 'register') {
+        userProfile.email = identifiant;
+        userProfile.pseudo = identifiant.split('@')[0];
+        isUserLoggedIn = true;
+        localStorage.setItem('pignouf_user_profile', JSON.stringify(userProfile));
+        alert(`Compte synchronisé avec succès pour ${identifiant} !`);
+        toggleLoggedView(true);
+      } else {
+        userProfile.email = identifiant;
+        isUserLoggedIn = true;
+        toggleLoggedView(true);
+        alert('Connexion utilisateur réussie !');
+      }
+    }
+
+    function toggleLoggedView(isLogged) {
+      if(isLogged) {
+        document.getElementById('auth-unlogged-view').style.display = 'none';
+        document.getElementById('auth-logged-view').style.display = 'block';
+        updateProfileFieldsUI();
+      } else {
+        document.getElementById('auth-unlogged-view').style.display = 'block';
+        document.getElementById('auth-logged-view').style.display = 'none';
+      }
+    }
+
+    function logoutUser() {
+      isUserLoggedIn = false;
+      toggleLoggedView(false);
+    }
+
+    // LOGIQUE DE PERSONNALISATION DU PROFIL (NOUVEAU)
+    function selectAvatar(emoji, element) {
+      document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
+      element.classList.add('selected');
+      userProfile.avatar = emoji;
+      updateProfileLive();
+    }
+
+    function updateProfileLive() {
+      document.getElementById('user-avatar-disp').innerText = userProfile.avatar;
+      document.getElementById('user-pseudo-disp').innerText = document.getElementById('input-profile-pseudo').value || "Supporter";
+      document.getElementById('user-badge-disp').innerText = document.getElementById('input-profile-badge').value;
+    }
+
+    function updateProfileTheme(themeName) {
+      userProfile.theme = themeName;
+      const card = document.getElementById('profile-card-preview');
+      if(themeName === 'gold') {
+        card.style.background = "linear-gradient(135deg, #FBF4E4 0%, #FFF 100%)";
+        card.style.borderColor = "#D4AF37";
+      } else if (themeName === 'darkcard') {
+        card.style.background = "#1C1C1F";
+        card.style.borderColor = "#444";
+        card.style.color = "#FFF";
+      } else {
+        card.style.background = "var(--blanc)";
+        card.style.borderColor = "var(--rose-bord)";
+        card.style.color = "var(--texte)";
+      }
+    }
+
+    function updateProfileFieldsUI() {
+      document.getElementById('input-profile-pseudo').value = userProfile.pseudo;
+      document.getElementById('input-profile-badge').value = userProfile.badge;
+      document.getElementById('input-profile-theme').value = userProfile.theme;
+      document.getElementById('user-email-disp').innerText = userProfile.email;
+      document.getElementById('stats-quiz-score').innerText = userProfile.scoreQuiz;
+      document.getElementById('stats-pen-score').innerText = userProfile.scorePen;
+      updateProfileTheme(userProfile.theme);
+      document.getElementById('user-avatar-disp').innerText = userProfile.avatar;
+      document.getElementById('user-pseudo-disp').innerText = userProfile.pseudo;
+      document.getElementById('user-badge-disp').innerText = userProfile.badge;
+    }
+
+    function saveProfileData() {
+      userProfile.pseudo = document.getElementById('input-profile-pseudo').value;
+      userProfile.badge = document.getElementById('input-profile-badge').value;
+      localStorage.setItem('pignouf_user_profile', JSON.stringify(userProfile));
+      alert('Profil mis à jour et sauvegardé localement !');
+    }
+
+    // LOGIQUE DE L'ESPACE MINI-JEUX INTERACTIFS (NOUVEAU)
+    function startQuizGame() {
+      currentQuizIndex = 0;
+      tempQuizScore = 0;
+      document.getElementById('btn-quiz-ctrl').style.display = 'none';
+      showQuizQuestion();
+    }
+
+    function showQuizQuestion() {
+      if(currentQuizIndex >= quizQuestions.length) {
+        document.getElementById('quiz-question').innerText = `Quiz terminé ! Votre score : ${tempQuizScore}/${quizQuestions.length}`;
+        document.getElementById('quiz-options-box').innerHTML = '';
+        document.getElementById('btn-quiz-ctrl').style.display = 'inline-block';
+        document.getElementById('btn-quiz-ctrl').innerText = 'Recommencer';
+        if(tempQuizScore > userProfile.scoreQuiz) {
+          userProfile.scoreQuiz = tempQuizScore;
+          localStorage.setItem('pignouf_user_profile', JSON.stringify(userProfile));
+          document.getElementById('stats-quiz-score').innerText = tempQuizScore;
+        }
+        return;
+      }
+      
+      const qData = quizQuestions[currentQuizIndex];
+      document.getElementById('quiz-question').innerText = `Q${currentQuizIndex+1}: ${qData.q}`;
+      document.getElementById('quiz-options-box').innerHTML = qData.o.map((opt, i) => `
+        <button class="btn-ghost" style="text-align:left; padding:10px; border:1px solid var(--rose-bord); border-radius:4px;" onclick="submitQuizAnswer(${i})">${opt}</button>
+      `).join('');
+    }
+
+    function submitQuizAnswer(indexSelected) {
+      const qData = quizQuestions[currentQuizIndex];
+      if(indexSelected === qData.a) {
+        tempQuizScore++;
+        alert("Correct ! 🎉");
+      } else {
+        alert(`Faux ! La bonne réponse était : ${qData.o[qData.a]}`);
+      }
+      currentQuizIndex++;
+      showQuizQuestion();
+    }
+
+    // Jeu Tirs au but
+    let penaltyStrikes = 0;
+    let penaltyGoals = 0;
+    function kickPenalty(zone) {
+      if(penaltyStrikes >= 5) {
+        alert("Séance terminée ! Réinitialisez pour rejouer.");
+        return;
+      }
+      const zones = ['tl', 'tr', 'c', 'bl', 'br'];
+      const keeperChoice = zones[Math.floor(Math.random() * zones.length)];
+      const gkElement = document.getElementById('gk-player');
+      
+      // Animation visuelle du gardien
+      if(keeperChoice === 'tl') gkElement.style.transform = 'translate(-40px, -20px)';
+      else if(keeperChoice === 'tr') gkElement.style.transform = 'translate(40px, -20px)';
+      else if(keeperChoice === 'bl') gkElement.style.transform = 'translate(-40px, 10px)';
+      else if(keeperChoice === 'br') gkElement.style.transform = 'translate(40px, 10px)';
+      else gkElement.style.transform = 'translate(0, 0)';
+
+      penaltyStrikes++;
+      if(zone !== keeperChoice) {
+        penaltyGoals++;
+        userProfile.scorePen++;
+        document.getElementById('penalty-feedback').innerText = "BUT !! Magnifique contre-pied ! ⚽🔥";
+        document.getElementById('penalty-feedback').style.color = "var(--succes)";
+      } else {
+        document.getElementById('penalty-feedback').innerText = "Arrêt héroïque du gardien ! 🧤❌";
+        document.getElementById('penalty-feedback').style.color = "var(--danger)";
+      }
+
+      document.getElementById('pen-score-strikes').innerText = penaltyStrikes;
+      document.getElementById('pen-score-goals').innerText = penaltyGoals;
+      document.getElementById('stats-pen-score').innerText = userProfile.scorePen;
+      localStorage.setItem('pignouf_user_profile', JSON.stringify(userProfile));
+
+      if(penaltyStrikes === 5) {
+        setTimeout(() => {
+          alert(`Fin de la séance ! Vous avez marqué ${penaltyGoals} buts.`);
+        }, 400);
+      }
+    }
+
+    function resetPenaltyGame() {
+      penaltyStrikes = 0;
+      penaltyGoals = 0;
+      document.getElementById('pen-score-strikes').innerText = "0";
+      document.getElementById('pen-score-goals').innerText = "0";
+      document.getElementById('penalty-feedback').innerText = "Prêt pour la prochaine frappe ?";
+      document.getElementById('gk-player').style.transform = 'translate(0, 0)';
+    }
+
+    // FONCTIONS D'ADMINISTRATION CLOUD (CONSERVÉES)
+    function saveHeroInfosCloud() {
+      db.ref('site_infos').set({
+        marquee: document.getElementById('adm-hero-marquee').value,
+        eyebrow: document.getElementById('adm-hero-eyebrow').value,
+        title: document.getElementById('adm-hero-title').value,
+        sub: document.getElementById('adm-hero-sub').value,
+        year: document.getElementById('adm-creation-year').value
+      }).then(() => alert("Modifications de l'accueil synchronisées !"));
+    }
+
+    function addPlayerPro() {
+      const poste = document.getElementById('adm-player-poste').value;
+      const num = document.getElementById('adm-player-num').value;
+      const nom = document.getElementById('adm-player-nom').value;
+      const role = document.getElementById('adm-player-role').value;
+      if(!num || !nom || !role) return alert('Champs requis.');
+      if(!effectifPro[poste]) effectifPro[poste] = [];
+      effectifPro[poste].push({ num, nom, poste: role });
+      db.ref('effectif').set(effectifPro).then(() => alert('Joueur synchronisé !'));
+    }
+
+    function deletePlayerPro(category, index) {
+      if(confirm('Supprimer ce joueur ?')) {
+        effectifPro[category].splice(index, 1);
+        db.ref('effectif').set(effectifPro);
+      }
+    }
+
+    function saveNewsPro() {
+      const id = document.getElementById('admin-news-id').value;
+      const title = document.getElementById('admin-news-title').value;
+      const excerpt = document.getElementById('admin-news-excerpt').value;
+      const image = document.getElementById('admin-news-img').value;
+      const youtube = document.getElementById('admin-news-yt').value;
+      const date = document.getElementById('admin-news-date').value || "Juin 2026";
+      if(id !== "") db.ref('actualites/' + id).set({ title, excerpt, date, image, youtube });
+      else db.ref('actualites').push().set({ title, excerpt, date, image, youtube });
+      resetNewsForm();
+    }
+
+    function deleteNewsPro(index) {
+      if(confirm('Supprimer ?')) db.ref('actualites/' + actualitesKeys[index]).remove();
+    }
+
+    function saveHistoryPro() {
+      const id = document.getElementById('admin-hist-id').value;
+      const year = document.getElementById('admin-hist-year').value;
+      const event = document.getElementById('admin-hist-title').value;
+      const detail = document.getElementById('admin-hist-detail').value;
+      if(id !== "") db.ref('histoire/' + id).set({ year, event, detail });
+      else db.ref('histoire').push().set({ year, event, detail });
+      resetHistoryForm();
+    }
+
+    function deleteHistoryPro(index) {
+      if(confirm('Supprimer ?')) db.ref('histoire/' + histoireKeys[index]).remove();
+    }
+
+    function updateMatchPro() {
+      db.ref('match').set({
+        home: document.getElementById('adm-match-home').value,
+        away: document.getElementById('adm-match-away').value,
+        vs: "VS",
+        date: document.getElementById('adm-match-date').value,
+        comp: document.getElementById('adm-match-comp').value,
+        price: parseFloat(document.getElementById('adm-match-price').value) || 0,
+        salesStatus: document.getElementById('adm-match-status').value
+      }).then(() => alert('Match mis à jour !'));
+    }
+
+    // COMMERCE ET PANIER INTERACTIF
+    function addToCart(name, price) {
+      panier.push({ name, price });
+      document.getElementById('cartBubble').classList.add('show');
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      document.getElementById('cartCount').innerText = panier.length;
+      const container = document.getElementById('cartItemsContainer');
+      let total = 0;
+      if(panier.length === 0) {
+        container.innerHTML = `<p style="font-size:0.85rem; color:var(--texte-sec); text-align:center; padding:2rem;">Votre panier est vide.</p>`;
+      } else {
+        container.innerHTML = panier.map((item, index) => {
+          total += item.price;
+          return `
+            <div class="cart-item-row">
+              <div><p style="font-weight:600;">${item.name}</p><p style="font-size:0.75rem; color:var(--rose);">${item.price.toFixed(2)} €</p></div>
+              <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--danger); cursor:pointer;">Supprimer</button>
+            </div>
+          `;
+        }).join('');
+      }
+      document.getElementById('cart-total-price').innerText = total.toFixed(2) + " €";
+    }
+
+    function removeFromCart(index) {
+      panier.splice(index, 1);
+      if(panier.length === 0) document.getElementById('cartBubble').classList.remove('show');
+      updateCartDisplay();
+    }
+
+    function validateCartOrder() {
+      let orderTotal = panier.reduce((sum, item) => sum + item.price, 0);
+      simulatedEarnings += orderTotal;
+      alert(`Commande validée (${orderTotal.toFixed(2)} €) ! Merci.`);
+      panier = [];
+      document.getElementById('cartBubble').classList.remove('show');
+      toggleCartPanel(false);
+      updateCartDisplay();
+      updateDashboardStats();
+    }
+
+    // VISUAL RENDERS BASES D'ORIGINE CONSERVÉS À 100%
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      const targetPage = document.getElementById(`page-${pageId}`);
+      if(targetPage) targetPage.classList.add('active');
+      window.scrollTo(0,0);
+    }
+
+    function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+    function toggleCartPanel(o) { document.getElementById('cartPanel').classList.toggle('open', o); }
+    function toggleDarkMode(isDark) {
+      if(isDark) document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.removeAttribute('data-theme');
+    }
+
+    function renderEffectif() {
+      let totalCount = 0;
+      const renderGrid = (gridId, data, categoryKey) => {
+        if(!data) data = []; totalCount += data.length;
+        document.getElementById(gridId).innerHTML = data.map((j, index) => `
+          <div class="joueur-card">
+            <button class="admin-action-btn admin-del" onclick="deletePlayerPro('${categoryKey}', ${index})">✕</button>
+            <div class="joueur-num">#${j.num}</div><div class="joueur-nom">${j.nom}</div><div class="joueur-nat">${j.poste}</div>
+          </div>
+        `).join('');
+      };
+      renderGrid('grid-gardiens', effectifPro.gardiens, 'gardiens');
+      renderGrid('grid-defenseurs', effectifPro.defenseurs, 'defenseurs');
+      renderGrid('grid-milieux', effectifPro.milieux, 'milieux');
+      renderGrid('grid-attaquants', effectifPro.attaquants, 'attaquants');
+      document.getElementById('eff-total-count').innerText = totalCount;
+    }
+
+    function renderActualites() {
+      document.getElementById('news-container').innerHTML = actualites.map((a, index) => `
+        <div class="news-card">
+          <div class="news-card-body">
+            <div class="news-tag">Club Actu</div>
+            <h3 class="news-card-title">${a.title}</h3>
+            <p class="news-card-excerpt">${a.excerpt}</p>
+            <div class="news-card-meta">${a.date}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderTimeline() {
+      document.getElementById('timeline-container').innerHTML = histoireTimeline.map((h) => `
+        <div class="timeline-item">
+          <div class="tl-year">${h.year}</div>
+          <div><div class="tl-event">${h.event}</div><div class="tl-detail">${h.detail}</div></div>
+        </div>
+      `).join('');
+    }
+
+    function renderMatchs() {
+      const isAvailable = matchData.salesStatus === "enabled";
+      const btnClass = isAvailable ? "match-ticket" : "match-ticket btn-disabled";
+      document.getElementById('matchs-container').innerHTML = `
+        <div class="match-card">
+          <div class="match-team-side"><div class="match-home">${matchData.home}</div><div class="match-away">${matchData.away}</div></div>
+          <div class="match-vs">${matchData.vs}</div>
+          <div class="match-details-side"><div class="match-date">${matchData.date}</div><div class="match-comp">${matchData.comp}</div></div>
+          <button class="${btnClass}" ${isAvailable?'':'disabled'} onclick="addToCart('Billet Match', ${matchData.price})">Acheter — ${matchData.price}€</button>
+        </div>
+      `;
+    }
+
+    function renderBoutique() {
+      document.getElementById('boutique-container').innerHTML = boutiqueProduits.map(p => `
+        <div class="product-card">
+          <div class="jersey-container" style="font-size:3rem;">${p.emoji || '👕'}</div>
+          <div class="product-name">${p.name}</div><div class="product-price">${p.price.toFixed(2)} €</div>
+          <button class="btn-primary" onclick="addToCart('${p.name}', ${p.price})">Ajouter au panier</button>
+        </div>
+      `).join('');
+    }
+
+    function applyLanguage(l) {}
+    function changeLanguage(l) { currentLang = l; }
+    function resetNewsForm() {}
+    function resetHistoryForm() {}
   </script>
 </body>
 </html>
