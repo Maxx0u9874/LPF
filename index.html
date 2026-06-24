@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="dark">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,558 +9,1055 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     /* ═══════════════════════════════════════════════════════════════
-       RESET & VARIABLES (Design Ultra Stylé Cyber-Premium)
+       RESET & VARIABLES (Gérant le Mode Sombre)
     ═══════════════════════════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg-principal: #0b0f19;
-      --bg-secondaire: #111827;
-      --card-bg: rgba(255, 255, 255, 0.03);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --rose-neon: #ff4b82;
-      --rose-f: #d92b5f;
-      --rose-pale: rgba(255, 75, 130, 0.1);
-      --texte: #f3f4f6;
-      --texte-sec: #9ca3af;
-      --succes: #10b981;
+      --blanc:     #FFFFFF;
+      --rose:      #E8779A;
+      --rose-f:    #C4506E;
+      --rose-pale: #FDF0F4;
+      --rose-mid:  #F5D6E3;
+      --rose-bord: #ECC5D6;
+      --texte:     #1A1A22;
+      --texte-sec: #6B5F6B;
+      --gris-clair:#F7F3F5;
+      --succes:    #5BAD7A;
       --bebas: 'Bebas Neue', sans-serif;
       --inter: 'Inter', sans-serif;
-      --nav-bg: rgba(11, 15, 25, 0.85);
-      --accent-gradient: linear-gradient(135deg, #ff4b82 0%, #bf134b 100%);
-      --disabled-bg: #1f2937;
-      --disabled-border: #374151;
+      --nav-bg: rgba(255, 255, 255, 0.96);
+      --font-modifier: 100%;
     }
 
-    [data-theme="light"] {
-      --bg-principal: #fafafa;
-      --bg-secondaire: #f3f4f6;
-      --card-bg: rgba(0, 0, 0, 0.02);
-      --card-border: rgba(0, 0, 0, 0.08);
-      --texte: #111827;
-      --texte-sec: #6b7280;
-      --nav-bg: rgba(250, 250, 250, 0.85);
+    [data-theme="dark"] {
+      --blanc:     #121214;
+      --rose-pale: #22161A;
+      --rose-mid:  #44232E;
+      --rose-bord: #5C323F;
+      --texte:     #F5F5F7;
+      --texte-sec: #A192A1;
+      --gris-clair:#1A1A1E;
+      --nav-bg: rgba(18, 18, 20, 0.96);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; font-size: var(--font-modifier); }
     body {
-      background: var(--bg-principal);
+      background: var(--blanc);
       color: var(--texte);
       font-family: var(--inter);
       font-size: 16px;
       line-height: 1.6;
       overflow-x: hidden;
-      transition: background 0.4s ease, color 0.4s ease;
+      transition: background 0.3s, color 0.3s;
     }
 
     /* ═══════════════════════════════════════════════════════════════
-       NAVBAR PREMIUM WITH i18n
+       NAV
     ═══════════════════════════════════════════════════════════════ */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 4rem; height: 80px;
+      padding: 0 3rem; height: 68px;
       background: var(--nav-bg);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--card-border);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--rose-bord);
     }
     .nav-logo {
-      font-family: var(--bebas); font-size: 1.8rem; letter-spacing: 0.05em;
+      font-family: var(--bebas); font-size: 1.5rem; letter-spacing: 0.08em;
       color: var(--texte); text-decoration: none; flex-shrink: 0; cursor: pointer;
     }
-    .nav-logo span { color: var(--rose-neon); }
+    .nav-logo span { color: var(--rose); }
 
-    .nav-links { display: flex; gap: 1rem; list-style: none; align-items: center; }
+    .nav-links { display: flex; gap: 0; list-style: none; }
     .nav-links a {
-      color: var(--texte-sec); text-decoration: none; font-size: 0.75rem;
-      font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
-      transition: all 0.3s ease; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;
+      color: var(--texte-sec); text-decoration: none; font-size: 0.72rem;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.2s; padding: 0.4rem 0.9rem; border-radius: 2px; cursor: pointer;
     }
-    .nav-links a:hover, .nav-links a.active { color: var(--texte); background: var(--card-bg); border: 1px solid var(--card-border); }
+    .nav-links a:hover, .nav-links a.active { color: var(--rose); }
 
-    .nav-right { display: flex; align-items: center; gap: 1.5rem; flex-shrink: 0; }
-    
-    /* Lang selectors styling */
-    .lang-selector { display: flex; gap: 0.25rem; background: var(--bg-secondaire); padding: 0.25rem; border-radius: 8px; border: 1px solid var(--card-border); }
-    .lang-btn { background: none; border: none; color: var(--texte-sec); font-size: 0.65rem; font-weight: 700; padding: 0.25rem 0.5rem; cursor: pointer; border-radius: 4px; transition: all 0.2s; }
-    .lang-btn.active { background: var(--rose-neon); color: #fff; }
-
+    .nav-right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
     .nav-badge {
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--rose-neon); background: var(--rose-pale);
-      padding: 0.4rem 0.9rem; border-radius: 6px;
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--rose); border: 1px solid var(--rose-bord);
+      padding: 0.28rem 0.7rem;
     }
-    .nav-btn {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-      background: var(--texte); color: var(--bg-principal); border: none; padding: 0.5rem 1.2rem;
-      cursor: pointer; transition: all 0.3s ease; border-radius: 6px;
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px;
     }
-    .nav-btn:hover { background: var(--rose-neon); color: #FFF; box-shadow: 0 0 20px rgba(255, 75, 130, 0.4); }
-    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
     .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--texte); transition: all 0.3s; }
 
+    /* Mobile menu */
     .mobile-menu {
-      display: none; position: fixed; top: 80px; left: 0; right: 0;
-      background: var(--nav-bg); backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--card-border); z-index: 199;
-      flex-direction: column; padding: 1.5rem; gap: 0.5rem;
+      display: none; position: fixed; top: 68px; left: 0; right: 0;
+      background: var(--nav-bg); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--rose-bord); z-index: 199;
+      flex-direction: column; padding: 1rem 1.5rem; gap: 0.25rem;
     }
     .mobile-menu.open { display: flex; }
     .mobile-menu a {
-      color: var(--texte-sec); text-decoration: none; font-size: 0.85rem; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase; padding: 0.8rem 0;
-      border-bottom: 1px solid var(--card-border); cursor: pointer;
+      color: var(--texte-sec); text-decoration: none; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; padding: 0.7rem 0;
+      border-bottom: 1px solid var(--rose-bord); cursor: pointer;
     }
 
     /* ═══════════════════════════════════════════════════════════════
        PAGE SYSTEM
     ═══════════════════════════════════════════════════════════════ */
-    .page { display: none; padding-top: 80px; min-height: 100vh; }
+    .page { display: none; padding-top: 68px; min-height: 100vh; }
     .page.active { display: block; }
 
     /* ═══════════════════════════════════════════════════════════════
-       SHARED STYLISH COMPONENTS
+       SHARED COMPONENTS
     ═══════════════════════════════════════════════════════════════ */
-    .section-eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--rose-neon); margin-bottom: 0.75rem; }
-    .section-title { font-family: var(--bebas); font-size: clamp(3rem, 6vw, 5.5rem); letter-spacing: 0.01em; line-height: 0.95; margin-bottom: 2.5rem; color: var(--texte); }
-    .rule-red { width: 64px; height: 3px; background: var(--accent-gradient); margin-bottom: 2.5rem; border-radius: 2px; }
-    .sec { padding: 8rem 6rem; }
-    .sec-alt { background: var(--bg-secondaire); }
+    .section-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--bebas); font-size: clamp(2.5rem, 5vw, 4.5rem); letter-spacing: 0.02em; line-height: 1; margin-bottom: 2.5rem; color: var(--texte); }
+    .rule-red { width: 48px; height: 2px; background: var(--rose); margin-bottom: 2rem; }
+    .sec { padding: 6rem 4rem; }
+    .sec-alt { background: var(--gris-clair); }
+    .sec-pale { background: var(--rose-pale); }
 
     .btn-primary {
-      display: inline-block; background: var(--accent-gradient); color: #FFF; text-decoration: none; font-size: 0.78rem;
-      font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 1rem 2.5rem;
-      transition: all 0.3s ease; border: none; cursor: pointer; border-radius: 8px;
+      display: inline-block; background: var(--rose); color: #FFF; text-decoration: none; font-size: 0.78rem;
+      font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.85rem 2.2rem;
+      transition: background 0.2s; border: none; cursor: pointer;
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(255, 75, 130, 0.4); }
-
-    /* UNREMOVABLE FUNCTIONALITIES BLOCKING CLASS */
-    .btn-disabled-global {
-      background: var(--disabled-bg) !important;
-      color: var(--texte-sec) !important;
-      border: 1px solid var(--disabled-border) !important;
-      cursor: not-allowed !important;
-      opacity: 0.5;
-      transform: none !important;
-      box-shadow: none !important;
-      pointer-events: none;
-    }
-    .disabled-notice {
-      display: block; font-size: 0.7rem; color: #ff4b4b; font-weight: 600; margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;
-    }
+    .btn-primary:hover { background: var(--rose-f); }
 
     .btn-ghost {
-      display: inline-block; color: var(--texte); text-decoration: none; font-size: 0.78rem; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid var(--card-border);
-      padding: 1rem 2.5rem; transition: all 0.3s ease; background: var(--card-bg); border-radius: 8px; cursor: pointer;
+      display: inline-block; color: var(--texte); text-decoration: none; font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid var(--rose-bord);
+      padding-bottom: 0.15rem; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; cursor: pointer;
     }
-    .btn-ghost:hover { border-color: var(--rose-neon); background: var(--rose-pale); color: var(--rose-neon); }
+    .btn-ghost:hover { border-color: var(--rose); color: var(--rose); }
 
     /* ═══════════════════════════════════════════════════════════════
        PAGE: ACCUEIL — HERO
     ═══════════════════════════════════════════════════════════════ */
-    .hero { position: relative; min-height: calc(100vh - 80px); display: flex; flex-direction: column; justify-content: center; padding: 0 6rem; overflow: hidden; background: radial-gradient(circle at 80% 20%, var(--rose-pale) 0%, transparent 50%); }
-    .hero-marquee { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); white-space: nowrap; pointer-events: none; user-select: none; z-index: 1; }
-    .hero-marquee-inner { display: inline-block; animation: marquee 35s linear infinite; font-family: var(--bebas); font-size: clamp(10rem, 22vw, 22rem); color: transparent; -webkit-text-stroke: 1px rgba(255, 75, 130, 0.08); letter-spacing: 0.04em; }
+    .hero { position: relative; min-height: calc(100vh - 68px); display: flex; flex-direction: column; justify-content: flex-end; padding: 0 4rem 6rem; overflow: hidden; background: var(--rose-pale); }
+    .hero-marquee { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-58%); white-space: nowrap; pointer-events: none; user-select: none; }
+    .hero-marquee-inner { display: inline-block; animation: marquee 28s linear infinite; font-family: var(--bebas); font-size: clamp(8rem, 17vw, 17rem); color: transparent; -webkit-text-stroke: 1px rgba(232, 119, 154, 0.18); letter-spacing: 0.04em; }
     @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .hero-content { position: relative; z-index: 2; max-width: 950px; }
-    .hero-eyebrow { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--rose-neon); margin-bottom: 1.5rem; }
-    .hero-title { font-family: var(--bebas); font-size: clamp(4.5rem, 11vw, 10rem); line-height: 0.88; letter-spacing: 0.01em; color: var(--texte); }
-    .hero-title em { font-style: normal; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero-sub { margin-top: 2rem; font-size: 1.1rem; color: var(--texte-sec); font-weight: 400; max-width: 550px; line-height: 1.8; }
-    .hero-actions { margin-top: 3rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
-    .hero-stats { position: absolute; right: 6rem; bottom: 6rem; display: flex; flex-direction: column; gap: 1.75rem; align-items: flex-end; z-index: 2; }
-    .hero-stat-num { font-family: var(--bebas); font-size: 4rem; line-height: 1; color: var(--texte); background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero-stat-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; text-align: right; }
+    .hero-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); margin-bottom: 1.25rem; }
+    .hero-title { font-family: var(--bebas); font-size: clamp(4rem, 10vw, 9rem); line-height: 0.9; letter-spacing: 0.02em; max-width: 900px; position: relative; color: var(--texte); }
+    .hero-title em { font-style: normal; color: var(--rose); }
+    .hero-sub { margin-top: 1.75rem; font-size: 1rem; color: var(--texte-sec); font-weight: 300; max-width: 460px; line-height: 1.7; }
+    .hero-actions { margin-top: 2.5rem; display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
+    .hero-stats { position: absolute; right: 4rem; bottom: 6rem; display: flex; flex-direction: column; gap: 1.75rem; align-items: flex-end; }
+    .hero-stat-num { font-family: var(--bebas); font-size: 3rem; line-height: 1; color: var(--texte); }
+    .hero-stat-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; text-align: right; }
 
-    /* Palmarès & Glassmorphism cards */
+    /* ═══════════════════════════════════════════════════════════════
+       EFFECTIF
+    ═══════════════════════════════════════════════════════════════ */
     .effectif-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
-    .effectif-text { font-size: 0.95rem; color: var(--texte-sec); line-height: 1.8; }
-    .effectif-numbers { display: flex; gap: 3.5rem; }
-    .eff-num { font-family: var(--bebas); font-size: 3.5rem; color: var(--texte); line-height: 1; }
-    .eff-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.3rem; }
+    .effectif-text { font-size: 0.88rem; color: var(--texte-sec); line-height: 1.8; }
+    .effectif-numbers { display: flex; gap: 2.5rem; }
+    .eff-num { font-family: var(--bebas); font-size: 2.8rem; color: var(--texte); }
+    .eff-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; }
+    .poste-header { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); padding: 1.25rem 0 0.75rem; border-top: 1px solid var(--rose-bord); margin-top: 1.5rem; }
+    .joueurs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1px; background: var(--rose-bord); margin-bottom: 1.5rem; }
+    .joueur-card { background: var(--blanc); padding: 1.25rem 1rem; transition: background 0.2s; position: relative; }
+    .joueur-card:hover { background: var(--rose-pale); }
+    .joueur-num { font-family: var(--bebas); font-size: 1.8rem; color: rgba(232, 119, 154, 0.4); line-height: 1; margin-bottom: 0.4rem; }
+    .joueur-nom { font-size: 0.85rem; font-weight: 600; color: var(--texte); margin-bottom: 0.2rem; }
+    .joueur-nat { font-size: 0.68rem; color: var(--texte-sec); }
     
-    .poste-header { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose-neon); padding: 1.5rem 0 1rem; border-top: 1px solid var(--card-border); margin-top: 2.5rem; }
-    .joueurs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
-    
-    .joueur-card { 
-      background: var(--bg-secondaire); padding: 2rem 1.5rem; border-radius: 12px; border: 1px solid var(--card-border);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
-    }
-    .joueur-card::before { content: ''; position: absolute; inset: 0; background: var(--accent-gradient); opacity: 0; transition: opacity 0.3s; z-index: 1; }
-    .joueur-card:hover { transform: translateY(-5px); border-color: var(--rose-neon); box-shadow: 0 10px 30px rgba(255, 75, 130, 0.15); }
-    .joueur-card * { position: relative; z-index: 2; }
-    .joueur-num { font-family: var(--bebas); font-size: 2.4rem; color: var(--rose-neon); opacity: 0.8; line-height: 1; margin-bottom: 0.5rem; }
-    .joueur-nom { font-size: 1rem; font-weight: 700; color: var(--texte); margin-bottom: 0.25rem; letter-spacing: -0.01em; }
-    .joueur-nat { font-size: 0.75rem; color: var(--texte-sec); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .admin-action-btn { display: none; position: absolute; top: 5px; background: var(--texte); color: white; border: none; font-size: 0.6rem; padding: 2px 6px; cursor: pointer; z-index: 10; font-family: var(--inter); font-weight: 600; text-transform: uppercase; }
+    .admin-del { right: 5px; background: var(--rose); }
+    .admin-edit { right: 35px; background: #333; }
+    body.is-admin-mode .admin-action-btn { display: block; }
 
-    /* Timeline ultra modernise */
-    .timeline { display: flex; flex-direction: column; max-width: 900px; }
-    .timeline-item { display: grid; grid-template-columns: 120px 2px 1fr; gap: 0 3rem; padding: 2.5rem 0; }
-    .tl-year { font-family: var(--bebas); font-size: 2.2rem; color: var(--rose-neon); padding-top: 0; line-height: 1; letter-spacing: 0.05em; }
-    .tl-line { background: var(--card-border); width: 2px; position: relative; }
-    .tl-line::after { content: ''; position: absolute; top: 10px; left: -4px; width: 10px; height: 10px; background: var(--rose-neon); border-radius: 50%; box-shadow: 0 0 10px var(--rose-neon); }
-    .tl-event { font-weight: 700; font-size: 1.1rem; color: var(--texte); margin-bottom: 0.5rem; }
-    .tl-detail { font-size: 0.9rem; color: var(--texte-sec); line-height: 1.7; }
+    /* ═══════════════════════════════════════════════════════════════
+       HISTOIRE / TIMELINE
+    ═══════════════════════════════════════════════════════════════ */
+    .timeline { display: flex; flex-direction: column; max-width: 780px; }
+    .timeline-item { display: grid; grid-template-columns: 100px 1px 1fr; gap: 0 2rem; padding: 2rem 0; border-bottom: 1px solid var(--rose-bord); position: relative; }
+    .timeline-item:last-child { border-bottom: none; }
+    .tl-year { font-family: var(--bebas); font-size: 1.5rem; color: var(--rose); padding-top: 0.1rem; }
+    .tl-line { background: var(--rose-bord); width: 1px; }
+    .tl-event { font-weight: 600; font-size: 0.92rem; color: var(--texte); margin-bottom: 0.4rem; }
+    .tl-detail { font-size: 0.8rem; color: var(--texte-sec); line-height: 1.6; }
 
     /* ═══════════════════════════════════════════════════════════════
        PAGE: ACTUALITÉS
     ═══════════════════════════════════════════════════════════════ */
-    .news-hero { background: linear-gradient(180deg, var(--bg-secondaire) 0%, var(--bg-principal) 100%); padding: 6rem 6rem 4rem; border-bottom: 1px solid var(--card-border); }
-    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 2rem; }
-    .news-card { background: var(--bg-secondaire); border: 1px solid var(--card-border); border-radius: 16px; transition: all 0.3s; display: flex; flex-direction: column; overflow: hidden; }
-    .news-card:hover { transform: translateY(-5px); border-color: var(--rose-neon); box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
-    .news-card-body { padding: 2.5rem; flex: 1; display: flex; flex-direction: column; }
-    .news-tag { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose-neon); margin-bottom: 0.8rem; }
-    .news-card-title { font-family: var(--bebas); font-size: 1.8rem; letter-spacing: 0.01em; color: var(--texte); margin-bottom: 0.75rem; line-height: 1.05; }
-    .news-card-excerpt { font-size: 0.9rem; color: var(--texte-sec); line-height: 1.7; flex: 1; }
-    .news-card-meta { font-size: 0.72rem; color: var(--texte-sec); margin-top: 1.5rem; font-weight: 500; }
+    .news-hero { background: var(--texte); padding: 5rem 4rem 4rem; }
+    .news-hero .section-eyebrow { color: rgba(232,119,154,0.7); }
+    .news-hero .section-title { color: var(--blanc); margin-bottom: 0; }
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; background: var(--rose-bord); }
+    .news-card { background: var(--blanc); transition: background 0.2s; cursor: pointer; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+    .news-card:hover { background: var(--rose-pale); }
+    .news-card-media { width: 100%; height: 180px; background: var(--gris-clair); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .news-card-media img { width: 100%; height: 100%; object-fit: cover; }
+    .news-card-media iframe { width: 100%; height: 100%; border: none; }
+    .news-card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .news-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.6rem; }
+    .news-card-title { font-family: var(--bebas); font-size: 1.3rem; letter-spacing: 0.02em; color: var(--texte); margin-bottom: 0.5rem; line-height: 1.15; }
+    .news-card-excerpt { font-size: 0.8rem; color: var(--texte-sec); line-height: 1.6; flex: 1; }
+    .news-card-meta { font-size: 0.65rem; color: rgba(107,95,107,0.55); margin-top: 1rem; }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE: BILLETTERIE (Styled Match Cards)
+       PAGE: BILLETTERIE
     ═══════════════════════════════════════════════════════════════ */
-    .bill-hero { background: var(--accent-gradient); padding: 6rem 6rem; text-align: center; color: #FFF; }
-    .bill-hero .section-title { color: #FFF; margin-bottom: 0; }
-    .match-card { 
-      display: grid; grid-template-columns: 2fr auto 2fr auto; align-items: center; gap: 2.5rem; 
-      padding: 2.5rem 3rem; background: var(--bg-secondaire); border: 1px solid var(--card-border); 
-      border-radius: 16px; margin-bottom: 1.5rem; transition: border 0.3s;
-    }
-    .match-card:hover { border-color: var(--rose-neon); }
-    .match-home, .match-away { font-family: var(--bebas); font-size: 2rem; letter-spacing: 0.02em; }
-    .match-vs { font-family: var(--bebas); font-size: 1.4rem; color: var(--rose-neon); background: var(--rose-pale); padding: 0.2rem 0.8rem; border-radius: 6px; text-align: center; }
-    .match-date { font-weight: 700; font-size: 1rem; color: var(--texte); }
-    .match-comp { font-size: 0.75rem; text-transform: uppercase; color: var(--texte-sec); letter-spacing: 0.1em; margin-top: 0.25rem; }
+    .bill-hero { background: var(--rose); padding: 5rem 4rem 4rem; text-align: center; color: #FFF; }
+    .bill-hero .section-title { color: #FFF; }
+    .match-card { display: grid; grid-template-columns: 1fr auto 1fr auto; align-items: center; gap: 1rem; padding: 1.5rem 1.75rem; background: var(--blanc); border: 1px solid var(--rose-bord); margin-bottom: 1px; position: relative; }
+    .match-ticket { font-size: 0.7rem; font-weight: 700; background: var(--rose); color: #FFF; border: none; padding: 0.65rem 1.25rem; cursor: pointer; }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE: BOUTIQUE & MAILLOTS ILLUSTRÉS
+       PAGE: BOUTIQUE
     ═══════════════════════════════════════════════════════════════ */
-    .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2.5rem; }
-    .product-card { background: var(--bg-secondaire); border: 1px solid var(--card-border); border-radius: 16px; display: flex; flex-direction: column; padding: 2rem; position: relative; transition: all 0.3s; }
-    .product-card:hover { transform: translateY(-6px); border-color: var(--rose-neon); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); }
+    .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2rem; }
+    .product-card { background: var(--blanc); border: 1px solid var(--rose-bord); display: flex; flex-direction: column; padding: 1.5rem; position: relative; transition: transform 0.3s, box-shadow 0.3s; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(232, 119, 154, 0.15); }
     
-    .jersey-container { width: 100%; height: 260px; background: var(--bg-principal); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; position: relative; overflow: hidden; border: 1px solid var(--card-border); }
-    .jersey-svg { width: 160px; height: 180px; filter: drop-shadow(0 12px 24px rgba(0,0,0,0.25)); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    .product-card:hover .jersey-svg { transform: scale(1.08) rotate(3deg); }
-    .jersey-badge { position: absolute; top: 1.25rem; left: 1.25rem; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; background: var(--accent-gradient); color: #fff; padding: 0.35rem 0.8rem; border-radius: 6px; letter-spacing: 0.05em; }
+    .jersey-container { width: 100%; height: 220px; background: var(--gris-clair); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; position: relative; overflow: hidden; }
+    .jersey-svg { width: 140px; height: 160px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.1)); transition: transform 0.3s; }
+    .product-card:hover .jersey-svg { transform: scale(1.05) rotate(2deg); }
+    .jersey-badge { position: absolute; top: 1rem; left: 1rem; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; background: var(--rose); color: #fff; padding: 0.25rem 0.6rem; letter-spacing: 0.05em; }
 
-    .product-name { font-family: var(--bebas); font-size: 1.8rem; color: var(--texte); letter-spacing: 0.01em; margin-bottom: 0.4rem; }
-    .product-price { font-size: 1.25rem; font-weight: 700; color: var(--rose-neon); margin-bottom: 1.25rem; }
+    .product-name { font-family: var(--bebas); font-size: 1.5rem; color: var(--texte); letter-spacing: 0.02em; margin-bottom: 0.25rem; }
+    .product-price { font-size: 1.1rem; font-weight: 700; color: var(--rose); margin-bottom: 1rem; }
 
     /* Cart Bubble & Panels */
-    .cart-bubble { position: fixed; bottom: 3rem; right: 3rem; background: var(--accent-gradient); color: white; border: none; width: 64px; height: 64px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 1.5rem; z-index: 300; cursor: pointer; box-shadow: 0 10px 25px rgba(255, 75, 130, 0.4); }
+    .cart-bubble { position: fixed; bottom: 2rem; right: 2rem; background: var(--rose); color: white; border: none; width: 56px; height: 56px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 1.3rem; z-index: 300; cursor: pointer; }
     .cart-bubble.show { display: flex; }
-    .cart-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 420px; background: var(--bg-secondaire); border-left: 1px solid var(--card-border); z-index: 400; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -20px 0 50px rgba(0,0,0,0.5); }
+    .cart-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 380px; background: var(--blanc); border-left: 1px solid var(--rose-bord); z-index: 400; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
     .cart-panel.open { transform: translateX(0); }
-    .cart-items { flex: 1; overflow-y: auto; padding: 2rem; }
+    .cart-items { flex: 1; overflow-y: auto; padding: 1.5rem; }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE: AUTH / COMPTE (Bandeau de blocage inclus)
+       PAGE: AUTH / COMPTE
     ═══════════════════════════════════════════════════════════════ */
-    .account-banner-alert {
-      background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%);
-      color: #ffffff; padding: 1rem 1.5rem; border-radius: 12px; margin-bottom: 2rem;
-      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.02em;
-      display: flex; align-items: center; gap: 0.75rem; box-shadow: 0 10px 20px rgba(220, 38, 38, 0.2);
-    }
-    .auth-container { max-width: 500px; margin: 6rem auto; padding: 3rem; background: var(--bg-secondaire); border: 1px solid var(--card-border); border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
-    .auth-tabs { display: flex; border-bottom: 1px solid var(--card-border); margin-bottom: 2.5rem; gap: 1rem; }
-    .auth-tab { flex: 1; padding: 1rem; background: none; border: none; font-family: var(--bebas); font-size: 1.4rem; color: var(--texte-sec); cursor: pointer; text-align: center; transition: all 0.3s; }
-    .auth-tab.active { color: var(--rose-neon); border-bottom: 3px solid var(--rose-neon); }
+    .auth-container { max-width: 450px; margin: 4rem auto; padding: 2.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); }
+    .auth-tabs { display: flex; border-bottom: 1px solid var(--rose-bord); margin-bottom: 2rem; }
+    .auth-tab { flex: 1; padding: 0.75rem; background: none; border: none; font-family: var(--bebas); font-size: 1.2rem; color: var(--texte-sec); cursor: pointer; text-align: center; }
+    .auth-tab.active { color: var(--rose); border-bottom: 2px solid var(--rose); }
     
-    .form-group { margin-bottom: 1.75rem; }
-    .form-group label { display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.6rem; color: var(--texte-sec); }
-    .form-group input { width: 100%; padding: 1rem; background: var(--bg-principal); border: 1px solid var(--card-border); border-radius: 8px; color: var(--texte); font-family: var(--inter); font-size: 0.95rem; transition: border 0.3s; }
-    .form-group input:focus { outline: none; border-color: var(--rose-neon); }
-    .form-group input:disabled { background: var(--disabled-bg); border-color: var(--disabled-border); cursor: not-allowed; opacity: 0.6; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; color: var(--texte-sec); }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.75rem; background: var(--gris-clair); border: 1px solid var(--rose-bord); color: var(--texte); font-family: var(--inter); }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: 1px solid var(--rose); }
 
-    .btn-github { width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.75rem; background: #24292e; color: #fff; border: none; padding: 1rem; border-radius: 8px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; margin-top: 1.5rem; transition: background 0.3s; }
-    .btn-github:hover { background: #161b22; }
-
-    .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; max-width: 900px; margin: 0 auto; }
-    .settings-card { padding: 2.5rem; background: var(--bg-secondaire); border: 1px solid var(--card-border); border-radius: 16px; }
-    .settings-card h3 { font-family: var(--bebas); font-size: 1.8rem; margin-bottom: 1rem; letter-spacing: 0.02em; }
-    .toggle-switch { display: flex; align-items: center; justify-content: space-between; margin-top: 1.5rem; }
+    .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto; }
+    .settings-card { padding: 2rem; background: var(--blanc); border: 1px solid var(--rose-bord); }
+    .settings-card h3 { font-family: var(--bebas); font-size: 1.4rem; color: var(--rose); margin-bottom: 1rem; border-bottom: 1px solid var(--rose-pale); padding-bottom: 0.3rem; }
+    .toggle-switch { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; }
 
     /* ═══════════════════════════════════════════════════════════════
-       ADMIN MANAGEMENT OVERLAY
+       PAGE : PANEL ADMIN UNIVERSEL
     ═══════════════════════════════════════════════════════════════ */
-    .admin-overlay { display: none; position: fixed; inset: 0; background: rgba(5, 5, 10, 0.85); backdrop-filter: blur(12px); z-index: 500; align-items: center; justify-content: center; }
-    .admin-overlay.open { display: flex; }
-    .admin-panel { background: var(--bg-secondaire); width: 100%; max-width: 750px; max-height: 85vh; overflow-y: auto; padding: 4rem; border: 1px solid var(--card-border); border-radius: 24px; position: relative; box-shadow: 0 50px 100px rgba(0,0,0,0.8); }
-    .admin-close { position: absolute; top: 2rem; right: 2rem; background: none; border: none; font-size: 1.75rem; cursor: pointer; color: var(--texte); }
+    .admin-sections-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; padding: 2rem 0; }
+    .admin-block { border: 1px solid var(--rose-bord); padding: 1.5rem; background: var(--blanc); }
+    .admin-block h3 { font-family: var(--bebas); font-size: 1.5rem; margin-bottom: 1rem; color: var(--rose); border-bottom: 1px solid var(--rose-pale); padding-bottom: 0.3rem; }
+    .admin-scroll-list { max-height: 200px; overflow-y: auto; border: 1px solid var(--rose-bord); padding: 0.5rem; margin-bottom: 1rem; background: var(--gris-clair); }
+    .admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem; border-bottom: 1px solid var(--rose-mid); font-size: 0.8rem; }
+    .admin-list-item:last-child { border-bottom: none; }
 
     /* ═══════════════════════════════════════════════════════════════
        FOOTER
     ═══════════════════════════════════════════════════════════════ */
-    footer { background: var(--bg-secondaire); padding: 6rem 6rem; display: grid; grid-template-columns: 2fr repeat(2, 1fr); gap: 4rem; border-top: 1px solid var(--card-border); }
-    .footer-brand-name { font-family: var(--bebas); font-size: 2.2rem; color: var(--texte); letter-spacing: 0.05em; }
-    .footer-brand-name span { color: var(--rose-neon); }
-    .footer-bottom { background: var(--bg-principal); border-top: 1px solid var(--card-border); padding: 1.5rem 6rem; display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--texte-sec); font-weight: 500; }
+    footer { background: var(--gris-clair); padding: 4rem; display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 3rem; border-top: 1px solid var(--rose-bord); }
+    .footer-brand-name { font-family: var(--bebas); font-size: 1.7rem; color: var(--texte); }
+    .footer-brand-name span { color: var(--rose); }
+    .footer-bottom { background: var(--rose-pale); padding: 1.25rem 4rem; display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--texte-sec); }
 
-    @media(max-width: 1024px) {
-      nav { padding: 0 2rem; }
-      .sec { padding: 6rem 2rem; }
-      .hero { padding: 0 2rem; }
-      .hero-stats { right: 2rem; bottom: 4rem; }
-      footer { padding: 4rem 2rem; grid-template-columns: 1fr; gap: 3rem; }
-      .footer-bottom { padding: 1.5rem 2rem; }
-      .match-card { grid-template-columns: 1fr; text-align: center; gap: 1.5rem; padding: 2rem; }
-    }
     @media(max-width: 768px) {
+      nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
-      .effectif-intro { grid-template-columns: 1fr; gap: 2rem; }
+      footer { grid-template-columns: 1fr; gap: 2rem; }
+      .match-card { grid-template-columns: 1fr; text-align: center; }
     }
   </style>
 </head>
 <body>
 
+  <!-- NAVBAR -->
   <nav>
-    <a class="nav-logo" onclick="showPage('accueil')">PIGNOUFERIE <span>FC</span></a>
+    <a class="nav-logo" onclick="showPage('accueil')">PIGNOUFERIE <span id="nav-logo-span">FC</span></a>
     <ul class="nav-links">
-      <li><a id="link-accueil" onclick="showPage('accueil')" class="active" data-i18n="nav-club">Club</a></li>
-      <li><a id="link-actualites" onclick="showPage('actualites')" data-i18n="nav-actu">Actualités</a></li>
-      <li><a id="link-billetterie" onclick="showPage('billetterie')" data-i18n="nav-bill">Billetterie</a></li>
-      <li><a id="link-boutique" onclick="showPage('boutique')" data-i18n="nav-boutique">Boutique</a></li>
-      <li><a id="link-compte" onclick="showPage('compte')" data-i18n="nav-compte">Mon Compte</a></li>
-      <li><a id="link-parametres" onclick="showPage('parametres')" data-i18n="nav-param">Paramètres</a></li>
+      <li><a id="link-accueil" onclick="showPage('accueil')" class="active">Club</a></li>
+      <li><a id="link-actualites" onclick="showPage('actualites')">Actualités</a></li>
+      <li><a id="link-billetterie" onclick="showPage('billetterie')">Billetterie</a></li>
+      <li><a id="link-boutique" onclick="showPage('boutique')">Boutique</a></li>
+      <li><a id="link-compte" onclick="showPage('compte')">Mon Compte</a></li>
+      <li><a id="link-parametres" onclick="showPage('parametres')">Paramètres</a></li>
+      <li id="nav-admin-link" style="display:none;"><a id="link-admin" onclick="showPage('admin')" style="color:var(--rose); font-weight:bold;">Panel Admin</a></li>
     </ul>
     <div class="nav-right">
-      <div class="lang-selector">
-        <button class="lang-btn active" id="btn-lang-fr" onclick="changeLanguage('fr')">FR</button>
-        <button class="lang-btn" id="btn-lang-en" onclick="changeLanguage('en')">EN</button>
-        <button class="lang-btn" id="btn-lang-es" onclick="changeLanguage('es')">ES</button>
-      </div>
-      <div class="nav-badge" data-i18n="nav-fondation">Fondé en 2005</div>
-      <button class="nav-btn" onclick="openAdminGate()">Admin</button>
+      <div class="nav-badge" id="nav-creation-badge">Fondé en 2005</div>
       <button class="nav-hamburger" onclick="toggleMobileMenu()">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
+  <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
-    <a onclick="showPage('accueil'); toggleMobileMenu()" data-i18n="nav-club">Club</a>
-    <a onclick="showPage('actualites'); toggleMobileMenu()" data-i18n="nav-actu">Actualités</a>
-    <a onclick="showPage('billetterie'); toggleMobileMenu()" data-i18n="nav-bill">Billetterie</a>
-    <a onclick="showPage('boutique'); toggleMobileMenu()" data-i18n="nav-boutique">Boutique</a>
-    <a onclick="showPage('compte'); toggleMobileMenu()" data-i18n="nav-compte">Mon Compte</a>
-    <a onclick="showPage('parametres'); toggleMobileMenu()" data-i18n="nav-param">Paramètres</a>
+    <a onclick="showPage('accueil'); toggleMobileMenu()">Club</a>
+    <a onclick="showPage('actualites'); toggleMobileMenu()">Actualités</a>
+    <a onclick="showPage('billetterie'); toggleMobileMenu()">Billetterie</a>
+    <a onclick="showPage('boutique'); toggleMobileMenu()">Boutique</a>
+    <a onclick="showPage('compte'); toggleMobileMenu()">Mon Compte</a>
+    <a onclick="showPage('parametres'); toggleMobileMenu()">Paramètres</a>
+    <a id="mobile-admin-link" onclick="showPage('admin'); toggleMobileMenu()" style="display:none; color:var(--rose);">Panel Admin</a>
   </div>
 
+  <!-- PAGE: ACCUEIL -->
   <div id="page-accueil" class="page active">
     <div class="hero">
       <div class="hero-marquee">
-        <div class="hero-marquee-inner">PIGNOUFERIE FC • PIGNOUFERIE FC • </div>
+        <div class="hero-marquee-inner" id="hero-marquee-text">PIGNOUFERIE FC • PIGNOUFERIE FC •</div>
       </div>
-      <div class="hero-content">
-        <div class="hero-eyebrow" data-i18n="hero-eyebrow">Le Site Officiel</div>
-        <h1 class="hero-title" id="hero-main-title">Plus qu'un club, une <em>légende</em> en rose et blanc.</h1>
-        <p class="hero-sub" data-i18n="hero-sub">Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.</p>
-        <div class="hero-actions">
-          <button class="btn-primary" onclick="showPage('billetterie')" data-i18n="hero-btn-bill">Réserver un billet</button>
-          <button class="btn-ghost" onclick="document.getElementById('effectif-sec').scrollIntoView()" data-i18n="hero-btn-eff">Découvrir l'effectif</button>
-        </div>
+      <div class="hero-eyebrow" id="hero-eyebrow-text">Le Site Officiel</div>
+      <h1 class="hero-title" id="hero-title-text">Plus qu'un club, une <em>légende</em> en rose et blanc.</h1>
+      <p class="hero-sub" id="hero-sub-text">Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="showPage('billetterie')">Réserver un billet</button>
+        <button class="btn-ghost" onclick="document.getElementById('effectif-sec').scrollIntoView()">Découvrir l'effectif</button>
       </div>
       <div class="hero-stats">
-        <div><div class="hero-stat-num">2005</div><div class="hero-stat-label" data-i18n="hero-stat-creation">Année de création</div></div>
+        <div><div class="hero-stat-num" id="hero-stat-year-val">2005</div><div class="hero-stat-label">Année de création</div></div>
       </div>
     </div>
 
+    <!-- EFFECTIF -->
     <div id="effectif-sec" class="sec">
       <div class="effectif-intro">
         <div>
-          <p class="section-eyebrow" data-i18n="eff-eyebrow">Saison Globale</p>
-          <h2 class="section-title" data-i18n="eff-title">L'Effectif Pro</h2>
+          <p class="section-eyebrow">Saison Globale</p>
+          <h2 class="section-title">L'Effectif Pro</h2>
           <div class="rule-red"></div>
         </div>
         <div class="effectif-numbers">
-          <div><div class="eff-num">24</div><div class="eff-label" data-i18n="eff-label-players">Joueurs Pro</div></div>
-          <div><div class="eff-num">1</div><div class="eff-label" data-i18n="eff-label-obj">Objectif : Gagner</div></div>
+          <div><div class="eff-num" id="eff-total-count">24</div><div class="eff-label">Joueurs Pro</div></div>
+          <div><div class="eff-num">1</div><div class="eff-label">Objectif : Gagner</div></div>
         </div>
       </div>
 
-      <div class="poste-header" data-i18n="poste-g">Gardiens (G)</div>
+      <div class="poste-header">Gardiens (G)</div>
       <div class="joueurs-grid" id="grid-gardiens"></div>
 
-      <div class="poste-header" data-i18n="poste-d">Défenseurs (D)</div>
+      <div class="poste-header">Défenseurs (D)</div>
       <div class="joueurs-grid" id="grid-defenseurs"></div>
 
-      <div class="poste-header" data-i18n="poste-m">Milieux (M)</div>
+      <div class="poste-header">Milieux (M)</div>
       <div class="joueurs-grid" id="grid-milieux"></div>
 
-      <div class="poste-header" data-i18n="poste-a">Attaquants (A)</div>
+      <div class="poste-header">Attaquants (A)</div>
       <div class="joueurs-grid" id="grid-attaquants"></div>
     </div>
 
+    <!-- HISTOIRE / TIMELINE -->
     <div class="sec sec-alt">
-      <p class="section-eyebrow" data-i18n="hist-eyebrow">Récit</p>
-      <h2 class="section-title" data-i18n="hist-title">Notre Histoire</h2>
+      <p class="section-eyebrow">Récit</p>
+      <h2 class="section-title">Notre Histoire</h2>
       <div class="rule-red"></div>
       <div class="timeline" id="timeline-container"></div>
     </div>
   </div>
 
+  <!-- PAGE: ACTUALITÉS -->
   <div id="page-actualites" class="page">
     <div class="news-hero">
-      <p class="section-eyebrow" data-i18n="news-eyebrow">Média</p>
-      <h2 class="section-title" data-i18n="news-title">Actualités & Presse</h2>
+      <p class="section-eyebrow">Média</p>
+      <h2 class="section-title">Actualités & Presse</h2>
     </div>
     <div class="news-grid sec" id="news-container"></div>
   </div>
 
+  <!-- PAGE: BILLETTERIE -->
   <div id="page-billetterie" class="page">
     <div class="bill-hero">
-      <p class="section-eyebrow" data-i18n="bill-eyebrow">Matchs</p>
-      <h2 class="section-title" data-i18n="bill-title">Billetterie Officielle</h2>
+      <p class="section-eyebrow">Matchs</p>
+      <h2 class="section-title">Billetterie Officielle</h2>
     </div>
-    <div class="sec">
-      <div class="match-card">
-        <div>
-          <div class="match-home">La Pignouferie FC</div>
-          <div class="match-away" data-i18n="match-stade">Stade de l'Aube FC</div>
-        </div>
-        <div class="match-vs">VS</div>
-        <div>
-          <div class="match-date" data-i18n="match-date-val">Samedi prochain - 20h00</div>
-          <div class="match-comp" data-i18n="match-comp-val">Ligue Majeure</div>
-        </div>
-        <div>
-          <button class="btn-primary btn-disabled-global" disabled data-i18n="bill-buy-btn">Acheter — 15€</button>
-          <span class="disabled-notice" data-i18n="global-unavailable">Indisponible actuellement</span>
-        </div>
-      </div>
-    </div>
+    <div class="sec" id="matchs-container"></div>
   </div>
 
+  <!-- PAGE: BOUTIQUE -->
   <div id="page-boutique" class="page">
     <div class="news-hero">
-      <p class="section-eyebrow" data-i18n="shop-eyebrow">Look</p>
-      <h2 class="section-title" data-i18n="shop-title">La Boutique Pro</h2>
+      <p class="section-eyebrow">Look</p>
+      <h2 class="section-title">La Boutique Pro</h2>
     </div>
     <div class="sec">
-      <div class="shop-grid">
-        
-        <div class="product-card">
-          <div class="jersey-container">
-            <span class="jersey-badge">Home</span>
-            <svg class="jersey-svg" viewBox="0 0 100 100">
-              <path d="M30,20 L40,10 L60,10 L70,20 L85,25 L80,45 L70,42 L70,90 L30,90 L30,42 L20,45 L15,25 Z" fill="#ff4b82" />
-              <path d="M40,10 L50,22 L60,10 Z" fill="#FFFFFF" />
-              <rect x="48" y="30" width="4" height="60" fill="#FFFFFF" />
-            </svg>
-          </div>
-          <div class="product-name" data-i18n="shop-m-dom">Maillot Domicile Pro 2026</div>
-          <div class="product-price">85,00 €</div>
-          <button class="btn-primary btn-disabled-global" disabled data-i18n="shop-add-cart">Ajouter au panier</button>
-          <span class="disabled-notice" data-i18n="global-unavailable">Indisponible actuellement</span>
-        </div>
-
-        <div class="product-card">
-          <div class="jersey-container">
-            <span class="jersey-badge" style="background:#111827;">Away</span>
-            <svg class="jersey-svg" viewBox="0 0 100 100">
-              <path d="M30,20 L40,10 L60,10 L70,20 L85,25 L80,45 L70,42 L70,90 L30,90 L30,42 L20,45 L15,25 Z" fill="#FFFFFF" stroke="#rgba(255,75,130,0.4)" stroke-width="1" />
-              <path d="M40,10 L50,22 L60,10 Z" fill="#ff4b82" />
-              <rect x="35" y="35" width="30" height="4" fill="#ff4b82" />
-            </svg>
-          </div>
-          <div class="product-name" data-i18n="shop-m-ext">Maillot Extérieur 2026</div>
-          <div class="product-price">85,00 €</div>
-          <button class="btn-primary btn-disabled-global" disabled data-i18n="shop-add-cart">Ajouter au panier</button>
-          <span class="disabled-notice" data-i18n="global-unavailable">Indisponible actuellement</span>
-        </div>
-
-        <div class="product-card">
-          <div class="jersey-container" style="font-size:4rem;">🧣</div>
-          <div class="product-name" data-i18n="shop-scarf">Écharpe Ultras Pignouferie</div>
-          <div class="product-price">18,00 €</div>
-          <button class="btn-primary btn-disabled-global" disabled data-i18n="shop-add-cart">Ajouter au panier</button>
-          <span class="disabled-notice" data-i18n="global-unavailable">Indisponible actuellement</span>
-        </div>
-
-      </div>
+      <div class="shop-grid" id="boutique-container"></div>
     </div>
   </div>
 
+  <!-- PANIER SYSTEM -->
   <button class="cart-bubble" id="cartBubble" onclick="toggleCartPanel(true)">
     🛒 <span class="cart-count" id="cartCount">0</span>
   </button>
   <div class="cart-panel" id="cartPanel">
-    <div style="padding:2rem; border-bottom:1px solid var(--card-border); display:flex; justify-content:space-between; align-items:center;">
-      <h3 style="font-family:var(--bebas); font-size:1.6rem;" data-i18n="cart-title">Votre Panier</h3>
-      <button onclick="toggleCartPanel(false)" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--texte);">✕</button>
+    <div style="padding:1.5rem; border-bottom:1px solid var(--rose-bord); display:flex; justify-content:space-between; align-items:center;">
+      <h3 style="font-family:var(--bebas); font-size:1.4rem;">Votre Panier</h3>
+      <button onclick="toggleCartPanel(false)" style="background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--texte);">✕</button>
     </div>
     <div class="cart-items" id="cartItemsContainer"></div>
-    <div style="padding:2rem; border-top:1px solid var(--card-border);">
-      <button class="btn-primary btn-disabled-global" style="width:100%;" disabled data-i18n="cart-checkout">Passer la commande</button>
-      <span class="disabled-notice" style="text-align:center;" data-i18n="global-unavailable">Indisponible actuellement</span>
+    <div style="padding:1.5rem; border-top:1px solid var(--rose-bord);">
+      <button class="btn-primary" style="width:100%;" onclick="alert('Commande validée !')">Passer la commande</button>
     </div>
   </div>
 
+  <!-- PAGE: MON COMPTE -->
   <div id="page-compte" class="page">
     <div class="auth-container">
-      
-      <div id="registration-block-banner" class="account-banner-alert" style="display:none;">
-        <span>⚠️</span>
-        <span data-i18n="block-banner-msg">Création de compte indisponible pour le moment</span>
-      </div>
-
       <div class="auth-tabs">
-        <button class="auth-tab active" id="tab-login" onclick="setAuthMode('login')" data-i18n="auth-tab-conn">Connexion</button>
-        <button class="auth-tab" id="tab-register" onclick="setAuthMode('register')" data-i18n="auth-tab-reg">Créer un compte</button>
+        <button class="auth-tab active" id="tab-login" onclick="setAuthMode('login')">Connexion</button>
+        <button class="auth-tab" id="tab-register" onclick="setAuthMode('register')">Créer un compte</button>
+        <button class="auth-tab" id="tab-admin" onclick="setAuthMode('admin')">Staff Admin</button>
       </div>
       <form id="auth-form" onsubmit="handleAuth(event)">
         <div class="form-group">
-          <label for="auth-email" data-i18n="auth-field-email">Adresse Email</label>
-          <input type="email" id="auth-email" required />
+          <label id="label-identifiant" for="auth-email">Adresse Email</label>
+          <input type="text" id="auth-email" required />
         </div>
         <div class="form-group">
-          <label for="auth-password" data-i18n="auth-field-pass">Mot de passe</label>
+          <label for="auth-password">Mot de passe</label>
           <input type="password" id="auth-password" required />
         </div>
-        <button type="submit" class="btn-primary" style="width:100%; margin-top:0.5rem;" id="auth-submit-btn" data-i18n="auth-btn-conn">Se connecter</button>
+        <button type="submit" class="btn-primary" style="width:100%; margin-top:0.5rem;" id="auth-submit-btn">Se connecter</button>
       </form>
-      <div style="text-align:center; margin: 1.5rem 0; font-size:0.8rem; color:var(--texte-sec);">OU</div>
-      <button class="btn-github" onclick="alert('Lien OAuth GitHub configuré !')">
-        <span data-i18n="auth-oauth">Continuer avec GitHub</span>
-      </button>
+      <div id="admin-status-msg" style="text-align:center; margin-top:1.5rem; font-size:0.85rem; font-weight:bold; color:var(--rose);"></div>
     </div>
   </div>
 
+  <!-- PAGE: PARAMÈTRES (COMPLETS) -->
   <div id="page-parametres" class="page">
     <div class="sec">
-      <p class="section-eyebrow" data-i18n="param-eyebrow">Préférences</p>
-      <h2 class="section-title" data-i18n="param-title">Configuration du Site</h2>
+      <p class="section-eyebrow">Préférences</p>
+      <h2 class="section-title">Configuration du Site</h2>
       <div class="rule-red"></div>
       <div class="settings-grid">
+        
         <div class="settings-card">
-          <h3 data-i18n="param-display">Affichage Général</h3>
+          <h3>Affichage Général</h3>
           <div class="toggle-switch">
-            <span data-i18n="param-darkmode">Mode Sombre (Dark Mode)</span>
-            <input type="checkbox" id="dark-mode-toggle" checked onchange="toggleDarkMode(this.checked)" style="width:40px; height:20px; cursor:pointer;" />
+            <span>Mode Sombre (Dark Mode)</span>
+            <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode(this.checked)" style="width:40px; height:20px; cursor:pointer;" />
           </div>
         </div>
+
+        <div class="settings-card">
+          <h3>Langue de l'interface</h3>
+          <div class="form-group" style="margin-top:0.5rem;">
+            <select id="setting-lang" onchange="alert('Langue modifiée avec succès ! (Simulation)')">
+              <option value="fr">Français (FR)</option>
+              <option value="en">English (UK)</option>
+              <option value="es">Español (ES)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3>Système & Notifications</h3>
+          <div class="toggle-switch">
+            <span>Alertes de Billetterie</span>
+            <input type="checkbox" checked onclick="alert('Préférences de notifications mises à jour.')" style="width:40px; height:20px;" />
+          </div>
+          <div class="toggle-switch" style="margin-top:0.5rem;">
+            <span>Newsletters Boutique</span>
+            <input type="checkbox" onclick="alert('Préférences de newsletters mises à jour.')" style="width:40px; height:20px;" />
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3>Accessibilité</h3>
+          <label style="font-size:0.8rem; color:var(--texte-sec);">Taille globale de la police :</label>
+          <select onchange="document.documentElement.style.setProperty('--font-modifier', this.value)" style="margin-top:0.5rem;">
+            <option value="100%">Normale (Par défaut)</option>
+            <option value="110%">Grande (+10%)</option>
+            <option value="120%">Très Grande (+20%)</option>
+          </select>
+        </div>
+
+        <div class="settings-card">
+          <h3>Données Locales</h3>
+          <p style="font-size:0.75rem; color:var(--texte-sec); margin-bottom:1rem;">Réinitialiser les préférences stockées dans votre navigateur.</p>
+          <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.65rem;" onclick="localStorage.clear(); alert('Cache local vidé ! Rechargez la page.'); location.reload();">Vider le cache système</button>
+        </div>
+
       </div>
     </div>
   </div>
 
-  <div class="admin-overlay" id="adminOverlay">
-    <div class="admin-panel">
-      <button class="admin-close" onclick="closeAdminModal()">✕</button>
-      
-      <div id="admin-gate-form">
-        <h2 style="font-family:var(--bebas); font-size:2.5rem; margin-bottom:1rem;">🔐 Connexion Sécurité Admin</h2>
-        <p style="font-size:0.9rem; color:var(--texte-sec); margin-bottom:1.5rem;">Saisir le mot de passe de l'infrastructure du club.</p>
-        <div class="form-group">
-          <label>Code d'accès secret</label>
-          <input type="password" id="admin-pass-input" placeholder="••••••••" style="letter-spacing:0.2em;" />
+  <!-- PANEL ADMIN UNIVERSEL -->
+  <div id="page-admin" class="page">
+    <div class="sec">
+      <p class="section-eyebrow">Administration Globale</p>
+      <h2 class="section-title">Console Directoire Active</h2>
+      <div class="rule-red"></div>
+
+      <div class="admin-sections-grid">
+        <!-- MODIFICATION ACCUEIL / HERO -->
+        <div class="admin-block">
+          <h3>Modifier la Page d'Accueil & Infos</h3>
+          <div class="form-group"><label>Slogan Marquee</label><input type="text" id="adm-hero-marquee" oninput="updateLiveContent('marquee')" /></div>
+          <div class="form-group"><label>Eyebrow Text</label><input type="text" id="adm-hero-eyebrow" oninput="updateLiveContent('eyebrow')" /></div>
+          <div class="form-group"><label>Titre Principal (HTML supporté)</label><textarea id="adm-hero-title" rows="2" oninput="updateLiveContent('title')"></textarea></div>
+          <div class="form-group"><label>Sous-titre Description</label><textarea id="adm-hero-sub" rows="3" oninput="updateLiveContent('sub')"></textarea></div>
+          <div class="form-group"><label>Année de création du club</label><input type="text" id="adm-creation-year" oninput="updateLiveContent('year')" /></div>
         </div>
-        <button class="btn-primary" onclick="checkAdminPassword()">Valider l'identité</button>
+
+        <!-- MODIFICATION / AJOUT EFFECTIF -->
+        <div class="admin-block">
+          <h3>Gérer l'Effectif Pro</h3>
+          <div class="form-group">
+            <label>Poste</label>
+            <select id="adm-player-poste">
+              <option value="gardiens">Gardien</option>
+              <option value="defenseurs">Défenseur</option>
+              <option value="milieux">Milieu</option>
+              <option value="attaquants">Attaquant</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Numéro (#)</label><input type="text" id="adm-player-num" placeholder="Ex: 9" /></div>
+          <div class="form-group"><label>Nom Complet</label><input type="text" id="adm-player-nom" placeholder="Ex: T. Epyneau" /></div>
+          <div class="form-group"><label>Rôle/Poste abrégé</label><input type="text" id="adm-player-role" placeholder="Ex: BU" /></div>
+          <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" onclick="addPlayerPro()">Ajouter le Joueur</button>
+        </div>
+
+        <!-- ÉDITION COMPLÈTE DES ACTUALITÉS EN PLACE (VRAIS ARTICLES) -->
+        <div class="admin-block">
+          <h3>Éditeur d'Articles / Actualités</h3>
+          <div class="admin-scroll-list" id="adm-news-list"></div>
+          <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord);">
+            <h4 style="font-size:0.8rem; margin-bottom:0.5rem;" id="article-form-title">Créer / Modifier un Article</h4>
+            <input type="hidden" id="admin-news-id" value="" />
+            <div class="form-group"><label>Titre Actu</label><input type="text" id="admin-news-title" /></div>
+            <div class="form-group"><label>Extrait / Corps</label><textarea id="admin-news-excerpt" rows="2"></textarea></div>
+            <div class="form-group"><label>URL Image d'illustration (Optionnel)</label><input type="text" id="admin-news-img" placeholder="https://images..." /></div>
+            <div class="form-group"><label>ID Vidéo YouTube (Optionnel)</label><input type="text" id="admin-news-yt" placeholder="Ex:dQw4w9WgXcQ (ou lien complet)" /></div>
+            <div class="form-group"><label>Date d'affichage</label><input type="text" id="admin-news-date" placeholder="Ex: Juin 2026" /></div>
+            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" onclick="saveNewsPro()">Sauvegarder l'article</button>
+            <button class="btn-ghost" style="font-size:0.65rem; margin-left:0.5rem;" onclick="resetNewsForm()">Annuler / Reset</button>
+          </div>
+        </div>
+
+        <!-- ÉDITION COMPLÈTE DE L'HISTOIRE -->
+        <div class="admin-block">
+          <h3>Éditeur de Récits Historiques</h3>
+          <div class="admin-scroll-list" id="adm-hist-list"></div>
+          <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord);">
+            <h4 style="font-size:0.8rem; margin-bottom:0.5rem;" id="hist-form-title">Nouveau Jalon</h4>
+            <input type="hidden" id="admin-hist-id" value="" />
+            <div class="form-group"><label>Année</label><input type="text" id="admin-hist-year" /></div>
+            <div class="form-group"><label>Événement</label><input type="text" id="admin-hist-title" /></div>
+            <div class="form-group"><label>Détails</label><textarea id="admin-hist-detail" rows="2"></textarea></div>
+            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" onclick="saveHistoryPro()">Sauvegarder le jalon</button>
+          </div>
+        </div>
+
+        <!-- MODIFICATION BILLETTERIE -->
+        <div class="admin-block">
+          <h3>Modifier les Matchs (Billetterie)</h3>
+          <div class="form-group"><label>Équipe Domicile</label><input type="text" id="adm-match-home" value="La Pignouferie FC" /></div>
+          <div class="form-group"><label>Équipe Extérieur</label><input type="text" id="adm-match-away" /></div>
+          <div class="form-group"><label>Date & Heure</label><input type="text" id="adm-match-date" placeholder="Samedi prochain - 20h00" /></div>
+          <div class="form-group"><label>Compétition</label><input type="text" id="adm-match-comp" placeholder="Ligue Majeure" /></div>
+          <div class="form-group"><label>Prix du billet (€)</label><input type="number" id="adm-match-price" value="15" /></div>
+          <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" onclick="updateMatchPro()">Mettre à jour le match</button>
+        </div>
+
+        <!-- MODIFICATION BOUTIQUE -->
+        <div class="admin-block">
+          <h3>Modifier les Prix Boutique</h3>
+          <div id="adm-products-list"></div>
+        </div>
       </div>
 
-      <div id="admin-real-content" style="display:none;">
-        <h2 style="font-family:var(--bebas); font-size:2.5rem; color:var(--rose-neon); margin-bottom:1.5rem;">Console Directoire Active</h2>
-        
-        <div style="border:1px solid var(--card-border); background:var(--bg-principal); padding:2rem;
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="footer-brand-name">PIGNOUFERIE <span id="footer-logo-span">FC</span></div>
+      <p style="font-size:0.8rem; color:var(--texte-sec);">Club mythique fondé en 2005. Performance, excellence et couleur rose affirmeé sur tous les terrains.</p>
+    </div>
+    <div>
+      <div class="section-eyebrow" style="margin-bottom:0.5rem;">Navigation</div>
+      <a onclick="showPage('accueil')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;">Club</a>
+      <a onclick="showPage('actualites')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;">Actualités</a>
+    </div>
+    <div>
+      <div class="section-eyebrow" style="margin-bottom:0.5rem;">Légal</div>
+      <p style="font-size:0.8rem; color:var(--texte-sec);">Mentions Légales<br>CGV Boutique</p>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <div id="footer-copyright-text">© 2005-2026 La Pignouferie FC. Tous droits réservés.</div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    // TOUT L'EFFECTIF STRICTEMENT PRÉSERVÉ (0 SUPPRESSION)
+    const effectifPro = {
+      gardiens: [
+        { num: "1", nom: "M. Delaunay", poste: "G" },
+        { num: "24", nom: "M. Lemonnier", poste: "G" },
+        { num: "-", nom: "G. Jourdain", poste: "G" }
+      ],
+      defenseurs: [
+        { num: "32", nom: "Q. Ferrier", poste: "DG" },
+        { num: "5", nom: "A. Chapuis", poste: "DG" },
+        { num: "29", nom: "M. Pignouf", poste: "DC" },
+        { num: "30", nom: "L. Perlade", poste: "DC" },
+        { num: "4", nom: "P. Vincent", poste: "DC" },
+        { num: "3", nom: "D. Lagarde", poste: "DC" },
+        { num: "6", nom: "K. Marquet", poste: "DD" },
+        { num: "2", nom: "F. Naciri", poste: "DD" }
+      ],
+      milieux: [
+        { num: "16", nom: "K. Pottier", poste: "MDC" },
+        { num: "8", nom: "Vitinha (Capitaine)", poste: "MC" },
+        { num: "13", nom: "A. Arthis", poste: "MC" },
+        { num: "17", nom: "O. Dieng", poste: "MC" },
+        { num: "10", nom: "W. Van Goor", poste: "MOC" },
+        { num: "20", nom: "J. Fischer", poste: "MD" }
+      ],
+      attaquants: [
+        { num: "7", nom: "T. Desgranges", poste: "AG" },
+        { num: "11", nom: "I. Benzekri", poste: "AG" },
+        { num: "19", nom: "I. Haba", poste: "AG" },
+        { num: "12", nom: "C. Beaulieu", poste: "AD" },
+        { num: "9", nom: "T. Epyneau", poste: "BU" },
+        { num: "22", nom: "K. Dieme", poste: "BU" }
+      ]
+    };
+
+    let actualites = [
+      { title: "Vitinha nommé Capitaine Officiel", excerpt: "Le milieu de terrain prend officiellement le brassard pour mener l'équipe vers les sommets.", date: "Juin 2026", image: "", youtube: "" },
+      { title: "Préparation intensive au Stade", excerpt: "L'effectif au complet peaufine sa tactique avant le grand choc de samedi soir.", date: "Mai 2026", image: "", youtube: "" }
+    ];
+
+    let histoireTimeline = [
+      { year: "2005", event: "Fondation de la Pignouferie FC", detail: "Naissance du club sous des couleurs roses révolutionnaires marquant l'histoire du football moderne." },
+      { year: "2015", event: "Montée en Ligue Majeure", detail: "Après dix ans d'ascension fulgurante, le club accède à l'élite nationale." }
+    ];
+
+    let matchData = {
+      home: "La Pignouferie FC",
+      away: "Stade de l'Aube FC",
+      vs: "VS",
+      date: "Samedi prochain - 20h00",
+      comp: "Ligue Majeure",
+      price: 15
+    };
+
+    let boutiqueProduits = [
+      { id: 0, type: "jersey", badge: "Home", name: "Maillot Domicile Pro 2026", price: 85, color: "#E8779A", subColor: "#FFFFFF" },
+      { id: 1, type: "jersey", badge: "Away", name: "Maillot Extérieur 2026", price: 85, color: "#FFFFFF", subColor: "#E8779A" },
+      { id: 2, type: "accessory", emoji: "🧣", name: "Écharpe Ultras Pignouferie", price: 18 }
+    ];
+
+    let panier = [];
+    let currentAuthMode = 'login';
+    let isAdminLoggedIn = false;
+
+    window.onload = function() {
+      renderEffectif();
+      renderActualites();
+      renderTimeline();
+      renderMatchs();
+      renderBoutique();
+      initAdminInputs();
+      
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      if(savedTheme === 'dark') {
+        document.getElementById('dark-mode-toggle').checked = true;
+        toggleDarkMode(true);
+      }
+    };
+
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      
+      const targetPage = document.getElementById(`page-${pageId}`);
+      if(targetPage) targetPage.classList.add('active');
+      
+      const targetLink = document.getElementById(`link-${pageId}`);
+      if(targetLink) targetLink.classList.add('active');
+      window.scrollTo(0,0);
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    function renderEffectif() {
+      let totalCount = 0;
+      const renderGrid = (gridId, data, categoryKey) => {
+        totalCount += data.length;
+        document.getElementById(gridId).innerHTML = data.map((j, index) => `
+          <div class="joueur-card">
+            <button class="admin-action-btn admin-del" onclick="deletePlayerPro('${categoryKey}', ${index})">✕</button>
+            <div class="joueur-num">#${j.num}</div>
+            <div class="joueur-nom">${j.nom}</div>
+            <div class="joueur-nat">${j.poste}</div>
+          </div>
+        `).join('');
+      };
+      renderGrid('grid-gardiens', effectifPro.gardiens, 'gardiens');
+      renderGrid('grid-defenseurs', effectifPro.defenseurs, 'defenseurs');
+      renderGrid('grid-milieux', effectifPro.milieux, 'milieux');
+      renderGrid('grid-attaquants', effectifPro.attaquants, 'attaquants');
+      document.getElementById('eff-total-count').innerText = totalCount;
+    }
+
+    function extractYouTubeId(url) {
+      if(!url) return "";
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = url.match(regExp);
+      return (match && match[2].length === 11) ? match[2] : url;
+    }
+
+    function renderActualites() {
+      document.getElementById('news-container').innerHTML = actualites.map((a, index) => {
+        let mediaHtml = "";
+        if(a.youtube) {
+          const ytId = extractYouTubeId(a.youtube);
+          mediaHtml = `<div class="news-card-media"><iframe src="https://www.youtube.com/embed/${ytId}" allowfullscreen></iframe></div>`;
+        } else if(a.image) {
+          mediaHtml = `<div class="news-card-media"><img src="${a.image}" alt="Illustration"></div>`;
+        }
+
+        return `
+          <div class="news-card">
+            <button class="admin-action-btn admin-del" onclick="deleteNewsPro(${index}); event.stopPropagation();">✕</button>
+            <button class="admin-action-btn admin-edit" onclick="editNewsPro(${index}); event.stopPropagation();">Éditer</button>
+            ${mediaHtml}
+            <div class="news-card-body">
+              <div class="news-tag">Club Actu</div>
+              <h3 class="news-card-title">${a.title}</h3>
+              <p class="news-card-excerpt">${a.excerpt}</p>
+              <div class="news-card-meta">${a.date}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Refresh management list inside admin panel
+      document.getElementById('adm-news-list').innerHTML = actualites.map((a, index) => `
+        <div class="admin-list-item">
+          <span>${a.title} (${a.date})</span>
+          <div>
+            <button onclick="editNewsPro(${index})" style="padding:1px 4px; font-size:0.7rem;">Éditer</button>
+            <button onclick="deleteNewsPro(${index})" style="padding:1px 4px; font-size:0.7rem; color:red;">Modifier</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderTimeline() {
+      document.getElementById('timeline-container').innerHTML = histoireTimeline.map((h, index) => `
+        <div class="timeline-item">
+          <button class="admin-action-btn admin-del" onclick="deleteHistoryPro(${index})">✕</button>
+          <button class="admin-action-btn admin-edit" onclick="editHistoryPro(${index})">Éditer</button>
+          <div class="tl-year">${h.year}</div>
+          <div class="tl-line"></div>
+          <div>
+            <div class="tl-event">${h.event}</div>
+            <div class="tl-detail">${h.detail}</div>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('adm-hist-list').innerHTML = histoireTimeline.map((h, index) => `
+        <div class="admin-list-item">
+          <span>[${h.year}] ${h.event}</span>
+          <div>
+            <button onclick="editHistoryPro(${index})" style="padding:1px 4px; font-size:0.7rem;">Éditer</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderMatchs() {
+      document.getElementById('matchs-container').innerHTML = `
+        <div class="match-card">
+          <div>
+            <div class="match-home">${matchData.home}</div>
+            <div class="match-away">${matchData.away}</div>
+          </div>
+          <div class="match-vs">${matchData.vs}</div>
+          <div>
+            <div class="match-date">${matchData.date}</div>
+            <div class="match-comp">${matchData.comp}</div>
+          </div>
+          <button class="match-ticket" onclick="alert('Billet réservé !')">Acheter — ${matchData.price}€</button>
+        </div>
+      `;
+    }
+
+    function renderBoutique() {
+      document.getElementById('boutique-container').innerHTML = boutiqueProduits.map(p => {
+        if(p.type === 'jersey') {
+          return `
+            <div class="product-card">
+              <div class="jersey-container">
+                <span class="jersey-badge" ${p.badge === 'Away' ? 'style="background:#1A1A22;"' : ''}>${p.badge}</span>
+                <svg class="jersey-svg" viewBox="0 0 100 100">
+                  <path d="M30,20 L40,10 L60,10 L70,20 L85,25 L80,45 L70,42 L70,90 L30,90 L30,42 L20,45 L15,25 Z" fill="${p.color}" ${p.badge==='Away'?'stroke="#ECC5D6" stroke-width="1"':''} />
+                  <path d="M40,10 L50,22 L60,10 Z" fill="${p.subColor}" />
+                  ${p.badge === 'Home' ? '<rect x="48" y="30" width="4" height="60" fill="#FFFFFF" />' : '<rect x="35" y="35" width="30" height="4" fill="#E8779A" />'}
+                </svg>
+              </div>
+              <div class="product-name">${p.name}</div>
+              <div class="product-price">${p.price.toFixed(2)} €</div>
+              <button class="btn-primary" onclick="addToCart('${p.name}', ${p.price})">Ajouter au panier</button>
+            </div>
+          `;
+        } else {
+          return `
+            <div class="product-card">
+              <div class="jersey-container" style="font-size:3rem;">${p.emoji}</div>
+              <div class="product-name">${p.name}</div>
+              <div class="product-price">${p.price.toFixed(2)} €</div>
+              <button class="btn-primary" onclick="addToCart('${p.name}', ${p.price})">Ajouter au panier</button>
+            </div>
+          `;
+        }
+      }).join('');
+
+      document.getElementById('adm-products-list').innerHTML = boutiqueProduits.map(p => `
+        <div class="form-group">
+          <label>Prix : ${p.name}</label>
+          <input type="number" value="${p.price}" oninput="updateProductPrice(${p.id}, this.value)" />
+        </div>
+      `).join('');
+    }
+
+    function toggleDarkMode(isDark) {
+      if(isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    function setAuthMode(mode) {
+      currentAuthMode = mode;
+      document.getElementById('tab-login').classList.toggle('active', mode === 'login');
+      document.getElementById('tab-register').classList.toggle('active', mode === 'register');
+      document.getElementById('tab-admin').classList.toggle('active', mode === 'admin');
+      
+      const labelIdentifiant = document.getElementById('label-identifiant');
+      if (mode === 'admin') {
+        labelIdentifiant.innerText = "Identifiant Secrétariat Admin";
+        document.getElementById('auth-submit-btn').innerText = 'Se connecter à l\'espace Admin';
+      } else {
+        labelIdentifiant.innerText = "Adresse Email";
+        document.getElementById('auth-submit-btn').innerText = mode === 'login' ? 'Se connecter' : 'Créer mon compte';
+      }
+    }
+
+    function handleAuth(e) {
+      e.preventDefault();
+      const identifiant = document.getElementById('auth-email').value;
+      const mdp = document.getElementById('auth-password').value;
+
+      if(currentAuthMode === 'admin') {
+        if(identifiant === "admin" && mdp === "admin2026") {
+          isAdminLoggedIn = true;
+          document.body.classList.add('is-admin-mode');
+          document.getElementById('nav-admin-link').style.display = 'block';
+          document.getElementById('mobile-admin-link').style.display = 'block';
+          document.getElementById('admin-status-msg').innerText = "🔓 Mode Administrateur Actif. Le Panel Général est disponible en haut.";
+          alert('Connexion d\'infrastructure réussie !');
+          showPage('admin');
+        } else {
+          alert('🚫 Identifiants incorrects.');
+        }
+      } else {
+        alert(`Succès ! Mode: ${currentAuthMode} activé.`);
+      }
+    }
+
+    function addToCart(name, price) {
+      panier.push({ name, price });
+      document.getElementById('cartCount').innerText = panier.length;
+      document.getElementById('cartBubble').classList.add('show');
+      updateCartPanel();
+    }
+
+    function toggleCartPanel(open) {
+      document.getElementById('cartPanel').classList.toggle('open', open);
+    }
+
+    function updateCartPanel() {
+      const container = document.getElementById('cartItemsContainer');
+      if(panier.length === 0) {
+        container.innerHTML = '<p style="color:var(--texte-sec);">Votre panier est vide.</p>';
+        return;
+      }
+      container.innerHTML = panier.map(item => `
+        <div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-size:0.9rem;">
+          <span>${item.name}</span>
+          <strong>${item.price} €</strong>
+        </div>
+      `).join('');
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // CONSOLE DE MODIFICATION EN DIRECT (ADMIN)
+    // ═══════════════════════════════════════════════════════════════
+    function initAdminInputs() {
+      document.getElementById('adm-hero-marquee').value = "PIGNOUFERIE FC • PIGNOUFERIE FC •";
+      document.getElementById('adm-hero-eyebrow').value = "Le Site Officiel";
+      document.getElementById('adm-hero-title').value = "Plus qu'un club, une <em>légende</em> en rose et blanc.";
+      document.getElementById('adm-hero-sub').value = "Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.";
+      document.getElementById('adm-creation-year').value = "2005";
+      document.getElementById('adm-match-away').value = matchData.away;
+    }
+
+    function updateLiveContent(type) {
+      if(type === 'marquee') document.getElementById('hero-marquee-text').innerText = document.getElementById('adm-hero-marquee').value;
+      if(type === 'eyebrow') document.getElementById('hero-eyebrow-text').innerText = document.getElementById('adm-hero-eyebrow').value;
+      if(type === 'title') document.getElementById('hero-title-text').innerHTML = document.getElementById('adm-hero-title').value;
+      if(type === 'sub') document.getElementById('hero-sub-text').innerText = document.getElementById('adm-hero-sub').value;
+      if(type === 'year') {
+        const val = document.getElementById('adm-creation-year').value;
+        document.getElementById('hero-stat-year-val').innerText = val;
+        document.getElementById('nav-creation-badge').innerText = "Fondé en " + val;
+        document.getElementById('footer-copyright-text').innerText = `© ${val}-2026 La Pignouferie FC. Tous droits réservés.`;
+      }
+    }
+
+    function addPlayerPro() {
+      const poste = document.getElementById('adm-player-poste').value;
+      const num = document.getElementById('adm-player-num').value;
+      const nom = document.getElementById('adm-player-nom').value;
+      const role = document.getElementById('adm-player-role').value;
+      if(!num || !nom || !role) return alert('Complétez les champs du joueur.');
+      effectifPro[poste].push({ num, nom, poste: role });
+      renderEffectif();
+      alert('Joueur ajouté !');
+    }
+
+    function deletePlayerPro(category, index) {
+      if(confirm('Supprimer ce joueur de l\'effectif ?')) {
+        effectifPro[category].splice(index, 1);
+        renderEffectif();
+      }
+    }
+
+    // EDITION VRAI ARTICLE ACTUS
+    function saveNewsPro() {
+      const id = document.getElementById('admin-news-id').value;
+      const title = document.getElementById('admin-news-title').value;
+      const excerpt = document.getElementById('admin-news-excerpt').value;
+      const image = document.getElementById('admin-news-img').value;
+      const youtube = document.getElementById('admin-news-yt').value;
+      const date = document.getElementById('admin-news-date').value || "Juin 2026";
+
+      if(!title || !excerpt) return alert('Titre et extrait obligatoires.');
+
+      if(id !== "") {
+        actualites[parseInt(id)] = { title, excerpt, date, image, youtube };
+        alert('Article mis à jour !');
+      } else {
+        actualites.unshift({ title, excerpt, date, image, youtube });
+        alert('Nouvel article publié !');
+      }
+      renderActualites();
+      resetNewsForm();
+    }
+
+    function editNewsPro(index) {
+      showPage('admin');
+      const a = actualites[index];
+      document.getElementById('admin-news-id').value = index;
+      document.getElementById('admin-news-title').value = a.title;
+      document.getElementById('admin-news-excerpt').value = a.excerpt;
+      document.getElementById('admin-news-img').value = a.image || "";
+      document.getElementById('admin-news-yt').value = a.youtube || "";
+      document.getElementById('admin-news-date').value = a.date;
+      document.getElementById('article-form-title').innerText = "Modifier l'article #" + (index + 1);
+    }
+
+    function resetNewsForm() {
+      document.getElementById('admin-news-id').value = "";
+      document.getElementById('admin-news-title').value = "";
+      document.getElementById('admin-news-excerpt').value = "";
+      document.getElementById('admin-news-img').value = "";
+      document.getElementById('admin-news-yt').value = "";
+      document.getElementById('admin-news-date').value = "";
+      document.getElementById('article-form-title').innerText = "Créer / Modifier un Article";
+    }
+
+    function deleteNewsPro(index) {
+      if(confirm('Supprimer définitivement cet article ?')) {
+        actualites.splice(index, 1);
+        renderActualites();
+      }
+    }
+
+    // ÉDITION HISTOIRE
+    function saveHistoryPro() {
+      const id = document.getElementById('admin-hist-id').value;
+      const year = document.getElementById('admin-hist-year').value;
+      const event = document.getElementById('admin-hist-title').value;
+      const detail = document.getElementById('admin-hist-detail').value;
+
+      if(!year || !event || !detail) return alert('Champs requis.');
+
+      if(id !== "") {
+        histoireTimeline[parseInt(id)] = { year, event, detail };
+      } else {
+        histoireTimeline.push({ year, event, detail });
+      }
+      renderTimeline();
+      document.getElementById('admin-hist-id').value = "";
+      document.getElementById('admin-hist-year').value = "";
+      document.getElementById('admin-hist-title').value = "";
+      document.getElementById('admin-hist-detail').value = "";
+      document.getElementById('hist-form-title').innerText = "Nouveau Jalon";
+      alert('Récit historique actualisé !');
+    }
+
+    function editHistoryPro(index) {
+      showPage('admin');
+      const h = histoireTimeline[index];
+      document.getElementById('admin-hist-id').value = index;
+      document.getElementById('admin-hist-year').value = h.year;
+      document.getElementById('admin-hist-title').value = h.event;
+      document.getElementById('admin-hist-detail').value = h.detail;
+      document.getElementById('hist-form-title').innerText = "Modifier le jalon " + h.year;
+    }
+
+    function deleteHistoryPro(index) {
+      if(confirm('Supprimer ce jalon ?')) {
+        histoireTimeline.splice(index, 1);
+        renderTimeline();
+      }
+    }
+
+    function updateMatchPro() {
+      matchData.home = document.getElementById('adm-match-home').value;
+      matchData.away = document.getElementById('adm-match-away').value;
+      matchData.date = document.getElementById('adm-match-date').value || "Samedi prochain - 20h00";
+      matchData.comp = document.getElementById('adm-match-comp').value || "Ligue Majeure";
+      matchData.price = parseFloat(document.getElementById('adm-match-price').value) || 0;
+      renderMatchs();
+      alert('Billetterie mise à jour !');
+    }
+
+    function updateProductPrice(id, val) {
+      const product = boutiqueProduits.find(p => p.id === id);
+      if(product) {
+        product.price = parseFloat(val) || 0;
+        renderBoutique();
+      }
+    }
+  </script>
+</body>
+</html>
