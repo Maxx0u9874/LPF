@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Pignouferie FC — Club Officiel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blanc:     #FFFFFF;
+      --rose:      #E8779A;
+      --rose-f:    #C4506E;
+      --rose-pale: #FDF0F4;
+      --rose-mid:  #F5D6E3;
+      --rose-bord: #ECC5D6;
+      --texte:     #1A1A22;
+      --texte-sec: #6B5F6B;
+      --gris-clair:#F7F3F5;
+      --bebas: 'Bebas Neue', sans-serif;
+      --inter: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--blanc);
+      color: var(--texte);
+      font-family: var(--inter);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ──────────────────────────── NAV ──────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4rem;
+      height: 72px;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rose-bord);
+    }
+
+    .nav-logo {
+      font-family: var(--bebas);
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+      color: var(--texte);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--rose); }
+
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none;
+    }
+    .nav-links a {
+      color: var(--texte-sec);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--texte); }
+
+    .nav-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--rose);
+      border: 1px solid var(--rose-bord);
+      padding: 0.3rem 0.75rem;
+    }
+
+    /* ──────────────────────────── HERO ──────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 4rem 6rem;
+      overflow: hidden;
+      background: var(--rose-pale);
+    }
+
+    .hero-marquee {
+      position: absolute; top: 50%; left: 0; right: 0;
+      transform: translateY(-58%);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+    .hero-marquee-inner {
+      display: inline-block;
+      animation: marquee 28s linear infinite;
+      font-family: var(--bebas);
+      font-size: clamp(9rem, 18vw, 18rem);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(232, 119, 154, 0.2);
+      letter-spacing: 0.04em;
+    }
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: var(--bebas);
+      font-size: clamp(4rem, 10vw, 9rem);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      max-width: 900px;
+      position: relative;
+      color: var(--texte);
+    }
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--rose);
+    }
+
+    .hero-sub {
+      margin-top: 2rem;
+      font-size: 1.05rem;
+      color: var(--texte-sec);
+      font-weight: 300;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      margin-top: 3rem;
+      display: flex; gap: 1.25rem; align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--rose);
+      color: var(--blanc);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--rose-f); }
+
+    .btn-ghost {
+      display: inline-block;
+      color: var(--texte);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--rose-bord);
+      padding-bottom: 0.15rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--rose); color: var(--rose); }
+
+    .hero-stats {
+      position: absolute; right: 4rem; bottom: 6rem;
+      display: flex; flex-direction: column; gap: 2rem;
+      align-items: flex-end;
+    }
+
+    .hero-stat-num {
+      font-family: var(--bebas);
+      font-size: 3.5rem;
+      line-height: 1;
+      color: var(--texte);
+    }
+    .hero-stat-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--texte-sec);
+      margin-top: 0.25rem;
+      text-align: right;
+    }
+    .hero-stat-line {
+      width: 1px; height: 48px;
+      background: var(--rose-bord);
+      margin-left: auto;
+    }
+
+    /* ──────────────────────────── SECTION BASE ──────────────────────────── */
+    section { padding: 8rem 4rem; }
+
+    .section-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--bebas);
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin-bottom: 3rem;
+      color: var(--texte);
+    }
+
+    .rule { width: 100%; height: 1px; background: var(--rose-bord); }
+    .rule-red { background: var(--rose); height: 2px; width: 48px; margin-bottom: 2rem; }
+
+    /* ──────────────────────────── PALMARÈS ──────────────────────────── */
+    .palmares { background: var(--gris-clair); }
+
+    .palmares-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0;
+      border: 1px solid var(--rose-bord);
+    }
+
+    .palmares-item {
+      padding: 3rem 2.5rem;
+      border-right: 1px solid var(--rose-bord);
+      border-bottom: 1px solid var(--rose-bord);
+      background: var(--blanc);
+      transition: background 0.25s;
+    }
+    .palmares-item:hover { background: var(--rose-pale); }
+
+    .palmares-year {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 0.75rem;
+    }
+
+    .palmares-trophy {
+      font-family: var(--bebas);
+      font-size: 1.9rem;
+      letter-spacing: 0.03em;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+      color: var(--texte);
+    }
+
+    .palmares-desc {
+      font-size: 0.82rem;
+      color: var(--texte-sec);
+      line-height: 1.6;
+    }
+
+    .palmares-rank {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--rose);
+      border: 1px solid var(--rose-bord);
+      padding: 0.25rem 0.6rem;
+    }
+
+    /* ──────────────────────────── SAISON COURANTE ──────────────────────────── */
+    .saison { background: var(--blanc); }
+
+    .saison-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 4rem;
+      flex-wrap: wrap; gap: 2rem;
+    }
+
+    .saison-context {
+      font-size: 0.88rem;
+      color: var(--texte-sec);
+      max-width: 400px;
+      line-height: 1.7;
+    }
+
+    .competitions-list {
+      display: flex; flex-direction: column; gap: 0;
+    }
+
+    .competition-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      align-items: center;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--rose-bord);
+      transition: padding-left 0.2s;
+    }
+    .competition-row:first-child { border-top: 1px solid var(--rose-bord); }
+    .competition-row:hover { padding-left: 1rem; }
+
+    .comp-name {
+      font-family: var(--bebas);
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      color: var(--texte);
+    }
+
+    .comp-status {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .status-active { color: #5BAD7A; }
+    .status-upcoming { color: #C4956A; }
+
+    .comp-detail {
+      font-size: 0.82rem;
+      color: var(--texte-sec);
+    }
+
+    .comp-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--rose-pale);
+      color: var(--rose);
+      padding: 0.35rem 0.8rem;
+      display: inline-block;
+      justify-self: end;
+    }
+
+    /* ──────────────────────────── EFFECTIF ──────────────────────────── */
+    .effectif { background: var(--gris-clair); }
+
+    .effectif-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 5rem;
+      align-items: end;
+    }
+
+    .effectif-text {
+      font-size: 0.9rem;
+      color: var(--texte-sec);
+      line-height: 1.8;
+    }
+
+    .effectif-numbers {
+      display: flex; gap: 3rem;
+    }
+
+    .eff-num { font-family: var(--bebas); font-size: 3rem; color: var(--texte); }
+    .eff-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.25rem; }
+
+    .postes {
+      display: flex; flex-direction: column; gap: 0;
+    }
+
+    .poste-header {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      padding: 1.5rem 0 1rem;
+      border-top: 1px solid var(--rose-bord);
+    }
+
+    .joueurs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1px;
+      background: var(--rose-bord);
+      margin-bottom: 0;
+    }
+
+    .joueur-card {
+      background: var(--blanc);
+      padding: 1.5rem 1.25rem;
+      transition: background 0.2s;
+    }
+    .joueur-card:hover { background: var(--rose-pale); }
+
+    .joueur-num {
+      font-family: var(--bebas);
+      font-size: 2rem;
+      color: rgba(232, 119, 154, 0.3);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .joueur-nom {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--texte);
+      margin-bottom: 0.25rem;
+    }
+
+    .joueur-nat {
+      font-size: 0.7rem;
+      color: var(--texte-sec);
+      letter-spacing: 0.06em;
+    }
+
+    /* ──────────────────────────── STADE ──────────────────────────── */
+    .stade { background: var(--blanc); }
+
+    .stade-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .stade-info p {
+      font-size: 0.9rem;
+      color: var(--texte-sec);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .stade-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .spec-val { font-family: var(--bebas); font-size: 2.2rem; color: var(--texte); }
+    .spec-key { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.25rem; }
+
+    .stade-img-placeholder {
+      background: var(--rose-pale);
+      border: 1px solid var(--rose-bord);
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .stade-img-label {
+      font-family: var(--bebas);
+      font-size: 5rem;
+      color: rgba(232, 119, 154, 0.25);
+      letter-spacing: 0.04em;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .stade-cap {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--texte-sec);
+    }
+
+    /* ──────────────────────────── HISTOIRE ──────────────────────────── */
+    .histoire { background: var(--rose-pale); }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 820px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 120px 1px 1fr;
+      gap: 0 2.5rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--rose-bord);
+    }
+    .timeline-item:last-child { border-bottom: none; }
+
+    .tl-year {
+      font-family: var(--bebas);
+      font-size: 1.6rem;
+      color: var(--rose);
+      padding-top: 0.1rem;
+    }
+
+    .tl-line {
+      background: var(--rose-bord);
+      width: 1px;
+    }
+
+    .tl-event {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--texte);
+      margin-bottom: 0.5rem;
+    }
+
+    .tl-detail {
+      font-size: 0.82rem;
+      color: var(--texte-sec);
+      line-height: 1.6;
+    }
+
+    /* ──────────────────────────── STAFF ──────────────────────────── */
+    .staff { background: var(--gris-clair); }
+
+    .staff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--rose-bord);
+      border: 1px solid var(--rose-bord);
+    }
+
+    .staff-card {
+      background: var(--blanc);
+      padding: 2.5rem 2rem;
+      transition: background 0.2s;
+    }
+    .staff-card:hover { background: var(--rose-pale); }
+
+    .staff-role {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 0.75rem;
+    }
+
+    .staff-name {
+      font-family: var(--bebas);
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.5rem;
+      color: var(--texte);
+    }
+
+    .staff-bio {
+      font-size: 0.78rem;
+      color: var(--texte-sec);
+      line-height: 1.6;
+    }
+
+    /* ──────────────────────────── BILLETTERIE ──────────────────────────── */
+    .billetterie {
+      background: var(--rose);
+      padding: 7rem 4rem;
+      text-align: center;
+    }
+
+    .bill-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 1.5rem;
+    }
+
+    .bill-title {
+      font-family: var(--bebas);
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      letter-spacing: 0.02em;
+      line-height: 0.95;
+      margin-bottom: 2rem;
+      color: var(--blanc);
+    }
+
+    .bill-sub {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 3rem;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .btn-bill {
+      display: inline-block;
+      background: var(--blanc);
+      color: var(--rose);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 1.1rem 3rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-bill:hover { background: var(--texte); color: var(--blanc); }
+
+    /* ──────────────────────────── FOOTER ──────────────────────────── */
+    footer {
+      background: var(--gris-clair);
+      padding: 4rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      border-top: 1px solid var(--rose-bord);
+    }
+
+    .footer-brand-name {
+      font-family: var(--bebas);
+      font-size: 1.8rem;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+      color: var(--texte);
+    }
+
+    .footer-brand-name span { color: var(--rose); }
+
+    .footer-brand-sub {
+      font-size: 0.78rem;
+      color: var(--texte-sec);
+      line-height: 1.7;
+      max-width: 240px;
+    }
+
+    .footer-col-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-links {
+      display: flex; flex-direction: column; gap: 0.6rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--texte-sec);
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--texte); }
+
+    .footer-bottom {
+      background: var(--rose-pale);
+      padding: 1.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--rose-bord);
+    }
+
+    .footer-copy {
+      font-size: 0.7rem;
+      color: var(--texte-sec);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-mention {
+      font-size: 0.7rem;
+      color: rgba(107, 95, 107, 0.5);
+    }
+
+    /* ──────────────────────────── SCROLL REVEAL ──────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 1.5rem; }
+      .hero { padding: 0 1.5rem 4rem; }
+      .hero-stats { display: none; }
+      .stade-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .effectif-intro { grid-template-columns: 1fr; }
+      footer { grid-template-columns: 1fr 1fr; }
+      .competition-row { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+      .comp-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">La <span>Pignouferie</span></a>
+    <ul class="nav-links">
+      <li><a href="#palmares">Palmarès</a></li>
+      <li><a href="#saison">Saison</a></li>
+      <li><a href="#effectif">Effectif</a></li>
+      <li><a href="#stade">Stade</a></li>
+      <li><a href="#histoire">Histoire</a></li>
+      <li><a href="#staff">Staff</a></li>
+    </ul>
+    <span class="nav-badge">Ligue 1 — 2025/26</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-marquee" aria-hidden="true">
+      <span class="hero-marquee-inner">
+        LA PIGNOUFERIE &nbsp;&nbsp;&nbsp; LA PIGNOUFERIE &nbsp;&nbsp;&nbsp; LA PIGNOUFERIE &nbsp;&nbsp;&nbsp; LA PIGNOUFERIE &nbsp;&nbsp;&nbsp;
+        LA PIGNOUFERIE &nbsp;&nbsp;&nbsp; LA PIGNOUFERIE &nbsp;&nbsp;&nbsp; LA PIGNOUFERIE &nbsp;&nbsp;&nbsp; LA PIGNOUFERIE &nbsp;&nbsp;&nbsp;
+      </span>
+    </div>
+
+    <p class="hero-eyebrow">Club de football professionnel — fondé en 1924</p>
+    <h1 class="hero-title">La<br><em>Pignouferie</em><br>FC</h1>
+    <p class="hero-sub">De la Ligue 2 aux sommets de l'Europe en trois saisons. Une ascension sans précédent dans le football français.</p>
+    <div class="hero-actions">
+      <a href="#palmares" class="btn-primary">Voir le palmarès</a>
+      <a href="#effectif" class="btn-ghost">L'effectif 2025/26</a>
+    </div>
+
+    <div class="hero-stats" aria-hidden="true">
+      <div>
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Titres en 3 saisons</div>
+      </div>
+      <div class="hero-stat-line"></div>
+      <div>
+        <div class="hero-stat-num">1re</div>
+        <div class="hero-stat-label">LDC cette saison</div>
+      </div>
+      <div class="hero-stat-line"></div>
+      <div>
+        <div class="hero-stat-num">1924</div>
+        <div class="hero-stat-label">Année de fondation</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PALMARÈS -->
+  <section class="palmares" id="palmares">
+    <div class="reveal">
+      <p class="section-eyebrow">Palmarès</p>
+      <h2 class="section-title">Trois ans,<br>trois trophées</h2>
+    </div>
+    <div class="palmares-grid reveal">
+      <div class="palmares-item">
+        <p class="palmares-year">Saison 2023/24</p>
+        <h3 class="palmares-trophy">Ligue 2</h3>
+        <p class="palmares-desc">Premier titre majeur du club. La Pignouferie FC remporte le championnat de Ligue 2 et accède pour la première fois de son histoire au football professionnel de l'élite.</p>
+        <span class="palmares-rank">Champions — 1er</span>
+      </div>
+      <div class="palmares-item">
+        <p class="palmares-year">Saison 2024/25</p>
+        <h3 class="palmares-trophy">Coupe de France</h3>
+        <p class="palmares-desc">Victoire en finale face à un adversaire de premier plan. Le club soulève la Coupe de France lors de sa première saison en Ligue 1, confirmant son statut de nouvelle force du football français.</p>
+        <span class="palmares-rank">Vainqueurs</span>
+      </div>
+      <div class="palmares-item">
+        <p class="palmares-year">Saison 2024/25</p>
+        <h3 class="palmares-trophy">Europa League</h3>
+        <p class="palmares-desc">Consécration européenne. La Pignouferie FC remporte l'UEFA Europa League, devenant le second club français de l'histoire à décrocher ce titre lors de sa première participation à la compétition.</p>
+        <span class="palmares-rank">Vainqueurs</span>
+      </div>
+      <div class="palmares-item">
+        <p class="palmares-year">Saison 2025/26</p>
+        <h3 class="palmares-trophy">Ligue des Champions</h3>
+        <p class="palmares-desc">Qualifiés en vertu de la victoire en Europa League, les Pignoufs disputent pour la première fois de leur histoire la Ligue des Champions de l'UEFA. L'aventure est en cours.</p>
+        <span class="palmares-rank">En cours</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAISON COURANTE -->
+  <section class="saison" id="saison">
+    <div class="reveal saison-header">
+      <div>
+        <p class="section-eyebrow">Saison 2025/26</p>
+        <h2 class="section-title">Sur tous<br>les fronts</h2>
+      </div>
+      <p class="saison-context">Engagés sur trois compétitions, les joueurs de la Pignouferie FC abordent cette saison avec l'ambition d'une équipe qui a prouvé qu'elle savait gagner. La Ligue des Champions constitue l'objectif principal de cette campagne historique.</p>
+    </div>
+
+    <div class="competitions-list reveal">
+      <div class="competition-row">
+        <div class="comp-name">Ligue 1 — Uber Eats</div>
+        <div class="comp-status status-active">En cours</div>
+        <div class="comp-detail">Championnat de France — Elite</div>
+        <span class="comp-badge">Division 1</span>
+      </div>
+      <div class="competition-row">
+        <div class="comp-name">Ligue des Champions</div>
+        <div class="comp-status status-active">En cours</div>
+        <div class="comp-detail">UEFA Champions League — Phase de groupes</div>
+        <span class="comp-badge">Premiere participation</span>
+      </div>
+      <div class="competition-row">
+        <div class="comp-name">Coupe de France</div>
+        <div class="comp-status status-upcoming">A venir</div>
+        <div class="comp-detail">Tenant du titre — Tirage en cours</div>
+        <span class="comp-badge">Tenant</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- EFFECTIF -->
+  <section class="effectif" id="effectif">
+    <div class="effectif-intro reveal">
+      <div>
+        <p class="section-eyebrow">Effectif 2025/26</p>
+        <h2 class="section-title">Les<br>Pignoufs</h2>
+        <div class="rule-red"></div>
+        <p class="effectif-text">Un groupe bâti sur trois saisons de progression constante. L'effectif allie l'expérience de joueurs formés maison et les recrues ciblées pour répondre aux exigences de la Ligue des Champions.</p>
+      </div>
+      <div class="effectif-numbers">
+        <div>
+          <div class="eff-num">26</div>
+          <div class="eff-label">Joueurs</div>
+        </div>
+        <div>
+          <div class="eff-num">11</div>
+          <div class="eff-label">Nationalites</div>
+        </div>
+        <div>
+          <div class="eff-num">8</div>
+          <div class="eff-label">Formes au club</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="postes reveal">
+      <div class="poste-block">
+        <div class="poste-header">Gardiens</div>
+        <div class="joueurs-grid">
+          <div class="joueur-card"><div class="joueur-num">1</div><div class="joueur-nom">Baptiste Moreau</div><div class="joueur-nat">France — Capitaine</div></div>
+          <div class="joueur-card"><div class="joueur-num">16</div><div class="joueur-nom">Luka Petrovic</div><div class="joueur-nat">Croatie</div></div>
+          <div class="joueur-card"><div class="joueur-num">30</div><div class="joueur-nom">Enzo Delacour</div><div class="joueur-nat">France — Formé au club</div></div>
+        </div>
+      </div>
+      <div class="poste-block">
+        <div class="poste-header">Defenseurs</div>
+        <div class="joueurs-grid">
+          <div class="joueur-card"><div class="joueur-num">2</div><div class="joueur-nom">Theo Guillard</div><div class="joueur-nat">France</div></div>
+          <div class="joueur-card"><div class="joueur-num">3</div><div class="joueur-nom">Marcus Oliveira</div><div class="joueur-nat">Bresil</div></div>
+          <div class="joueur-card"><div class="joueur-num">4</div><div class="joueur-nom">Soren Lindberg</div><div class="joueur-nat">Danemark</div></div>
+          <div class="joueur-card"><div class="joueur-num">5</div><div class="joueur-nom">Victor Picard</div><div class="joueur-nat">France — Formé au club</div></div>
+          <div class="joueur-card"><div class="joueur-num">12</div><div class="joueur-nom">Achraf Benali</div><div class="joueur-nat">Maroc</div></div>
+          <div class="joueur-card"><div class="joueur-num">22</div><div class="joueur-nom">Kilian Faure</div><div class="joueur-nat">France — Formé au club</div></div>
+        </div>
+      </div>
+      <div class="poste-block">
+        <div class="poste-header">Milieux</div>
+        <div class="joueurs-grid">
+          <div class="joueur-card"><div class="joueur-num">6</div><div class="joueur-nom">Antoine Renard</div><div class="joueur-nat">France — Formé au club</div></div>
+          <div class="joueur-card"><div class="joueur-num">7</div><div class="joueur-nom">Yanis Kessler</div><div class="joueur-nat">Allemagne</div></div>
+          <div class="joueur-card"><div class="joueur-num">8</div><div class="joueur-nom">Samba Diallo</div><div class="joueur-nat">Senegal</div></div>
+          <div class="joueur-card"><div class="joueur-num">10</div><div class="joueur-nom">Rafael Correia</div><div class="joueur-nat">Portugal</div></div>
+          <div class="joueur-card"><div class="joueur-num">14</div><div class="joueur-nom">Clement Auge</div><div class="joueur-nat">France — Formé au club</div></div>
+          <div class="joueur-card"><div class="joueur-num">18</div><div class="joueur-nom">Noa Bresson</div><div class="joueur-nat">France</div></div>
+          <div class="joueur-card"><div class="joueur-num">21</div><div class="joueur-nom">Hugo Marchand</div><div class="joueur-nat">France</div></div>
+          <div class="joueur-card"><div class="joueur-num">25</div><div class="joueur-nom">Mateo Ferreira</div><div class="joueur-nat">Espagne</div></div>
+        </div>
+      </div>
+      <div class="poste-block">
+        <div class="poste-header">Attaquants</div>
+        <div class="joueurs-grid">
+          <div class="joueur-card"><div class="joueur-num">9</div><div class="joueur-nom">Dieudonne Koffi</div><div class="joueur-nat">Cote d'Ivoire</div></div>
+          <div class="joueur-card"><div class="joueur-num">11</div><div class="joueur-nom">Lucas Pereira</div><div class="joueur-nat">Bresil</div></div>
+          <div class="joueur-card"><div class="joueur-num">17</div><div class="joueur-nom">Jules Dupont</div><div class="joueur-nat">France — Formé au club</div></div>
+          <div class="joueur-card"><div class="joueur-num">19</div><div class="joueur-nom">Ibrahima Sylla</div><div class="joueur-nat">Guinee</div></div>
+          <div class="joueur-card"><div class="joueur-num">23</div><div class="joueur-nom">Romain Lefort</div><div class="joueur-nat">France</div></div>
+          <div class="joueur-card"><div class="joueur-num">27</div><div class="joueur-nom">Alexei Volkov</div><div class="joueur-nat">Russie</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STADE -->
+  <section class="stade" id="stade">
+    <div class="stade-grid">
+      <div class="stade-info reveal">
+        <p class="section-eyebrow">Infrastructure</p>
+        <h2 class="section-title">Le Bastion</h2>
+        <div class="rule-red"></div>
+        <p>Inauguré en 1958, le Bastion est l'enceinte historique de La Pignouferie FC. Rénové en profondeur en 2019, il répond aujourd'hui aux exigences UEFA pour accueillir les matches de Ligue des Champions.</p>
+        <p>L'atmosphère y est réputée parmi les plus intenses du championnat. Les tribunes populaires — les Loges du Nord — sont la fierté des supporters et l'une des forteresses les plus redoutées de Ligue 1.</p>
+        <div class="stade-specs">
+          <div>
+            <div class="spec-val">38 400</div>
+            <div class="spec-key">Places assises</div>
+          </div>
+          <div>
+            <div class="spec-val">1958</div>
+            <div class="spec-key">Inauguration</div>
+          </div>
+          <div>
+            <div class="spec-val">2019</div>
+            <div class="spec-key">Derniere renovation</div>
+          </div>
+          <div>
+            <div class="spec-val">UEFA 4</div>
+            <div class="spec-key">Categorie stade</div>
+          </div>
+        </div>
+      </div>
+      <div class="stade-visual reveal">
+        <div class="stade-img-placeholder">
+          <div class="stade-img-label">LE<br>BASTION</div>
+          <span class="stade-cap">38 400 places — Categorie UEFA 4</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTOIRE -->
+  <section class="histoire" id="histoire">
+    <div class="reveal">
+      <p class="section-eyebrow">Histoire</p>
+      <h2 class="section-title">Cent ans<br>d'existence</h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <div class="tl-year">1924</div>
+        <div class="tl-line"></div>
+        <div class="tl-content">
+          <div class="tl-event">Fondation du club</div>
+          <div class="tl-detail">La Pignouferie FC est fondée par un groupe d'ouvriers de la région, dans les vestiaires d'une usine textile locale. Le rose et le blanc sont choisis comme couleurs officielles dès les premiers jours.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-year">1958</div>
+        <div class="tl-line"></div>
+        <div class="tl-content">
+          <div class="tl-event">Inauguration du Bastion</div>
+          <div class="tl-detail">Construction et inauguration du stade municipal, rapidement surnommé "Le Bastion" par les supporters. Capacité initiale : 22 000 places.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-year">1981</div>
+        <div class="tl-line"></div>
+        <div class="tl-content">
+          <div class="tl-event">Premiere montee en Ligue 2</div>
+          <div class="tl-detail">Premier accès au football professionnel national après 57 ans de football amateur et régional. Le club reste en Ligue 2 pendant 11 saisons avant de redescendre.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-year">2019</div>
+        <div class="tl-line"></div>
+        <div class="tl-content">
+          <div class="tl-event">Renovation complete du Bastion</div>
+          <div class="tl-detail">Rénovation profonde de l'enceinte : nouvelles tribunes, pelouse synthétique de nouvelle génération, éclairage LED et mise aux normes UEFA catégorie 4. Investissement de 47 millions d'euros.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-year">2022</div>
+        <div class="tl-line"></div>
+        <div class="tl-content">
+          <div class="tl-event">Reprise par un nouveau groupe investisseur</div>
+          <div class="tl-detail">Rachat du club par un consortium d'investisseurs nationaux. Nouveau projet sportif, nouveau staff, et recrutement ambitieux dans les divisions inférieures.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-year">2024</div>
+        <div class="tl-line"></div>
+        <div class="tl-content">
+          <div class="tl-event">Champion de Ligue 2</div>
+          <div class="tl-detail">Premier titre de l'histoire du club. La Pignouferie FC remporte la Ligue 2 avec 7 points d'avance sur le deuxième. Accession historique en Ligue 1.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-year">2025</div>
+        <div class="tl-line"></div>
+        <div class="tl-content">
+          <div class="tl-event">Double historique : Coupe de France et Europa League</div>
+          <div class="tl-detail">Saison exceptionnelle : victoire en Coupe de France et consécration européenne en remportant l'UEFA Europa League, devenant ainsi le premier club français à réaliser ce double lors d'une saison en Ligue 1.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-year">2025</div>
+        <div class="tl-line"></div>
+        <div class="tl-content">
+          <div class="tl-event">Centenaire du club</div>
+          <div class="tl-detail">La Pignouferie FC célèbre ses 100 ans d'existence lors d'une saison historique, engagée en Ligue des Champions pour la première fois. Le chapitre le plus ambitieux de l'histoire du club est en train de s'écrire.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAFF -->
+  <section class="staff" id="staff">
+    <div class="reveal">
+      <p class="section-eyebrow">Direction sportive</p>
+      <h2 class="section-title">Le staff<br>technique</h2>
+    </div>
+    <div class="staff-grid reveal">
+      <div class="staff-card">
+        <div class="staff-role">Entraineur principal</div>
+        <div class="staff-name">Gerard Villemot</div>
+        <div class="staff-bio">Ancien milieu de terrain professionnel, Gérard Villemot a pris en main le groupe en 2022. Architecte de la montée en Ligue 1, de la victoire en Coupe de France et du titre en Europa League, il est aujourd'hui considéré comme l'un des meilleurs entraîneurs de la décennie.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-role">Entraineur adjoint</div>
+        <div class="staff-name">Patrick Soares</div>
+        <div class="staff-bio">Spécialiste de l'analyse vidéo et de la presse haute sur le terrain adverse. Bras droit de Villemot depuis leurs débuts en N2, il gère notamment la préparation des corners et les transitions offensives.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-role">Preparateur physique</div>
+        <div class="staff-name">Mael Leroux</div>
+        <div class="staff-bio">Issu du rugby professionnel, Maël Leroux a apporté un regard nouveau sur la gestion des charges d'entraînement. Sous sa direction, le groupe a présenté le taux de blessures musculaires le plus bas de Ligue 1 la saison passée.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-role">Entraineur des gardiens</div>
+        <div class="staff-name">Alain Cortez</div>
+        <div class="staff-bio">Ancien gardien professionnel de haut niveau, il a notamment formé Baptiste Moreau, aujourd'hui l'un des meilleurs gardiens du championnat français.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-role">Directeur sportif</div>
+        <div class="staff-name">Frederic Noel</div>
+        <div class="staff-bio">Responsable du recrutement et de la stratégie sportive à moyen terme. Frédéric Noël a supervisé chacun des transferts entrants depuis 2022, avec un ratio qualité-prix exceptionnel reconnu par l'ensemble du milieu.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-role">Responsable medical</div>
+        <div class="staff-name">Dr. Claire Monnet</div>
+        <div class="staff-bio">Chef de la cellule médicale depuis 2020, le docteur Monnet coordonne un staff de six professionnels de santé. Elle a joué un rôle déterminant dans la mise en place des protocoles de prévention et de récupération post-match.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BILLETTERIE -->
+  <section class="billetterie" id="billetterie">
+    <p class="bill-eyebrow">Saison 2025/26 — Places disponibles</p>
+    <h2 class="bill-title">Rejoignez<br>le Bastion</h2>
+    <p class="bill-sub">Vivez les matches de Ligue des Champions au Bastion. Abonnements annuels, billets à l'unité et formules famille disponibles pour toutes les compétitions.</p>
+    <a href="#billetterie" class="btn-bill">Accéder à la billetterie</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="footer-brand-name">La <span>Pignouferie</span> FC</div>
+      <p class="footer-brand-sub">Club de football professionnel français. Fondé en 1924. Membre de la Ligue de Football Professionnel depuis 2024.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Le club</div>
+      <ul class="footer-links">
+        <li><a href="#histoire">Histoire</a></li>
+        <li><a href="#palmares">Palmares</a></li>
+        <li><a href="#staff">Staff technique</a></li>
+        <li><a href="#stade">Le Bastion</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Sportif</div>
+      <ul class="footer-links">
+        <li><a href="#saison">Saison 2025/26</a></li>
+        <li><a href="#effectif">Effectif</a></li>
+        <li><a href="#billetterie">Billetterie</a></li>
+        <li><a href="#">Academie</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Organisation</div>
+      <ul class="footer-links">
+        <li><a href="#">Direction</a></li>
+        <li><a href="#">Partenaires</a></li>
+        <li><a href="#">Presse</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <span class="footer-copy">La Pignouferie FC — Tous droits réservés 2025</span>
+    <span class="footer-mention">Mentions légales — Politique de confidentialité</span>
+  </div>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(r => observer.observe(r));
+
+    document.querySelectorAll('.palmares-item').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.08}s`;
+    });
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--rose)' : '';
+      });
+    });
+  </script>
+</body>
+</html>
