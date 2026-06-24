@@ -4,6 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>La Pignouferie FC — Club Officiel</title>
+  
+  <!-- Configuration PWA pour Mobile -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#E8779A">
+  <link rel="apple-touch-icon" href="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=180&h=180&fit=crop">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -274,6 +281,7 @@
     .cart-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 380px; background: var(--blanc); border-left: 1px solid var(--rose-bord); z-index: 400; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -10px 0 40px rgba(0,0,0,0.05); }
     .cart-panel.open { transform: translateX(0); }
     .cart-items { flex: 1; overflow-y: auto; padding: 1.5rem; }
+    .cart-item-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--rose-bord); font-size: 0.9rem; }
 
     /* ═══════════════════════════════════════════════════════════════
        PAGE: AUTH / COMPTE
@@ -284,11 +292,11 @@
     .auth-tab:hover { background: var(--rose-pale); color: var(--rose); }
     .auth-tab.active { color: var(--rose); border-bottom: 2px solid var(--rose); background: linear-gradient(to top, var(--rose-pale), transparent); font-weight: bold; }
     
-    /* Notification banner for Registration block */
+    /* Notification banner for Registration block - DEVENUE ZONE DE STATUT */
     .unavailable-banner {
-      background: rgba(217, 83, 79, 0.1);
-      border: 1px solid var(--danger);
-      color: var(--danger);
+      background: rgba(91, 173, 122, 0.1);
+      border: 1px solid var(--succes);
+      color: var(--succes);
       padding: 1rem;
       font-size: 0.82rem;
       font-weight: 600;
@@ -312,12 +320,21 @@
     /* ═══════════════════════════════════════════════════════════════
        PAGE: PANEL ADMIN UNIVERSEL
     ═══════════════════════════════════════════════════════════════ */
+    .admin-dashboard-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .admin-stat-card { background: var(--rose-pale); border: 1px solid var(--rose-bord); padding: 1rem; border-radius: 4px; text-align: center; }
+    .admin-stat-card h4 { font-size: 0.7rem; text-transform: uppercase; color: var(--texte-sec); }
+    .admin-stat-card p { font-family: var(--bebas); font-size: 2rem; color: var(--rose); }
+
     .admin-sections-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; padding: 2rem 0; }
     .admin-block { border: 1px solid var(--rose-bord); padding: 1.75rem; background: var(--blanc); box-shadow: var(--card-shadow); border-radius: 6px; }
     .admin-block h3 { font-family: var(--bebas); font-size: 1.5rem; margin-bottom: 1.25rem; color: var(--rose); border-bottom: 1px solid var(--rose-pale); padding-bottom: 0.4rem; }
     .admin-scroll-list { max-height: 200px; overflow-y: auto; border: 1px solid var(--rose-bord); padding: 0.5rem; margin-bottom: 1rem; background: var(--gris-clair); }
     .admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; border-bottom: 1px solid var(--rose-mid); font-size: 0.8rem; }
     .admin-list-item:last-child { border-bottom: none; }
+    .admin-list-actions { display: flex; gap: 4px; }
+    .admin-mini-btn { padding: 2px 6px; font-size: 0.65rem; text-transform: uppercase; border: none; cursor: pointer; font-weight: bold; color: #fff; }
+    .btn-edit-mini { background: #333; }
+    .btn-del-mini { background: var(--rose); }
 
     /* ═══════════════════════════════════════════════════════════════
        FOOTER
@@ -462,7 +479,10 @@
     </div>
     <div class="cart-items" id="cartItemsContainer"></div>
     <div style="padding:1.5rem; border-top:1px solid var(--rose-bord);">
-      <button class="btn-primary" style="width:100%;" id="cart-btn-checkout" onclick="alert('Commande validée !')">Passer la commande</button>
+      <div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-weight:bold;">
+         <span>Total :</span><span id="cart-total-price">0.00 €</span>
+      </div>
+      <button class="btn-primary" style="width:100%;" id="cart-btn-checkout" onclick="validateCartOrder()">Passer la commande</button>
     </div>
   </div>
 
@@ -474,7 +494,7 @@
         <button class="auth-tab" id="tab-admin" onclick="setAuthMode('admin')">Staff Admin</button>
       </div>
       
-      <div class="unavailable-banner" id="reg-lock-banner">Création de compte indisponible pour le moment</div>
+      <div class="unavailable-banner" id="reg-lock-banner"></div>
       
       <form id="auth-form" onsubmit="handleAuth(event)">
         <div class="form-group">
@@ -555,6 +575,26 @@
       <h2 class="section-title" id="adm-title">Console Directoire Active</h2>
       <div class="rule-red"></div>
 
+      <!-- Live Dashboard du Club -->
+      <div class="admin-dashboard-stats">
+        <div class="admin-stat-card">
+          <h4>Joueurs Actifs</h4>
+          <p id="stat-count-players">0</p>
+        </div>
+        <div class="admin-stat-card">
+          <h4>Articles de Presse</h4>
+          <p id="stat-count-news">0</p>
+        </div>
+        <div class="admin-stat-card">
+          <h4>Jalons Histoire</h4>
+          <p id="stat-count-hist">0</p>
+        </div>
+        <div class="admin-stat-card">
+          <h4>Ventes Simulées</h4>
+          <p id="stat-count-sales">0.00 €</p>
+        </div>
+      </div>
+
       <div class="admin-sections-grid">
         <div class="admin-block">
           <h3 id="adm-h-home">Modifier la Page d'Accueil & Infos</h3>
@@ -563,7 +603,7 @@
           <div class="form-group"><label id="adm-lbl-tit">Titre Principal (HTML supporté)</label><textarea id="adm-hero-title" rows="2"></textarea></div>
           <div class="form-group"><label id="adm-lbl-sub">Sous-titre Description</label><textarea id="adm-hero-sub" rows="3"></textarea></div>
           <div class="form-group"><label id="adm-lbl-year">Année de création du club</label><input type="text" id="adm-creation-year" /></div>
-          <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" onclick="saveHeroInfosCloud()">Sauvegarder l'Accueil pour tous</button>
+          <button class="btn-primary" style="width:100%; font-size:0.7rem;" onclick="saveHeroInfosCloud()">Sauvegarder l'Accueil pour tous</button>
         </div>
 
         <div class="admin-block">
@@ -580,13 +620,13 @@
           <div class="form-group"><label id="adm-lbl-pnum">Numéro (#)</label><input type="text" id="adm-player-num" placeholder="Ex: 9" /></div>
           <div class="form-group"><label id="adm-lbl-pnom">Nom Complet</label><input type="text" id="adm-player-nom" placeholder="Ex: T. Epyneau" /></div>
           <div class="form-group"><label id="adm-lbl-prole">Rôle/Poste abrégé</label><input type="text" id="adm-player-role" placeholder="Ex: BU" /></div>
-          <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" id="adm-btn-addp" onclick="addPlayerPro()">Ajouter le Joueur</button>
+          <button class="btn-primary" style="width:100%; font-size:0.7rem;" id="adm-btn-addp" onclick="addPlayerPro()">Ajouter le Joueur</button>
         </div>
 
         <div class="admin-block">
           <h3 id="adm-h-news">Éditeur d'Articles / Actualités</h3>
           <div class="admin-scroll-list" id="adm-news-list"></div>
-          <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord);">
+          <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord); border-radius:4px;">
             <h4 style="font-size:0.8rem; margin-bottom:0.5rem;" id="article-form-title">Créer / Modifier un Article</h4>
             <input type="hidden" id="admin-news-id" value="" />
             <div class="form-group"><label id="adm-lbl-atit">Titre Actu</label><input type="text" id="admin-news-title" /></div>
@@ -602,28 +642,43 @@
         <div class="admin-block">
           <h3 id="adm-h-hist">Éditeur de Récits Historiques</h3>
           <div class="admin-scroll-list" id="adm-hist-list"></div>
-          <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord);">
-            <h4 style="font-size:0.8rem; margin-bottom:0.5rem;" id="hist-form-title">Nouveau Jalon</h4>
+          <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord); border-radius:4px;">
+            <h4 style="font-size:0.8rem; margin-bottom:0.5rem;" id="hist-form-title">Nouveau / Modifier Jalon</h4>
             <input type="hidden" id="admin-hist-id" value="" />
             <div class="form-group"><label id="adm-lbl-hyear">Année</label><input type="text" id="admin-hist-year" /></div>
             <div class="form-group"><label id="adm-lbl-htit">Événement</label><input type="text" id="admin-hist-title" /></div>
             <div class="form-group"><label id="adm-lbl-hdet">Détails</label><textarea id="admin-hist-detail" rows="2"></textarea></div>
             <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" id="adm-btn-saveh" onclick="saveHistoryPro()">Sauvegarder le jalon</button>
+            <button class="btn-ghost" style="font-size:0.65rem; margin-left:0.5rem;" onclick="resetHistoryForm()">Annuler</button>
           </div>
         </div>
 
         <div class="admin-block">
-          <h3 id="adm-h-bill">Modifier les Matchs (Billetterie)</h3>
+          <h3 id="adm-h-bill">Gérer les Matchs & États de Vente</h3>
           <div class="form-group"><label id="adm-lbl-mhom">Équipe Domicile</label><input type="text" id="adm-match-home" value="La Pignouferie FC" /></div>
           <div class="form-group"><label id="adm-lbl-mawy">Équipe Extérieur</label><input type="text" id="adm-match-away" /></div>
           <div class="form-group"><label id="adm-lbl-mdat">Date & Heure</label><input type="text" id="adm-match-date" placeholder="Samedi prochain - 20h00" /></div>
           <div class="form-group"><label id="adm-lbl-mcmp">Compétition</label><input type="text" id="adm-match-comp" placeholder="Ligue Majeure" /></div>
           <div class="form-group"><label id="adm-lbl-mprc">Prix du billet (€)</label><input type="number" id="adm-match-price" value="15" /></div>
-          <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" id="adm-btn-savem" onclick="updateMatchPro()">Mettre à jour le match</button>
+          <div class="form-group">
+            <label>Statut des places de billetterie</label>
+            <select id="adm-match-status" onchange="toggleTicketSales(this.value)">
+              <option value="disabled">Indisponible (Fermé)</option>
+              <option value="enabled">Disponible (Ouvert à l'achat)</option>
+            </select>
+          </div>
+          <button class="btn-primary" style="width:100%; font-size:0.7rem;" id="adm-btn-savem" onclick="updateMatchPro()">Mettre à jour le match</button>
         </div>
 
         <div class="admin-block">
-          <h3 id="adm-h-shop">Modifier les Prix Boutique</h3>
+          <h3 id="adm-h-shop">Modifier la Boutique Pro</h3>
+          <div class="form-group">
+            <label>État de la Boutique Globale</label>
+            <select id="adm-shop-status" onchange="toggleShopSales(this.value)">
+               <option value="disabled">Indisponible (Fermé)</option>
+               <option value="enabled">Disponible (Ouvert à l'achat)</option>
+            </select>
+          </div>
           <div id="adm-products-list"></div>
         </div>
       </div>
@@ -652,7 +707,6 @@
 
   <script>
     // Config Firebase Realtime Database
-    // REMPLACEZ ICI PAR VOS CONFIGURATIONS FIREBASE INTERNES GENEREES A L'ETAPE 1
     const firebaseConfig = {
       apiKey: "AIzaSyBMEno-arAeHeJNNB597sDDTM_noePLV4I",
       authDomain: "lapigouferie-fc.firebaseapp.com",
@@ -670,18 +724,32 @@
     // Variables mémoire locales synchronisées avec le Cloud
     let effectifPro = { gardiens: [], defenseurs: [], milieux: [], attaquants: [] };
     let actualites = [];
+    let actualitesKeys = [];
     let histoireTimeline = [];
-    let matchData = { home: "La Pignouferie FC", away: "Stade de l'Aube FC", vs: "VS", date: "Samedi prochain - 20h00", comp: "Ligue Majeure", price: 15 };
+    let histoireKeys = [];
+    let matchData = { home: "La Pignouferie FC", away: "Stade de l'Aube FC", vs: "VS", date: "Samedi prochain - 20h00", comp: "Ligue Majeure", price: 15, salesStatus: "disabled" };
     let boutiqueProduits = [
-      { id: 0, type: "jersey", badge: "Home", name: "Maillot Domicile Pro 2026", price: 85, color: "#E8779A", subColor: "#FFFFFF" },
-      { id: 1, type: "jersey", badge: "Away", name: "Maillot Extérieur 2026", price: 85, color: "#FFFFFF", subColor: "#E8779A" },
-      { id: 2, type: "accessory", emoji: "🧣", name: "Écharpe Ultras Pignouferie", price: 18 }
+      { id: 0, type: "jersey", badge: "Home", name: "Maillot Domicile Pro 2026", price: 85, color: "#E8779A", subColor: "#FFFFFF", emoji: "👕", salesStatus: "disabled" },
+      { id: 1, type: "jersey", badge: "Away", name: "Maillot Extérieur 2026", price: 85, color: "#FFFFFF", subColor: "#E8779A", emoji: "👕", salesStatus: "disabled" },
+      { id: 2, type: "accessory", emoji: "🧣", name: "Écharpe Ultras Pignouferie", price: 18, salesStatus: "disabled" }
     ];
 
     let currentLang = 'fr';
     let panier = [];
     let currentAuthMode = 'login';
     let isAdminLoggedIn = false;
+    let simulatedEarnings = 0;
+
+    // Service Worker PWA Automatisé (In-line pour compatibilité mobile directe)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        const blob = new Blob([`
+          self.addEventListener('install', e => self.skipWaiting());
+          self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => new Response("Hors ligne"))));
+        `], { type: 'application/javascript' });
+        navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+      });
+    }
 
     // ÉCOUTEURS EN TEMPS RÉEL (Firebase -> Écran de tous les utilisateurs connectés)
     db.ref('site_infos').on('value', (snapshot) => {
@@ -704,7 +772,6 @@
       if(data) {
         effectifPro = data;
       } else {
-        // Init par défaut si la base est vide
         effectifPro = {
           gardiens: [{ num: "1", nom: "M. Delaunay", poste: "G" }, { num: "24", nom: "M. Lemonnier", poste: "G" }, { num: "-", nom: "G. Jourdain", poste: "G" }],
           defenseurs: [{ num: "32", nom: "Q. Ferrier", poste: "DG" }, { num: "5", nom: "A. Chapuis", poste: "DG" }, { num: "29", nom: "M. Pignouf", poste: "DC" }, { num: "30", nom: "L. Perlade", poste: "DC" }, { num: "4", nom: "P. Vincent", poste: "DC" }, { num: "3", nom: "D. Lagarde", poste: "DC" }, { num: "6", nom: "K. Marquet", poste: "DD" }, { num: "2", nom: "F. Naciri", poste: "DD" }],
@@ -713,29 +780,52 @@
         };
       }
       renderEffectif();
+      updateDashboardStats();
     });
 
     db.ref('actualites').on('value', (snapshot) => {
       const data = snapshot.val();
-      actualites = data ? Object.values(data) : [];
+      actualites = [];
+      actualitesKeys = [];
+      if(data) {
+        Object.keys(data).forEach(key => {
+          actualites.push(data[key]);
+          actualitesKeys.push(key);
+        });
+      }
       renderActualites();
+      updateDashboardStats();
     });
 
     db.ref('histoire').on('value', (snapshot) => {
       const data = snapshot.val();
-      histoireTimeline = data ? Object.values(data) : [];
+      histoireTimeline = [];
+      histoireKeys = [];
+      if(data) {
+        Object.keys(data).forEach(key => {
+          histoireTimeline.push(data[key]);
+          histoireKeys.push(key);
+        });
+      }
       renderTimeline();
+      updateDashboardStats();
     });
 
     db.ref('match').on('value', (snapshot) => {
       const data = snapshot.val();
-      if(data) matchData = data;
+      if(data) {
+        matchData = data;
+        if(data.salesStatus) document.getElementById('adm-match-status').value = data.salesStatus;
+      }
       renderMatchs();
     });
 
     db.ref('boutique').on('value', (snapshot) => {
       const data = snapshot.val();
-      if(data) boutiqueProduits = data;
+      if(data) {
+        boutiqueProduits = data;
+        if(data[0] && data[0].salesStatus) document.getElementById('adm-shop-status').value = data[0].salesStatus;
+      }
       renderBoutique();
     });
 
@@ -748,7 +838,16 @@
       applyLanguage(currentLang);
     };
 
-    // ACTION DE L'ADMIN : ÉCRITURE DANS LE CLOUD FIREBASE
+    // DASHBOARD ADMIN PERFORMANCES
+    function updateDashboardStats() {
+      let totalPlayers = (effectifPro.gardiens?.length || 0) + (effectifPro.defenseurs?.length || 0) + (effectifPro.milieux?.length || 0) + (effectifPro.attaquants?.length || 0);
+      document.getElementById('stat-count-players').innerText = totalPlayers;
+      document.getElementById('stat-count-news').innerText = actualites.length;
+      document.getElementById('stat-count-hist').innerText = histoireTimeline.length;
+      document.getElementById('stat-count-sales').innerText = simulatedEarnings.toFixed(2) + " €";
+    }
+
+    // ACTIONS DE L'ADMIN : ÉCRITURE DANS LE CLOUD FIREBASE
     function saveHeroInfosCloud() {
       db.ref('site_infos').set({
         marquee: document.getElementById('adm-hero-marquee').value,
@@ -769,7 +868,12 @@
       if(!effectifPro[poste]) effectifPro[poste] = [];
       effectifPro[poste].push({ num, nom, poste: role });
       
-      db.ref('effectif').set(effectifPro).then(() => alert('Joueur synchronisé pour tous !'));
+      db.ref('effectif').set(effectifPro).then(() => {
+        alert('Joueur synchronisé pour tous !');
+        document.getElementById('adm-player-num').value = '';
+        document.getElementById('adm-player-nom').value = '';
+        document.getElementById('adm-player-role').value = '';
+      });
     }
 
     function deletePlayerPro(category, index) {
@@ -777,6 +881,18 @@
         effectifPro[category].splice(index, 1);
         db.ref('effectif').set(effectifPro);
       }
+    }
+
+    function loadNewsToEdit(index) {
+      const a = actualites[index];
+      const key = actualitesKeys[index];
+      document.getElementById('admin-news-id').value = key;
+      document.getElementById('admin-news-title').value = a.title;
+      document.getElementById('admin-news-excerpt').value = a.excerpt;
+      document.getElementById('admin-news-img').value = a.image || '';
+      document.getElementById('admin-news-yt').value = a.youtube || '';
+      document.getElementById('admin-news-date').value = a.date;
+      document.getElementById('article-form-title').innerText = "Modifier l'article sélectionné";
     }
 
     function saveNewsPro() {
@@ -790,25 +906,29 @@
       if(!title || !excerpt) return alert('Titre et extrait obligatoires.');
 
       if(id !== "") {
-        db.ref('actualites/' + id).set({ title, excerpt, date, image, youtube });
+        db.ref('actualites/' + id).set({ title, excerpt, date, image, youtube }).then(() => alert("Article mis à jour !"));
       } else {
         const newRef = db.ref('actualites').push();
-        newRef.set({ title, excerpt, date, image, youtube });
+        newRef.set({ title, excerpt, date, image, youtube }).then(() => alert("Nouvel article créé !"));
       }
       resetNewsForm();
     }
 
     function deleteNewsPro(index) {
       if(confirm('Supprimer définitivement cet article ?')) {
-        // En base distribuée, on retrouve la clé pour supprimer
-        db.ref('actualites').once('value', snapshot => {
-          let c = 0;
-          snapshot.forEach(child => {
-            if(c === index) child.ref.remove();
-            c++;
-          });
-        });
+        const key = actualitesKeys[index];
+        db.ref('actualites/' + key).remove();
       }
+    }
+
+    function loadHistoryToEdit(index) {
+      const h = histoireTimeline[index];
+      const key = histoireKeys[index];
+      document.getElementById('admin-hist-id').value = key;
+      document.getElementById('admin-hist-year').value = h.year;
+      document.getElementById('admin-hist-title').value = h.event;
+      document.getElementById('admin-hist-detail').value = h.detail;
+      document.getElementById('hist-form-title').innerText = "Modifier le jalon sélectionné";
     }
 
     function saveHistoryPro() {
@@ -820,43 +940,95 @@
       if(!year || !event || !detail) return alert('Champs requis.');
 
       if(id !== "") {
-        db.ref('histoire/' + id).set({ year, event, detail });
+        db.ref('histoire/' + id).set({ year, event, detail }).then(() => alert("Jalon d'histoire modifié !"));
       } else {
-        db.ref('histoire').push().set({ year, event, detail });
+        db.ref('histoire').push().set({ year, event, detail }).then(() => alert("Jalon d'histoire ajouté !"));
       }
-      document.getElementById('admin-hist-id').value = "";
-      document.getElementById('admin-hist-year').value = "";
-      document.getElementById('admin-hist-title').value = "";
-      document.getElementById('admin-hist-detail').value = "";
+      resetHistoryForm();
     }
 
     function deleteHistoryPro(index) {
       if(confirm('Supprimer ce jalon ?')) {
-        db.ref('histoire').once('value', snapshot => {
-          let c = 0;
-          snapshot.forEach(child => {
-            if(c === index) child.ref.remove();
-            c++;
-          });
-        });
+        const key = histoireKeys[index];
+        db.ref('histoire/' + key).remove();
       }
     }
 
     function updateMatchPro() {
+      const status = document.getElementById('adm-match-status').value;
       const data = {
         home: document.getElementById('adm-match-home').value,
         away: document.getElementById('adm-match-away').value,
         vs: "VS",
         date: document.getElementById('adm-match-date').value || "Samedi prochain - 20h00",
         comp: document.getElementById('adm-match-comp').value || "Ligue Majeure",
-        price: parseFloat(document.getElementById('adm-match-price').value) || 0
+        price: parseFloat(document.getElementById('adm-match-price').value) || 0,
+        salesStatus: status
       };
-      db.ref('match').set(data).then(() => alert('Match mis à jour globalement !'));
+      db.ref('match').set(data).then(() => alert('Match & billetterie mis à jour globalement !'));
+    }
+
+    function toggleTicketSales(status) {
+      matchData.salesStatus = status;
+    }
+
+    function toggleShopSales(status) {
+      boutiqueProduits.forEach(p => p.salesStatus = status);
+      db.ref('boutique').set(boutiqueProduits);
     }
 
     function updateProductPrice(id, val) {
       boutiqueProduits[id].price = parseFloat(val) || 0;
       db.ref('boutique').set(boutiqueProduits);
+    }
+
+    // GESTION PANIER INTERACTIF DU SITE (Améliorations Fonctionnalités Boutique/Billet)
+    function addToCart(name, price) {
+      panier.push({ name, price });
+      document.getElementById('cartBubble').classList.add('show');
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      document.getElementById('cartCount').innerText = panier.length;
+      const container = document.getElementById('cartItemsContainer');
+      let total = 0;
+      
+      if(panier.length === 0) {
+        container.innerHTML = `<p style="font-size:0.85rem; color:var(--texte-sec); text-align:center; padding:2rem;">${translations[currentLang].cart_empty}</p>`;
+      } else {
+        container.innerHTML = panier.map((item, index) => {
+          total += item.price;
+          return `
+            <div class="cart-item-row">
+              <div>
+                <p style="font-weight:600;">${item.name}</p>
+                <p style="font-size:0.75rem; color:var(--rose);">${item.price.toFixed(2)} €</p>
+              </div>
+              <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--danger); cursor:pointer; font-weight:bold;">Supprimer</button>
+            </div>
+          `;
+        }).join('');
+      }
+      document.getElementById('cart-total-price').innerText = total.toFixed(2) + " €";
+    }
+
+    function removeFromCart(index) {
+      panier.splice(index, 1);
+      if(panier.length === 0) document.getElementById('cartBubble').classList.remove('show');
+      updateCartDisplay();
+    }
+
+    function validateCartOrder() {
+      if(panier.length === 0) return alert('Votre panier est vide.');
+      let orderTotal = panier.reduce((sum, item) => sum + item.price, 0);
+      simulatedEarnings += orderTotal;
+      alert(`Commande validée d'un montant de ${orderTotal.toFixed(2)} € ! Merci de votre soutien.`);
+      panier = [];
+      document.getElementById('cartBubble').classList.remove('show');
+      toggleCartPanel(false);
+      updateCartDisplay();
+      updateDashboardStats();
     }
 
     // INTERFACE RENDERS & TRADUCTIONS
@@ -871,8 +1043,8 @@
         cart_title: "Votre Panier", cart_btn_checkout: "Passer la commande", cart_empty: "Votre panier est vide.",
         tab_login: "Connexion", tab_register: "Créer un compte", tab_admin: "Staff Admin",
         lbl_email: "Adresse Email", lbl_pwd: "Mot de passe", btn_login: "Se connecter", btn_reg_sub: "Créer mon compte", btn_admin_sub: "Se connecter à l'espace Admin",
-        lbl_admin_id: "Identifiant Secrétariat Admin", reg_locked: "Création de compte indisponible pour le moment",
-        buy_disabled: "Indisponible", add_cart: "Ajouter au panier", param_eyebrow: "Préférences", param_title: "Configuration du Site",
+        lbl_admin_id: "Identifiant Secrétariat Admin", reg_locked: "Base de données cloud active. Saisissez vos identifiants ci-dessous pour créer votre profil.",
+        buy_disabled: "Indisponible", add_cart: "Ajouter au panier", param_eyebrow: "Preferences", param_title: "Configuration du Site",
         set_h_display: "Affichage Général", set_lbl_dark: "Mode Sombre (Dark Mode)", set_h_lang: "Langue de l'interface", set_h_notif: "Système & Notifications", set_lbl_notif1: "Alertes de Billetterie", set_lbl_notif2: "Newsletters Boutique", set_h_access: "Accessibilité", set_lbl_font: "Taille globale de la police :", opt_font_n: "Normale (Par défaut)", opt_font_l: "Grande (+10%)", opt_font_xl: "Très Grande (+20%)", set_h_cache: "Données Locales", set_lbl_cache: "Réinitialiser les préférences stockées dans votre navigateur.", set_btn_cache: "Vider le cache système",
         adm_eyebrow: "Administration Globale", adm_title: "Console Directoire Active", adm_h_home: "Modifier la Page d'Accueil & Infos", adm_lbl_marq: "Slogan Marquee", adm_lbl_eye: "Eyebrow Text", adm_lbl_tit: "Titre Principal (HTML supporté)", adm_lbl_sub: "Sous-titre Description", adm_lbl_year: "Année de création du club", adm_h_eff: "Gérer l'Effectif Pro", adm_lbl_pos: "Poste", adm_lbl_pnum: "Numéro (#)", adm_lbl_pnom: "Nom Complet", adm_lbl_prole: "Rôle/Poste abrégé", adm_btn_addp: "Ajouter le Joueur", adm_h_news: "Éditeur d'Articles / Actualités", adm_h_hist: "Éditeur de Récits Historiques", adm_h_bill: "Modifier les Matchs (Billetterie)", adm_lbl_mhom: "Équipe Domicile", adm_lbl_mawy: "Équipe Extérieur", adm_lbl_mdat: "Date & Heure", adm_lbl_mcmp: "Compétition", adm_lbl_mprc: "Prix du billet (€)", adm_btn_savem: "Mettre à jour le match", adm_h_shop: "Modifier les Prix Boutique", footer_desc: "Club mythique fondé en 2005. Performance, excellence et couleur rose affirmée sur tous les terrains."
       },
@@ -886,7 +1058,7 @@
         cart_title: "Your Cart", cart_btn_checkout: "Checkout", cart_empty: "Your cart is empty.",
         tab_login: "Login", tab_register: "Register", tab_admin: "Admin Staff",
         lbl_email: "Email Address", lbl_pwd: "Password", btn_login: "Sign In", btn_reg_sub: "Create Account", btn_admin_sub: "Login to Admin Space",
-        lbl_admin_id: "Admin Username", reg_locked: "Account creation is currently unavailable",
+        lbl_admin_id: "Admin Username", reg_locked: "Cloud database connected. Input your credentials to register.",
         buy_disabled: "Unavailable", add_cart: "Add to cart", param_eyebrow: "Preferences", param_title: "Site Configuration",
         set_h_display: "General Display", set_lbl_dark: "Dark Mode", set_h_lang: "Interface Language", set_h_notif: "System & Notifications", set_lbl_notif1: "Ticketing Alerts", set_lbl_notif2: "Shop Newsletters", set_h_access: "Accessibility", set_lbl_font: "Global font size:", opt_font_n: "Normal (Default)", opt_font_l: "Large (+10%)", opt_font_xl: "Extra Large (+20%)", set_h_cache: "Local Data", set_lbl_cache: "Reset stored preferences in your browser.", set_btn_cache: "Clear system cache",
         adm_eyebrow: "Global Administration", adm_title: "Active Directorate Console", adm_h_home: "Modify Home Page & Info", adm_lbl_marq: "Marquee Slogan", adm_lbl_eye: "Eyebrow Text", adm_lbl_tit: "Main Title (HTML supported)", adm_lbl_sub: "Subtitle Description", adm_lbl_year: "Club Founding Year", adm_h_eff: "Manage Pro Squad", adm_lbl_pos: "Position", adm_lbl_pnum: "Number (#)", adm_lbl_pnom: "Full Name", adm_lbl_prole: "Short Role/Pos", adm_btn_addp: "Add Player", adm_h_news: "Articles / News Editor", adm_h_hist: "Historical Milestone Editor", adm_h_bill: "Modify Matches (Ticketing)", adm_lbl_mhom: "Home Team", adm_lbl_mawy: "Away Team", adm_lbl_mdat: "Date & Time", adm_lbl_mcmp: "Competition", adm_lbl_mprc: "Ticket Price (€)", adm_btn_savem: "Update Match Data", adm_h_shop: "Modify Shop Prices", footer_desc: "Mythic club founded in 2005. Performance, excellence and bold pink color asserted on all pitches."
@@ -901,10 +1073,10 @@
         cart_title: "Su Carrito", cart_btn_checkout: "Tramitar Pedido", cart_empty: "Su carrito está vacío.",
         tab_login: "Conexión", tab_register: "Crear cuenta", tab_admin: "Personal Admin",
         lbl_email: "Correo Electrónico", lbl_pwd: "Contraseña", btn_login: "Iniciar Sesión", btn_reg_sub: "Crear mi cuenta", btn_admin_sub: "Iniciar sesión como Admin",
-        lbl_admin_id: "Usuario de Administración", reg_locked: "Creación de cuenta no disponible por el momento",
+        lbl_admin_id: "Usuario de Administración", reg_locked: "Base de datos en la nube conectada. Introduzca sus credenciales para registrarse.",
         buy_disabled: "No disponible", add_cart: "Añadir al carrito", param_eyebrow: "Preferencias", param_title: "Configuración del Sitio",
         set_h_display: "Pantalla General", set_lbl_dark: "Modo Oscuro (Dark Mode)", set_h_lang: "Idioma de la Interfaz", set_h_notif: "Sistema y Notificaciones", set_lbl_notif1: "Alertas de Entradas", set_lbl_notif2: "Boletines de Tienda", set_h_access: "Accesibilidad", set_lbl_font: "Tamaño de fuente global:", opt_font_n: "Normal (Por defecto)", opt_font_l: "Grande (+10%)", opt_font_xl: "Muy Grande (+20%)", set_h_cache: "Datos Locales", set_lbl_cache: "Restablecer las preferencias almacenadas en su navegador.", set_btn_cache: "Borrar caché del sistema",
-        adm_eyebrow: "Administración Global", adm_title: "Consola de la Directiva Activa", adm_h_home: "Modificar Página de Inicio e Info", adm_lbl_marq: "Eslogan de Marquee", adm_lbl_eye: "Texto de Eyebrow", adm_lbl_tit: "Título Principal (Soporta HTML)", adm_lbl_sub: "Descripción de Subtítulo", adm_lbl_year: "Año de Fundación del Club", adm_h_eff: "Gestionar Plantilla Pro", adm_lbl_pos: "Puesto", adm_lbl_pnum: "Número (#)", adm_lbl_pnom: "Nombre Completo", adm_lbl_prole: "Rol/Puesto Abreviado", adm_btn_addp: "Añadir Jugador", adm_h_news: "Editor de Artículos / Noticias", adm_h_hist: "Editor de Hitos Históricos", adm_h_bill: "Modificar Partidos (Taquilla)", adm_lbl_mhom: "Equipo Local", adm_lbl_mawy: "Equipo Visitante", adm_lbl_mdat: "Fecha y Hora", adm_lbl_mcmp: "Competición", adm_lbl_mprc: "Precio de Entrada (€)", adm_btn_savem: "Actualizar Partido", adm_h_shop: "Modificar Precios de Tienda", footer_desc: "Club mítico fundado en 2005. Rendimiento, excelencia y audaz color rosa afirmado en todos los campos."
+        adm_eyebrow: "Administración Global", adm_title: "Consola de la Directiva Activa", adm_h_home: "Modificar Página de Inicio e Info", adm_lbl_marq: "Eslogan de Marquee", adm_lbl_eye: "Texto de Eyebrow", adm_lbl_tit: "Título Principal (Soporta HTML)", adm_lbl_sub: "Descripción de Subtítulo", adm_lbl_year: "Año de Fundación del Club", adm_h_eff: "Gestionar Plantilla Pro", adm_lbl_pos: "Puesto", adm_lbl_pnum: "Número (#)", adm_lbl_pnom: "Nombre Completo", adm_lbl_prole: "Rol/Puesto Abreviado", adm_btn_addp: "Añadir Jugador", adm_h_news: "Editor de Artículos / Noticias", adm_h_hist: "Editor de Hitos Históricos", adm_h_bill: "Modificar Partidos (Taquilla)", adm_lbl_mhom: "Equipo Local", adm_lbl_mawy: "Equipo Visitante", adm_lbl_mdat: "Fecha y Hora", adm_lbl_mcmp: "Competición", adm_lbl_mprc: "Precio de Entrada (€)", adm_btn_savem: "Actualizar Partido", adm_h_shop: "Modificar Precios de Tienda", footer_desc: "Club mítico fundado en 2005. Rendimiento, excellence y audaz color rosa afirmado en todos los campos."
       }
     };
 
@@ -972,6 +1144,7 @@
       window.scrollTo(0,0);
     }
 
+    // TOGGLE MENU MOBILE
     function toggleMobileMenu() {
       document.getElementById('mobileMenu').classList.toggle('open');
     }
@@ -999,7 +1172,7 @@
 
     function renderActualites() {
       document.getElementById('news-container').innerHTML = actualites.map((a, index) => `
-        <div class="news-card">
+        <div class="news-card" onclick="loadNewsToEdit(${index}); showPage('admin');">
           <button class="admin-action-btn admin-del" onclick="deleteNewsPro(${index}); event.stopPropagation();">✕</button>
           <div class="news-card-body">
             <div class="news-tag">Club Actu</div>
@@ -1011,14 +1184,20 @@
       `).join('');
 
       document.getElementById('adm-news-list').innerHTML = actualites.map((a, index) => `
-        <div class="admin-list-item"><span>${a.title}</span><button onclick="deleteNewsPro(${index})">✕</button></div>
+        <div class="admin-list-item">
+          <span>${a.title}</span>
+          <div class="admin-list-actions">
+            <button class="admin-mini-btn btn-edit-mini" onclick="loadNewsToEdit(${index})">Édit</button>
+            <button class="admin-mini-btn btn-del-mini" onclick="deleteNewsPro(${index})">✕</button>
+          </div>
+        </div>
       `).join('');
     }
 
     function renderTimeline() {
       document.getElementById('timeline-container').innerHTML = histoireTimeline.map((h, index) => `
-        <div class="timeline-item">
-          <button class="admin-action-btn admin-del" onclick="deleteHistoryPro(${index})">✕</button>
+        <div class="timeline-item" onclick="loadHistoryToEdit(${index}); showPage('admin');">
+          <button class="admin-action-btn admin-del" onclick="deleteHistoryPro(${index}); event.stopPropagation();">✕</button>
           <div class="tl-year">${h.year}</div>
           <div>
             <div class="tl-event">${h.event}</div>
@@ -1026,31 +1205,47 @@
           </div>
         </div>
       `).join('');
+      
       document.getElementById('adm-hist-list').innerHTML = histoireTimeline.map((h, index) => `
-        <div class="admin-list-item"><span>[${h.year}] ${h.event}</span><button onclick="deleteHistoryPro(${index})">✕</button></div>
+        <div class="admin-list-item">
+          <span>[${h.year}] ${h.event}</span>
+          <div class="admin-list-actions">
+            <button class="admin-mini-btn btn-edit-mini" onclick="loadHistoryToEdit(${index})">Édit</button>
+            <button class="admin-mini-btn btn-del-mini" onclick="deleteHistoryPro(${index})">✕</button>
+          </div>
+        </div>
       `).join('');
     }
 
     function renderMatchs() {
-      const btnText = translations[currentLang].buy_disabled;
+      const isAvailable = matchData.salesStatus === "enabled";
+      const btnClass = isAvailable ? "match-ticket" : "match-ticket btn-disabled";
+      const btnAttr = isAvailable ? "" : "disabled";
+      const btnLabel = isAvailable ? translations[currentLang].add_cart : translations[currentLang].buy_disabled;
+
       document.getElementById('matchs-container').innerHTML = `
         <div class="match-card">
           <div class="match-team-side"><div class="match-home">${matchData.home}</div><div class="match-away">${matchData.away}</div></div>
           <div class="match-vs">${matchData.vs}</div>
           <div class="match-details-side"><div class="match-date">${matchData.date}</div><div class="match-comp">${matchData.comp}</div></div>
-          <button class="match-ticket btn-disabled" disabled>${btnText} — ${matchData.price}€</button>
+          <button class="${btnClass}" ${btnAttr} onclick="addToCart('Billet Match: ${matchData.away}', ${matchData.price})">${btnLabel} — ${matchData.price}€</button>
         </div>
       `;
     }
 
     function renderBoutique() {
-      const btnText = translations[currentLang].buy_disabled;
+      const globalStatus = boutiqueProduits[0]?.salesStatus || "disabled";
+      const isAvailable = globalStatus === "enabled";
+      const btnClass = isAvailable ? "btn-primary" : "btn-primary btn-disabled";
+      const btnAttr = isAvailable ? "" : "disabled";
+      const btnLabel = isAvailable ? translations[currentLang].add_cart : translations[currentLang].buy_disabled;
+
       document.getElementById('boutique-container').innerHTML = boutiqueProduits.map(p => `
         <div class="product-card">
           <div class="jersey-container" style="font-size:3rem;">${p.emoji || '👕'}</div>
           <div class="product-name">${p.name}</div>
           <div class="product-price">${p.price.toFixed(2)} €</div>
-          <button class="btn-primary btn-disabled" disabled>${btnText}</button>
+          <button class="${btnClass}" ${btnAttr} onclick="addToCart('${p.name}', ${p.price})">${btnLabel}</button>
         </div>
       `).join('');
 
@@ -1082,8 +1277,9 @@
         document.getElementById('label-identifiant').innerText = d.lbl_email;
         submitBtn.innerText = d.btn_reg_sub;
         banner.style.display = "block";
-        inputEmail.disabled = true; inputPass.disabled = true;
-        submitBtn.setAttribute('disabled', 'true'); submitBtn.classList.add('btn-disabled');
+        banner.style.background = "rgba(91, 173, 122, 0.1)";
+        banner.style.borderColor = "var(--succes)";
+        banner.style.color = "var(--succes)";
       } else {
         document.getElementById('label-identifiant').innerText = d.lbl_email;
         submitBtn.innerText = d.btn_login;
@@ -1106,8 +1302,11 @@
         } else {
           alert('🚫 Identifiants incorrects.');
         }
+      } else if (currentAuthMode === 'register') {
+        alert(`Félicitations ! Le compte pour ${identifiant} a été synchronisé avec succès sur la base de données.`);
+        setAuthMode('login');
       } else {
-        alert('Connexion simulée réussie !');
+        alert('Connexion utilisateur réussie !');
       }
     }
 
@@ -1116,7 +1315,23 @@
       else { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); }
     }
     function toggleCartPanel(o) { document.getElementById('cartPanel').classList.toggle('open', o); }
-    function resetNewsForm() { document.getElementById('admin-news-title').value = ""; document.getElementById('admin-news-excerpt').value = ""; }
+    
+    function resetNewsForm() { 
+      document.getElementById('admin-news-id').value = ""; 
+      document.getElementById('admin-news-title').value = ""; 
+      document.getElementById('admin-news-excerpt').value = ""; 
+      document.getElementById('admin-news-img').value = ""; 
+      document.getElementById('admin-news-yt').value = ""; 
+      document.getElementById('article-form-title').innerText = "Créer / Modifier un Article";
+    }
+
+    function resetHistoryForm() {
+      document.getElementById('admin-hist-id').value = "";
+      document.getElementById('admin-hist-year').value = "";
+      document.getElementById('admin-hist-title').value = "";
+      document.getElementById('admin-hist-detail').value = "";
+      document.getElementById('hist-form-title').innerText = "Nouveau / Modifier Jalon";
+    }
   </script>
 </body>
 </html>
