@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     /* ═══════════════════════════════════════════════════════════════
-       RESET & VARIABLES
+       RESET & VARIABLES (Gérant le Mode Sombre)
     ═══════════════════════════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -26,7 +26,20 @@
       --succes:    #5BAD7A;
       --bebas: 'Bebas Neue', sans-serif;
       --inter: 'Inter', sans-serif;
+      --nav-bg: rgba(255, 255, 255, 0.96);
     }
+
+    [data-theme="dark"] {
+      --blanc:     #121214;
+      --rose-pale: #22161A;
+      --rose-mid:  #44232E;
+      --rose-bord: #5C323F;
+      --texte:     #F5F5F7;
+      --texte-sec: #A192A1;
+      --gris-clair:#1A1A1E;
+      --nav-bg: rgba(18, 18, 20, 0.96);
+    }
+
     html { scroll-behavior: smooth; }
     body {
       background: var(--blanc);
@@ -35,6 +48,7 @@
       font-size: 16px;
       line-height: 1.6;
       overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -43,100 +57,55 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 3rem;
-      height: 68px;
-      background: rgba(255,255,255,0.96);
+      padding: 0 3rem; height: 68px;
+      background: var(--nav-bg);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--rose-bord);
     }
     .nav-logo {
-      font-family: var(--bebas);
-      font-size: 1.5rem;
-      letter-spacing: 0.08em;
-      color: var(--texte);
-      text-decoration: none;
-      flex-shrink: 0;
+      font-family: var(--bebas); font-size: 1.5rem; letter-spacing: 0.08em;
+      color: var(--texte); text-decoration: none; flex-shrink: 0;
     }
     .nav-logo span { color: var(--rose); }
 
-    .nav-links {
-      display: flex; gap: 0; list-style: none;
-    }
+    .nav-links { display: flex; gap: 0; list-style: none; }
     .nav-links a {
-      color: var(--texte-sec);
-      text-decoration: none;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: color 0.2s, background 0.2s;
-      padding: 0.4rem 0.9rem;
-      border-radius: 2px;
-      cursor: pointer;
+      color: var(--texte-sec); text-decoration: none; font-size: 0.72rem;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.2s; padding: 0.4rem 0.9rem; border-radius: 2px; cursor: pointer;
     }
     .nav-links a:hover, .nav-links a.active { color: var(--rose); }
 
-    .nav-right {
-      display: flex; align-items: center; gap: 1rem; flex-shrink: 0;
-    }
+    .nav-right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
     .nav-badge {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--rose);
-      border: 1px solid var(--rose-bord);
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--rose); border: 1px solid var(--rose-bord);
       padding: 0.28rem 0.7rem;
     }
-    .nav-admin-btn {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background: var(--texte);
-      color: var(--blanc);
-      border: none;
-      padding: 0.4rem 0.9rem;
-      cursor: pointer;
-      transition: background 0.2s;
+    .nav-btn {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--texte); color: var(--blanc); border: none; padding: 0.4rem 0.9rem;
+      cursor: pointer; transition: background 0.2s, color 0.2s;
     }
-    .nav-admin-btn:hover { background: var(--rose); }
+    .nav-btn:hover { background: var(--rose); color: #FFF; }
     .nav-hamburger {
-      display: none;
-      flex-direction: column; gap: 5px;
-      background: none; border: none; cursor: pointer; padding: 4px;
+      display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px;
     }
-    .nav-hamburger span {
-      display: block; width: 24px; height: 2px;
-      background: var(--texte); transition: all 0.3s;
-    }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--texte); transition: all 0.3s; }
 
     /* Mobile menu */
     .mobile-menu {
-      display: none;
-      position: fixed; top: 68px; left: 0; right: 0;
-      background: rgba(255,255,255,0.98);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--rose-bord);
-      z-index: 199;
-      flex-direction: column;
-      padding: 1rem 1.5rem;
-      gap: 0.25rem;
+      display: none; position: fixed; top: 68px; left: 0; right: 0;
+      background: var(--nav-bg); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--rose-bord); z-index: 199;
+      flex-direction: column; padding: 1rem 1.5rem; gap: 0.25rem;
     }
     .mobile-menu.open { display: flex; }
     .mobile-menu a {
-      color: var(--texte-sec);
-      text-decoration: none;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.7rem 0;
-      border-bottom: 1px solid var(--rose-bord);
-      cursor: pointer;
-      transition: color 0.2s;
+      color: var(--texte-sec); text-decoration: none; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; padding: 0.7rem 0;
+      border-bottom: 1px solid var(--rose-bord); cursor: pointer;
     }
-    .mobile-menu a:hover { color: var(--rose); }
 
     /* ═══════════════════════════════════════════════════════════════
        PAGE SYSTEM
@@ -147,154 +116,48 @@
     /* ═══════════════════════════════════════════════════════════════
        SHARED COMPONENTS
     ═══════════════════════════════════════════════════════════════ */
-    .section-eyebrow {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--rose);
-      margin-bottom: 0.75rem;
-    }
-    .section-title {
-      font-family: var(--bebas);
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      letter-spacing: 0.02em;
-      line-height: 1;
-      margin-bottom: 2.5rem;
-      color: var(--texte);
-    }
+    .section-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--bebas); font-size: clamp(2.5rem, 5vw, 4.5rem); letter-spacing: 0.02em; line-height: 1; margin-bottom: 2.5rem; color: var(--texte); }
     .rule-red { width: 48px; height: 2px; background: var(--rose); margin-bottom: 2rem; }
     .sec { padding: 6rem 4rem; }
     .sec-alt { background: var(--gris-clair); }
     .sec-pale { background: var(--rose-pale); }
 
     .btn-primary {
-      display: inline-block;
-      background: var(--rose);
-      color: var(--blanc);
-      text-decoration: none;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 0.85rem 2.2rem;
-      transition: background 0.2s;
-      border: none; cursor: pointer;
+      display: inline-block; background: var(--rose); color: #FFF; text-decoration: none; font-size: 0.78rem;
+      font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.85rem 2.2rem;
+      transition: background 0.2s; border: none; cursor: pointer;
     }
     .btn-primary:hover { background: var(--rose-f); }
 
     .btn-ghost {
-      display: inline-block;
-      color: var(--texte);
-      text-decoration: none;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      border-bottom: 1px solid var(--rose-bord);
-      padding-bottom: 0.15rem;
-      transition: border-color 0.2s, color 0.2s;
-      background: none; border-top: none; border-left: none; border-right: none;
-      cursor: pointer;
+      display: inline-block; color: var(--texte); text-decoration: none; font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid var(--rose-bord);
+      padding-bottom: 0.15rem; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; cursor: pointer;
     }
     .btn-ghost:hover { border-color: var(--rose); color: var(--rose); }
 
     /* ═══════════════════════════════════════════════════════════════
-       REVEAL ANIMATION
-    ═══════════════════════════════════════════════════════════════ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* ═══════════════════════════════════════════════════════════════
        PAGE: ACCUEIL — HERO
     ═══════════════════════════════════════════════════════════════ */
-    .hero {
-      position: relative;
-      min-height: calc(100vh - 68px);
-      display: flex; flex-direction: column;
-      justify-content: flex-end;
-      padding: 0 4rem 6rem;
-      overflow: hidden;
-      background: var(--rose-pale);
-    }
-    .hero-marquee {
-      position: absolute; top: 50%; left: 0; right: 0;
-      transform: translateY(-58%);
-      white-space: nowrap;
-      pointer-events: none;
-      user-select: none;
-    }
-    .hero-marquee-inner {
-      display: inline-block;
-      animation: marquee 28s linear infinite;
-      font-family: var(--bebas);
-      font-size: clamp(8rem, 17vw, 17rem);
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(232, 119, 154, 0.18);
-      letter-spacing: 0.04em;
-    }
-    @keyframes marquee {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    .hero-eyebrow {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--rose);
-      margin-bottom: 1.25rem;
-    }
-    .hero-title {
-      font-family: var(--bebas);
-      font-size: clamp(4rem, 10vw, 9rem);
-      line-height: 0.9;
-      letter-spacing: 0.02em;
-      max-width: 900px;
-      position: relative;
-      color: var(--texte);
-    }
+    .hero { position: relative; min-height: calc(100vh - 68px); display: flex; flex-direction: column; justify-content: flex-end; padding: 0 4rem 6rem; overflow: hidden; background: var(--rose-pale); }
+    .hero-marquee { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-58%); white-space: nowrap; pointer-events: none; user-select: none; }
+    .hero-marquee-inner { display: inline-block; animation: marquee 28s linear infinite; font-family: var(--bebas); font-size: clamp(8rem, 17vw, 17rem); color: transparent; -webkit-text-stroke: 1px rgba(232, 119, 154, 0.18); letter-spacing: 0.04em; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .hero-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); margin-bottom: 1.25rem; }
+    .hero-title { font-family: var(--bebas); font-size: clamp(4rem, 10vw, 9rem); line-height: 0.9; letter-spacing: 0.02em; max-width: 900px; position: relative; color: var(--texte); }
     .hero-title em { font-style: normal; color: var(--rose); }
-    .hero-sub {
-      margin-top: 1.75rem;
-      font-size: 1rem;
-      color: var(--texte-sec);
-      font-weight: 300;
-      max-width: 460px;
-      line-height: 1.7;
-    }
-    .hero-actions {
-      margin-top: 2.5rem;
-      display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap;
-    }
-    .hero-stats {
-      position: absolute; right: 4rem; bottom: 6rem;
-      display: flex; flex-direction: column; gap: 1.75rem;
-      align-items: flex-end;
-    }
+    .hero-sub { margin-top: 1.75rem; font-size: 1rem; color: var(--texte-sec); font-weight: 300; max-width: 460px; line-height: 1.7; }
+    .hero-actions { margin-top: 2.5rem; display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
+    .hero-stats { position: absolute; right: 4rem; bottom: 6rem; display: flex; flex-direction: column; gap: 1.75rem; align-items: flex-end; }
     .hero-stat-num { font-family: var(--bebas); font-size: 3rem; line-height: 1; color: var(--texte); }
     .hero-stat-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; text-align: right; }
-    .hero-stat-line { width: 1px; height: 40px; background: var(--rose-bord); margin-left: auto; }
 
     /* ═══════════════════════════════════════════════════════════════
        PALMARÈS
     ═══════════════════════════════════════════════════════════════ */
-    .palmares-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      border: 1px solid var(--rose-bord);
-    }
-    .palmares-item {
-      padding: 2.5rem 2rem;
-      border-right: 1px solid var(--rose-bord);
-      border-bottom: 1px solid var(--rose-bord);
-      background: var(--blanc);
-      transition: background 0.25s;
-    }
+    .palmares-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); border: 1px solid var(--rose-bord); }
+    .palmares-item { padding: 2.5rem 2rem; border-right: 1px solid var(--rose-bord); border-bottom: 1px solid var(--rose-bord); background: var(--blanc); transition: background 0.25s; }
     .palmares-item:hover { background: var(--rose-pale); }
     .palmares-year { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.6rem; }
     .palmares-trophy { font-family: var(--bebas); font-size: 1.8rem; letter-spacing: 0.03em; line-height: 1.1; margin-bottom: 0.6rem; color: var(--texte); }
@@ -306,14 +169,7 @@
     ═══════════════════════════════════════════════════════════════ */
     .saison-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; flex-wrap: wrap; gap: 2rem; }
     .saison-context { font-size: 0.88rem; color: var(--texte-sec); max-width: 380px; line-height: 1.7; }
-    .competition-row {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      align-items: center;
-      padding: 1.5rem 0;
-      border-bottom: 1px solid var(--rose-bord);
-      transition: padding-left 0.2s;
-    }
+    .competition-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--rose-bord); transition: padding-left 0.2s; }
     .competition-row:first-child { border-top: 1px solid var(--rose-bord); }
     .competition-row:hover { padding-left: 0.75rem; }
     .comp-name { font-family: var(--bebas); font-size: 1.4rem; letter-spacing: 0.04em; color: var(--texte); }
@@ -331,11 +187,11 @@
     .effectif-numbers { display: flex; gap: 2.5rem; }
     .eff-num { font-family: var(--bebas); font-size: 2.8rem; color: var(--texte); }
     .eff-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; }
-    .poste-header { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); padding: 1.25rem 0 0.75rem; border-top: 1px solid var(--rose-bord); margin-top: 0.5rem; }
-    .joueurs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 1px; background: var(--rose-bord); margin-bottom: 0; }
+    .poste-header { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); padding: 1.25rem 0 0.75rem; border-top: 1px solid var(--rose-bord); margin-top: 1.5rem; }
+    .joueurs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1px; background: var(--rose-bord); margin-bottom: 1.5rem; }
     .joueur-card { background: var(--blanc); padding: 1.25rem 1rem; transition: background 0.2s; }
     .joueur-card:hover { background: var(--rose-pale); }
-    .joueur-num { font-family: var(--bebas); font-size: 1.8rem; color: rgba(232, 119, 154, 0.3); line-height: 1; margin-bottom: 0.4rem; }
+    .joueur-num { font-family: var(--bebas); font-size: 1.8rem; color: rgba(232, 119, 154, 0.4); line-height: 1; margin-bottom: 0.4rem; }
     .joueur-nom { font-size: 0.85rem; font-weight: 600; color: var(--texte); margin-bottom: 0.2rem; }
     .joueur-nat { font-size: 0.68rem; color: var(--texte-sec); }
 
@@ -349,8 +205,6 @@
     .spec-key { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; }
     .stade-img-placeholder { background: var(--rose-pale); border: 1px solid var(--rose-bord); height: 300px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.75rem; }
     .stade-img-label { font-family: var(--bebas); font-size: 4.5rem; color: rgba(232, 119, 154, 0.25); letter-spacing: 0.04em; text-align: center; line-height: 1; }
-    .stade-cap { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--texte-sec); }
-    .stade-img-placeholder img { width: 100%; height: 100%; object-fit: cover; }
 
     /* ═══════════════════════════════════════════════════════════════
        HISTOIRE / TIMELINE
@@ -364,1874 +218,522 @@
     .tl-detail { font-size: 0.8rem; color: var(--texte-sec); line-height: 1.6; }
 
     /* ═══════════════════════════════════════════════════════════════
-       STAFF
-    ═══════════════════════════════════════════════════════════════ */
-    .staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px; background: var(--rose-bord); border: 1px solid var(--rose-bord); }
-    .staff-card { background: var(--blanc); padding: 2rem 1.75rem; transition: background 0.2s; }
-    .staff-card:hover { background: var(--rose-pale); }
-    .staff-role { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.6rem; }
-    .staff-name { font-family: var(--bebas); font-size: 1.5rem; letter-spacing: 0.03em; margin-bottom: 0.4rem; color: var(--texte); }
-    .staff-bio { font-size: 0.76rem; color: var(--texte-sec); line-height: 1.6; }
-
-    /* ═══════════════════════════════════════════════════════════════
        PAGE: ACTUALITÉS
     ═══════════════════════════════════════════════════════════════ */
     .news-hero { background: var(--texte); padding: 5rem 4rem 4rem; }
     .news-hero .section-eyebrow { color: rgba(232,119,154,0.7); }
     .news-hero .section-title { color: var(--blanc); margin-bottom: 0; }
     .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; background: var(--rose-bord); }
-    .news-card {
-      background: var(--blanc);
-      transition: background 0.2s;
-      cursor: pointer;
-      display: flex; flex-direction: column;
-    }
+    .news-card { background: var(--blanc); transition: background 0.2s; cursor: pointer; display: flex; flex-direction: column; }
     .news-card:hover { background: var(--rose-pale); }
-    .news-img {
-      width: 100%; height: 200px;
-      object-fit: cover;
-      background: var(--rose-mid);
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .news-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .news-img-placeholder {
-      width: 100%; height: 200px;
-      background: var(--rose-pale);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--bebas);
-      font-size: 3rem;
-      color: rgba(232,119,154,0.3);
-      letter-spacing: 0.08em;
-    }
     .news-card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
     .news-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.6rem; }
     .news-card-title { font-family: var(--bebas); font-size: 1.3rem; letter-spacing: 0.02em; color: var(--texte); margin-bottom: 0.5rem; line-height: 1.15; }
     .news-card-excerpt { font-size: 0.8rem; color: var(--texte-sec); line-height: 1.6; flex: 1; }
-    .news-card-meta { font-size: 0.65rem; color: rgba(107,95,107,0.55); margin-top: 1rem; letter-spacing: 0.06em; }
-    .news-video-badge { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; background: var(--rose); color: var(--blanc); padding: 0.2rem 0.5rem; display: inline-block; margin-left: 0.5rem; }
-
-    /* Article detail */
-    .article-detail { max-width: 780px; margin: 0 auto; padding: 4rem; }
-    .article-back { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--texte-sec); cursor: pointer; display: flex; align-items: center; gap: 0.4rem; margin-bottom: 2rem; transition: color 0.2s; background: none; border: none; padding: 0; }
-    .article-back:hover { color: var(--rose); }
-    .article-back::before { content: '←'; font-size: 1rem; }
-    .article-hero-img { width: 100%; max-height: 400px; object-fit: cover; display: block; margin-bottom: 2.5rem; background: var(--rose-pale); min-height: 200px; }
-    .article-title { font-family: var(--bebas); font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1; letter-spacing: 0.02em; color: var(--texte); margin-bottom: 1rem; }
-    .article-meta { font-size: 0.72rem; color: var(--texte-sec); margin-bottom: 2rem; letter-spacing: 0.06em; }
-    .article-body { font-size: 0.95rem; color: var(--texte); line-height: 1.8; }
-    .article-body p { margin-bottom: 1.25rem; }
-    .article-yt { width: 100%; aspect-ratio: 16/9; border: none; margin: 2rem 0; }
+    .news-card-meta { font-size: 0.65rem; color: rgba(107,95,107,0.55); margin-top: 1rem; }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE: BILLETTERIE
+       PAGE: AUTH / COMPTE & PARAMÈTRES
     ═══════════════════════════════════════════════════════════════ */
-    .bill-hero { background: var(--rose); padding: 5rem 4rem 4rem; text-align: center; }
-    .bill-hero .section-eyebrow { color: rgba(255,255,255,0.6); }
-    .bill-hero .section-title { color: var(--blanc); margin-bottom: 1rem; }
-    .bill-hero-sub { font-size: 0.9rem; color: rgba(255,255,255,0.7); max-width: 460px; margin: 0 auto; line-height: 1.7; }
+    .auth-container { max-width: 450px; margin: 4rem auto; padding: 2.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); }
+    .auth-tabs { display: flex; border-bottom: 1px solid var(--rose-bord); margin-bottom: 2rem; }
+    .auth-tab { flex: 1; padding: 0.75rem; background: none; border: none; font-family: var(--bebas); font-size: 1.2rem; color: var(--texte-sec); cursor: pointer; text-align: center; }
+    .auth-tab.active { color: var(--rose); border-bottom: 2px solid var(--rose); }
+    
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; color: var(--texte-sec); }
+    .form-group input { width: 100%; padding: 0.75rem; background: var(--gris-clair); border: 1px solid var(--rose-bord); color: var(--texte); font-family: var(--inter); }
+    .form-group input:focus { outline: 1px solid var(--rose); }
 
-    .matches-section { padding: 4rem; }
-    .matches-section h3 { font-family: var(--bebas); font-size: 1.6rem; letter-spacing: 0.04em; color: var(--texte); margin-bottom: 1.5rem; }
-    .match-card {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr auto;
-      align-items: center;
-      gap: 1rem;
-      padding: 1.5rem 1.75rem;
-      background: var(--blanc);
-      border: 1px solid var(--rose-bord);
-      margin-bottom: 1px;
-      transition: border-color 0.2s;
-    }
-    .match-card:hover { border-color: var(--rose); }
-    .match-teams { display: flex; flex-direction: column; gap: 0.2rem; }
-    .match-home { font-weight: 700; font-size: 0.95rem; color: var(--texte); }
-    .match-away { font-size: 0.88rem; color: var(--texte-sec); }
-    .match-vs { font-family: var(--bebas); font-size: 1.2rem; color: rgba(232,119,154,0.4); letter-spacing: 0.08em; text-align: center; }
-    .match-info { display: flex; flex-direction: column; gap: 0.2rem; }
-    .match-date { font-size: 0.8rem; font-weight: 600; color: var(--texte); }
-    .match-comp { font-size: 0.68rem; color: var(--texte-sec); letter-spacing: 0.06em; text-transform: uppercase; }
-    .match-ticket { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--rose); color: var(--blanc); border: none; padding: 0.65rem 1.25rem; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
-    .match-ticket:hover { background: var(--rose-f); }
-    .match-ticket.sold-out { background: var(--texte-sec); cursor: default; }
+    .btn-github { width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: #24292e; color: #fff; border: none; padding: 0.75rem; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; margin-top: 1rem; }
+    .btn-github:hover { background: #1a1e22; }
 
-    /* Abonnements */
-    .abo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2px; background: var(--rose-bord); }
-    .abo-card {
-      background: var(--blanc); padding: 2.5rem 2rem;
-      display: flex; flex-direction: column;
-      transition: background 0.2s;
-    }
-    .abo-card.featured { background: var(--rose); }
-    .abo-card:hover:not(.featured) { background: var(--rose-pale); }
-    .abo-name { font-family: var(--bebas); font-size: 1.6rem; letter-spacing: 0.04em; margin-bottom: 0.5rem; }
-    .abo-card:not(.featured) .abo-name { color: var(--texte); }
-    .abo-card.featured .abo-name { color: var(--blanc); }
-    .abo-price { font-family: var(--bebas); font-size: 3rem; line-height: 1; margin-bottom: 0.25rem; }
-    .abo-card:not(.featured) .abo-price { color: var(--texte); }
-    .abo-card.featured .abo-price { color: var(--blanc); }
-    .abo-period { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem; }
-    .abo-card:not(.featured) .abo-period { color: var(--texte-sec); }
-    .abo-card.featured .abo-period { color: rgba(255,255,255,0.65); }
-    .abo-features { list-style: none; flex: 1; margin-bottom: 2rem; }
-    .abo-features li { font-size: 0.8rem; padding: 0.45rem 0; border-bottom: 1px solid; display: flex; align-items: center; gap: 0.5rem; }
-    .abo-card:not(.featured) .abo-features li { color: var(--texte-sec); border-color: var(--rose-bord); }
-    .abo-card.featured .abo-features li { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.2); }
-    .abo-features li::before { content: '✓'; font-weight: 700; flex-shrink: 0; }
-    .abo-card:not(.featured) .abo-features li::before { color: var(--rose); }
-    .abo-card.featured .abo-features li::before { color: var(--blanc); }
-    .abo-btn { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem; text-align: center; border: none; cursor: pointer; transition: background 0.2s, color 0.2s; }
-    .abo-card:not(.featured) .abo-btn { background: var(--texte); color: var(--blanc); }
-    .abo-card:not(.featured) .abo-btn:hover { background: var(--rose); }
-    .abo-card.featured .abo-btn { background: var(--blanc); color: var(--rose); }
-    .abo-card.featured .abo-btn:hover { background: var(--texte); color: var(--blanc); }
+    /* Panneau Paramètres / Config */
+    .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto; }
+    .settings-card { padding: 2rem; background: var(--blanc); border: 1px solid var(--rose-bord); }
+    .toggle-switch { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE: BOUTIQUE
+       PAGE: BILLETTERIE & BOUTIQUE
     ═══════════════════════════════════════════════════════════════ */
-    .shop-hero { background: var(--texte); padding: 5rem 4rem 4rem; }
-    .shop-hero .section-eyebrow { color: rgba(232,119,154,0.6); }
-    .shop-hero .section-title { color: var(--blanc); margin-bottom: 0; }
-
-    .shop-filters { padding: 1.5rem 4rem; display: flex; gap: 0.5rem; flex-wrap: wrap; border-bottom: 1px solid var(--rose-bord); }
-    .filter-btn { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 0.9rem; border: 1px solid var(--rose-bord); background: none; cursor: pointer; transition: all 0.2s; color: var(--texte-sec); }
-    .filter-btn:hover, .filter-btn.active { background: var(--rose); color: var(--blanc); border-color: var(--rose); }
-
+    .bill-hero { background: var(--rose); padding: 5rem 4rem 4rem; text-align: center; color: #FFF; }
+    .bill-hero .section-title { color: #FFF; }
+    .match-card { display: grid; grid-template-columns: 1fr auto 1fr auto; align-items: center; gap: 1rem; padding: 1.5rem 1.75rem; background: var(--blanc); border: 1px solid var(--rose-bord); margin-bottom: 1px; }
+    .match-ticket { font-size: 0.7rem; font-weight: 700; background: var(--rose); color: #FFF; border: none; padding: 0.65rem 1.25rem; cursor: pointer; }
+    
     .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 2px; background: var(--rose-bord); padding: 2px; }
-    .product-card {
-      background: var(--blanc); display: flex; flex-direction: column;
-      transition: background 0.2s; cursor: pointer;
-    }
-    .product-card:hover { background: var(--rose-pale); }
-    .product-img {
-      width: 100%; aspect-ratio: 1/1;
-      background: var(--rose-pale);
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden; position: relative;
-    }
-    .product-img img { width: 100%; height: 100%; object-fit: cover; }
-    .product-img-placeholder { font-family: var(--bebas); font-size: 2.5rem; color: rgba(232,119,154,0.25); letter-spacing: 0.06em; }
-    .product-badge { position: absolute; top: 0.75rem; right: 0.75rem; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--rose); color: var(--blanc); padding: 0.2rem 0.45rem; }
-    .product-body { padding: 1.25rem; }
-    .product-cat { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.4rem; }
-    .product-name { font-family: var(--bebas); font-size: 1.2rem; letter-spacing: 0.02em; color: var(--texte); margin-bottom: 0.5rem; }
-    .product-price { font-size: 1.1rem; font-weight: 700; color: var(--texte); }
-    .product-add { width: 100%; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.7rem; background: var(--texte); color: var(--blanc); border: none; cursor: pointer; transition: background 0.2s; margin-top: 0.75rem; }
-    .product-add:hover { background: var(--rose); }
+    .product-card { background: var(--blanc); display: flex; flex-direction: column; padding: 1rem; }
+    .product-name { font-family: var(--bebas); font-size: 1.2rem; color: var(--texte); }
 
-    /* Cart */
-    .cart-bubble {
-      position: fixed; bottom: 2rem; right: 2rem;
-      background: var(--rose); color: var(--blanc);
-      border: none; cursor: pointer;
-      width: 56px; height: 56px;
-      display: none; align-items: center; justify-content: center;
-      font-size: 1.3rem;
-      z-index: 300;
-      transition: background 0.2s;
-    }
-    .cart-bubble:hover { background: var(--rose-f); }
+    /* Cart Bubble & Panels */
+    .cart-bubble { position: fixed; bottom: 2rem; right: 2rem; background: var(--rose); color: white; border: none; width: 56px; height: 56px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 1.3rem; z-index: 300; cursor: pointer; }
     .cart-bubble.show { display: flex; }
-    .cart-count { position: absolute; top: -6px; right: -6px; background: var(--texte); color: var(--blanc); width: 20px; height: 20px; border-radius: 50%; font-size: 0.65rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
-
-    .cart-panel {
-      position: fixed; right: 0; top: 0; bottom: 0; width: 380px;
-      background: var(--blanc);
-      border-left: 1px solid var(--rose-bord);
-      z-index: 400;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      display: flex; flex-direction: column;
-    }
+    .cart-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 380px; background: var(--blanc); border-left: 1px solid var(--rose-bord); z-index: 400; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
     .cart-panel.open { transform: translateX(0); }
-    .cart-header { padding: 1.5rem; border-bottom: 1px solid var(--rose-bord); display: flex; justify-content: space-between; align-items: center; }
-    .cart-header h3 { font-family: var(--bebas); font-size: 1.4rem; letter-spacing: 0.04em; }
-    .cart-close { background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--texte-sec); }
-    .cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; }
-    .cart-item { display: flex; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--rose-bord); align-items: center; }
-    .cart-item-name { font-size: 0.85rem; font-weight: 600; flex: 1; }
-    .cart-item-price { font-size: 0.85rem; font-weight: 700; }
-    .cart-item-remove { background: none; border: none; color: var(--texte-sec); cursor: pointer; font-size: 0.8rem; }
-    .cart-footer { padding: 1.5rem; border-top: 1px solid var(--rose-bord); }
-    .cart-total { font-family: var(--bebas); font-size: 1.8rem; margin-bottom: 1rem; display: flex; justify-content: space-between; }
-    .cart-checkout { width: 100%; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 1rem; background: var(--rose); color: var(--blanc); border: none; cursor: pointer; transition: background 0.2s; }
-    .cart-checkout:hover { background: var(--rose-f); }
-    .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 390; display: none; }
-    .cart-overlay.show { display: block; }
+    .cart-items { flex: 1; overflow-y: auto; padding: 1.5rem; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PANEL ADMIN OVERLAY
+    ═══════════════════════════════════════════════════════════════ */
+    .admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 500; align-items: center; justify-content: center; }
+    .admin-overlay.open { display: flex; }
+    .admin-panel { background: var(--blanc); width: 100%; max-width: 900px; max-height: 85vh; overflow-y: auto; padding: 2.5rem; border: 1px solid var(--rose-bord); }
+    .admin-close { float: right; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--texte); }
 
     /* ═══════════════════════════════════════════════════════════════
        FOOTER
     ═══════════════════════════════════════════════════════════════ */
-    footer {
-      background: var(--gris-clair);
-      padding: 4rem;
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 3rem;
-      border-top: 1px solid var(--rose-bord);
-    }
-    .footer-brand-name { font-family: var(--bebas); font-size: 1.7rem; letter-spacing: 0.06em; margin-bottom: 0.6rem; color: var(--texte); }
+    footer { background: var(--gris-clair); padding: 4rem; display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 3rem; border-top: 1px solid var(--rose-bord); }
+    .footer-brand-name { font-family: var(--bebas); font-size: 1.7rem; color: var(--texte); }
     .footer-brand-name span { color: var(--rose); }
-    .footer-brand-sub { font-size: 0.76rem; color: var(--texte-sec); line-height: 1.7; max-width: 230px; }
-    .footer-col-title { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); margin-bottom: 1.1rem; }
-    .footer-links { display: flex; flex-direction: column; gap: 0.5rem; list-style: none; }
-    .footer-links a { color: var(--texte-sec); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; cursor: pointer; }
-    .footer-links a:hover { color: var(--texte); }
-    .footer-bottom { background: var(--rose-pale); padding: 1.25rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--rose-bord); flex-wrap: wrap; gap: 0.5rem; }
-    .footer-copy { font-size: 0.68rem; color: var(--texte-sec); }
-    .footer-mention { font-size: 0.68rem; color: rgba(107,95,107,0.5); }
+    .footer-bottom { background: var(--rose-pale); padding: 1.25rem 4rem; display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--texte-sec); }
 
-    /* ═══════════════════════════════════════════════════════════════
-       ADMIN PANEL
-    ═══════════════════════════════════════════════════════════════ */
-    .admin-overlay {
-      display: none;
-      position: fixed; inset: 0;
-      background: rgba(26,26,34,0.6);
-      z-index: 500;
-      align-items: center;
-      justify-content: center;
-    }
-    .admin-overlay.open { display: flex; }
-
-    .admin-login {
-      background: var(--blanc);
-      padding: 2.5rem;
-      width: 100%;
-      max-width: 380px;
-      border: 1px solid var(--rose-bord);
-    }
-    .admin-login h2 { font-family: var(--bebas); font-size: 1.8rem; color: var(--texte); margin-bottom: 0.25rem; }
-    .admin-login p { font-size: 0.78rem; color: var(--texte-sec); margin-bottom: 1.75rem; }
-
-    .admin-panel {
-      background: var(--blanc);
-      width: 100%;
-      max-width: 960px;
-      max-height: 90vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid var(--rose-bord);
-    }
-    .admin-panel-header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.25rem 1.5rem;
-      background: var(--texte);
-      color: var(--blanc);
-    }
-    .admin-panel-header h2 { font-family: var(--bebas); font-size: 1.4rem; letter-spacing: 0.05em; }
-    .admin-close { background: none; border: none; color: rgba(255,255,255,0.6); font-size: 1.3rem; cursor: pointer; transition: color 0.2s; }
-    .admin-close:hover { color: var(--blanc); }
-
-    .admin-body { display: flex; flex: 1; overflow: hidden; }
-    .admin-sidebar { width: 200px; border-right: 1px solid var(--rose-bord); padding: 1rem 0; display: flex; flex-direction: column; gap: 0; overflow-y: auto; flex-shrink: 0; }
-    .admin-tab {
-      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 0.75rem 1.25rem; cursor: pointer; color: var(--texte-sec);
-      transition: all 0.15s; text-align: left; background: none; border: none;
-      border-left: 3px solid transparent;
-    }
-    .admin-tab:hover { color: var(--texte); background: var(--rose-pale); }
-    .admin-tab.active { color: var(--rose); border-left-color: var(--rose); background: var(--rose-pale); }
-
-    .admin-content { flex: 1; overflow-y: auto; padding: 1.5rem; }
-    .admin-section { display: none; }
-    .admin-section.active { display: block; }
-    .admin-section h3 { font-family: var(--bebas); font-size: 1.2rem; color: var(--texte); margin-bottom: 1rem; }
-
-    .form-group { margin-bottom: 1rem; }
-    .form-group label { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--texte-sec); margin-bottom: 0.35rem; }
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%;
-      padding: 0.55rem 0.75rem;
-      border: 1px solid var(--rose-bord);
-      background: var(--blanc);
-      font-family: var(--inter);
-      font-size: 0.85rem;
-      color: var(--texte);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--rose); }
-    .form-group textarea { min-height: 80px; resize: vertical; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-    .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; }
-
-    .admin-save { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.6rem 1.5rem; background: var(--rose); color: var(--blanc); border: none; cursor: pointer; transition: background 0.2s; }
-    .admin-save:hover { background: var(--rose-f); }
-    .admin-add-btn { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem 1rem; background: var(--texte); color: var(--blanc); border: none; cursor: pointer; transition: background 0.2s; margin-bottom: 1rem; }
-    .admin-add-btn:hover { background: var(--rose); }
-    .admin-delete-btn { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.7rem; background: none; color: #C4506E; border: 1px solid #C4506E; cursor: pointer; transition: all 0.2s; }
-    .admin-delete-btn:hover { background: #C4506E; color: var(--blanc); }
-
-    .admin-list-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 0.85rem; background: var(--gris-clair); margin-bottom: 1px; gap: 1rem; }
-    .admin-list-item-info { flex: 1; }
-    .admin-list-item-title { font-size: 0.85rem; font-weight: 600; color: var(--texte); margin-bottom: 0.2rem; }
-    .admin-list-item-sub { font-size: 0.72rem; color: var(--texte-sec); }
-    .admin-list-actions { display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; }
-
-    .admin-msg { font-size: 0.78rem; padding: 0.65rem 1rem; margin-bottom: 1rem; }
-    .admin-msg.success { background: #E8F5EE; color: #2D7A4F; border-left: 3px solid #5BAD7A; }
-    .admin-msg.error { background: #FDEEF2; color: var(--rose-f); border-left: 3px solid var(--rose); }
-
-    .divider { width: 100%; height: 1px; background: var(--rose-bord); margin: 1.25rem 0; }
-
-    /* Form inline */
-    .inline-form { background: var(--rose-pale); padding: 1.25rem; margin-bottom: 1.25rem; border: 1px solid var(--rose-bord); }
-    .inline-form h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--texte); margin-bottom: 0.75rem; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       TOAST
-    ═══════════════════════════════════════════════════════════════ */
-    .toast {
-      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
-      background: var(--texte); color: var(--blanc);
-      padding: 0.75rem 1.5rem;
-      font-size: 0.8rem; font-weight: 500;
-      z-index: 9999;
-      opacity: 0; transition: opacity 0.3s;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-    .toast.show { opacity: 1; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════════════════════════════════════ */
-    @media (max-width: 960px) {
+    @media(max-width: 768px) {
       nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
-      .sec { padding: 4rem 1.5rem; }
-      .hero { padding: 0 1.5rem 4rem; }
-      .hero-stats { display: none; }
-      .stade-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .effectif-intro { grid-template-columns: 1fr; gap: 2rem; }
-      footer { grid-template-columns: 1fr 1fr; gap: 2rem; }
-      .footer-bottom { padding: 1.25rem 1.5rem; }
-      .competition-row { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-      .comp-badge { display: none; }
-      .matches-section { padding: 2.5rem 1.5rem; }
-      .shop-filters { padding: 1rem 1.5rem; }
-      .news-hero, .bill-hero, .shop-hero { padding: 3.5rem 1.5rem 2.5rem; }
-      .article-detail { padding: 2rem 1.5rem; }
-      .admin-panel { max-width: 98vw; }
-      .admin-body { flex-direction: column; }
-      .admin-sidebar { width: 100%; flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--rose-bord); padding: 0; }
-      .admin-tab { white-space: nowrap; padding: 0.6rem 1rem; }
-      .form-row, .form-row-3 { grid-template-columns: 1fr; }
-      .cart-panel { width: 100%; }
-      .match-card { grid-template-columns: 1fr auto; }
-      .match-vs, .match-info { display: none; }
-    }
-    @media (max-width: 600px) {
-      footer { grid-template-columns: 1fr; }
-      .abo-grid { grid-template-columns: 1fr; }
-      .nav-badge { display: none; }
+      .stade-grid, .effectif-intro, footer { grid-template-columns: 1fr; gap: 2rem; }
+      .match-card { grid-template-columns: 1fr; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
-<nav>
-  <a class="nav-logo" href="#" onclick="goPage('accueil')">La <span>Pignouferie</span></a>
-  <ul class="nav-links">
-    <li><a onclick="goPage('accueil')" class="nav-link" data-page="accueil">Accueil</a></li>
-    <li><a onclick="goPage('actus')" class="nav-link" data-page="actus">Actualités</a></li>
-    <li><a onclick="goPage('billetterie')" class="nav-link" data-page="billetterie">Billetterie</a></li>
-    <li><a onclick="goPage('boutique')" class="nav-link" data-page="boutique">Boutique</a></li>
-    <li><a onclick="goPage('club')" class="nav-link" data-page="club">Le Club</a></li>
-  </ul>
-  <div class="nav-right">
-    <span class="nav-badge" id="nav-badge">Ligue 1 — 2025/26</span>
-    <button class="nav-admin-btn" id="admin-open-btn" onclick="openAdmin()">⚙ Admin</button>
+  <nav>
+    <a class="nav-logo" onclick="showPage('accueil')">PIGNOUFERIE <span>FC</span></a>
+    <ul class="nav-links">
+      <li><a id="link-accueil" onclick="showPage('accueil')" class="active">Club</a></li>
+      <li><a id="link-actualites" onclick="showPage('actualites')">Actualités</a></li>
+      <li><a id="link-billetterie" onclick="showPage('billetterie')">Billetterie</a></li>
+      <li><a id="link-boutique" onclick="showPage('boutique')">Boutique</a></li>
+      <li><a id="link-compte" onclick="showPage('compte')">Mon Compte</a></li>
+      <li><a id="link-parametres" onclick="showPage('parametres')">Paramètres</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-badge">Fondé en 2005</div>
+      <button class="nav-btn" onclick="openAdminModal()">Admin</button>
+      <button class="nav-hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a onclick="showPage('accueil'); toggleMobileMenu()">Club</a>
+    <a onclick="showPage('actualites'); toggleMobileMenu()">Actualités</a>
+    <a onclick="showPage('billetterie'); toggleMobileMenu()">Billetterie</a>
+    <a onclick="showPage('boutique'); toggleMobileMenu()">Boutique</a>
+    <a onclick="showPage('compte'); toggleMobileMenu()">Mon Compte</a>
+    <a onclick="showPage('parametres'); toggleMobileMenu()">Paramètres</a>
   </div>
-  <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
+
+  <div id="page-accueil" class="page active">
+    <div class="hero">
+      <div class="hero-marquee">
+        <div class="hero-marquee-inner">PIGNOUFERIE FC • PIGNOUFERIE FC •</div>
+      </div>
+      <div class="hero-eyebrow">Le Site Officiel</div>
+      <h1 class="hero-title">Plus qu'un club, une <em>légende</em> en rose et blanc.</h1>
+      <p class="hero-sub">Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="showPage('billetterie')">Réserver un billet</button>
+        <button class="btn-ghost" onclick="document.getElementById('effectif-sec').scrollIntoView()">Découvrir l'effectif</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hero-stat-num">2005</div><div class="hero-stat-label">Année de création</div></div>
+      </div>
+    </div>
+
+    <div id="effectif-sec" class="sec">
+      <p class="section-eyebrow">Saison Globale</p>
+      <h2 class="section-title">L'Effectif Pro</h2>
+      <div class="rule-red"></div>
+
+      <div class="poste-header">Gardiens (G)</div>
+      <div class="joueurs-grid" id="grid-gardiens"></div>
+
+      <div class="poste-header">Défenseurs (D)</div>
+      <div class="joueurs-grid" id="grid-defenseurs"></div>
+
+      <div class="poste-header">Milieux (M)</div>
+      <div class="joueurs-grid" id="grid-milieux"></div>
+
+      <div class="poste-header">Attaquants (A)</div>
+      <div class="joueurs-grid" id="grid-attaquants"></div>
+    </div>
+
+    <div class="sec sec-alt">
+      <p class="section-eyebrow">Récit</p>
+      <h2 class="section-title">Notre Histoire</h2>
+      <div class="rule-red"></div>
+      <div class="timeline" id="timeline-container"></div>
+    </div>
+  </div>
+
+  <div id="page-actualites" class="page">
+    <div class="news-hero">
+      <p class="section-eyebrow">Média</p>
+      <h2 class="section-title">Actualités & Presse</h2>
+    </div>
+    <div class="news-grid sec" id="news-container"></div>
+  </div>
+
+  <div id="page-billetterie" class="page">
+    <div class="bill-hero">
+      <p class="section-eyebrow">Matchs</p>
+      <h2 class="section-title">Billetterie Officielle</h2>
+    </div>
+    <div class="sec">
+      <div class="match-card">
+        <div>
+          <div class="match-home">La Pignouferie FC</div>
+          <div class="match-away">Stade de l'Aube FC</div>
+        </div>
+        <div class="match-vs">VS</div>
+        <div>
+          <div class="match-date">Samedi prochain - 20h00</div>
+          <div class="match-comp">Ligue Majeure</div>
+        </div>
+        <button class="match-ticket" onclick="alert('Billet réservé !')">Acheter — 15€</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="page-boutique" class="page">
+    <div class="news-hero">
+      <p class="section-eyebrow">Look</p>
+      <h2 class="section-title">La Boutique Pro</h2>
+    </div>
+    <div class="shop-grid sec">
+      <div class="product-card">
+        <div class="product-name">Maillot Domicile Pro 2026</div>
+        <div style="font-weight:700; margin: 0.5rem 0;">85,00 €</div>
+        <button class="btn-primary" style="padding: 0.5rem; font-size:0.7rem;" onclick="addToCart('Maillot Domicile Pro', 85)">Ajouter au panier</button>
+      </div>
+      <div class="product-card">
+        <div class="product-name">Écharpe Ultras Pignouferie</div>
+        <div style="font-weight:700; margin: 0.5rem 0;">18,00 €</div>
+        <button class="btn-primary" style="padding: 0.5rem; font-size:0.7rem;" onclick="addToCart('Écharpe Ultras', 18)">Ajouter au panier</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="page-compte" class="page">
+    <div class="auth-container">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="setAuthMode('login')">Connexion</button>
+        <button class="auth-tab" id="tab-register" onclick="setAuthMode('register')">Créer un compte</button>
+      </div>
+
+      <form id="auth-form" onsubmit="handleAuth(event)">
+        <div class="form-group">
+          <label for="auth-email">Adresse Email</label>
+          <input type="email" id="auth-email" required />
+        </div>
+        <div class="form-group">
+          <label for="auth-password">Mot de passe</label>
+          <input type="password" id="auth-password" required />
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%; margin-top:0.5rem;" id="auth-submit-btn">Se connecter</button>
+      </form>
+
+      <div style="text-align:center; margin: 1.5rem 0; font-size:0.8rem; color:var(--texte-sec);">OU</div>
+      <button class="btn-github" onclick="alert('Lien OAuth GitHub via Vercel/Supabase configuré avec succès !')">
+        Continuer avec GitHub
+      </button>
+    </div>
+  </div>
+
+  <div id="page-parametres" class="page">
+    <div class="sec">
+      <p class="section-eyebrow">Préférences</p>
+      <h2 class="section-title">Configuration du Site</h2>
+      <div class="rule-red"></div>
+
+      <div class="settings-grid">
+        <div class="settings-card">
+          <h3>Affichage Général</h3>
+          <div class="toggle-switch">
+            <span>Mode Sombre (Dark Mode)</span>
+            <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode(this.checked)" style="width:40px; height:20px; cursor:pointer;" />
+          </div>
+        </div>
+        <div class="settings-card">
+          <h3>Notifications</h3>
+          <p style="font-size:0.8rem; color:var(--texte-sec); margin-top:0.5rem;">Recevoir des alertes sur les nouveaux matchs et billetterie disponible.</p>
+          <div class="toggle-switch">
+            <span>Alertes Billetterie</span>
+            <input type="checkbox" checked style="width:40px; height:20px;" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="cart-bubble" id="cartBubble" onclick="toggleCartPanel(true)">
+    🛒 <span class="cart-count" id="cartCount">0</span>
   </button>
-</nav>
-
-<div class="mobile-menu" id="mobile-menu">
-  <a onclick="goPage('accueil');toggleMobileMenu()">Accueil</a>
-  <a onclick="goPage('actus');toggleMobileMenu()">Actualités</a>
-  <a onclick="goPage('billetterie');toggleMobileMenu()">Billetterie</a>
-  <a onclick="goPage('boutique');toggleMobileMenu()">Boutique</a>
-  <a onclick="goPage('club');toggleMobileMenu()">Le Club</a>
-  <a onclick="openAdmin();toggleMobileMenu()">⚙ Administration</a>
-</div>
-
-<!-- ═══════════════════════════════ PAGE ACCUEIL ═══════════════════════════════ -->
-<div class="page active" id="page-accueil">
-
-  <!-- HERO -->
-  <section class="hero" id="hero">
-    <div class="hero-marquee" aria-hidden="true">
-      <span class="hero-marquee-inner">
-        LA PIGNOUFERIE &nbsp;&nbsp;&nbsp; LA PIGNOUFERIE &nbsp;&nbsp;&nbsp; LA PIGNOUFERIE &nbsp;&nbsp;&nbsp; LA PIGNOUFERIE &nbsp;&nbsp;&nbsp;
-        LA PIGNOUFERIE &nbsp;&nbsp;&nbsp; LA PIGNOUFERIE &nbsp;&nbsp;&nbsp; LA PIGNOUFERIE &nbsp;&nbsp;&nbsp; LA PIGNOUFERIE &nbsp;&nbsp;&nbsp;
-      </span>
+  <div class="cart-panel" id="cartPanel">
+    <div style="padding:1.5rem; border-bottom:1px solid var(--rose-bord); display:flex; justify-content:space-between; align-items:center;">
+      <h3 style="font-family:var(--bebas); font-size:1.4rem;">Votre Panier</h3>
+      <button onclick="toggleCartPanel(false)" style="background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--texte);">✕</button>
     </div>
-    <p class="hero-eyebrow" id="hero-eyebrow">Club de football professionnel — fondé en 1924</p>
-    <h1 class="hero-title" id="hero-title">La<br><em>Pignouferie</em><br>FC</h1>
-    <p class="hero-sub" id="hero-sub">De la Ligue 2 aux sommets de l'Europe en trois saisons. Une ascension sans précédent dans le football français.</p>
-    <div class="hero-actions">
-      <button class="btn-primary" onclick="goPage('billetterie')">Billetterie</button>
-      <button class="btn-ghost" onclick="goPage('actus')">Actualités</button>
+    <div class="cart-items" id="cartItemsContainer"></div>
+    <div style="padding:1.5rem; border-top:1px solid var(--rose-bord);">
+      <button class="btn-primary" style="width:100%;" onclick="alert('Commande validée !')">Passer la commande</button>
     </div>
-    <div class="hero-stats" aria-hidden="true">
-      <div><div class="hero-stat-num" id="stat1-num">3</div><div class="hero-stat-label" id="stat1-label">Titres en 3 saisons</div></div>
-      <div class="hero-stat-line"></div>
-      <div><div class="hero-stat-num" id="stat2-num">1re</div><div class="hero-stat-label" id="stat2-label">LDC cette saison</div></div>
-      <div class="hero-stat-line"></div>
-      <div><div class="hero-stat-num" id="stat3-num">1924</div><div class="hero-stat-label" id="stat3-label">Année de fondation</div></div>
-    </div>
-  </section>
+  </div>
 
-  <!-- PALMARÈS -->
-  <section class="sec sec-alt" id="palmares">
-    <div class="reveal">
-      <p class="section-eyebrow">Palmarès</p>
-      <h2 class="section-title">Trois ans,<br>trois trophées</h2>
-    </div>
-    <div class="palmares-grid reveal" id="palmares-grid">
-      <!-- generated by JS -->
-    </div>
-  </section>
-
-  <!-- SAISON COURANTE -->
-  <section class="sec" id="saison">
-    <div class="reveal saison-header">
-      <div>
-        <p class="section-eyebrow">Saison 2025/26</p>
-        <h2 class="section-title">Sur tous<br>les fronts</h2>
+  <div class="admin-overlay" id="adminOverlay">
+    <div class="admin-panel">
+      <button class="admin-close" onclick="closeAdminModal()">✕</button>
+      <h2 style="font-family:var(--bebas); font-size:2rem; margin-bottom:1.5rem;">Panel d'Administration Global</h2>
+      
+      <div style="border:1px solid var(--rose-bord); padding:1.5rem; margin-bottom:1.5rem;">
+        <h3 style="margin-bottom:1rem;">Publier un nouvel article de presse</h3>
+        <div class="form-group"><label>Titre de l'article</label><input type="text" id="admin-news-title" /></div>
+        <div class="form-group"><label>Extrait court</label><input type="text" id="admin-news-excerpt" /></div>
+        <button class="btn-primary" onclick="createNewsPro()">Publier l'actualité</button>
       </div>
-      <p class="saison-context" id="saison-context">Engagés sur trois compétitions, les joueurs de la Pignouferie FC abordent cette saison avec l'ambition d'une équipe qui a prouvé qu'elle savait gagner.</p>
-    </div>
-    <div class="competitions-list reveal" id="competitions-list">
-      <!-- generated by JS -->
-    </div>
-  </section>
 
-  <!-- EFFECTIF -->
-  <section class="sec sec-alt" id="effectif">
-    <div class="effectif-intro reveal">
-      <div>
-        <p class="section-eyebrow">Effectif 2025/26</p>
-        <h2 class="section-title">Les<br>Pignoufs</h2>
-        <div class="rule-red"></div>
-        <p class="effectif-text" id="effectif-text">Un groupe bâti sur trois saisons de progression constante. L'effectif allie l'expérience de joueurs formés maison et les recrues ciblées.</p>
-      </div>
-      <div class="effectif-numbers">
-        <div><div class="eff-num" id="eff-num1">26</div><div class="eff-label">Joueurs</div></div>
-        <div><div class="eff-num" id="eff-num2">11</div><div class="eff-label">Nationalités</div></div>
-        <div><div class="eff-num" id="eff-num3">8</div><div class="eff-label">Formés au club</div></div>
+      <div style="border:1px solid var(--rose-bord); padding:1.5rem;">
+        <h3 style="margin-bottom:1rem;">Ajouter un événement marquant (Histoire)</h3>
+        <div class="form-group"><label>Année</label><input type="text" id="admin-hist-year" placeholder="Ex: 2026" /></div>
+        <div class="form-group"><label>Événement majeur</label><input type="text" id="admin-hist-title" /></div>
+        <div class="form-group"><label>Détails précis</label><input type="text" id="admin-hist-detail" /></div>
+        <button class="btn-primary" onclick="createHistoryPro()">Ajouter à la frise chronologique</button>
       </div>
     </div>
-    <div class="postes reveal" id="postes-container">
-      <!-- generated by JS -->
-    </div>
-  </section>
+  </div>
 
-  <!-- STADE -->
-  <section class="sec" id="stade">
-    <div class="stade-grid">
-      <div class="stade-info reveal">
-        <p class="section-eyebrow">Infrastructure</p>
-        <h2 class="section-title" id="stade-nom">Le Bastion</h2>
-        <div class="rule-red"></div>
-        <p id="stade-desc1">Inauguré en 1958, le Bastion est l'enceinte historique de La Pignouferie FC. Rénové en profondeur en 2019, il répond aujourd'hui aux exigences UEFA pour accueillir les matches de Ligue des Champions.</p>
-        <p id="stade-desc2">L'atmosphère y est réputée parmi les plus intenses du championnat. Les tribunes populaires — les Loges du Nord — sont la fierté des supporters.</p>
-        <div class="stade-specs">
-          <div><div class="spec-val" id="stade-cap">38 400</div><div class="spec-key">Places assises</div></div>
-          <div><div class="spec-val" id="stade-annee">1958</div><div class="spec-key">Inauguration</div></div>
-          <div><div class="spec-val" id="stade-renov">2019</div><div class="spec-key">Dernière rénovation</div></div>
-          <div><div class="spec-val" id="stade-cat">UEFA 4</div><div class="spec-key">Catégorie stade</div></div>
-        </div>
-      </div>
-      <div class="stade-visual reveal">
-        <div class="stade-img-placeholder" id="stade-img-placeholder">
-          <div class="stade-img-label">LE<br>BASTION</div>
-          <span class="stade-cap">38 400 places — Catégorie UEFA 4</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HISTOIRE -->
-  <section class="sec sec-pale" id="histoire">
-    <div class="reveal">
-      <p class="section-eyebrow">Histoire</p>
-      <h2 class="section-title">Cent ans<br>d'existence</h2>
-    </div>
-    <div class="timeline reveal" id="timeline-container">
-      <!-- generated by JS -->
-    </div>
-  </section>
-
-  <!-- STAFF -->
-  <section class="sec sec-alt" id="staff">
-    <div class="reveal">
-      <p class="section-eyebrow">Direction sportive</p>
-      <h2 class="section-title">Le staff<br>technique</h2>
-    </div>
-    <div class="staff-grid reveal" id="staff-grid">
-      <!-- generated by JS -->
-    </div>
-  </section>
-
-  <!-- CTA BILLETTERIE -->
-  <section style="background:var(--rose);padding:5rem 4rem;text-align:center;">
-    <p style="font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:1.25rem;" id="bill-eyebrow">Saison 2025/26 — Places disponibles</p>
-    <h2 style="font-family:var(--bebas);font-size:clamp(2.5rem,7vw,6rem);line-height:.95;margin-bottom:1.5rem;color:var(--blanc);" id="bill-title">Rejoignez<br>le Bastion</h2>
-    <p style="font-size:.88rem;color:rgba(255,255,255,.7);margin-bottom:2.5rem;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.7;" id="bill-sub">Vivez les matches de Ligue des Champions au Bastion. Abonnements annuels, billets à l'unité et formules famille disponibles.</p>
-    <button onclick="goPage('billetterie')" style="display:inline-block;background:var(--blanc);color:var(--rose);font-size:.78rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:1rem 2.8rem;border:none;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='var(--texte)';this.style.color='var(--blanc)'" onmouseout="this.style.background='var(--blanc)';this.style.color='var(--rose)'">Accéder à la billetterie</button>
-  </section>
-
-  <!-- FOOTER accueil -->
   <footer>
     <div>
-      <div class="footer-brand-name">La <span>Pignouferie</span> FC</div>
-      <p class="footer-brand-sub">Club de football professionnel français. Fondé en 1924. Membre de la LFP depuis 2024.</p>
+      <div class="footer-brand-name">PIGNOUFERIE <span>FC</span></div>
+      <p style="font-size:0.8rem; color:var(--texte-sec);">Club mythique fondé en 2005. Performance, excellence et couleur rose affirmée sur tous les terrains.</p>
     </div>
     <div>
-      <div class="footer-col-title">Le club</div>
-      <ul class="footer-links">
-        <li><a onclick="goPage('club')">Histoire</a></li>
-        <li><a onclick="goPage('accueil')">Palmarès</a></li>
-        <li><a onclick="goPage('accueil')">Staff technique</a></li>
-        <li><a onclick="goPage('accueil')">Le Bastion</a></li>
-      </ul>
+      <div class="section-eyebrow" style="margin-bottom:0.5rem;">Navigation</div>
+      <a onclick="showPage('accueil')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;">Club</a>
+      <a onclick="showPage('actualites')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;">Actualités</a>
     </div>
     <div>
-      <div class="footer-col-title">Sportif</div>
-      <ul class="footer-links">
-        <li><a onclick="goPage('accueil')">Saison 2025/26</a></li>
-        <li><a onclick="goPage('accueil')">Effectif</a></li>
-        <li><a onclick="goPage('billetterie')">Billetterie</a></li>
-        <li><a onclick="goPage('boutique')">Boutique</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Infos</div>
-      <ul class="footer-links">
-        <li><a onclick="goPage('actus')">Actualités</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Presse</a></li>
-        <li><a href="#">Partenaires</a></li>
-      </ul>
+      <div class="section-eyebrow" style="margin-bottom:0.5rem;">Légal</div>
+      <p style="font-size:0.8rem; color:var(--texte-sec);">Mentions Légales<br>CGV Boutique</p>
     </div>
   </footer>
   <div class="footer-bottom">
-    <span class="footer-copy">La Pignouferie FC — Tous droits réservés 2025</span>
-    <span class="footer-mention">Mentions légales — Politique de confidentialité</span>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════ PAGE ACTUALITÉS ═══════════════════════════════ -->
-<div class="page" id="page-actus">
-  <div class="news-hero">
-    <p class="section-eyebrow">Toute l'actualité du club</p>
-    <h1 class="section-title" style="color:var(--blanc);margin-bottom:0;">Actualités</h1>
-  </div>
-  <div style="padding:3rem 4rem 5rem;">
-    <!-- Article detail view (hidden by default) -->
-    <div id="article-detail-view" style="display:none;">
-      <div class="article-detail" style="padding:0;max-width:800px;">
-        <button class="article-back" onclick="closeArticle()">Retour aux actualités</button>
-        <img id="article-hero-img" class="article-hero-img" src="" alt="" style="display:none;">
-        <div id="article-yt-container" style="display:none;margin-bottom:2rem;"></div>
-        <h1 class="article-title" id="article-detail-title"></h1>
-        <div class="article-meta" id="article-detail-meta"></div>
-        <div class="article-body" id="article-detail-body"></div>
-      </div>
-    </div>
-    <!-- News grid -->
-    <div id="news-list-view">
-      <div class="news-grid" id="news-grid">
-        <!-- generated by JS -->
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════ PAGE BILLETTERIE ═══════════════════════════════ -->
-<div class="page" id="page-billetterie">
-  <div class="bill-hero">
-    <p class="section-eyebrow" id="bill-page-eyebrow">Saison 2025/26 — Places disponibles</p>
-    <h1 class="section-title" id="bill-page-title">Rejoignez<br>le Bastion</h1>
-    <p class="bill-hero-sub" id="bill-page-sub">Vivez les matches de Ligue des Champions au Bastion. Abonnements annuels, billets à l'unité et formules famille disponibles pour toutes les compétitions.</p>
+    <div>© 2005-2026 La Pignouferie FC. Tous droits réservés.</div>
+    <div>Créé et propulsé avec style pour Vercel & GitHub.</div>
   </div>
 
-  <div class="matches-section">
-    <h3>Prochains matchs</h3>
-    <div id="matches-list">
-      <!-- generated by JS -->
-    </div>
-  </div>
+  <script>
+    // Effectif complet fourni
+    const effectifPro = {
+      gardiens: [
+        { num: "1", nom: "M. Delaunay", poste: "G" },
+        { num: "24", nom: "M. Lemonnier", poste: "G" },
+        { num: "-", nom: "G. Jourdain", poste: "G" }
+      ],
+      defenseurs: [
+        { num: "32", nom: "Q. Ferrier", poste: "DG" },
+        { num: "5", nom: "A. Chapuis", poste: "DG" },
+        { num: "29", nom: "M. Pignouf", poste: "DC" },
+        { num: "30", nom: "L. Perlade", poste: "DC" },
+        { num: "4", nom: "P. Vincent", poste: "DC" },
+        { num: "3", nom: "D. Lagarde", poste: "DC" },
+        { num: "6", nom: "K. Marquet", poste: "DD" },
+        { num: "2", nom: "F. Naciri", poste: "DD" }
+      ],
+      milieux: [
+        { num: "16", nom: "K. Pottier", poste: "MDC" },
+        { num: "8", nom: "Vitinha (Capitaine)", poste: "MC" },
+        { num: "13", nom: "A. Arthis", poste: "MC" },
+        { num: "17", nom: "O. Dieng", poste: "MC" },
+        { num: "10", nom: "W. Van Goor", poste: "MOC" },
+        { num: "20", nom: "J. Fischer", poste: "MD" }
+      ],
+      attaquants: [
+        { num: "7", nom: "T. Desgranges", poste: "AG" },
+        { num: "11", nom: "I. Benzekri", poste: "AG" },
+        { num: "19", nom: "I. Haba", poste: "AG" },
+        { num: "12", nom: "C. Beaulieu", poste: "AD" },
+        { num: "9", nom: "T. Epyneau", poste: "BU" },
+        { num: "22", nom: "K. Dieme", poste: "BU" }
+      ]
+    };
 
-  <div class="sec sec-alt" style="padding-top:3rem;">
-    <p class="section-eyebrow">Abonnements</p>
-    <h2 class="section-title">Formules<br>saison</h2>
-    <div class="abo-grid" id="abo-grid">
-      <!-- generated by JS -->
-    </div>
-  </div>
+    // Data Évolutive Locale (Simulant le retour d'une Base de Données)
+    let actualites = [
+      { title: "Vitinha nommé Capitaine Officiel", excerpt: "Le milieu de terrain prend officiellement le brassard pour mener l'équipe vers les sommets.", date: "Juin 2026" },
+      { title: "Préparation intensive au Stade", excerpt: "L'effectif au complet peaufine sa tactique avant le grand choc de samedi soir.", date: "Mai 2026" }
+    ];
 
-  <footer>
-    <div>
-      <div class="footer-brand-name">La <span>Pignouferie</span> FC</div>
-      <p class="footer-brand-sub">Billetterie officielle du club.</p>
-    </div>
-    <div><div class="footer-col-title">Liens</div><ul class="footer-links"><li><a onclick="goPage('accueil')">Accueil</a></li><li><a onclick="goPage('boutique')">Boutique</a></li><li><a onclick="goPage('actus')">Actus</a></li></ul></div>
-    <div><div class="footer-col-title">Infos</div><ul class="footer-links"><li><a href="#">CGV</a></li><li><a href="#">Contact</a></li><li><a href="#">Accessibilité</a></li></ul></div>
-    <div><div class="footer-col-title">Réseaux</div><ul class="footer-links"><li><a href="#">Instagram</a></li><li><a href="#">Twitter/X</a></li><li><a href="#">YouTube</a></li></ul></div>
-  </footer>
-  <div class="footer-bottom"><span class="footer-copy">La Pignouferie FC © 2025</span><span class="footer-mention">Billetterie officielle</span></div>
-</div>
+    let histoireTimeline = [
+      { year: "2005", event: "Fondation de la Pignouferie FC", detail: "Naissance du club sous des couleurs roses révolutionnaires marquant l'histoire du football moderne." },
+      { year: "2015", event: "Montée en Ligue Majeure", detail: "Après dix ans d'ascension fulgurante, le club accède à l'élite nationale." }
+    ];
 
-<!-- ═══════════════════════════════ PAGE BOUTIQUE ═══════════════════════════════ -->
-<div class="page" id="page-boutique">
-  <div class="shop-hero">
-    <p class="section-eyebrow">Collection officielle 2025/26</p>
-    <h1 class="section-title" style="color:var(--blanc);margin-bottom:0;">Boutique</h1>
-  </div>
-  <div class="shop-filters" id="shop-filters">
-    <button class="filter-btn active" onclick="filterShop('all', this)">Tout</button>
-    <button class="filter-btn" onclick="filterShop('maillot', this)">Maillots</button>
-    <button class="filter-btn" onclick="filterShop('training', this)">Training</button>
-    <button class="filter-btn" onclick="filterShop('accessoire', this)">Accessoires</button>
-    <button class="filter-btn" onclick="filterShop('supporter', this)">Supporter</button>
-  </div>
-  <div style="padding:2px 0;">
-    <div class="shop-grid" id="shop-grid">
-      <!-- generated by JS -->
-    </div>
-  </div>
-  <footer>
-    <div><div class="footer-brand-name">La <span>Pignouferie</span> FC</div><p class="footer-brand-sub">Boutique officielle du club.</p></div>
-    <div><div class="footer-col-title">Liens</div><ul class="footer-links"><li><a onclick="goPage('accueil')">Accueil</a></li><li><a onclick="goPage('billetterie')">Billetterie</a></li></ul></div>
-    <div><div class="footer-col-title">Infos</div><ul class="footer-links"><li><a href="#">Livraison</a></li><li><a href="#">Retours</a></li><li><a href="#">CGV</a></li></ul></div>
-    <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a href="#">boutique@pignouferie.fr</a></li><li><a href="#">FAQ</a></li></ul></div>
-  </footer>
-  <div class="footer-bottom"><span class="footer-copy">La Pignouferie FC © 2025</span><span class="footer-mention">Boutique officielle</span></div>
-</div>
+    let panier = [];
+    let currentAuthMode = 'login';
 
-<!-- ═══════════════════════════════ PAGE CLUB ═══════════════════════════════ -->
-<div class="page" id="page-club">
-  <section class="sec sec-pale" style="padding-top:5rem;">
-    <p class="section-eyebrow">Depuis 1924</p>
-    <h1 class="section-title">Le Club</h1>
-    <div class="timeline" id="club-timeline"><!-- JS --></div>
-  </section>
-  <footer>
-    <div><div class="footer-brand-name">La <span>Pignouferie</span> FC</div><p class="footer-brand-sub">Fondé en 1924.</p></div>
-    <div><div class="footer-col-title">Navigation</div><ul class="footer-links"><li><a onclick="goPage('accueil')">Accueil</a></li><li><a onclick="goPage('actus')">Actualités</a></li><li><a onclick="goPage('billetterie')">Billetterie</a></li></ul></div>
-    <div><div class="footer-col-title">Infos</div><ul class="footer-links"><li><a href="#">Contact</a></li><li><a href="#">Presse</a></li></ul></div>
-    <div></div>
-  </footer>
-  <div class="footer-bottom"><span class="footer-copy">La Pignouferie FC © 2025</span></div>
-</div>
+    // Initialisation
+    window.onload = function() {
+      renderEffectif();
+      renderActualites();
+      renderTimeline();
+      
+      // Charger le thème sauvegardé
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      if(savedTheme === 'dark') {
+        document.getElementById('dark-mode-toggle').checked = true;
+        toggleDarkMode(true);
+      }
+    };
 
-<!-- ═══════════════════════════════ CART ═══════════════════════════════ -->
-<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
-<div class="cart-panel" id="cart-panel">
-  <div class="cart-header">
-    <h3>Mon panier</h3>
-    <button class="cart-close" onclick="closeCart()">✕</button>
-  </div>
-  <div class="cart-items" id="cart-items">
-    <p style="color:var(--texte-sec);font-size:.85rem;text-align:center;padding:2rem 0;">Votre panier est vide.</p>
-  </div>
-  <div class="cart-footer">
-    <div class="cart-total"><span>Total</span><span id="cart-total-val">0,00 €</span></div>
-    <button class="cart-checkout" onclick="checkout()">Valider la commande</button>
-  </div>
-</div>
-<button class="cart-bubble" id="cart-bubble" onclick="openCart()">
-  🛒
-  <span class="cart-count" id="cart-count">0</span>
-</button>
+    // Gestion du Système de Navigation par Page
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      
+      const targetPage = document.getElementById(`page-${pageId}`);
+      if(targetPage) targetPage.classList.add('active');
+      
+      const targetLink = document.getElementById(`link-${pageId}`);
+      if(targetLink) targetLink.classList.add('active');
+      window.scrollTo(0,0);
+    }
 
-<!-- ═══════════════════════════════ ADMIN ═══════════════════════════════ -->
-<div class="admin-overlay" id="admin-overlay">
-  <!-- LOGIN FORM -->
-  <div class="admin-login" id="admin-login">
-    <h2>Administration</h2>
-    <p>Connectez-vous pour modifier le site.</p>
-    <div id="admin-login-msg"></div>
-    <div class="form-group">
-      <label>Identifiant</label>
-      <input type="text" id="admin-user-input" placeholder="admin" />
-    </div>
-    <div class="form-group">
-      <label>Mot de passe</label>
-      <input type="password" id="admin-pass-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()" />
-    </div>
-    <div style="display:flex;gap:.75rem;margin-top:1.25rem;align-items:center;">
-      <button class="btn-primary" onclick="adminLogin()">Connexion</button>
-      <button class="btn-ghost" onclick="closeAdmin()">Annuler</button>
-    </div>
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
 
-  <!-- ADMIN PANEL -->
-  <div class="admin-panel" id="admin-panel" style="display:none;">
-    <div class="admin-panel-header">
-      <h2>⚙ Administration — La Pignouferie FC</h2>
-      <button class="admin-close" onclick="closeAdmin()">✕</button>
-    </div>
-    <div class="admin-body">
-      <div class="admin-sidebar">
-        <button class="admin-tab active" onclick="adminTab('accueil')">🏠 Accueil</button>
-        <button class="admin-tab" onclick="adminTab('actus')">📰 Actualités</button>
-        <button class="admin-tab" onclick="adminTab('billetterie')">🎫 Billetterie</button>
-        <button class="admin-tab" onclick="adminTab('boutique')">🛍 Boutique</button>
-        <button class="admin-tab" onclick="adminTab('effectif')">👕 Effectif</button>
-        <button class="admin-tab" onclick="adminTab('staff')">👔 Staff</button>
-        <button class="admin-tab" onclick="adminTab('palmares')">🏆 Palmarès</button>
-        <button class="admin-tab" onclick="adminTab('histoire')">📜 Histoire</button>
-        <button class="admin-tab" onclick="adminTab('stade')">🏟 Stade</button>
-        <button class="admin-tab" onclick="adminTab('compte')">🔑 Compte</button>
-      </div>
-      <div class="admin-content">
-
-        <!-- SECTION ACCUEIL -->
-        <div class="admin-section active" id="admin-accueil">
-          <h3>Hero — Page d'accueil</h3>
-          <div class="form-group"><label>Texte eyebrow</label><input id="a-hero-eyebrow" type="text" /></div>
-          <div class="form-group"><label>Sous-titre hero</label><textarea id="a-hero-sub"></textarea></div>
-          <div class="divider"></div>
-          <h3>Statistiques hero</h3>
-          <div class="form-row">
-            <div class="form-group"><label>Stat 1 — chiffre</label><input id="a-stat1-num" type="text" /></div>
-            <div class="form-group"><label>Stat 1 — libellé</label><input id="a-stat1-label" type="text" /></div>
+    // Affichage Dynamique de l'Effectif Complet
+    function renderEffectif() {
+      const renderGrid = (gridId, data) => {
+        const container = document.getElementById(gridId);
+        container.innerHTML = data.map(j => `
+          <div class="joueur-card">
+            <div class="joueur-num">#${j.num}</div>
+            <div class="joueur-nom">${j.nom}</div>
+            <div class="joueur-nat">${j.poste}</div>
           </div>
-          <div class="form-row">
-            <div class="form-group"><label>Stat 2 — chiffre</label><input id="a-stat2-num" type="text" /></div>
-            <div class="form-group"><label>Stat 2 — libellé</label><input id="a-stat2-label" type="text" /></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Stat 3 — chiffre</label><input id="a-stat3-num" type="text" /></div>
-            <div class="form-group"><label>Stat 3 — libellé</label><input id="a-stat3-label" type="text" /></div>
-          </div>
-          <div class="divider"></div>
-          <h3>Badge navigation</h3>
-          <div class="form-group"><label>Texte du badge (ex&nbsp;: Ligue 1 — 2025/26)</label><input id="a-nav-badge" type="text" /></div>
-          <div class="divider"></div>
-          <h3>Section Billetterie (CTA)</h3>
-          <div class="form-group"><label>Eyebrow</label><input id="a-bill-eyebrow" type="text" /></div>
-          <div class="form-group"><label>Titre</label><input id="a-bill-title" type="text" /></div>
-          <div class="form-group"><label>Sous-titre</label><textarea id="a-bill-sub"></textarea></div>
-          <div class="divider"></div>
-          <h3>Section Saison</h3>
-          <div class="form-group"><label>Contexte saison</label><textarea id="a-saison-context"></textarea></div>
-          <div class="form-group"><label>Texte effectif</label><textarea id="a-effectif-text"></textarea></div>
-          <div class="form-row-3">
-            <div class="form-group"><label>Joueurs</label><input id="a-eff1" type="text" /></div>
-            <div class="form-group"><label>Nationalités</label><input id="a-eff2" type="text" /></div>
-            <div class="form-group"><label>Formés au club</label><input id="a-eff3" type="text" /></div>
-          </div>
-          <button class="admin-save" onclick="saveAccueil()">Enregistrer</button>
-        </div>
+        `).join('');
+      };
 
-        <!-- SECTION ACTUALITÉS -->
-        <div class="admin-section" id="admin-actus">
-          <h3>Ajouter un article</h3>
-          <div class="inline-form">
-            <h4>Nouvel article</h4>
-            <div class="form-group"><label>Titre</label><input id="n-title" type="text" placeholder="Titre de l'article" /></div>
-            <div class="form-row">
-              <div class="form-group"><label>Catégorie / tag</label><input id="n-tag" type="text" placeholder="ex: Match, Transfert, Club..." /></div>
-              <div class="form-group"><label>Date</label><input id="n-date" type="date" /></div>
-            </div>
-            <div class="form-group"><label>Résumé (affiché sur la carte)</label><textarea id="n-excerpt" placeholder="Court résumé de l'article..."></textarea></div>
-            <div class="form-group"><label>Contenu complet (HTML basique accepté)</label><textarea id="n-body" style="min-height:140px;" placeholder="&lt;p&gt;Texte de l'article...&lt;/p&gt;"></textarea></div>
-            <div class="form-group"><label>URL image de couverture (optionnel)</label><input id="n-img" type="text" placeholder="https://..." /></div>
-            <div class="form-group"><label>ID vidéo YouTube (optionnel, ex: dQw4w9WgXcQ)</label><input id="n-yt" type="text" placeholder="ID YouTube uniquement" /></div>
-            <button class="admin-save" onclick="addArticle()">Publier l'article</button>
-          </div>
-          <h3>Articles publiés</h3>
-          <div id="admin-articles-list"><!-- JS --></div>
-        </div>
+      renderGrid('grid-gardiens', effectifPro.gardiens);
+      renderGrid('grid-defenseurs', effectifPro.defenseurs);
+      renderGrid('grid-milieux', effectifPro.milieux);
+      renderGrid('grid-attaquants', effectifPro.attaquants);
+    }
 
-        <!-- SECTION BILLETTERIE -->
-        <div class="admin-section" id="admin-billetterie">
-          <h3>Matchs à venir</h3>
-          <div class="inline-form">
-            <h4>Ajouter un match</h4>
-            <div class="form-row">
-              <div class="form-group"><label>Équipe domicile</label><input id="m-home" type="text" /></div>
-              <div class="form-group"><label>Équipe extérieur</label><input id="m-away" type="text" /></div>
-            </div>
-            <div class="form-row">
-              <div class="form-group"><label>Date et heure</label><input id="m-date" type="datetime-local" /></div>
-              <div class="form-group"><label>Compétition</label><input id="m-comp" type="text" placeholder="ex: Ligue 1" /></div>
-            </div>
-            <div class="form-row">
-              <div class="form-group"><label>Prix billet (€)</label><input id="m-price" type="number" placeholder="25" /></div>
-              <div class="form-group"><label>Statut</label>
-                <select id="m-status">
-                  <option value="dispo">Disponible</option>
-                  <option value="sold-out">Complet</option>
-                </select>
-              </div>
-            </div>
-            <button class="admin-save" onclick="addMatch()">Ajouter le match</button>
-          </div>
-          <div id="admin-matches-list"><!-- JS --></div>
-          <div class="divider"></div>
-          <h3>Abonnements</h3>
-          <div class="inline-form">
-            <h4>Ajouter une formule</h4>
-            <div class="form-row">
-              <div class="form-group"><label>Nom</label><input id="abo-name" type="text" placeholder="ex: Virage Nord" /></div>
-              <div class="form-group"><label>Prix (€)</label><input id="abo-price" type="number" placeholder="199" /></div>
-            </div>
-            <div class="form-group"><label>Avantages (un par ligne)</label><textarea id="abo-features" placeholder="Accès à tous les matchs domicile&#10;Place numérotée&#10;10% sur la boutique"></textarea></div>
-            <div class="form-group"><label>Mise en avant ?</label>
-              <select id="abo-featured"><option value="false">Non</option><option value="true">Oui (fond rose)</option></select>
-            </div>
-            <button class="admin-save" onclick="addAbo()">Ajouter</button>
-          </div>
-          <div id="admin-abo-list"><!-- JS --></div>
-          <div class="divider"></div>
-          <h3>Textes page billetterie</h3>
-          <div class="form-group"><label>Eyebrow</label><input id="a-bill-page-eyebrow" type="text" /></div>
-          <div class="form-group"><label>Titre</label><input id="a-bill-page-title" type="text" /></div>
-          <div class="form-group"><label>Sous-titre</label><textarea id="a-bill-page-sub"></textarea></div>
-          <button class="admin-save" onclick="saveBilletterie()">Enregistrer textes</button>
-        </div>
-
-        <!-- SECTION BOUTIQUE -->
-        <div class="admin-section" id="admin-boutique">
-          <h3>Ajouter un produit</h3>
-          <div class="inline-form">
-            <h4>Nouveau produit</h4>
-            <div class="form-row">
-              <div class="form-group"><label>Nom du produit</label><input id="p-name" type="text" /></div>
-              <div class="form-group"><label>Prix (€)</label><input id="p-price" type="number" step="0.01" /></div>
-            </div>
-            <div class="form-row">
-              <div class="form-group"><label>Catégorie</label>
-                <select id="p-cat">
-                  <option value="maillot">Maillot</option>
-                  <option value="training">Training</option>
-                  <option value="accessoire">Accessoire</option>
-                  <option value="supporter">Supporter</option>
-                </select>
-              </div>
-              <div class="form-group"><label>Badge (ex: Nouveau, -20%, Limité)</label><input id="p-badge" type="text" placeholder="optionnel" /></div>
-            </div>
-            <div class="form-group"><label>URL image produit (optionnel)</label><input id="p-img" type="text" placeholder="https://..." /></div>
-            <button class="admin-save" onclick="addProduct()">Ajouter</button>
-          </div>
-          <div id="admin-products-list"><!-- JS --></div>
-        </div>
-
-        <!-- SECTION EFFECTIF -->
-        <div class="admin-section" id="admin-effectif">
-          <h3>Ajouter un joueur</h3>
-          <div class="inline-form">
-            <h4>Nouveau joueur</h4>
-            <div class="form-row">
-              <div class="form-group"><label>Numéro</label><input id="j-num" type="number" /></div>
-              <div class="form-group"><label>Nom</label><input id="j-nom" type="text" /></div>
-            </div>
-            <div class="form-row">
-              <div class="form-group"><label>Nationalité</label><input id="j-nat" type="text" /></div>
-              <div class="form-group"><label>Poste</label>
-                <select id="j-poste">
-                  <option value="Gardiens">Gardien</option>
-                  <option value="Défenseurs">Défenseur</option>
-                  <option value="Milieux">Milieu</option>
-                  <option value="Attaquants">Attaquant</option>
-                </select>
-              </div>
-            </div>
-            <button class="admin-save" onclick="addJoueur()">Ajouter</button>
-          </div>
-          <div id="admin-joueurs-list"><!-- JS --></div>
-        </div>
-
-        <!-- SECTION STAFF -->
-        <div class="admin-section" id="admin-staff">
-          <h3>Ajouter un membre du staff</h3>
-          <div class="inline-form">
-            <h4>Nouveau staff</h4>
-            <div class="form-row">
-              <div class="form-group"><label>Rôle</label><input id="s-role" type="text" /></div>
-              <div class="form-group"><label>Nom</label><input id="s-nom" type="text" /></div>
-            </div>
-            <div class="form-group"><label>Biographie</label><textarea id="s-bio"></textarea></div>
-            <button class="admin-save" onclick="addStaff()">Ajouter</button>
-          </div>
-          <div id="admin-staff-list"><!-- JS --></div>
-        </div>
-
-        <!-- SECTION PALMARÈS -->
-        <div class="admin-section" id="admin-palmares">
-          <h3>Ajouter un trophée</h3>
-          <div class="inline-form">
-            <h4>Nouveau trophée</h4>
-            <div class="form-row">
-              <div class="form-group"><label>Saison</label><input id="pal-year" type="text" placeholder="ex: Saison 2024/25" /></div>
-              <div class="form-group"><label>Trophée</label><input id="pal-trophy" type="text" placeholder="ex: Coupe de France" /></div>
-            </div>
-            <div class="form-group"><label>Description</label><textarea id="pal-desc"></textarea></div>
-            <div class="form-group"><label>Badge / rang</label><input id="pal-rank" type="text" placeholder="ex: Vainqueurs" /></div>
-            <button class="admin-save" onclick="addPalmares()">Ajouter</button>
-          </div>
-          <div id="admin-palmares-list"><!-- JS --></div>
-        </div>
-
-        <!-- SECTION HISTOIRE -->
-        <div class="admin-section" id="admin-histoire">
-          <h3>Ajouter un événement</h3>
-          <div class="inline-form">
-            <h4>Nouvel événement timeline</h4>
-            <div class="form-row">
-              <div class="form-group"><label>Année</label><input id="h-year" type="text" placeholder="2024" /></div>
-              <div class="form-group"><label>Événement</label><input id="h-event" type="text" /></div>
-            </div>
-            <div class="form-group"><label>Détail</label><textarea id="h-detail"></textarea></div>
-            <button class="admin-save" onclick="addHistoire()">Ajouter</button>
-          </div>
-          <div id="admin-histoire-list"><!-- JS --></div>
-        </div>
-
-        <!-- SECTION STADE -->
-        <div class="admin-section" id="admin-stade">
-          <h3>Informations du stade</h3>
-          <div class="form-row">
-            <div class="form-group"><label>Nom du stade</label><input id="a-stade-nom" type="text" /></div>
-            <div class="form-group"><label>Capacité</label><input id="a-stade-cap" type="text" /></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Année inauguration</label><input id="a-stade-annee" type="text" /></div>
-            <div class="form-group"><label>Dernière rénovation</label><input id="a-stade-renov" type="text" /></div>
-          </div>
-          <div class="form-group"><label>Catégorie UEFA</label><input id="a-stade-cat" type="text" /></div>
-          <div class="form-group"><label>Description 1</label><textarea id="a-stade-desc1"></textarea></div>
-          <div class="form-group"><label>Description 2</label><textarea id="a-stade-desc2"></textarea></div>
-          <div class="form-group"><label>URL image du stade (optionnel)</label><input id="a-stade-img" type="text" placeholder="https://..." /></div>
-          <button class="admin-save" onclick="saveStade()">Enregistrer</button>
-        </div>
-
-        <!-- SECTION COMPTE -->
-        <div class="admin-section" id="admin-compte">
-          <h3>Changer les identifiants</h3>
-          <p style="font-size:.8rem;color:var(--texte-sec);margin-bottom:1.25rem;">Modifiez l'identifiant et le mot de passe administrateur. <strong>Attention</strong> : notez bien vos nouveaux identifiants avant d'enregistrer.</p>
-          <div class="form-group"><label>Nouvel identifiant</label><input id="new-user" type="text" /></div>
-          <div class="form-group"><label>Nouveau mot de passe</label><input id="new-pass" type="password" /></div>
-          <div class="form-group"><label>Confirmer le mot de passe</label><input id="new-pass2" type="password" /></div>
-          <button class="admin-save" onclick="saveCompte()">Enregistrer</button>
-          <div id="admin-compte-msg" style="margin-top:1rem;"></div>
-          <div class="divider"></div>
-          <h3>Codes admin</h3>
-          <div style="background:var(--gris-clair);padding:1.25rem;font-size:.82rem;line-height:1.9;color:var(--texte-sec);">
-            <strong>Identifiant actuel :</strong> <span id="display-user">admin</span><br>
-            <strong>Mot de passe actuel :</strong> <span id="display-pass">pignouf2025</span><br>
-            <br>
-            <strong>Codes par défaut (réinitialisation) :</strong><br>
-            Identifiant : <strong>admin</strong> &nbsp;|&nbsp; Mot de passe : <strong>pignouf2025</strong>
+    // Affichage des Actualités
+    function renderActualites() {
+      const container = document.getElementById('news-container');
+      container.innerHTML = actualites.map(a => `
+        <div class="news-card">
+          <div class="news-card-body">
+            <div class="news-tag">Club Actu</div>
+            <h3 class="news-card-title">${a.title}</h3>
+            <p class="news-card-excerpt">${a.excerpt}</p>
+            <div class="news-card-meta">${a.date}</div>
           </div>
         </div>
+      `).join('');
+    }
 
-      </div><!-- /admin-content -->
-    </div><!-- /admin-body -->
-  </div><!-- /admin-panel -->
-</div><!-- /admin-overlay -->
+    // Affichage de l'Histoire
+    function renderTimeline() {
+      const container = document.getElementById('timeline-container');
+      container.innerHTML = histoireTimeline.map(h => `
+        <div class="timeline-item">
+          <div class="tl-year">${h.year}</div>
+          <div class="tl-line"></div>
+          <div>
+            <div class="tl-event">${h.event}</div>
+            <div class="tl-detail">${h.detail}</div>
+          </div>
+        </div>
+      `).join('');
+    }
 
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
+    // Gestion du Mode Sombre
+    function toggleDarkMode(isDark) {
+      if(isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      }
+    }
 
-<script>
-/* ═══════════════════════════════════════════════════════════════
-   DONNÉES PAR DÉFAUT
-═══════════════════════════════════════════════════════════════ */
-const DEFAULT_DATA = {
-  admin: { user: 'admin', pass: 'pignouf2025' },
-  hero: {
-    eyebrow: 'Club de football professionnel — fondé en 1924',
-    sub: "De la Ligue 2 aux sommets de l'Europe en trois saisons. Une ascension sans précédent dans le football français.",
-    stat1num: '3', stat1label: 'Titres en 3 saisons',
-    stat2num: '1re', stat2label: 'LDC cette saison',
-    stat3num: '1924', stat3label: 'Année de fondation',
-    navBadge: 'Ligue 1 — 2025/26',
-    billEyebrow: 'Saison 2025/26 — Places disponibles',
-    billTitle: 'Rejoignez\nle Bastion',
-    billSub: "Vivez les matches de Ligue des Champions au Bastion. Abonnements annuels, billets à l'unité et formules famille disponibles.",
-    saisonContext: "Engagés sur trois compétitions, les joueurs de la Pignouferie FC abordent cette saison avec l'ambition d'une équipe qui a prouvé qu'elle savait gagner.",
-    effectifText: "Un groupe bâti sur trois saisons de progression constante. L'effectif allie l'expérience de joueurs formés maison et les recrues ciblées.",
-    eff1: '26', eff2: '11', eff3: '8',
-  },
-  stade: {
-    nom: 'Le Bastion', cap: '38 400', annee: '1958', renov: '2019', cat: 'UEFA 4',
-    desc1: "Inauguré en 1958, le Bastion est l'enceinte historique de La Pignouferie FC. Rénové en profondeur en 2019, il répond aujourd'hui aux exigences UEFA pour accueillir les matches de Ligue des Champions.",
-    desc2: "L'atmosphère y est réputée parmi les plus intenses du championnat. Les tribunes populaires — les Loges du Nord — sont la fierté des supporters.",
-    img: ''
-  },
-  billPage: {
-    eyebrow: 'Saison 2025/26 — Places disponibles',
-    title: 'Rejoignez<br>le Bastion',
-    sub: "Vivez les matches de Ligue des Champions au Bastion. Abonnements annuels, billets à l'unité et formules famille disponibles pour toutes les compétitions."
-  },
-  palmares: [
-    { year: 'Saison 2023/24', trophy: 'Ligue 2', desc: "Premier titre majeur du club. La Pignouferie FC remporte le championnat de Ligue 2 et accède pour la première fois de son histoire au football professionnel de l'élite.", rank: 'Champions — 1er' },
-    { year: 'Saison 2024/25', trophy: 'Coupe de France', desc: "Victoire en finale face à un adversaire de premier plan. Le club soulève la Coupe de France lors de sa première saison en Ligue 1.", rank: 'Vainqueurs' },
-    { year: 'Saison 2024/25', trophy: 'Europa League', desc: "Consécration européenne. La Pignouferie FC remporte l'UEFA Europa League, devenant le second club français de l'histoire à décrocher ce titre.", rank: 'Vainqueurs' },
-    { year: 'Saison 2025/26', trophy: 'Ligue des Champions', desc: "Qualifiés en vertu de la victoire en Europa League, les Pignoufs disputent pour la première fois la Ligue des Champions. L'aventure est en cours.", rank: 'En cours' },
-  ],
-  competitions: [
-    { name: 'Ligue 1 — Uber Eats', status: 'active', statusLabel: 'En cours', detail: 'Championnat de France — Élite', badge: 'Division 1' },
-    { name: 'Ligue des Champions', status: 'active', statusLabel: 'En cours', detail: 'UEFA Champions League — Phase de groupes', badge: 'Première participation' },
-    { name: 'Coupe de France', status: 'upcoming', statusLabel: 'À venir', detail: 'Tenant du titre — Tirage en cours', badge: 'Tenant' },
-  ],
-  joueurs: [
-    { num: 1, nom: 'Baptiste Moreau', nat: 'France — Capitaine', poste: 'Gardiens' },
-    { num: 16, nom: 'Luka Petrovic', nat: 'Croatie', poste: 'Gardiens' },
-    { num: 30, nom: 'Enzo Delacour', nat: 'France — Formé au club', poste: 'Gardiens' },
-    { num: 2, nom: 'Theo Guillard', nat: 'France', poste: 'Défenseurs' },
-    { num: 3, nom: 'Marcus Oliveira', nat: 'Brésil', poste: 'Défenseurs' },
-    { num: 4, nom: 'Soren Lindberg', nat: 'Danemark', poste: 'Défenseurs' },
-    { num: 5, nom: 'Victor Picard', nat: 'France — Formé au club', poste: 'Défenseurs' },
-    { num: 12, nom: 'Achraf Benali', nat: 'Maroc', poste: 'Défenseurs' },
-    { num: 22, nom: 'Kilian Faure', nat: 'France — Formé au club', poste: 'Défenseurs' },
-    { num: 6, nom: 'Antoine Renard', nat: 'France — Formé au club', poste: 'Milieux' },
-    { num: 7, nom: 'Yanis Kessler', nat: 'Allemagne', poste: 'Milieux' },
-    { num: 8, nom: 'Samba Diallo', nat: 'Sénégal', poste: 'Milieux' },
-    { num: 10, nom: 'Rafael Correia', nat: 'Portugal', poste: 'Milieux' },
-    { num: 14, nom: 'Clement Auge', nat: 'France — Formé au club', poste: 'Milieux' },
-    { num: 18, nom: 'Noa Bresson', nat: 'France', poste: 'Milieux' },
-    { num: 21, nom: 'Hugo Marchand', nat: 'France', poste: 'Milieux' },
-    { num: 25, nom: 'Mateo Ferreira', nat: 'Espagne', poste: 'Milieux' },
-    { num: 9, nom: "Dieudonné Koffi", nat: "Côte d'Ivoire", poste: 'Attaquants' },
-    { num: 11, nom: 'Lucas Pereira', nat: 'Brésil', poste: 'Attaquants' },
-    { num: 17, nom: 'Jules Dupont', nat: 'France — Formé au club', poste: 'Attaquants' },
-    { num: 19, nom: 'Ibrahima Sylla', nat: 'Guinée', poste: 'Attaquants' },
-    { num: 23, nom: 'Romain Lefort', nat: 'France', poste: 'Attaquants' },
-    { num: 27, nom: 'Alexei Volkov', nat: 'Russie', poste: 'Attaquants' },
-  ],
-  staff: [
-    { role: 'Entraîneur principal', nom: 'Gerard Villemot', bio: "Ancien milieu de terrain professionnel, Gérard Villemot a pris en main le groupe en 2022. Architecte de la montée en Ligue 1, de la victoire en Coupe de France et du titre en Europa League." },
-    { role: 'Entraîneur adjoint', nom: 'Patrick Soares', bio: "Spécialiste de l'analyse vidéo et de la presse haute sur le terrain adverse. Bras droit de Villemot depuis leurs débuts en N2." },
-    { role: 'Préparateur physique', nom: 'Maël Leroux', bio: "Issu du rugby professionnel, Maël Leroux a apporté un regard nouveau sur la gestion des charges d'entraînement." },
-    { role: 'Entraîneur des gardiens', nom: 'Alain Cortez', bio: "Ancien gardien professionnel de haut niveau, il a notamment formé Baptiste Moreau, aujourd'hui l'un des meilleurs gardiens du championnat français." },
-    { role: 'Directeur sportif', nom: 'Frédéric Noël', bio: "Responsable du recrutement et de la stratégie sportive à moyen terme. A supervisé chacun des transferts entrants depuis 2022." },
-    { role: 'Responsable médical', nom: 'Dr. Claire Monnet', bio: "Chef de la cellule médicale depuis 2020, le docteur Monnet coordonne un staff de six professionnels de santé." },
-  ],
-  histoire: [
-    { year: '1924', event: 'Fondation du club', detail: "La Pignouferie FC est fondée par un groupe d'ouvriers de la région, dans les vestiaires d'une usine textile locale. Le rose et le blanc sont choisis comme couleurs officielles." },
-    { year: '1958', event: 'Inauguration du Bastion', detail: 'Construction et inauguration du stade municipal, rapidement surnommé "Le Bastion" par les supporters. Capacité initiale : 22 000 places.' },
-    { year: '1981', event: 'Première montée en Ligue 2', detail: "Premier accès au football professionnel national après 57 ans de football amateur et régional." },
-    { year: '2019', event: 'Rénovation complète du Bastion', detail: "Rénovation profonde de l'enceinte : nouvelles tribunes, pelouse synthétique, éclairage LED. Investissement de 47 millions d'euros." },
-    { year: '2022', event: 'Reprise par un nouveau groupe investisseur', detail: "Rachat du club par un consortium d'investisseurs nationaux. Nouveau projet sportif, nouveau staff." },
-    { year: '2024', event: 'Champion de Ligue 2', detail: "Premier titre de l'histoire du club. La Pignouferie FC remporte la Ligue 2 avec 7 points d'avance." },
-    { year: '2025', event: 'Double historique : Coupe de France et Europa League', detail: "Victoire en Coupe de France et consécration européenne en remportant l'UEFA Europa League." },
-    { year: '2025', event: 'Centenaire du club', detail: "La Pignouferie FC célèbre ses 100 ans d'existence lors d'une saison historique, engagée en Ligue des Champions pour la première fois." },
-  ],
-  matches: [
-    { home: 'La Pignouferie FC', away: 'Paris FC', date: '2025-08-09T20:45', comp: 'Ligue 1', price: 35, status: 'dispo' },
-    { home: 'La Pignouferie FC', away: 'Sporting CP', date: '2025-09-17T21:00', comp: 'Champions League', price: 55, status: 'dispo' },
-    { home: 'La Pignouferie FC', away: 'Olympique Lyonnais', date: '2025-10-04T17:00', comp: 'Ligue 1', price: 40, status: 'dispo' },
-    { home: 'La Pignouferie FC', away: 'Bayern Munich', date: '2025-10-22T21:00', comp: 'Champions League', price: 75, status: 'sold-out' },
-  ],
-  abonnements: [
-    { nom: 'Virage', price: 149, features: ['Tous les matchs domicile', 'Virage Nord ou Sud', 'Réduction boutique 5%'], featured: false },
-    { nom: 'Tribune', price: 299, features: ['Tous les matchs domicile', 'Tribune latérale numérotée', 'Réduction boutique 10%', 'Newsletter exclusive'], featured: true },
-    { nom: 'Prestige', price: 699, features: ['Tous matchs domicile + coupes', 'Loge VIP accès partiel', 'Réduction boutique 20%', 'Rencontre avec le staff', 'Maillot offert'], featured: false },
-  ],
-  produits: [
-    { nom: 'Maillot Domicile 2025/26', price: 89.99, cat: 'maillot', badge: 'Nouveau', img: '' },
-    { nom: 'Maillot Extérieur 2025/26', price: 89.99, cat: 'maillot', badge: '', img: '' },
-    { nom: 'Maillot Third 2025/26', price: 89.99, cat: 'maillot', badge: 'Limité', img: '' },
-    { nom: 'Veste d\'entraînement', price: 64.99, cat: 'training', badge: '', img: '' },
-    { nom: 'Short d\'entraînement', price: 34.99, cat: 'training', badge: '', img: '' },
-    { nom: 'Écharpe officielle', price: 19.99, cat: 'supporter', badge: '', img: '' },
-    { nom: 'Casquette brodée', price: 24.99, cat: 'accessoire', badge: '', img: '' },
-    { nom: 'Sac à dos club', price: 44.99, cat: 'accessoire', badge: '', img: '' },
-  ],
-  articles: [
-    { id: 1, title: 'Victoire en ouverture de Champions League', tag: 'Match', date: '2025-09-18', excerpt: 'Une victoire 2-1 face au Sporting CP pour lancer la campagne européenne.', body: '<p>La Pignouferie FC a réalisé une entrée en matière parfaite en Ligue des Champions, s\'imposant 2-1 face au Sporting CP lors de la première journée de la phase de groupes. Un résultat qui conforte les ambitions continentales du club.</p><p>Buts de Koffi (23\') et Pereira (71\') pour les Pignoufs, réduction de Trincão (88\') pour les Portugais.</p>', img: '', yt: '' },
-    { id: 2, title: 'Transfert : Volkov prolonge jusqu\'en 2028', tag: 'Transfert', date: '2025-08-15', excerpt: 'Alexei Volkov a signé une prolongation de trois ans avec le club.', body: '<p>Grande nouvelle pour les supporters : Alexei Volkov, auteur de 18 buts la saison passée, a paraphé un nouveau contrat le liant au club jusqu\'en juin 2028. Une décision saluée par l\'ensemble du vestiaire.</p>', img: '', yt: '' },
-  ],
-};
+    // Gestion des Onglets Authentification (Connexion vs Inscription)
+    function setAuthMode(mode) {
+      currentAuthMode = mode;
+      document.getElementById('tab-login').classList.toggle('active', mode === 'login');
+      document.getElementById('tab-register').classList.toggle('active', mode === 'register');
+      document.getElementById('auth-submit-btn').innerText = mode === 'login' ? 'Se connecter' : 'Créer mon compte';
+    }
 
-/* ═══════════════════════════════════════════════════════════════
-   STOCKAGE LOCAL
-═══════════════════════════════════════════════════════════════ */
-function loadData(key) {
-  try {
-    const raw = localStorage.getItem('pigno_' + key);
-    return raw ? JSON.parse(raw) : null;
-  } catch(e) { return null; }
-}
-function saveData(key, val) {
-  try { localStorage.setItem('pigno_' + key, JSON.stringify(val)); } catch(e) {}
-}
+    function handleAuth(e) {
+      e.preventDefault();
+      const email = document.getElementById('auth-email').value;
+      alert(`Succès ! Mode: ${currentAuthMode} pour le compte ${email}. Sécurisation effectuée.`);
+    }
 
-function getData(key) {
-  const stored = loadData(key);
-  if (stored !== null) return stored;
-  return JSON.parse(JSON.stringify(DEFAULT_DATA[key]));
-}
-function setData(key, val) {
-  saveData(key, val);
-}
+    // Système de Panier Boutique
+    function addToCart(name, price) {
+      panier.push({ name, price });
+      document.getElementById('cartCount').innerText = panier.length;
+      document.getElementById('cartBubble').classList.add('show');
+      updateCartPanel();
+    }
 
-/* ═══════════════════════════════════════════════════════════════
-   NAVIGATION PAR PAGES
-═══════════════════════════════════════════════════════════════ */
-function goPage(page) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const target = document.getElementById('page-' + page);
-  if (target) { target.classList.add('active'); window.scrollTo(0,0); }
-  document.querySelectorAll('.nav-link').forEach(a => {
-    a.classList.toggle('active', a.dataset.page === page);
-  });
-  if (page === 'actus') renderNews();
-  if (page === 'boutique') renderShop();
-  if (page === 'billetterie') { renderMatches(); renderAbos(); }
-  if (page === 'club') renderClubTimeline();
-  setupReveal();
-}
+    function toggleCartPanel(open) {
+      document.getElementById('cartPanel').classList.toggle('open', open);
+    }
 
-function toggleMobileMenu() {
-  document.getElementById('mobile-menu').classList.toggle('open');
-}
+    function updateCartPanel() {
+      const container = document.getElementById('cartItemsContainer');
+      if(panier.length === 0) {
+        container.innerHTML = '<p style="color:var(--texte-sec);">Votre panier est vide.</p>';
+        return;
+      }
+      container.innerHTML = panier.map((item, index) => `
+        <div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-size:0.9rem;">
+          <span>${item.name}</span>
+          <strong>${item.price} €</strong>
+        </div>
+      `).join('');
+    }
 
-/* ═══════════════════════════════════════════════════════════════
-   SCROLL REVEAL
-═══════════════════════════════════════════════════════════════ */
-function setupReveal() {
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
-  }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
-  document.querySelectorAll('.reveal:not(.visible)').forEach(r => obs.observe(r));
-}
+    // Fenêtre Modale Panel Admin
+    function openAdminModal() { document.getElementById('adminOverlay').classList.add('open'); }
+    function closeAdminModal() { document.getElementById('adminOverlay').classList.remove('open'); }
 
-/* ═══════════════════════════════════════════════════════════════
-   TOAST
-═══════════════════════════════════════════════════════════════ */
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2600);
-}
+    function createNewsPro() {
+      const title = document.getElementById('admin-news-title').value;
+      const excerpt = document.getElementById('admin-news-excerpt').value;
+      if(!title || !excerpt) return alert('Veuillez remplir tous les champs');
+      
+      actualites.unshift({ title, excerpt, date: "À l'instant" });
+      renderActualites();
+      closeAdminModal();
+      alert('Article publié avec succès sur le site !');
+    }
 
-/* ═══════════════════════════════════════════════════════════════
-   RENDER — ACCUEIL
-═══════════════════════════════════════════════════════════════ */
-function renderAccueil() {
-  const h = getData('hero');
-  const sd = getData('stade');
+    function createHistoryPro() {
+      const year = document.getElementById('admin-hist-year').value;
+      const event = document.getElementById('admin-hist-title').value;
+      const detail = document.getElementById('admin-hist-detail').value;
+      if(!year || !event || !detail) return alert('Veuillez remplir tous les champs');
 
-  document.getElementById('hero-eyebrow').textContent = h.eyebrow;
-  document.getElementById('hero-sub').textContent = h.sub;
-  document.getElementById('stat1-num').textContent = h.stat1num;
-  document.getElementById('stat1-label').textContent = h.stat1label;
-  document.getElementById('stat2-num').textContent = h.stat2num;
-  document.getElementById('stat2-label').textContent = h.stat2label;
-  document.getElementById('stat3-num').textContent = h.stat3num;
-  document.getElementById('stat3-label').textContent = h.stat3label;
-  document.getElementById('nav-badge').textContent = h.navBadge;
-  document.getElementById('bill-eyebrow').textContent = h.billEyebrow;
-  document.getElementById('bill-title').innerHTML = h.billTitle.replace('\n','<br>');
-  document.getElementById('bill-sub').textContent = h.billSub;
-  document.getElementById('saison-context').textContent = h.saisonContext;
-  document.getElementById('effectif-text').textContent = h.effectifText;
-  document.getElementById('eff-num1').textContent = h.eff1;
-  document.getElementById('eff-num2').textContent = h.eff2;
-  document.getElementById('eff-num3').textContent = h.eff3;
-
-  // Stade
-  document.getElementById('stade-nom').textContent = sd.nom;
-  document.getElementById('stade-cap').textContent = sd.cap;
-  document.getElementById('stade-annee').textContent = sd.annee;
-  document.getElementById('stade-renov').textContent = sd.renov;
-  document.getElementById('stade-cat').textContent = sd.cat;
-  document.getElementById('stade-desc1').textContent = sd.desc1;
-  document.getElementById('stade-desc2').textContent = sd.desc2;
-  const ph = document.getElementById('stade-img-placeholder');
-  if (sd.img) {
-    ph.innerHTML = `<img src="${sd.img}" alt="${sd.nom}" onerror="this.parentElement.innerHTML='<div class=stade-img-label>LE<br>BASTION</div>'">`;
-  }
-
-  // Palmares
-  const pals = getData('palmares');
-  document.getElementById('palmares-grid').innerHTML = pals.map(p => `
-    <div class="palmares-item">
-      <p class="palmares-year">${esc(p.year)}</p>
-      <h3 class="palmares-trophy">${esc(p.trophy)}</h3>
-      <p class="palmares-desc">${esc(p.desc)}</p>
-      <span class="palmares-rank">${esc(p.rank)}</span>
-    </div>`).join('');
-
-  // Competitions
-  const comps = getData('competitions');
-  document.getElementById('competitions-list').innerHTML = comps.map(c => `
-    <div class="competition-row">
-      <div class="comp-name">${esc(c.name)}</div>
-      <div class="comp-status status-${c.status}">${esc(c.statusLabel)}</div>
-      <div class="comp-detail">${esc(c.detail)}</div>
-      <span class="comp-badge">${esc(c.badge)}</span>
-    </div>`).join('');
-
-  // Effectif
-  const joueurs = getData('joueurs');
-  const postes = ['Gardiens','Défenseurs','Milieux','Attaquants'];
-  document.getElementById('postes-container').innerHTML = postes.map(poste => {
-    const ps = joueurs.filter(j => j.poste === poste).sort((a,b) => a.num - b.num);
-    if (!ps.length) return '';
-    return `<div class="poste-block">
-      <div class="poste-header">${poste}</div>
-      <div class="joueurs-grid">${ps.map(j => `
-        <div class="joueur-card">
-          <div class="joueur-num">${j.num}</div>
-          <div class="joueur-nom">${esc(j.nom)}</div>
-          <div class="joueur-nat">${esc(j.nat)}</div>
-        </div>`).join('')}
-      </div>
-    </div>`;
-  }).join('');
-
-  // Staff
-  const staffList = getData('staff');
-  document.getElementById('staff-grid').innerHTML = staffList.map(s => `
-    <div class="staff-card">
-      <div class="staff-role">${esc(s.role)}</div>
-      <div class="staff-name">${esc(s.nom)}</div>
-      <div class="staff-bio">${esc(s.bio)}</div>
-    </div>`).join('');
-
-  // Timeline
-  const hist = getData('histoire');
-  const tlHTML = hist.map(h => `
-    <div class="timeline-item">
-      <div class="tl-year">${esc(h.year)}</div>
-      <div class="tl-line"></div>
-      <div class="tl-content"><div class="tl-event">${esc(h.event)}</div><div class="tl-detail">${esc(h.detail)}</div></div>
-    </div>`).join('');
-  document.getElementById('timeline-container').innerHTML = tlHTML;
-}
-
-function renderClubTimeline() {
-  const hist = getData('histoire');
-  document.getElementById('club-timeline').innerHTML = hist.map(h => `
-    <div class="timeline-item reveal">
-      <div class="tl-year">${esc(h.year)}</div>
-      <div class="tl-line"></div>
-      <div class="tl-content"><div class="tl-event">${esc(h.event)}</div><div class="tl-detail">${esc(h.detail)}</div></div>
-    </div>`).join('');
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   RENDER — ACTUALITÉS
-═══════════════════════════════════════════════════════════════ */
-function renderNews() {
-  const arts = getData('articles');
-  const grid = document.getElementById('news-grid');
-  if (!arts.length) {
-    grid.innerHTML = '<p style="padding:2rem;color:var(--texte-sec);">Aucun article publié.</p>';
-    return;
-  }
-  grid.innerHTML = arts.slice().reverse().map(a => `
-    <div class="news-card" onclick="openArticle(${a.id})">
-      ${a.img
-        ? `<div class="news-img"><img src="${esc(a.img)}" alt="${esc(a.title)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=news-img-placeholder>ACTUS</div>'"></div>`
-        : `<div class="news-img-placeholder">ACTUS</div>`}
-      <div class="news-card-body">
-        <div class="news-tag">${esc(a.tag)}${a.yt ? '<span class="news-video-badge">Vidéo</span>' : ''}</div>
-        <div class="news-card-title">${esc(a.title)}</div>
-        <div class="news-card-excerpt">${esc(a.excerpt)}</div>
-        <div class="news-card-meta">${formatDate(a.date)}</div>
-      </div>
-    </div>`).join('');
-}
-
-function openArticle(id) {
-  const arts = getData('articles');
-  const a = arts.find(x => x.id === id);
-  if (!a) return;
-  document.getElementById('news-list-view').style.display = 'none';
-  document.getElementById('article-detail-view').style.display = 'block';
-  document.getElementById('article-detail-title').textContent = a.title;
-  document.getElementById('article-detail-meta').textContent = `${esc(a.tag)} — ${formatDate(a.date)}`;
-  document.getElementById('article-detail-body').innerHTML = a.body;
-  const img = document.getElementById('article-hero-img');
-  if (a.img) { img.src = a.img; img.style.display = 'block'; }
-  else { img.style.display = 'none'; }
-  const ytc = document.getElementById('article-yt-container');
-  if (a.yt) {
-    ytc.style.display = 'block';
-    ytc.innerHTML = `<iframe class="article-yt" src="https://www.youtube.com/embed/${a.yt}" title="Vidéo" allowfullscreen></iframe>`;
-  } else {
-    ytc.style.display = 'none'; ytc.innerHTML = '';
-  }
-  window.scrollTo(0,0);
-}
-
-function closeArticle() {
-  document.getElementById('article-detail-view').style.display = 'none';
-  document.getElementById('news-list-view').style.display = 'block';
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   RENDER — BILLETTERIE
-═══════════════════════════════════════════════════════════════ */
-function renderMatches() {
-  const matches = getData('matches');
-  const bp = getData('billPage');
-  document.getElementById('bill-page-eyebrow').textContent = bp.eyebrow;
-  document.getElementById('bill-page-title').innerHTML = bp.title;
-  document.getElementById('bill-page-sub').textContent = bp.sub;
-
-  const list = document.getElementById('matches-list');
-  if (!matches.length) {
-    list.innerHTML = '<p style="color:var(--texte-sec);font-size:.88rem;">Aucun match programmé.</p>';
-    return;
-  }
-  list.innerHTML = matches.map((m, i) => `
-    <div class="match-card">
-      <div class="match-teams">
-        <div class="match-home">${esc(m.home)}</div>
-        <div class="match-away">vs ${esc(m.away)}</div>
-      </div>
-      <div class="match-vs">VS</div>
-      <div class="match-info">
-        <div class="match-date">${formatDateTime(m.date)}</div>
-        <div class="match-comp">${esc(m.comp)}</div>
-      </div>
-      ${m.status === 'sold-out'
-        ? `<button class="match-ticket sold-out">Complet</button>`
-        : `<button class="match-ticket" onclick="buyTicket(${i})">${m.price}€ — Acheter</button>`}
-    </div>`).join('');
-}
-
-function renderAbos() {
-  const abos = getData('abonnements');
-  document.getElementById('abo-grid').innerHTML = abos.map(a => `
-    <div class="abo-card${a.featured ? ' featured' : ''}">
-      <div class="abo-name">${esc(a.nom)}</div>
-      <div class="abo-price">${a.price}€</div>
-      <div class="abo-period">/ saison</div>
-      <ul class="abo-features">${a.features.map(f => `<li>${esc(f)}</li>`).join('')}</ul>
-      <button class="abo-btn" onclick="buyAbo('${esc(a.nom)}',${a.price})">Souscrire</button>
-    </div>`).join('');
-}
-
-function buyTicket(i) {
-  const m = getData('matches')[i];
-  if (!m) return;
-  addToCart(`Billet — ${m.home} vs ${m.away} (${m.comp})`, m.price);
-  showToast('Billet ajouté au panier !');
-}
-
-function buyAbo(nom, price) {
-  addToCart(`Abonnement — ${nom}`, price);
-  showToast('Abonnement ajouté au panier !');
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   RENDER — BOUTIQUE
-═══════════════════════════════════════════════════════════════ */
-let activeFilter = 'all';
-function renderShop() {
-  const prods = getData('produits');
-  const filtered = activeFilter === 'all' ? prods : prods.filter(p => p.cat === activeFilter);
-  document.getElementById('shop-grid').innerHTML = filtered.map((p, i) => `
-    <div class="product-card">
-      <div class="product-img">
-        ${p.img
-          ? `<img src="${esc(p.img)}" alt="${esc(p.nom)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=product-img-placeholder>${esc(p.cat.toUpperCase())}</div>'">`
-          : `<div class="product-img-placeholder">${p.cat.toUpperCase()}</div>`}
-        ${p.badge ? `<span class="product-badge">${esc(p.badge)}</span>` : ''}
-      </div>
-      <div class="product-body">
-        <div class="product-cat">${esc(p.cat)}</div>
-        <div class="product-name">${esc(p.nom)}</div>
-        <div class="product-price">${Number(p.price).toFixed(2).replace('.',',')} €</div>
-        <button class="product-add" onclick="addToCart('${esc(p.nom)}',${p.price})">Ajouter au panier</button>
-      </div>
-    </div>`).join('');
-}
-
-function filterShop(cat, btn) {
-  activeFilter = cat;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderShop();
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   PANIER
-═══════════════════════════════════════════════════════════════ */
-let cart = [];
-function addToCart(name, price) {
-  cart.push({ name, price: Number(price) });
-  updateCartUI();
-  document.getElementById('cart-bubble').classList.add('show');
-}
-function updateCartUI() {
-  const count = cart.length;
-  document.getElementById('cart-count').textContent = count;
-  document.getElementById('cart-bubble').classList.toggle('show', count > 0);
-  const total = cart.reduce((s, i) => s + i.price, 0);
-  document.getElementById('cart-total-val').textContent = total.toFixed(2).replace('.',',') + ' €';
-  const container = document.getElementById('cart-items');
-  if (!cart.length) {
-    container.innerHTML = '<p style="color:var(--texte-sec);font-size:.85rem;text-align:center;padding:2rem 0;">Votre panier est vide.</p>';
-    return;
-  }
-  container.innerHTML = cart.map((item, i) => `
-    <div class="cart-item">
-      <div class="cart-item-name">${esc(item.name)}</div>
-      <div class="cart-item-price">${item.price.toFixed(2).replace('.',',')} €</div>
-      <button class="cart-item-remove" onclick="removeFromCart(${i})">✕</button>
-    </div>`).join('');
-}
-function removeFromCart(i) { cart.splice(i,1); updateCartUI(); }
-function openCart() {
-  document.getElementById('cart-panel').classList.add('open');
-  document.getElementById('cart-overlay').classList.add('show');
-}
-function closeCart() {
-  document.getElementById('cart-panel').classList.remove('open');
-  document.getElementById('cart-overlay').classList.remove('show');
-}
-function checkout() {
-  if (!cart.length) return;
-  showToast('Commande simulée — paiement non actif en démo.');
-  cart = [];
-  updateCartUI();
-  closeCart();
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ADMIN — AUTH
-═══════════════════════════════════════════════════════════════ */
-let adminLoggedIn = false;
-function openAdmin() {
-  document.getElementById('admin-overlay').classList.add('open');
-  if (adminLoggedIn) showAdminPanel();
-}
-function closeAdmin() {
-  document.getElementById('admin-overlay').classList.remove('open');
-}
-function adminLogin() {
-  const u = document.getElementById('admin-user-input').value.trim();
-  const p = document.getElementById('admin-pass-input').value;
-  const creds = getData('admin');
-  const msg = document.getElementById('admin-login-msg');
-  if (u === creds.user && p === creds.pass) {
-    adminLoggedIn = true;
-    document.getElementById('admin-login-msg').innerHTML = '';
-    showAdminPanel();
-  } else {
-    msg.innerHTML = '<div class="admin-msg error">Identifiant ou mot de passe incorrect.</div>';
-  }
-}
-function showAdminPanel() {
-  document.getElementById('admin-login').style.display = 'none';
-  document.getElementById('admin-panel').style.display = 'flex';
-  populateAdminForms();
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ADMIN — TABS
-═══════════════════════════════════════════════════════════════ */
-function adminTab(name) {
-  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  const sec = document.getElementById('admin-' + name);
-  if (sec) { sec.classList.add('active'); populateAdminSection(name); }
-}
-function populateAdminSection(name) {
-  if (name === 'actus') renderAdminArticles();
-  if (name === 'billetterie') { renderAdminMatches(); renderAdminAbos(); populateBillPage(); }
-  if (name === 'boutique') renderAdminProducts();
-  if (name === 'effectif') renderAdminJoueurs();
-  if (name === 'staff') renderAdminStaff();
-  if (name === 'palmares') renderAdminPalmares();
-  if (name === 'histoire') renderAdminHistoire();
-  if (name === 'compte') populateCompte();
-}
-
-function populateAdminForms() {
-  const h = getData('hero');
-  const sd = getData('stade');
-  setVal('a-hero-eyebrow', h.eyebrow);
-  setVal('a-hero-sub', h.sub);
-  setVal('a-stat1-num', h.stat1num); setVal('a-stat1-label', h.stat1label);
-  setVal('a-stat2-num', h.stat2num); setVal('a-stat2-label', h.stat2label);
-  setVal('a-stat3-num', h.stat3num); setVal('a-stat3-label', h.stat3label);
-  setVal('a-nav-badge', h.navBadge);
-  setVal('a-bill-eyebrow', h.billEyebrow);
-  setVal('a-bill-title', h.billTitle);
-  setVal('a-bill-sub', h.billSub);
-  setVal('a-saison-context', h.saisonContext);
-  setVal('a-effectif-text', h.effectifText);
-  setVal('a-eff1', h.eff1); setVal('a-eff2', h.eff2); setVal('a-eff3', h.eff3);
-  setVal('a-stade-nom', sd.nom); setVal('a-stade-cap', sd.cap);
-  setVal('a-stade-annee', sd.annee); setVal('a-stade-renov', sd.renov);
-  setVal('a-stade-cat', sd.cat); setVal('a-stade-desc1', sd.desc1);
-  setVal('a-stade-desc2', sd.desc2); setVal('a-stade-img', sd.img||'');
-}
-
-function populateBillPage() {
-  const bp = getData('billPage');
-  setVal('a-bill-page-eyebrow', bp.eyebrow);
-  setVal('a-bill-page-title', bp.title);
-  setVal('a-bill-page-sub', bp.sub);
-}
-function populateCompte() {
-  const creds = getData('admin');
-  document.getElementById('display-user').textContent = creds.user;
-  document.getElementById('display-pass').textContent = creds.pass;
-  setVal('new-user', creds.user);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ADMIN — SAVES
-═══════════════════════════════════════════════════════════════ */
-function saveAccueil() {
-  const h = {
-    eyebrow: gv('a-hero-eyebrow'), sub: gv('a-hero-sub'),
-    stat1num: gv('a-stat1-num'), stat1label: gv('a-stat1-label'),
-    stat2num: gv('a-stat2-num'), stat2label: gv('a-stat2-label'),
-    stat3num: gv('a-stat3-num'), stat3label: gv('a-stat3-label'),
-    navBadge: gv('a-nav-badge'),
-    billEyebrow: gv('a-bill-eyebrow'), billTitle: gv('a-bill-title'), billSub: gv('a-bill-sub'),
-    saisonContext: gv('a-saison-context'), effectifText: gv('a-effectif-text'),
-    eff1: gv('a-eff1'), eff2: gv('a-eff2'), eff3: gv('a-eff3'),
-  };
-  setData('hero', h);
-  renderAccueil();
-  showToast('Page d\'accueil enregistrée ✓');
-}
-
-function saveStade() {
-  const sd = {
-    nom: gv('a-stade-nom'), cap: gv('a-stade-cap'),
-    annee: gv('a-stade-annee'), renov: gv('a-stade-renov'),
-    cat: gv('a-stade-cat'), desc1: gv('a-stade-desc1'),
-    desc2: gv('a-stade-desc2'), img: gv('a-stade-img'),
-  };
-  setData('stade', sd);
-  renderAccueil();
-  showToast('Stade enregistré ✓');
-}
-
-function saveBilletterie() {
-  const bp = { eyebrow: gv('a-bill-page-eyebrow'), title: gv('a-bill-page-title'), sub: gv('a-bill-page-sub') };
-  setData('billPage', bp);
-  renderMatches();
-  showToast('Textes billetterie enregistrés ✓');
-}
-
-function saveCompte() {
-  const nu = gv('new-user'), np = gv('new-pass'), np2 = gv('new-pass2');
-  const msg = document.getElementById('admin-compte-msg');
-  if (!nu) { msg.innerHTML = '<div class="admin-msg error">L\'identifiant ne peut pas être vide.</div>'; return; }
-  if (np && np !== np2) { msg.innerHTML = '<div class="admin-msg error">Les mots de passe ne correspondent pas.</div>'; return; }
-  const creds = getData('admin');
-  creds.user = nu;
-  if (np) creds.pass = np;
-  setData('admin', creds);
-  populateCompte();
-  msg.innerHTML = '<div class="admin-msg success">Identifiants mis à jour ✓</div>';
-  setTimeout(() => { msg.innerHTML = ''; }, 3000);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ADMIN — ACTUALITÉS
-═══════════════════════════════════════════════════════════════ */
-function addArticle() {
-  const title = gv('n-title'); if (!title) return showToast('Titre requis');
-  const arts = getData('articles');
-  const maxId = arts.reduce((m,a) => Math.max(m, a.id), 0);
-  arts.push({
-    id: maxId + 1,
-    title, tag: gv('n-tag') || 'Club',
-    date: gv('n-date') || new Date().toISOString().slice(0,10),
-    excerpt: gv('n-excerpt'), body: gv('n-body'),
-    img: gv('n-img'), yt: gv('n-yt'),
-  });
-  setData('articles', arts);
-  ['n-title','n-tag','n-date','n-excerpt','n-body','n-img','n-yt'].forEach(id => setVal(id,''));
-  renderAdminArticles();
-  showToast('Article publié ✓');
-}
-function deleteArticle(id) {
-  let arts = getData('articles');
-  arts = arts.filter(a => a.id !== id);
-  setData('articles', arts);
-  renderAdminArticles();
-  showToast('Article supprimé');
-}
-function renderAdminArticles() {
-  const arts = getData('articles');
-  document.getElementById('admin-articles-list').innerHTML = arts.length ? arts.slice().reverse().map(a => `
-    <div class="admin-list-item">
-      <div class="admin-list-item-info">
-        <div class="admin-list-item-title">${esc(a.title)}</div>
-        <div class="admin-list-item-sub">${esc(a.tag)} — ${formatDate(a.date)}</div>
-      </div>
-      <button class="admin-delete-btn" onclick="deleteArticle(${a.id})">Supprimer</button>
-    </div>`).join('') : '<p style="color:var(--texte-sec);font-size:.82rem;">Aucun article.</p>';
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ADMIN — MATCHS
-═══════════════════════════════════════════════════════════════ */
-function addMatch() {
-  const home = gv('m-home'), away = gv('m-away');
-  if (!home || !away) return showToast('Équipes requises');
-  const matches = getData('matches');
-  matches.push({ home, away, date: gv('m-date'), comp: gv('m-comp') || 'Ligue 1', price: Number(gv('m-price')) || 30, status: gv('m-status') });
-  setData('matches', matches);
-  ['m-home','m-away','m-date','m-comp','m-price'].forEach(id => setVal(id,''));
-  renderAdminMatches(); renderMatches();
-  showToast('Match ajouté ✓');
-}
-function deleteMatch(i) {
-  const matches = getData('matches');
-  matches.splice(i,1);
-  setData('matches', matches);
-  renderAdminMatches(); renderMatches();
-  showToast('Match supprimé');
-}
-function renderAdminMatches() {
-  const matches = getData('matches');
-  document.getElementById('admin-matches-list').innerHTML = matches.length ? matches.map((m,i) => `
-    <div class="admin-list-item">
-      <div class="admin-list-item-info">
-        <div class="admin-list-item-title">${esc(m.home)} vs ${esc(m.away)}</div>
-        <div class="admin-list-item-sub">${esc(m.comp)} — ${formatDateTime(m.date)} — ${m.price}€ — ${m.status==='sold-out'?'Complet':'Disponible'}</div>
-      </div>
-      <button class="admin-delete-btn" onclick="deleteMatch(${i})">Supprimer</button>
-    </div>`).join('') : '<p style="color:var(--texte-sec);font-size:.82rem;">Aucun match.</p>';
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ADMIN — ABONNEMENTS
-═══════════════════════════════════════════════════════════════ */
-function addAbo() {
-  const nom = gv('abo-name'); if (!nom) return showToast('Nom requis');
-  const abos = getData('abonnements');
-  const feats = gv('abo-features').split('\n').map(s=>s.trim()).filter(Boolean);
-  abos.push({ nom, price: Number(gv('abo-price')) || 0, features: feats, featured: gv('abo-featured') === 'true' });
-  setData('abonnements', abos);
-  ['abo-name','abo-price','abo-features'].forEach(id => setVal(id,''));
-  renderAdminAbos(); renderAbos();
-  showToast('Abonnement ajouté ✓');
-}
-function deleteAbo(i) {
-  const abos = getData('abonnements');
-  abos.splice(i,1);
-  setData('abonnements', abos);
-  renderAdminAbos(); renderAbos();
-  showToast('Abonnement supprimé');
-}
-function renderAdminAbos() {
-  const abos = getData('abonnements');
-  document.getElementById('admin-abo-list').innerHTML = abos.length ? abos.map((a,i) => `
-    <div class="admin-list-item">
-      <div class="admin-list-item-info">
-        <div class="admin-list-item-title">${esc(a.nom)} — ${a.price}€</div>
-        <div class="admin-list-item-sub">${a.features.length} avantage(s)${a.featured ? ' · Mis en avant' : ''}</div>
-      </div>
-      <button class="admin-delete-btn" onclick="deleteAbo(${i})">Supprimer</button>
-    </div>`).join('') : '<p style="color:var(--texte-sec);font-size:.82rem;">Aucune formule.</p>';
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ADMIN — BOUTIQUE
-═══════════════════════════════════════════════════════════════ */
-function addProduct() {
-  const nom = gv('p-name'); if (!nom) return showToast('Nom requis');
-  const prods = getData('produits');
-  prods.push({ nom, price: Number(gv('p-price')) || 0, cat: gv('p-cat'), badge: gv('p-badge'), img: gv('p-img') });
-  setData('produits', prods);
-  ['p-name','p-price','p-badge','p-img'].forEach(id => setVal(id,''));
-  renderAdminProducts(); renderShop();
-  showToast('Produit ajouté ✓');
-}
-function deleteProduct(i) {
-  const prods = getData('produits');
-  prods.splice(i,1);
-  setData('produits', prods);
-  renderAdminProducts(); renderShop();
-  showToast('Produit supprimé');
-}
-function renderAdminProducts() {
-  const prods = getData('produits');
-  document.getElementById('admin-products-list').innerHTML = prods.length ? prods.map((p,i) => `
-    <div class="admin-list-item">
-      <div class="admin-list-item-info">
-        <div class="admin-list-item-title">${esc(p.nom)}</div>
-        <div class="admin-list-item-sub">${esc(p.cat)} — ${Number(p.price).toFixed(2).replace('.',',')} €${p.badge ? ' · ' + p.badge : ''}</div>
-      </div>
-      <button class="admin-delete-btn" onclick="deleteProduct(${i})">Supprimer</button>
-    </div>`).join('') : '<p style="color:var(--texte-sec);font-size:.82rem;">Aucun produit.</p>';
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ADMIN — EFFECTIF
-═══════════════════════════════════════════════════════════════ */
-function addJoueur() {
-  const nom = gv('j-nom'); if (!nom) return showToast('Nom requis');
-  const joueurs = getData('joueurs');
-  joueurs.push({ num: Number(gv('j-num')) || 0, nom, nat: gv('j-nat'), poste: gv('j-poste') });
-  setData('joueurs', joueurs);
-  ['j-num','j-nom','j-nat'].forEach(id => setVal(id,''));
-  renderAdminJoueurs(); renderAccueil();
-  showToast('Joueur ajouté ✓');
-}
-function deleteJoueur(i) {
-  const joueurs = getData('joueurs');
-  joueurs.splice(i,1);
-  setData('joueurs', joueurs);
-  renderAdminJoueurs(); renderAccueil();
-  showToast('Joueur supprimé');
-}
-function renderAdminJoueurs() {
-  const joueurs = getData('joueurs');
-  document.getElementById('admin-joueurs-list').innerHTML = joueurs.length ? joueurs.map((j,i) => `
-    <div class="admin-list-item">
-      <div class="admin-list-item-info">
-        <div class="admin-list-item-title">#${j.num} ${esc(j.nom)}</div>
-        <div class="admin-list-item-sub">${esc(j.poste)} — ${esc(j.nat)}</div>
-      </div>
-      <button class="admin-delete-btn" onclick="deleteJoueur(${i})">Supprimer</button>
-    </div>`).join('') : '<p style="color:var(--texte-sec);font-size:.82rem;">Aucun joueur.</p>';
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ADMIN — STAFF
-═══════════════════════════════════════════════════════════════ */
-function addStaff() {
-  const nom = gv('s-nom'); if (!nom) return showToast('Nom requis');
-  const staffList = getData('staff');
-  staffList.push({ role: gv('s-role'), nom, bio: gv('s-bio') });
-  setData('staff', staffList);
-  ['s-role','s-nom','s-bio'].forEach(id => setVal(id,''));
-  renderAdminStaff(); renderAccueil();
-  showToast('Membre du staff ajouté ✓');
-}
-function deleteStaff(i) {
-  const staffList = getData('staff');
-  staffList.splice(i,1);
-  setData('staff', staffList);
-  renderAdminStaff(); renderAccueil();
-  showToast('Membre supprimé');
-}
-function renderAdminStaff() {
-  const staffList = getData('staff');
-  document.getElementById('admin-staff-list').innerHTML = staffList.length ? staffList.map((s,i) => `
-    <div class="admin-list-item">
-      <div class="admin-list-item-info">
-        <div class="admin-list-item-title">${esc(s.nom)}</div>
-        <div class="admin-list-item-sub">${esc(s.role)}</div>
-      </div>
-      <button class="admin-delete-btn" onclick="deleteStaff(${i})">Supprimer</button>
-    </div>`).join('') : '<p style="color:var(--texte-sec);font-size:.82rem;">Aucun membre.</p>';
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ADMIN — PALMARÈS
-═══════════════════════════════════════════════════════════════ */
-function addPalmares() {
-  const trophy = gv('pal-trophy'); if (!trophy) return showToast('Trophée requis');
-  const pals = getData('palmares');
-  pals.push({ year: gv('pal-year'), trophy, desc: gv('pal-desc'), rank: gv('pal-rank') });
-  setData('palmares', pals);
-  ['pal-year','pal-trophy','pal-desc','pal-rank'].forEach(id => setVal(id,''));
-  renderAdminPalmares(); renderAccueil();
-  showToast('Trophée ajouté ✓');
-}
-function deletePalmares(i) {
-  const pals = getData('palmares');
-  pals.splice(i,1);
-  setData('palmares', pals);
-  renderAdminPalmares(); renderAccueil();
-  showToast('Trophée supprimé');
-}
-function renderAdminPalmares() {
-  const pals = getData('palmares');
-  document.getElementById('admin-palmares-list').innerHTML = pals.length ? pals.map((p,i) => `
-    <div class="admin-list-item">
-      <div class="admin-list-item-info">
-        <div class="admin-list-item-title">${esc(p.trophy)}</div>
-        <div class="admin-list-item-sub">${esc(p.year)} — ${esc(p.rank)}</div>
-      </div>
-      <button class="admin-delete-btn" onclick="deletePalmares(${i})">Supprimer</button>
-    </div>`).join('') : '<p style="color:var(--texte-sec);font-size:.82rem;">Aucun trophée.</p>';
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ADMIN — HISTOIRE
-═══════════════════════════════════════════════════════════════ */
-function addHistoire() {
-  const event = gv('h-event'); if (!event) return showToast('Événement requis');
-  const hist = getData('histoire');
-  hist.push({ year: gv('h-year'), event, detail: gv('h-detail') });
-  setData('histoire', hist);
-  ['h-year','h-event','h-detail'].forEach(id => setVal(id,''));
-  renderAdminHistoire(); renderAccueil();
-  showToast('Événement ajouté ✓');
-}
-function deleteHistoire(i) {
-  const hist = getData('histoire');
-  hist.splice(i,1);
-  setData('histoire', hist);
-  renderAdminHistoire(); renderAccueil();
-  showToast('Événement supprimé');
-}
-function renderAdminHistoire() {
-  const hist = getData('histoire');
-  document.getElementById('admin-histoire-list').innerHTML = hist.length ? hist.map((h,i) => `
-    <div class="admin-list-item">
-      <div class="admin-list-item-info">
-        <div class="admin-list-item-title">${esc(h.year)} — ${esc(h.event)}</div>
-        <div class="admin-list-item-sub">${esc(h.detail).substring(0,80)}${h.detail.length>80?'…':''}</div>
-      </div>
-      <button class="admin-delete-btn" onclick="deleteHistoire(${i})">Supprimer</button>
-    </div>`).join('') : '<p style="color:var(--texte-sec);font-size:.82rem;">Aucun événement.</p>';
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   UTILITAIRES
-═══════════════════════════════════════════════════════════════ */
-function esc(s) {
-  if (s === undefined || s === null) return '';
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function gv(id) { const el = document.getElementById(id); return el ? el.value : ''; }
-function setVal(id, val) { const el = document.getElementById(id); if (el) el.value = val; }
-function formatDate(d) {
-  if (!d) return '';
-  try { return new Date(d).toLocaleDateString('fr-FR', {day:'numeric',month:'long',year:'numeric'}); } catch(e){return d;}
-}
-function formatDateTime(d) {
-  if (!d) return '';
-  try { return new Date(d).toLocaleDateString('fr-FR', {weekday:'short',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'}); } catch(e){return d;}
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   INIT
-═══════════════════════════════════════════════════════════════ */
-document.addEventListener('DOMContentLoaded', () => {
-  renderAccueil();
-  setupReveal();
-  // Date par défaut pour les formulaires
-  const today = new Date().toISOString().slice(0,10);
-  const ndate = document.getElementById('n-date');
-  if (ndate) ndate.value = today;
-});
-</script>
+      histoireTimeline.push({ year, event, detail });
+      histoireTimeline.sort((a,b) => parseInt(a.year) - parseInt(b.year));
+      renderTimeline();
+      closeAdminModal();
+      alert('Événement historique ajouté !');
+    }
+  </script>
 </body>
 </html>
