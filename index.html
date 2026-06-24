@@ -24,10 +24,13 @@
       --texte-sec: #6B5F6B;
       --gris-clair:#F7F3F5;
       --succes:    #5BAD7A;
+      --danger:    #D9534F;
       --bebas: 'Bebas Neue', sans-serif;
       --inter: 'Inter', sans-serif;
       --nav-bg: rgba(255, 255, 255, 0.96);
       --font-modifier: 100%;
+      --card-shadow: 0 8px 32px rgba(232, 119, 154, 0.06);
+      --glass-bg: rgba(255, 255, 255, 0.7);
     }
 
     [data-theme="dark"] {
@@ -39,6 +42,8 @@
       --texte-sec: #A192A1;
       --gris-clair:#1A1A1E;
       --nav-bg: rgba(18, 18, 20, 0.96);
+      --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --glass-bg: rgba(18, 18, 20, 0.7);
     }
 
     html { scroll-behavior: smooth; font-size: var(--font-modifier); }
@@ -103,27 +108,65 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE SYSTEM
+       PAGE SYSTEM & STYLISH UPGRADES
     ═══════════════════════════════════════════════════════════════ */
     .page { display: none; padding-top: 68px; min-height: 100vh; }
-    .page.active { display: block; }
+    .page.active { display: block; animation: fadeIn 0.5s ease-out; }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     /* ═══════════════════════════════════════════════════════════════
-       SHARED COMPONENTS
+       SHARED COMPONENTS (Premium Visual Update)
     ═══════════════════════════════════════════════════════════════ */
     .section-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.75rem; }
     .section-title { font-family: var(--bebas); font-size: clamp(2.5rem, 5vw, 4.5rem); letter-spacing: 0.02em; line-height: 1; margin-bottom: 2.5rem; color: var(--texte); }
+    .section-title em { font-style: normal; color: var(--rose); }
     .rule-red { width: 48px; height: 2px; background: var(--rose); margin-bottom: 2rem; }
     .sec { padding: 6rem 4rem; }
     .sec-alt { background: var(--gris-clair); }
     .sec-pale { background: var(--rose-pale); }
 
+    /* Ultra Styled Page Headers matching Hero DA */
+    .premium-header {
+      position: relative;
+      padding: 6rem 4rem 4rem;
+      background: linear-gradient(185deg, var(--rose-pale) 0%, var(--blanc) 100%);
+      border-bottom: 1px solid var(--rose-bord);
+      overflow: hidden;
+    }
+    .premium-header::before {
+      content: "PIGNOUFERIE FC";
+      position: absolute;
+      right: -5%;
+      bottom: -20%;
+      font-family: var(--bebas);
+      font-size: clamp(6rem, 15vw, 12rem);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(232, 119, 154, 0.08);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+
     .btn-primary {
       display: inline-block; background: var(--rose); color: #FFF; text-decoration: none; font-size: 0.78rem;
       font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.85rem 2.2rem;
-      transition: background 0.2s; border: none; cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); border: none; cursor: pointer;
+      box-shadow: 0 4px 12px rgba(232, 119, 154, 0.2);
     }
-    .btn-primary:hover { background: var(--rose-f); }
+    .btn-primary:hover:not(:disabled) { background: var(--rose-f); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232, 119, 154, 0.3); }
+    
+    .btn-disabled {
+      background: #cccccc !important;
+      color: #777777 !important;
+      cursor: not-allowed !important;
+      box-shadow: none !important;
+      transform: none !important;
+      border: 1px solid #bbbbbb !important;
+    }
 
     .btn-ghost {
       display: inline-block; color: var(--texte); text-decoration: none; font-size: 0.78rem; font-weight: 500;
@@ -157,12 +200,12 @@
     .eff-num { font-family: var(--bebas); font-size: 2.8rem; color: var(--texte); }
     .eff-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; }
     .poste-header { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); padding: 1.25rem 0 0.75rem; border-top: 1px solid var(--rose-bord); margin-top: 1.5rem; }
-    .joueurs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1px; background: var(--rose-bord); margin-bottom: 1.5rem; }
-    .joueur-card { background: var(--blanc); padding: 1.25rem 1rem; transition: background 0.2s; position: relative; }
-    .joueur-card:hover { background: var(--rose-pale); }
-    .joueur-num { font-family: var(--bebas); font-size: 1.8rem; color: rgba(232, 119, 154, 0.4); line-height: 1; margin-bottom: 0.4rem; }
-    .joueur-nom { font-size: 0.85rem; font-weight: 600; color: var(--texte); margin-bottom: 0.2rem; }
-    .joueur-nat { font-size: 0.68rem; color: var(--texte-sec); }
+    .joueurs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; background: transparent; margin-bottom: 1.5rem; }
+    .joueur-card { background: var(--blanc); padding: 1.5rem 1.25rem; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); position: relative; border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 4px; }
+    .joueur-card:hover { background: var(--rose-pale); transform: translateY(-4px); border-color: var(--rose); }
+    .joueur-num { font-family: var(--bebas); font-size: 2rem; color: rgba(232, 119, 154, 0.4); line-height: 1; margin-bottom: 0.4rem; }
+    .joueur-nom { font-size: 0.9rem; font-weight: 600; color: var(--texte); margin-bottom: 0.2rem; }
+    .joueur-nat { font-size: 0.72rem; color: var(--texte-sec); font-weight: 500; }
     
     .admin-action-btn { display: none; position: absolute; top: 5px; background: var(--texte); color: white; border: none; font-size: 0.6rem; padding: 2px 6px; cursor: pointer; z-index: 10; font-family: var(--inter); font-weight: 600; text-transform: uppercase; }
     .admin-del { right: 5px; background: var(--rose); }
@@ -172,88 +215,108 @@
     /* ═══════════════════════════════════════════════════════════════
        HISTOIRE / TIMELINE
     ═══════════════════════════════════════════════════════════════ */
-    .timeline { display: flex; flex-direction: column; max-width: 780px; }
-    .timeline-item { display: grid; grid-template-columns: 100px 1px 1fr; gap: 0 2rem; padding: 2rem 0; border-bottom: 1px solid var(--rose-bord); position: relative; }
+    .timeline { display: flex; flex-direction: column; max-width: 780px; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 100px; top: 0; bottom: 0; width: 1px; background: var(--rose-bord); }
+    .timeline-item { display: grid; grid-template-columns: 100px 1fr; gap: 0 3rem; padding: 2.5rem 0; border-bottom: 1px solid var(--rose-pale); position: relative; }
     .timeline-item:last-child { border-bottom: none; }
-    .tl-year { font-family: var(--bebas); font-size: 1.5rem; color: var(--rose); padding-top: 0.1rem; }
-    .tl-line { background: var(--rose-bord); width: 1px; }
-    .tl-event { font-weight: 600; font-size: 0.92rem; color: var(--texte); margin-bottom: 0.4rem; }
-    .tl-detail { font-size: 0.8rem; color: var(--texte-sec); line-height: 1.6; }
+    .tl-year { font-family: var(--bebas); font-size: 2rem; color: var(--rose); padding-top: 0.1rem; position: relative; z-index: 2; }
+    .tl-event { font-weight: 700; font-size: 1.1rem; color: var(--texte); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+    .tl-detail { font-size: 0.88rem; color: var(--texte-sec); line-height: 1.7; font-weight: 300; }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE: ACTUALITÉS
+       PAGE: ACTUALITÉS (Ultra Styled Grid)
     ═══════════════════════════════════════════════════════════════ */
-    .news-hero { background: var(--texte); padding: 5rem 4rem 4rem; }
-    .news-hero .section-eyebrow { color: rgba(232,119,154,0.7); }
-    .news-hero .section-title { color: var(--blanc); margin-bottom: 0; }
-    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; background: var(--rose-bord); }
-    .news-card { background: var(--blanc); transition: background 0.2s; cursor: pointer; display: flex; flex-direction: column; position: relative; overflow: hidden; }
-    .news-card:hover { background: var(--rose-pale); }
-    .news-card-media { width: 100%; height: 180px; background: var(--gris-clair); overflow: hidden; display: flex; align-items: center; justify-content: center; }
-    .news-card-media img { width: 100%; height: 100%; object-fit: cover; }
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px; background: transparent; }
+    .news-card { background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 6px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; display: flex; flex-direction: column; position: relative; overflow: hidden; box-shadow: var(--card-shadow); }
+    .news-card:hover { transform: translateY(-6px); border-color: var(--rose); box-shadow: 0 16px 40px rgba(232, 119, 154, 0.12); }
+    .news-card-media { width: 100%; height: 210px; background: var(--gris-clair); overflow: hidden; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--rose-pale); }
+    .news-card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .news-card:hover .news-card-media img { transform: scale(1.04); }
     .news-card-media iframe { width: 100%; height: 100%; border: none; }
-    .news-card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .news-card-body { padding: 1.75rem; flex: 1; display: flex; flex-direction: column; }
     .news-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.6rem; }
-    .news-card-title { font-family: var(--bebas); font-size: 1.3rem; letter-spacing: 0.02em; color: var(--texte); margin-bottom: 0.5rem; line-height: 1.15; }
-    .news-card-excerpt { font-size: 0.8rem; color: var(--texte-sec); line-height: 1.6; flex: 1; }
-    .news-card-meta { font-size: 0.65rem; color: rgba(107,95,107,0.55); margin-top: 1rem; }
+    .news-card-title { font-family: var(--bebas); font-size: 1.6rem; letter-spacing: 0.02em; color: var(--texte); margin-bottom: 0.6rem; line-height: 1.15; }
+    .news-card-excerpt { font-size: 0.85rem; color: var(--texte-sec); line-height: 1.6; flex: 1; font-weight: 300; }
+    .news-card-meta { font-size: 0.68rem; color: var(--texte-sec); margin-top: 1.25rem; font-weight: 500; opacity: 0.8; }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE: BILLETTERIE
+       PAGE: BILLETTERIE (Premium Ticket Design)
     ═══════════════════════════════════════════════════════════════ */
-    .bill-hero { background: var(--rose); padding: 5rem 4rem 4rem; text-align: center; color: #FFF; }
-    .bill-hero .section-title { color: #FFF; }
-    .match-card { display: grid; grid-template-columns: 1fr auto 1fr auto; align-items: center; gap: 1rem; padding: 1.5rem 1.75rem; background: var(--blanc); border: 1px solid var(--rose-bord); margin-bottom: 1px; position: relative; }
-    .match-ticket { font-size: 0.7rem; font-weight: 700; background: var(--rose); color: #FFF; border: none; padding: 0.65rem 1.25rem; cursor: pointer; }
+    .match-container-box { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+    .match-card { display: grid; grid-template-columns: 1.5fr 0.5fr 1.5fr 1.2fr; align-items: center; gap: 2rem; padding: 2rem 2.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; position: relative; transition: all 0.3s; }
+    .match-card:hover { border-color: var(--rose); }
+    .match-team-side { display: flex; flex-direction: column; gap: 4px; }
+    .match-home, .match-away { font-family: var(--bebas); font-size: 1.6rem; color: var(--texte); letter-spacing: 0.02em; }
+    .match-vs { font-family: var(--bebas); font-size: 1.2rem; color: var(--rose); background: var(--rose-pale); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; justify-self: center; border: 1px solid var(--rose-bord); }
+    .match-details-side { display: flex; flex-direction: column; gap: 2px; }
+    .match-date { font-weight: 600; font-size: 0.9rem; color: var(--texte); }
+    .match-comp { font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--texte-sec); letter-spacing: 0.05em; }
+    .match-ticket { font-family: var(--inter); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: var(--rose); color: #FFF; border: none; padding: 0.85rem 1.5rem; cursor: pointer; transition: all 0.3s; text-align: center; border-radius: 3px; }
 
     /* ═══════════════════════════════════════════════════════════════
        PAGE: BOUTIQUE
     ═══════════════════════════════════════════════════════════════ */
-    .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2rem; }
-    .product-card { background: var(--blanc); border: 1px solid var(--rose-bord); display: flex; flex-direction: column; padding: 1.5rem; position: relative; transition: transform 0.3s, box-shadow 0.3s; }
-    .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(232, 119, 154, 0.15); }
+    .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+    .product-card { background: var(--blanc); border: 1px solid var(--rose-bord); display: flex; flex-direction: column; padding: 1.75rem; position: relative; transition: transform 0.3s, box-shadow 0.3s; box-shadow: var(--card-shadow); border-radius: 6px; }
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 16px 35px rgba(232, 119, 154, 0.16); border-color: var(--rose); }
     
-    .jersey-container { width: 100%; height: 220px; background: var(--gris-clair); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; position: relative; overflow: hidden; }
-    .jersey-svg { width: 140px; height: 160px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.1)); transition: transform 0.3s; }
-    .product-card:hover .jersey-svg { transform: scale(1.05) rotate(2deg); }
-    .jersey-badge { position: absolute; top: 1rem; left: 1rem; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; background: var(--rose); color: #fff; padding: 0.25rem 0.6rem; letter-spacing: 0.05em; }
+    .jersey-container { width: 100%; height: 240px; background: var(--gris-clair); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; position: relative; overflow: hidden; border-radius: 4px; }
+    .jersey-svg { width: 150px; height: 170px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.08)); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+    .product-card:hover .jersey-svg { transform: scale(1.06) rotate(3deg); }
+    .jersey-badge { position: absolute; top: 1rem; left: 1rem; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; background: var(--rose); color: #fff; padding: 0.3rem 0.7rem; letter-spacing: 0.08em; border-radius: 2px; }
 
-    .product-name { font-family: var(--bebas); font-size: 1.5rem; color: var(--texte); letter-spacing: 0.02em; margin-bottom: 0.25rem; }
-    .product-price { font-size: 1.1rem; font-weight: 700; color: var(--rose); margin-bottom: 1rem; }
+    .product-name { font-family: var(--bebas); font-size: 1.6rem; color: var(--texte); letter-spacing: 0.02em; margin-bottom: 0.3rem; line-height: 1.2; }
+    .product-price { font-size: 1.15rem; font-weight: 700; color: var(--rose); margin-bottom: 1.25rem; }
 
     /* Cart Bubble & Panels */
-    .cart-bubble { position: fixed; bottom: 2rem; right: 2rem; background: var(--rose); color: white; border: none; width: 56px; height: 56px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 1.3rem; z-index: 300; cursor: pointer; }
+    .cart-bubble { position: fixed; bottom: 2rem; right: 2rem; background: var(--rose); color: white; border: none; width: 56px; height: 56px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 1.3rem; z-index: 300; cursor: pointer; box-shadow: 0 4px 16px rgba(232, 119, 154, 0.4); }
     .cart-bubble.show { display: flex; }
-    .cart-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 380px; background: var(--blanc); border-left: 1px solid var(--rose-bord); z-index: 400; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
+    .cart-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 380px; background: var(--blanc); border-left: 1px solid var(--rose-bord); z-index: 400; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -10px 0 40px rgba(0,0,0,0.05); }
     .cart-panel.open { transform: translateX(0); }
     .cart-items { flex: 1; overflow-y: auto; padding: 1.5rem; }
 
     /* ═══════════════════════════════════════════════════════════════
        PAGE: AUTH / COMPTE
     ═══════════════════════════════════════════════════════════════ */
-    .auth-container { max-width: 450px; margin: 4rem auto; padding: 2.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); }
-    .auth-tabs { display: flex; border-bottom: 1px solid var(--rose-bord); margin-bottom: 2rem; }
-    .auth-tab { flex: 1; padding: 0.75rem; background: none; border: none; font-family: var(--bebas); font-size: 1.2rem; color: var(--texte-sec); cursor: pointer; text-align: center; }
-    .auth-tab.active { color: var(--rose); border-bottom: 2px solid var(--rose); }
+    .auth-container { max-width: 480px; margin: 4rem auto; padding: 3rem 2.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; }
+    .auth-tabs { display: flex; border-bottom: 1px solid var(--rose-bord); margin-bottom: 2rem; gap: 5px; }
+    .auth-tab { flex: 1; padding: 0.85rem; background: none; border: none; font-family: var(--bebas); font-size: 1.25rem; color: var(--texte-sec); cursor: pointer; text-align: center; transition: all 0.2s; border-radius: 4px 4px 0 0; }
+    .auth-tab:hover { background: var(--rose-pale); color: var(--rose); }
+    .auth-tab.active { color: var(--rose); border-bottom: 2px solid var(--rose); background: linear-gradient(to top, var(--rose-pale), transparent); font-weight: bold; }
     
-    .form-group { margin-bottom: 1.25rem; }
-    .form-group label { display: block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; color: var(--texte-sec); }
-    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.75rem; background: var(--gris-clair); border: 1px solid var(--rose-bord); color: var(--texte); font-family: var(--inter); }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: 1px solid var(--rose); }
+    /* Notification banner for Registration block */
+    .unavailable-banner {
+      background: rgba(217, 83, 79, 0.1);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+      padding: 1rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      border-radius: 4px;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .form-group { margin-bottom: 1.4rem; }
+    .form-group label { display: block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; color: var(--texte-sec); }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.85rem; background: var(--gris-clair); border: 1px solid var(--rose-bord); color: var(--texte); font-family: var(--inter); border-radius: 4px; transition: border 0.2s; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--rose); background: var(--blanc); }
 
     .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto; }
-    .settings-card { padding: 2rem; background: var(--blanc); border: 1px solid var(--rose-bord); }
-    .settings-card h3 { font-family: var(--bebas); font-size: 1.4rem; color: var(--rose); margin-bottom: 1rem; border-bottom: 1px solid var(--rose-pale); padding-bottom: 0.3rem; }
+    .settings-card { padding: 2rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; }
+    .settings-card h3 { font-family: var(--bebas); font-size: 1.5rem; color: var(--rose); margin-bottom: 1.25rem; border-bottom: 1px solid var(--rose-pale); padding-bottom: 0.4rem; letter-spacing: 0.01em; }
     .toggle-switch { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; }
 
     /* ═══════════════════════════════════════════════════════════════
        PAGE : PANEL ADMIN UNIVERSEL
     ═══════════════════════════════════════════════════════════════ */
     .admin-sections-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; padding: 2rem 0; }
-    .admin-block { border: 1px solid var(--rose-bord); padding: 1.5rem; background: var(--blanc); }
-    .admin-block h3 { font-family: var(--bebas); font-size: 1.5rem; margin-bottom: 1rem; color: var(--rose); border-bottom: 1px solid var(--rose-pale); padding-bottom: 0.3rem; }
+    .admin-block { border: 1px solid var(--rose-bord); padding: 1.75rem; background: var(--blanc); box-shadow: var(--card-shadow); border-radius: 6px; }
+    .admin-block h3 { font-family: var(--bebas); font-size: 1.5rem; margin-bottom: 1.25rem; color: var(--rose); border-bottom: 1px solid var(--rose-pale); padding-bottom: 0.4rem; }
     .admin-scroll-list { max-height: 200px; overflow-y: auto; border: 1px solid var(--rose-bord); padding: 0.5rem; margin-bottom: 1rem; background: var(--gris-clair); }
-    .admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem; border-bottom: 1px solid var(--rose-mid); font-size: 0.8rem; }
+    .admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; border-bottom: 1px solid var(--rose-mid); font-size: 0.8rem; }
     .admin-list-item:last-child { border-bottom: none; }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -262,14 +325,15 @@
     footer { background: var(--gris-clair); padding: 4rem; display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 3rem; border-top: 1px solid var(--rose-bord); }
     .footer-brand-name { font-family: var(--bebas); font-size: 1.7rem; color: var(--texte); }
     .footer-brand-name span { color: var(--rose); }
-    .footer-bottom { background: var(--rose-pale); padding: 1.25rem 4rem; display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--texte-sec); }
+    .footer-bottom { background: var(--rose-pale); padding: 1.25rem 4rem; display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--texte-sec); border-top: 1px solid var(--rose-bord); }
 
     @media(max-width: 768px) {
       nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
       footer { grid-template-columns: 1fr; gap: 2rem; }
-      .match-card { grid-template-columns: 1fr; text-align: center; }
+      .match-card { grid-template-columns: 1fr; text-align: center; gap: 1rem; padding: 1.5rem; }
+      .match-vs { justify-self: center; }
     }
   </style>
 </head>
@@ -297,12 +361,12 @@
 
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
-    <a onclick="showPage('accueil'); toggleMobileMenu()">Club</a>
-    <a onclick="showPage('actualites'); toggleMobileMenu()">Actualités</a>
-    <a onclick="showPage('billetterie'); toggleMobileMenu()">Billetterie</a>
-    <a onclick="showPage('boutique'); toggleMobileMenu()">Boutique</a>
-    <a onclick="showPage('compte'); toggleMobileMenu()">Mon Compte</a>
-    <a onclick="showPage('parametres'); toggleMobileMenu()">Paramètres</a>
+    <a id="mob-link-club" onclick="showPage('accueil'); toggleMobileMenu()">Club</a>
+    <a id="mob-link-actu" onclick="showPage('actualites'); toggleMobileMenu()">Actualités</a>
+    <a id="mob-link-bill" onclick="showPage('billetterie'); toggleMobileMenu()">Billetterie</a>
+    <a id="mob-link-bout" onclick="showPage('boutique'); toggleMobileMenu()">Boutique</a>
+    <a id="mob-link-comp" onclick="showPage('compte'); toggleMobileMenu()">Mon Compte</a>
+    <a id="mob-link-para" onclick="showPage('parametres'); toggleMobileMenu()">Paramètres</a>
     <a id="mobile-admin-link" onclick="showPage('admin'); toggleMobileMenu()" style="display:none; color:var(--rose);">Panel Admin</a>
   </div>
 
@@ -316,11 +380,11 @@
       <h1 class="hero-title" id="hero-title-text">Plus qu'un club, une <em>légende</em> en rose et blanc.</h1>
       <p class="hero-sub" id="hero-sub-text">Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.</p>
       <div class="hero-actions">
-        <button class="btn-primary" onclick="showPage('billetterie')">Réserver un billet</button>
-        <button class="btn-ghost" onclick="document.getElementById('effectif-sec').scrollIntoView()">Découvrir l'effectif</button>
+        <button class="btn-primary" id="hero-btn-ticket" onclick="showPage('billetterie')">Réserver un billet</button>
+        <button class="btn-ghost" id="hero-btn-eff" onclick="document.getElementById('effectif-sec').scrollIntoView()">Découvrir l'effectif</button>
       </div>
       <div class="hero-stats">
-        <div><div class="hero-stat-num" id="hero-stat-year-val">2005</div><div class="hero-stat-label">Année de création</div></div>
+        <div><div class="hero-stat-num" id="hero-stat-year-val">2005</div><div class="hero-stat-label" id="hero-stat-lbl-year">Année de création</div></div>
       </div>
     </div>
 
@@ -328,33 +392,33 @@
     <div id="effectif-sec" class="sec">
       <div class="effectif-intro">
         <div>
-          <p class="section-eyebrow">Saison Globale</p>
-          <h2 class="section-title">L'Effectif Pro</h2>
+          <p class="section-eyebrow" id="eff-eyebrow">Saison Globale</p>
+          <h2 class="section-title" id="eff-title">L'Effectif Pro</h2>
           <div class="rule-red"></div>
         </div>
         <div class="effectif-numbers">
-          <div><div class="eff-num" id="eff-total-count">24</div><div class="eff-label">Joueurs Pro</div></div>
-          <div><div class="eff-num">1</div><div class="eff-label">Objectif : Gagner</div></div>
+          <div><div class="eff-num" id="eff-total-count">24</div><div class="eff-label" id="eff-lbl-players">Joueurs Pro</div></div>
+          <div><div class="eff-num" id="eff-goal-num">1</div><div class="eff-label" id="eff-lbl-goal">Objectif : Gagner</div></div>
         </div>
       </div>
 
-      <div class="poste-header">Gardiens (G)</div>
+      <div class="poste-header" id="header-g">Gardiens (G)</div>
       <div class="joueurs-grid" id="grid-gardiens"></div>
 
-      <div class="poste-header">Défenseurs (D)</div>
+      <div class="poste-header" id="header-d">Défenseurs (D)</div>
       <div class="joueurs-grid" id="grid-defenseurs"></div>
 
-      <div class="poste-header">Milieux (M)</div>
+      <div class="poste-header" id="header-m">Milieux (M)</div>
       <div class="joueurs-grid" id="grid-milieux"></div>
 
-      <div class="poste-header">Attaquants (A)</div>
+      <div class="poste-header" id="header-a">Attaquants (A)</div>
       <div class="joueurs-grid" id="grid-attaquants"></div>
     </div>
 
     <!-- HISTOIRE / TIMELINE -->
     <div class="sec sec-alt">
-      <p class="section-eyebrow">Récit</p>
-      <h2 class="section-title">Notre Histoire</h2>
+      <p class="section-eyebrow" id="hist-eyebrow">Récit</p>
+      <h2 class="section-title" id="hist-title">Notre Histoire</h2>
       <div class="rule-red"></div>
       <div class="timeline" id="timeline-container"></div>
     </div>
@@ -362,27 +426,31 @@
 
   <!-- PAGE: ACTUALITÉS -->
   <div id="page-actualites" class="page">
-    <div class="news-hero">
-      <p class="section-eyebrow">Média</p>
-      <h2 class="section-title">Actualités & Presse</h2>
+    <div class="premium-header">
+      <p class="section-eyebrow" id="news-eyebrow">Média</p>
+      <h2 class="section-title" id="news-title">Actualités & <em>Presse</em></h2>
     </div>
-    <div class="news-grid sec" id="news-container"></div>
+    <div class="sec">
+      <div class="news-grid" id="news-container"></div>
+    </div>
   </div>
 
   <!-- PAGE: BILLETTERIE -->
   <div id="page-billetterie" class="page">
-    <div class="bill-hero">
-      <p class="section-eyebrow">Matchs</p>
-      <h2 class="section-title">Billetterie Officielle</h2>
+    <div class="premium-header">
+      <p class="section-eyebrow" id="bill-eyebrow">Matchs</p>
+      <h2 class="section-title" id="bill-title">Billetterie <em>Officielle</em></h2>
     </div>
-    <div class="sec" id="matchs-container"></div>
+    <div class="sec">
+      <div class="match-container-box" id="matchs-container"></div>
+    </div>
   </div>
 
   <!-- PAGE: BOUTIQUE -->
   <div id="page-boutique" class="page">
-    <div class="news-hero">
-      <p class="section-eyebrow">Look</p>
-      <h2 class="section-title">La Boutique Pro</h2>
+    <div class="premium-header">
+      <p class="section-eyebrow" id="shop-eyebrow">Look</p>
+      <h2 class="section-title" id="shop-title">La Boutique <em>Pro</em></h2>
     </div>
     <div class="sec">
       <div class="shop-grid" id="boutique-container"></div>
@@ -395,12 +463,12 @@
   </button>
   <div class="cart-panel" id="cartPanel">
     <div style="padding:1.5rem; border-bottom:1px solid var(--rose-bord); display:flex; justify-content:space-between; align-items:center;">
-      <h3 style="font-family:var(--bebas); font-size:1.4rem;">Votre Panier</h3>
+      <h3 style="font-family:var(--bebas); font-size:1.4rem;" id="cart-title">Votre Panier</h3>
       <button onclick="toggleCartPanel(false)" style="background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--texte);">✕</button>
     </div>
     <div class="cart-items" id="cartItemsContainer"></div>
     <div style="padding:1.5rem; border-top:1px solid var(--rose-bord);">
-      <button class="btn-primary" style="width:100%;" onclick="alert('Commande validée !')">Passer la commande</button>
+      <button class="btn-primary" style="width:100%;" id="cart-btn-checkout" onclick="alert('Commande validée !')">Passer la commande</button>
     </div>
   </div>
 
@@ -412,13 +480,17 @@
         <button class="auth-tab" id="tab-register" onclick="setAuthMode('register')">Créer un compte</button>
         <button class="auth-tab" id="tab-admin" onclick="setAuthMode('admin')">Staff Admin</button>
       </div>
+      
+      <!-- Banner indicating registration is locked -->
+      <div class="unavailable-banner" id="reg-lock-banner">Création de compte indisponible pour le moment</div>
+      
       <form id="auth-form" onsubmit="handleAuth(event)">
         <div class="form-group">
           <label id="label-identifiant" for="auth-email">Adresse Email</label>
           <input type="text" id="auth-email" required />
         </div>
         <div class="form-group">
-          <label for="auth-password">Mot de passe</label>
+          <label id="label-password" for="auth-password">Mot de passe</label>
           <input type="password" id="auth-password" required />
         </div>
         <button type="submit" class="btn-primary" style="width:100%; margin-top:0.5rem;" id="auth-submit-btn">Se connecter</button>
@@ -427,26 +499,26 @@
     </div>
   </div>
 
-  <!-- PAGE: PARAMÈTRES (COMPLETS) -->
+  <!-- PAGE: PARAMÈTRES -->
   <div id="page-parametres" class="page">
     <div class="sec">
-      <p class="section-eyebrow">Préférences</p>
-      <h2 class="section-title">Configuration du Site</h2>
+      <p class="section-eyebrow" id="param-eyebrow">Préférences</p>
+      <h2 class="section-title" id="param-title">Configuration du Site</h2>
       <div class="rule-red"></div>
       <div class="settings-grid">
         
         <div class="settings-card">
-          <h3>Affichage Général</h3>
+          <h3 id="setting-h-display">Affichage Général</h3>
           <div class="toggle-switch">
-            <span>Mode Sombre (Dark Mode)</span>
+            <span id="setting-lbl-dark">Mode Sombre (Dark Mode)</span>
             <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode(this.checked)" style="width:40px; height:20px; cursor:pointer;" />
           </div>
         </div>
 
         <div class="settings-card">
-          <h3>Langue de l'interface</h3>
+          <h3 id="setting-h-lang">Langue de l'interface</h3>
           <div class="form-group" style="margin-top:0.5rem;">
-            <select id="setting-lang" onchange="alert('Langue modifiée avec succès ! (Simulation)')">
+            <select id="setting-lang" onchange="changeLanguage(this.value)">
               <option value="fr">Français (FR)</option>
               <option value="en">English (UK)</option>
               <option value="es">Español (ES)</option>
@@ -455,31 +527,31 @@
         </div>
 
         <div class="settings-card">
-          <h3>Système & Notifications</h3>
+          <h3 id="setting-h-notif">Système & Notifications</h3>
           <div class="toggle-switch">
-            <span>Alertes de Billetterie</span>
-            <input type="checkbox" checked onclick="alert('Préférences de notifications mises à jour.')" style="width:40px; height:20px;" />
+            <span id="setting-lbl-notif1">Alertes de Billetterie</span>
+            <input type="checkbox" checked onclick="alert('Notification alert updated')" style="width:40px; height:20px;" />
           </div>
           <div class="toggle-switch" style="margin-top:0.5rem;">
-            <span>Newsletters Boutique</span>
-            <input type="checkbox" onclick="alert('Préférences de newsletters mises à jour.')" style="width:40px; height:20px;" />
+            <span id="setting-lbl-notif2">Newsletters Boutique</span>
+            <input type="checkbox" onclick="alert('Newsletter alert updated')" style="width:40px; height:20px;" />
           </div>
         </div>
 
         <div class="settings-card">
-          <h3>Accessibilité</h3>
-          <label style="font-size:0.8rem; color:var(--texte-sec);">Taille globale de la police :</label>
+          <h3 id="setting-h-access">Accessibilité</h3>
+          <label style="font-size:0.8rem; color:var(--texte-sec);" id="setting-lbl-font">Taille globale de la police :</label>
           <select onchange="document.documentElement.style.setProperty('--font-modifier', this.value)" style="margin-top:0.5rem;">
-            <option value="100%">Normale (Par défaut)</option>
-            <option value="110%">Grande (+10%)</option>
-            <option value="120%">Très Grande (+20%)</option>
+            <option value="100%" id="opt-font-n">Normale (Par défaut)</option>
+            <option value="110%" id="opt-font-l">Grande (+10%)</option>
+            <option value="120%" id="opt-font-xl">Très Grande (+20%)</option>
           </select>
         </div>
 
         <div class="settings-card">
-          <h3>Données Locales</h3>
-          <p style="font-size:0.75rem; color:var(--texte-sec); margin-bottom:1rem;">Réinitialiser les préférences stockées dans votre navigateur.</p>
-          <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.65rem;" onclick="localStorage.clear(); alert('Cache local vidé ! Rechargez la page.'); location.reload();">Vider le cache système</button>
+          <h3 id="setting-h-cache">Données Locales</h3>
+          <p style="font-size:0.75rem; color:var(--texte-sec); margin-bottom:1rem;" id="setting-lbl-cache">Réinitialiser les préférences stockées dans votre navigateur.</p>
+          <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.65rem;" id="setting-btn-cache" onclick="localStorage.clear(); alert('Cache local vidé ! Rechargez la page.'); location.reload();">Vider le cache système</button>
         </div>
 
       </div>
@@ -489,26 +561,26 @@
   <!-- PANEL ADMIN UNIVERSEL -->
   <div id="page-admin" class="page">
     <div class="sec">
-      <p class="section-eyebrow">Administration Globale</p>
-      <h2 class="section-title">Console Directoire Active</h2>
+      <p class="section-eyebrow" id="adm-eyebrow">Administration Globale</p>
+      <h2 class="section-title" id="adm-title">Console Directoire Active</h2>
       <div class="rule-red"></div>
 
       <div class="admin-sections-grid">
         <!-- MODIFICATION ACCUEIL / HERO -->
         <div class="admin-block">
-          <h3>Modifier la Page d'Accueil & Infos</h3>
-          <div class="form-group"><label>Slogan Marquee</label><input type="text" id="adm-hero-marquee" oninput="updateLiveContent('marquee')" /></div>
-          <div class="form-group"><label>Eyebrow Text</label><input type="text" id="adm-hero-eyebrow" oninput="updateLiveContent('eyebrow')" /></div>
-          <div class="form-group"><label>Titre Principal (HTML supporté)</label><textarea id="adm-hero-title" rows="2" oninput="updateLiveContent('title')"></textarea></div>
-          <div class="form-group"><label>Sous-titre Description</label><textarea id="adm-hero-sub" rows="3" oninput="updateLiveContent('sub')"></textarea></div>
-          <div class="form-group"><label>Année de création du club</label><input type="text" id="adm-creation-year" oninput="updateLiveContent('year')" /></div>
+          <h3 id="adm-h-home">Modifier la Page d'Accueil & Infos</h3>
+          <div class="form-group"><label id="adm-lbl-marq">Slogan Marquee</label><input type="text" id="adm-hero-marquee" oninput="updateLiveContent('marquee')" /></div>
+          <div class="form-group"><label id="adm-lbl-eye">Eyebrow Text</label><input type="text" id="adm-hero-eyebrow" oninput="updateLiveContent('eyebrow')" /></div>
+          <div class="form-group"><label id="adm-lbl-tit">Titre Principal (HTML supporté)</label><textarea id="adm-hero-title" rows="2" oninput="updateLiveContent('title')"></textarea></div>
+          <div class="form-group"><label id="adm-lbl-sub">Sous-titre Description</label><textarea id="adm-hero-sub" rows="3" oninput="updateLiveContent('sub')"></textarea></div>
+          <div class="form-group"><label id="adm-lbl-year">Année de création du club</label><input type="text" id="adm-creation-year" oninput="updateLiveContent('year')" /></div>
         </div>
 
         <!-- MODIFICATION / AJOUT EFFECTIF -->
         <div class="admin-block">
-          <h3>Gérer l'Effectif Pro</h3>
+          <h3 id="adm-h-eff">Gérer l'Effectif Pro</h3>
           <div class="form-group">
-            <label>Poste</label>
+            <label id="adm-lbl-pos">Poste</label>
             <select id="adm-player-poste">
               <option value="gardiens">Gardien</option>
               <option value="defenseurs">Défenseur</option>
@@ -516,57 +588,57 @@
               <option value="attaquants">Attaquant</option>
             </select>
           </div>
-          <div class="form-group"><label>Numéro (#)</label><input type="text" id="adm-player-num" placeholder="Ex: 9" /></div>
-          <div class="form-group"><label>Nom Complet</label><input type="text" id="adm-player-nom" placeholder="Ex: T. Epyneau" /></div>
-          <div class="form-group"><label>Rôle/Poste abrégé</label><input type="text" id="adm-player-role" placeholder="Ex: BU" /></div>
-          <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" onclick="addPlayerPro()">Ajouter le Joueur</button>
+          <div class="form-group"><label id="adm-lbl-pnum">Numéro (#)</label><input type="text" id="adm-player-num" placeholder="Ex: 9" /></div>
+          <div class="form-group"><label id="adm-lbl-pnom">Nom Complet</label><input type="text" id="adm-player-nom" placeholder="Ex: T. Epyneau" /></div>
+          <div class="form-group"><label id="adm-lbl-prole">Rôle/Poste abrégé</label><input type="text" id="adm-player-role" placeholder="Ex: BU" /></div>
+          <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" id="adm-btn-addp" onclick="addPlayerPro()">Ajouter le Joueur</button>
         </div>
 
-        <!-- ÉDITION COMPLÈTE DES ACTUALITÉS EN PLACE (VRAIS ARTICLES) -->
+        <!-- ÉDITION COMPLÈTE DES ACTUALITÉS EN PLACE -->
         <div class="admin-block">
-          <h3>Éditeur d'Articles / Actualités</h3>
+          <h3 id="adm-h-news">Éditeur d'Articles / Actualités</h3>
           <div class="admin-scroll-list" id="adm-news-list"></div>
           <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord);">
             <h4 style="font-size:0.8rem; margin-bottom:0.5rem;" id="article-form-title">Créer / Modifier un Article</h4>
             <input type="hidden" id="admin-news-id" value="" />
-            <div class="form-group"><label>Titre Actu</label><input type="text" id="admin-news-title" /></div>
-            <div class="form-group"><label>Extrait / Corps</label><textarea id="admin-news-excerpt" rows="2"></textarea></div>
-            <div class="form-group"><label>URL Image d'illustration (Optionnel)</label><input type="text" id="admin-news-img" placeholder="https://images..." /></div>
-            <div class="form-group"><label>ID Vidéo YouTube (Optionnel)</label><input type="text" id="admin-news-yt" placeholder="Ex:dQw4w9WgXcQ (ou lien complet)" /></div>
-            <div class="form-group"><label>Date d'affichage</label><input type="text" id="admin-news-date" placeholder="Ex: Juin 2026" /></div>
-            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" onclick="saveNewsPro()">Sauvegarder l'article</button>
-            <button class="btn-ghost" style="font-size:0.65rem; margin-left:0.5rem;" onclick="resetNewsForm()">Annuler / Reset</button>
+            <div class="form-group"><label id="adm-lbl-atit">Titre Actu</label><input type="text" id="admin-news-title" /></div>
+            <div class="form-group"><label id="adm-lbl-abdy">Extrait / Corps</label><textarea id="admin-news-excerpt" rows="2"></textarea></div>
+            <div class="form-group"><label id="adm-lbl-aimg">URL Image d'illustration (Optionnel)</label><input type="text" id="admin-news-img" placeholder="https://images..." /></div>
+            <div class="form-group"><label id="adm-lbl-ayt">ID Vidéo YouTube (Optionnel)</label><input type="text" id="admin-news-yt" placeholder="Ex:dQw4w9WgXcQ" /></div>
+            <div class="form-group"><label id="adm-lbl-adat">Date d'affichage</label><input type="text" id="admin-news-date" placeholder="Ex: Juin 2026" /></div>
+            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" id="adm-btn-saven" onclick="saveNewsPro()">Sauvegarder l'article</button>
+            <button class="btn-ghost" style="font-size:0.65rem; margin-left:0.5rem;" id="adm-btn-resetn" onclick="resetNewsForm()">Annuler / Reset</button>
           </div>
         </div>
 
         <!-- ÉDITION COMPLÈTE DE L'HISTOIRE -->
         <div class="admin-block">
-          <h3>Éditeur de Récits Historiques</h3>
+          <h3 id="adm-h-hist">Éditeur de Récits Historiques</h3>
           <div class="admin-scroll-list" id="adm-hist-list"></div>
           <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord);">
             <h4 style="font-size:0.8rem; margin-bottom:0.5rem;" id="hist-form-title">Nouveau Jalon</h4>
             <input type="hidden" id="admin-hist-id" value="" />
-            <div class="form-group"><label>Année</label><input type="text" id="admin-hist-year" /></div>
-            <div class="form-group"><label>Événement</label><input type="text" id="admin-hist-title" /></div>
-            <div class="form-group"><label>Détails</label><textarea id="admin-hist-detail" rows="2"></textarea></div>
-            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" onclick="saveHistoryPro()">Sauvegarder le jalon</button>
+            <div class="form-group"><label id="adm-lbl-hyear">Année</label><input type="text" id="admin-hist-year" /></div>
+            <div class="form-group"><label id="adm-lbl-htit">Événement</label><input type="text" id="admin-hist-title" /></div>
+            <div class="form-group"><label id="adm-lbl-hdet">Détails</label><textarea id="admin-hist-detail" rows="2"></textarea></div>
+            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" id="adm-btn-saveh" onclick="saveHistoryPro()">Sauvegarder le jalon</button>
           </div>
         </div>
 
         <!-- MODIFICATION BILLETTERIE -->
         <div class="admin-block">
-          <h3>Modifier les Matchs (Billetterie)</h3>
-          <div class="form-group"><label>Équipe Domicile</label><input type="text" id="adm-match-home" value="La Pignouferie FC" /></div>
-          <div class="form-group"><label>Équipe Extérieur</label><input type="text" id="adm-match-away" /></div>
-          <div class="form-group"><label>Date & Heure</label><input type="text" id="adm-match-date" placeholder="Samedi prochain - 20h00" /></div>
-          <div class="form-group"><label>Compétition</label><input type="text" id="adm-match-comp" placeholder="Ligue Majeure" /></div>
-          <div class="form-group"><label>Prix du billet (€)</label><input type="number" id="adm-match-price" value="15" /></div>
-          <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" onclick="updateMatchPro()">Mettre à jour le match</button>
+          <h3 id="adm-h-bill">Modifier les Matchs (Billetterie)</h3>
+          <div class="form-group"><label id="adm-lbl-mhom">Équipe Domicile</label><input type="text" id="adm-match-home" value="La Pignouferie FC" /></div>
+          <div class="form-group"><label id="adm-lbl-mawy">Équipe Extérieur</label><input type="text" id="adm-match-away" /></div>
+          <div class="form-group"><label id="adm-lbl-mdat">Date & Heure</label><input type="text" id="adm-match-date" placeholder="Samedi prochain - 20h00" /></div>
+          <div class="form-group"><label id="adm-lbl-mcmp">Compétition</label><input type="text" id="adm-match-comp" placeholder="Ligue Majeure" /></div>
+          <div class="form-group"><label id="adm-lbl-mprc">Prix du billet (€)</label><input type="number" id="adm-match-price" value="15" /></div>
+          <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" id="adm-btn-savem" onclick="updateMatchPro()">Mettre à jour le match</button>
         </div>
 
         <!-- MODIFICATION BOUTIQUE -->
         <div class="admin-block">
-          <h3>Modifier les Prix Boutique</h3>
+          <h3 id="adm-h-shop">Modifier les Prix Boutique</h3>
           <div id="adm-products-list"></div>
         </div>
       </div>
@@ -578,16 +650,16 @@
   <footer>
     <div>
       <div class="footer-brand-name">PIGNOUFERIE <span id="footer-logo-span">FC</span></div>
-      <p style="font-size:0.8rem; color:var(--texte-sec);">Club mythique fondé en 2005. Performance, excellence et couleur rose affirmeé sur tous les terrains.</p>
+      <p style="font-size:0.8rem; color:var(--texte-sec);" id="footer-desc">Club mythique fondé en 2005. Performance, excellence et couleur rose affirmée sur tous les terrains.</p>
     </div>
     <div>
-      <div class="section-eyebrow" style="margin-bottom:0.5rem;">Navigation</div>
-      <a onclick="showPage('accueil')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;">Club</a>
-      <a onclick="showPage('actualites')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;">Actualités</a>
+      <div class="section-eyebrow" style="margin-bottom:0.5rem;" id="footer-h-nav">Navigation</div>
+      <a onclick="showPage('accueil')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;" id="footer-link-club">Club</a>
+      <a onclick="showPage('actualites')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;" id="footer-link-news">Actualités</a>
     </div>
     <div>
-      <div class="section-eyebrow" style="margin-bottom:0.5rem;">Légal</div>
-      <p style="font-size:0.8rem; color:var(--texte-sec);">Mentions Légales<br>CGV Boutique</p>
+      <div class="section-eyebrow" style="margin-bottom:0.5rem;" id="footer-h-legal">Légal</div>
+      <p style="font-size:0.8rem; color:var(--texte-sec);" id="footer-legal-text">Mentions Légales<br>CGV Boutique</p>
     </div>
   </footer>
   <div class="footer-bottom">
@@ -656,6 +728,59 @@
       { id: 2, type: "accessory", emoji: "🧣", name: "Écharpe Ultras Pignouferie", price: 18 }
     ];
 
+    // ═══════════════════════════════════════════════════════════════
+    // DICTIONNAIRE DE TRADUCTION COMPLÈTE
+    // ═══════════════════════════════════════════════════════════════
+    const translations = {
+      fr: {
+        nav_club: "Club", nav_news: "Actualités", nav_bill: "Billetterie", nav_shop: "Boutique", nav_account: "Mon Compte", nav_param: "Paramètres", nav_admin: "Panel Admin",
+        hero_eyebrow: "Le Site Officiel", hero_title: "Plus qu'un club, une <em>légende</em> en rose et blanc.", hero_sub: "Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.", hero_btn_tkt: "Réserver un billet", hero_btn_eff: "Découvrir l'effectif", hero_stat_lbl: "Année de création",
+        eff_eyebrow: "Saison Globale", eff_title: "L'Effectif Pro", eff_lbl_players: "Joueurs Pro", eff_lbl_goal: "Objectif : Gagner",
+        header_g: "Gardiens (G)", header_d: "Défenseurs (D)", header_m: "Milieux (M)", header_a: "Attaquants (A)",
+        hist_eyebrow: "Récit", hist_title: "Notre Histoire", news_eyebrow: "Média", news_title: "Actualités & <em>Presse</em>",
+        bill_eyebrow: "Matchs", bill_title: "Billetterie <em>Officielle</em>", shop_eyebrow: "Look", shop_title: "La Boutique <em>Pro</em>",
+        cart_title: "Votre Panier", cart_btn_checkout: "Passer la commande", cart_empty: "Votre panier est vide.",
+        tab_login: "Connexion", tab_register: "Créer un compte", tab_admin: "Staff Admin",
+        lbl_email: "Adresse Email", lbl_pwd: "Mot de passe", btn_login: "Se connecter", btn_reg_sub: "Créer mon compte", btn_admin_sub: "Se connecter à l'espace Admin",
+        lbl_admin_id: "Identifiant Secrétariat Admin", reg_locked: "Création de compte indisponible pour le moment",
+        buy_disabled: "Indisponible", add_cart: "Ajouter au panier", param_eyebrow: "Préférences", param_title: "Configuration du Site",
+        set_h_display: "Affichage Général", set_lbl_dark: "Mode Sombre (Dark Mode)", set_h_lang: "Langue de l'interface", set_h_notif: "Système & Notifications", set_lbl_notif1: "Alertes de Billetterie", set_lbl_notif2: "Newsletters Boutique", set_h_access: "Accessibilité", set_lbl_font: "Taille globale de la police :", opt_font_n: "Normale (Par défaut)", opt_font_l: "Grande (+10%)", opt_font_xl: "Très Grande (+20%)", set_h_cache: "Données Locales", set_lbl_cache: "Réinitialiser les préférences stockées dans votre navigateur.", set_btn_cache: "Vider le cache système",
+        adm_eyebrow: "Administration Globale", adm_title: "Console Directoire Active", adm_h_home: "Modifier la Page d'Accueil & Infos", adm_lbl_marq: "Slogan Marquee", adm_lbl_eye: "Eyebrow Text", adm_lbl_tit: "Titre Principal (HTML supporté)", adm_lbl_sub: "Sous-titre Description", adm_lbl_year: "Année de création du club", adm_h_eff: "Gérer l'Effectif Pro", adm_lbl_pos: "Poste", adm_lbl_pnum: "Numéro (#)", adm_lbl_pnom: "Nom Complet", adm_lbl_prole: "Rôle/Poste abrégé", adm_btn_addp: "Ajouter le Joueur", adm_h_news: "Éditeur d'Articles / Actualités", adm_h_hist: "Éditeur de Récits Historiques", adm_h_bill: "Modifier les Matchs (Billetterie)", adm_lbl_mhom: "Équipe Domicile", adm_lbl_mawy: "Équipe Extérieur", adm_lbl_mdat: "Date & Heure", adm_lbl_mcmp: "Compétition", adm_lbl_mprc: "Prix du billet (€)", adm_btn_savem: "Mettre à jour le match", adm_h_shop: "Modifier les Prix Boutique", footer_desc: "Club mythique fondé en 2005. Performance, excellence et couleur rose affirmée sur tous les terrains."
+      },
+      en: {
+        nav_club: "Club", nav_news: "News", nav_bill: "Tickets", nav_shop: "Shop", nav_account: "My Account", nav_param: "Settings", nav_admin: "Admin Panel",
+        hero_eyebrow: "Official Website", hero_title: "More than a club, a <em>legend</em> in pink and white.", hero_sub: "Since 2005, we have been rewriting the lines of top-level football with passion, audacity and incomparable style.", hero_btn_tkt: "Book a ticket", hero_btn_eff: "Discover squad", hero_stat_lbl: "Founded Year",
+        eff_eyebrow: "Global Season", eff_title: "Pro Squad", eff_lbl_players: "Pro Players", eff_lbl_goal: "Goal: To Win",
+        header_g: "Goalkeepers (GK)", header_d: "Defenders (DF)", header_m: "Midfielders (MF)", header_a: "Forwards (FW)",
+        hist_eyebrow: "Story", hist_title: "Our History", news_eyebrow: "Media", news_title: "News & <em>Press</em>",
+        bill_eyebrow: "Matches", bill_title: "Official <em>Ticketing</em>", shop_eyebrow: "Look", shop_title: "Pro <em>Shop</em>",
+        cart_title: "Your Cart", cart_btn_checkout: "Checkout", cart_empty: "Your cart is empty.",
+        tab_login: "Login", tab_register: "Register", tab_admin: "Admin Staff",
+        lbl_email: "Email Address", lbl_pwd: "Password", btn_login: "Sign In", btn_reg_sub: "Create Account", btn_admin_sub: "Login to Admin Space",
+        lbl_admin_id: "Admin Username", reg_locked: "Account creation is currently unavailable",
+        buy_disabled: "Unavailable", add_cart: "Add to cart", param_eyebrow: "Preferences", param_title: "Site Configuration",
+        set_h_display: "General Display", set_lbl_dark: "Dark Mode", set_h_lang: "Interface Language", set_h_notif: "System & Notifications", set_lbl_notif1: "Ticketing Alerts", set_lbl_notif2: "Shop Newsletters", set_h_access: "Accessibility", set_lbl_font: "Global font size:", opt_font_n: "Normal (Default)", opt_font_l: "Large (+10%)", opt_font_xl: "Extra Large (+20%)", set_h_cache: "Local Data", set_lbl_cache: "Reset stored preferences in your browser.", set_btn_cache: "Clear system cache",
+        adm_eyebrow: "Global Administration", adm_title: "Active Directorate Console", adm_h_home: "Modify Home Page & Info", adm_lbl_marq: "Marquee Slogan", adm_lbl_eye: "Eyebrow Text", adm_lbl_tit: "Main Title (HTML supported)", adm_lbl_sub: "Subtitle Description", adm_lbl_year: "Club Founding Year", adm_h_eff: "Manage Pro Squad", adm_lbl_pos: "Position", adm_lbl_pnum: "Number (#)", adm_lbl_pnom: "Full Name", adm_lbl_prole: "Short Role/Pos", adm_btn_addp: "Add Player", adm_h_news: "Articles / News Editor", adm_h_hist: "Historical Milestone Editor", adm_h_bill: "Modify Matches (Ticketing)", adm_lbl_mhom: "Home Team", adm_lbl_mawy: "Away Team", adm_lbl_mdat: "Date & Time", adm_lbl_mcmp: "Competition", adm_lbl_mprc: "Ticket Price (€)", adm_btn_savem: "Update Match Data", adm_h_shop: "Modify Shop Prices", footer_desc: "Mythic club founded in 2005. Performance, excellence and bold pink color asserted on all pitches."
+      },
+      es: {
+        nav_club: "Club", nav_news: "Noticias", nav_bill: "Entradas", nav_shop: "Tienda", nav_account: "Mi Cuenta", nav_param: "Ajustes", nav_admin: "Panel Admin",
+        hero_eyebrow: "Sitio Web Oficial", hero_title: "Más que un club, una <em>leyenda</em> en rosa y blanco.", hero_sub: "Desde 2005, reescribimos las líneas del fútbol de alto nivel con pasión, audacia y un estilo incomparable.", hero_btn_tkt: "Reservar entrada", hero_btn_eff: "Descubrir la plantilla", hero_stat_lbl: "Año de fundación",
+        eff_eyebrow: "Temporada Global", eff_title: "Plantilla Pro", eff_lbl_players: "Jugadores Pro", eff_lbl_goal: "Objetivo: Ganar",
+        header_g: "Porteros (POR)", header_d: "Defensas (DEF)", header_m: "Centrocampistas (MED)", header_a: "Delanteros (DEL)",
+        hist_eyebrow: "Relato", hist_title: "Nuestra Historia", news_eyebrow: "Medios", news_title: "Noticias & <em>Prensa</em>",
+        bill_eyebrow: "Partidos", bill_title: "Taquilla <em>Oficial</em>", shop_eyebrow: "Estilo", shop_title: "Tienda <em>Pro</em>",
+        cart_title: "Su Carrito", cart_btn_checkout: "Tramitar Pedido", cart_empty: "Su carrito está vacío.",
+        tab_login: "Conexión", tab_register: "Crear cuenta", tab_admin: "Personal Admin",
+        lbl_email: "Correo Electrónico", lbl_pwd: "Contraseña", btn_login: "Iniciar Sesión", btn_reg_sub: "Crear mi cuenta", btn_admin_sub: "Iniciar sesión como Admin",
+        lbl_admin_id: "Usuario de Administración", reg_locked: "Creación de cuenta no disponible por el momento",
+        buy_disabled: "No disponible", add_cart: "Añadir al carrito", param_eyebrow: "Preferencias", param_title: "Configuración del Sitio",
+        set_h_display: "Pantalla General", set_lbl_dark: "Modo Oscuro (Dark Mode)", set_h_lang: "Idioma de la Interfaz", set_h_notif: "Sistema y Notificaciones", set_lbl_notif1: "Alertas de Entradas", set_lbl_notif2: "Boletines de Tienda", set_h_access: "Accesibilidad", set_lbl_font: "Tamaño de fuente global:", opt_font_n: "Normal (Por defecto)", opt_font_l: "Grande (+10%)", opt_font_xl: "Muy Grande (+20%)", set_h_cache: "Datos Locales", set_lbl_cache: "Restablecer las preferencias almacenadas en su navegador.", set_btn_cache: "Borrar caché del sistema",
+        adm_eyebrow: "Administración Global", adm_title: "Consola de la Directiva Activa", adm_h_home: "Modificar Página de Inicio e Info", adm_lbl_marq: "Eslogan de Marquee", adm_lbl_eye: "Texto de Eyebrow", adm_lbl_tit: "Título Principal (Soporta HTML)", adm_lbl_sub: "Descripción de Subtítulo", adm_lbl_year: "Año de Fundación del Club", adm_h_eff: "Gestionar Plantilla Pro", adm_lbl_pos: "Puesto", adm_lbl_pnum: "Número (#)", adm_lbl_pnom: "Nombre Completo", adm_lbl_prole: "Rol/Puesto Abreviado", adm_btn_addp: "Añadir Jugador", adm_h_news: "Editor de Artículos / Noticias", adm_h_hist: "Editor de Hitos Históricos", adm_h_bill: "Modificar Partidos (Taquilla)", adm_lbl_mhom: "Equipo Local", adm_lbl_mawy: "Equipo Visitante", adm_lbl_mdat: "Fecha y Hora", adm_lbl_mcmp: "Competición", adm_lbl_mprc: "Precio de Entrada (€)", adm_btn_savem: "Actualizar Partido", adm_h_shop: "Modificar Precios de Tienda", footer_desc: "Club mítico fundado en 2005. Rendimiento, excelencia y audaz color rosa afirmado en todos los campos."
+      }
+    };
+
+    let currentLang = 'fr';
+
     let panier = [];
     let currentAuthMode = 'login';
     let isAdminLoggedIn = false;
@@ -673,7 +798,131 @@
         document.getElementById('dark-mode-toggle').checked = true;
         toggleDarkMode(true);
       }
+      applyLanguage(currentLang);
     };
+
+    function changeLanguage(lang) {
+      currentLang = lang;
+      applyLanguage(lang);
+      alert(lang === 'fr' ? 'Langue modifiée avec succès !' : lang === 'en' ? 'Language successfully changed!' : '¡Idioma cambiado con éxito!');
+    }
+
+    function applyLanguage(lang) {
+      const d = translations[lang];
+      
+      // Navbar & Links
+      document.getElementById('link-accueil').innerText = d.nav_club;
+      document.getElementById('link-actualites').innerText = d.nav_news;
+      document.getElementById('link-billetterie').innerText = d.nav_bill;
+      document.getElementById('link-boutique').innerText = d.nav_shop;
+      document.getElementById('link-compte').innerText = d.nav_account;
+      document.getElementById('link-parametres').innerText = d.nav_param;
+      document.getElementById('link-admin').innerText = d.nav_admin;
+      
+      // Mobile Links
+      document.getElementById('mob-link-club').innerText = d.nav_club;
+      document.getElementById('mob-link-actu').innerText = d.nav_news;
+      document.getElementById('mob-link-bill').innerText = d.nav_bill;
+      document.getElementById('mob-link-bout').innerText = d.nav_shop;
+      document.getElementById('mob-link-comp').innerText = d.nav_account;
+      document.getElementById('mob-link-para').innerText = d.nav_param;
+      document.getElementById('mobile-admin-link').innerText = d.nav_admin;
+
+      // Welcome Page / Hero
+      document.getElementById('hero-eyebrow-text').innerText = d.hero_eyebrow;
+      document.getElementById('hero-title-text').innerHTML = d.hero_title;
+      document.getElementById('hero-sub-text').innerText = d.hero_sub;
+      document.getElementById('hero-btn-ticket').innerText = d.hero_btn_tkt;
+      document.getElementById('hero-btn-eff').innerText = d.hero_btn_eff;
+      document.getElementById('hero-stat-lbl').innerText = d.hero_stat_lbl;
+
+      // Effectif Section
+      document.getElementById('eff-eyebrow').innerText = d.eff_eyebrow;
+      document.getElementById('eff-title').innerText = d.eff_title;
+      document.getElementById('eff-lbl-players').innerText = d.eff_lbl_players;
+      document.getElementById('eff-lbl-goal').innerText = d.eff_lbl_goal;
+      document.getElementById('header-g').innerText = d.header_g;
+      document.getElementById('header-d').innerText = d.header_d;
+      document.getElementById('header-m').innerText = d.header_m;
+      document.getElementById('header-a').innerText = d.header_a;
+
+      // Stories / News / Bill / Shop Headers
+      document.getElementById('hist-eyebrow').innerText = d.hist_eyebrow;
+      document.getElementById('hist-title').innerText = d.hist_title;
+      document.getElementById('news-eyebrow').innerText = d.news_eyebrow;
+      document.getElementById('news-title').innerHTML = d.news_title;
+      document.getElementById('bill-eyebrow').innerText = d.bill_eyebrow;
+      document.getElementById('bill-title').innerHTML = d.bill_title;
+      document.getElementById('shop-eyebrow').innerText = d.shop_eyebrow;
+      document.getElementById('shop-title').innerHTML = d.shop_title;
+
+      // Cart panel
+      document.getElementById('cart-title').innerText = d.cart_title;
+      document.getElementById('cart-btn-checkout').innerText = d.cart_btn_checkout;
+
+      // Auth view (tabs & active submission)
+      document.getElementById('tab-login').innerText = d.tab_login;
+      document.getElementById('tab-register').innerText = d.tab_register;
+      document.getElementById('tab-admin').innerText = d.tab_admin;
+      document.getElementById('reg-lock-banner').innerText = d.reg_locked;
+      setAuthMode(currentAuthMode);
+
+      // Settings
+      document.getElementById('param-eyebrow').innerText = d.param_eyebrow;
+      document.getElementById('param-title').innerText = d.param_title;
+      document.getElementById('setting-h-display').innerText = d.set_h_display;
+      document.getElementById('setting-lbl-dark').innerText = d.set_lbl_dark;
+      document.getElementById('setting-h-lang').innerText = d.set_h_lang;
+      document.getElementById('setting-h-notif').innerText = d.set_h_notif;
+      document.getElementById('setting-lbl-notif1').innerText = d.set_lbl_notif1;
+      document.getElementById('setting-lbl-notif2').innerText = d.set_lbl_notif2;
+      document.getElementById('setting-h-access').innerText = d.set_h_access;
+      document.getElementById('setting-lbl-font').innerText = d.set_lbl_font;
+      document.getElementById('opt-font-n').innerText = d.opt_font_n;
+      document.getElementById('opt-font-l').innerText = d.opt_font_l;
+      document.getElementById('opt-font-xl').innerText = d.opt_font_xl;
+      document.getElementById('setting-h-cache').innerText = d.set_h_cache;
+      document.getElementById('setting-lbl-cache').innerText = d.set_lbl_cache;
+      document.getElementById('setting-btn-cache').innerText = d.set_btn_cache;
+
+      // Administration Console
+      document.getElementById('adm-eyebrow').innerText = d.adm_eyebrow;
+      document.getElementById('adm-title').innerText = d.adm_title;
+      document.getElementById('adm-h-home').innerText = d.adm_h_home;
+      document.getElementById('adm-lbl-marq').innerText = d.adm_lbl_marq;
+      document.getElementById('adm-lbl-eye').innerText = d.adm_lbl_eye;
+      document.getElementById('adm-lbl-tit').innerText = d.adm_lbl_tit;
+      document.getElementById('adm-lbl-sub').innerText = d.adm_lbl_sub;
+      document.getElementById('adm-lbl-year').innerText = d.adm_lbl_year;
+      document.getElementById('adm-h-eff').innerText = d.adm_h_eff;
+      document.getElementById('adm-lbl-pos').innerText = d.adm_lbl_pos;
+      document.getElementById('adm-lbl-pnum').innerText = d.adm_lbl_pnum;
+      document.getElementById('adm-lbl-pnom').innerText = d.adm_lbl_pnom;
+      document.getElementById('adm-lbl-prole').innerText = d.adm_lbl_prole;
+      document.getElementById('adm-btn-addp').innerText = d.adm_btn_addp;
+      document.getElementById('adm-h-news').innerText = d.adm_h_news;
+      document.getElementById('adm-h-hist').innerText = d.adm_h_hist;
+      document.getElementById('adm-h-bill').innerText = d.adm_h_bill;
+      document.getElementById('adm-lbl-mhom').innerText = d.adm_lbl_mhom;
+      document.getElementById('adm-lbl-mawy').innerText = d.adm_lbl_mawy;
+      document.getElementById('adm-lbl-mdat').innerText = d.adm_lbl_mdat;
+      document.getElementById('adm-lbl-mcmp').innerText = d.adm_lbl_mcmp;
+      document.getElementById('adm-lbl-mprc').innerText = d.adm_lbl_mprc;
+      document.getElementById('adm-btn-savem').innerText = d.adm_btn_savem;
+      document.getElementById('adm-h-shop').innerText = d.adm_h_shop;
+
+      // Footer
+      document.getElementById('footer-desc').innerText = d.footer_desc;
+      document.getElementById('footer-h-nav').innerText = d.footer_h_nav;
+      document.getElementById('footer-link-club').innerText = d.nav_club;
+      document.getElementById('footer-link-news').innerText = d.nav_news;
+      document.getElementById('footer-h-legal').innerText = d.footer_h_legal;
+
+      // Re-renders items carrying dynamic context buttons
+      renderMatchs();
+      renderBoutique();
+      updateCartPanel();
+    }
 
     function showPage(pageId) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -743,7 +992,6 @@
         `;
       }).join('');
 
-      // Refresh management list inside admin panel
       document.getElementById('adm-news-list').innerHTML = actualites.map((a, index) => `
         <div class="admin-list-item">
           <span>${a.title} (${a.date})</span>
@@ -761,7 +1009,6 @@
           <button class="admin-action-btn admin-del" onclick="deleteHistoryPro(${index})">✕</button>
           <button class="admin-action-btn admin-edit" onclick="editHistoryPro(${index})">Éditer</button>
           <div class="tl-year">${h.year}</div>
-          <div class="tl-line"></div>
           <div>
             <div class="tl-event">${h.event}</div>
             <div class="tl-detail">${h.detail}</div>
@@ -780,23 +1027,25 @@
     }
 
     function renderMatchs() {
+      const btnText = translations[currentLang].buy_disabled;
       document.getElementById('matchs-container').innerHTML = `
         <div class="match-card">
-          <div>
+          <div class="match-team-side">
             <div class="match-home">${matchData.home}</div>
             <div class="match-away">${matchData.away}</div>
           </div>
           <div class="match-vs">${matchData.vs}</div>
-          <div>
+          <div class="match-details-side">
             <div class="match-date">${matchData.date}</div>
             <div class="match-comp">${matchData.comp}</div>
           </div>
-          <button class="match-ticket" onclick="alert('Billet réservé !')">Acheter — ${matchData.price}€</button>
+          <button class="match-ticket btn-disabled" disabled onclick="return false;">${btnText} — ${matchData.price}€</button>
         </div>
       `;
     }
 
     function renderBoutique() {
+      const btnText = translations[currentLang].buy_disabled;
       document.getElementById('boutique-container').innerHTML = boutiqueProduits.map(p => {
         if(p.type === 'jersey') {
           return `
@@ -811,7 +1060,7 @@
               </div>
               <div class="product-name">${p.name}</div>
               <div class="product-price">${p.price.toFixed(2)} €</div>
-              <button class="btn-primary" onclick="addToCart('${p.name}', ${p.price})">Ajouter au panier</button>
+              <button class="btn-primary btn-disabled" disabled onclick="return false;">${btnText}</button>
             </div>
           `;
         } else {
@@ -820,7 +1069,7 @@
               <div class="jersey-container" style="font-size:3rem;">${p.emoji}</div>
               <div class="product-name">${p.name}</div>
               <div class="product-price">${p.price.toFixed(2)} €</div>
-              <button class="btn-primary" onclick="addToCart('${p.name}', ${p.price})">Ajouter au panier</button>
+              <button class="btn-primary btn-disabled" disabled onclick="return false;">${btnText}</button>
             </div>
           `;
         }
@@ -846,22 +1095,50 @@
 
     function setAuthMode(mode) {
       currentAuthMode = mode;
+      const d = translations[currentLang];
+      
       document.getElementById('tab-login').classList.toggle('active', mode === 'login');
       document.getElementById('tab-register').classList.toggle('active', mode === 'register');
       document.getElementById('tab-admin').classList.toggle('active', mode === 'admin');
       
       const labelIdentifiant = document.getElementById('label-identifiant');
+      const banner = document.getElementById('reg-lock-banner');
+      const inputEmail = document.getElementById('auth-email');
+      const inputPass = document.getElementById('auth-password');
+      const submitBtn = document.getElementById('auth-submit-btn');
+
+      // Default re-activations
+      inputEmail.disabled = false;
+      inputPass.disabled = false;
+      submitBtn.removeAttribute('disabled');
+      submitBtn.classList.remove('btn-disabled');
+      banner.style.display = "none";
+
       if (mode === 'admin') {
-        labelIdentifiant.innerText = "Identifiant Secrétariat Admin";
-        document.getElementById('auth-submit-btn').innerText = 'Se connecter à l\'espace Admin';
+        labelIdentifiant.innerText = d.lbl_admin_id;
+        submitBtn.innerText = d.btn_admin_sub;
+      } else if(mode === 'register') {
+        labelIdentifiant.innerText = d.lbl_email;
+        submitBtn.innerText = d.btn_reg_sub;
+        
+        // Locking Registration fields & buttons as requested
+        banner.style.display = "block";
+        inputEmail.disabled = true;
+        inputPass.disabled = true;
+        submitBtn.setAttribute('disabled', 'true');
+        submitBtn.classList.add('btn-disabled');
       } else {
-        labelIdentifiant.innerText = "Adresse Email";
-        document.getElementById('auth-submit-btn').innerText = mode === 'login' ? 'Se connecter' : 'Créer mon compte';
+        labelIdentifiant.innerText = d.lbl_email;
+        submitBtn.innerText = d.btn_login;
       }
+      
+      document.getElementById('label-password').innerText = d.lbl_pwd;
     }
 
     function handleAuth(e) {
       e.preventDefault();
+      if(currentAuthMode === 'register') return false;
+      
       const identifiant = document.getElementById('auth-email').value;
       const mdp = document.getElementById('auth-password').value;
 
@@ -883,10 +1160,7 @@
     }
 
     function addToCart(name, price) {
-      panier.push({ name, price });
-      document.getElementById('cartCount').innerText = panier.length;
-      document.getElementById('cartBubble').classList.add('show');
-      updateCartPanel();
+      // Intentionally bypassed due to lock requirements, but kept structures valid
     }
 
     function toggleCartPanel(open) {
@@ -896,7 +1170,7 @@
     function updateCartPanel() {
       const container = document.getElementById('cartItemsContainer');
       if(panier.length === 0) {
-        container.innerHTML = '<p style="color:var(--texte-sec);">Votre panier est vide.</p>';
+        container.innerHTML = `<p style="color:var(--texte-sec);">${translations[currentLang].cart_empty}</p>`;
         return;
       }
       container.innerHTML = panier.map(item => `
@@ -907,9 +1181,6 @@
       `).join('');
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    // CONSOLE DE MODIFICATION EN DIRECT (ADMIN)
-    // ═══════════════════════════════════════════════════════════════
     function initAdminInputs() {
       document.getElementById('adm-hero-marquee').value = "PIGNOUFERIE FC • PIGNOUFERIE FC •";
       document.getElementById('adm-hero-eyebrow').value = "Le Site Officiel";
@@ -950,7 +1221,6 @@
       }
     }
 
-    // EDITION VRAI ARTICLE ACTUS
     function saveNewsPro() {
       const id = document.getElementById('admin-news-id').value;
       const title = document.getElementById('admin-news-title').value;
@@ -1001,7 +1271,6 @@
       }
     }
 
-    // ÉDITION HISTOIRE
     function saveHistoryPro() {
       const id = document.getElementById('admin-hist-id').value;
       const year = document.getElementById('admin-hist-year').value;
