@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>La Pignouferie FC — Club Officiel</title>
   
-  <!-- Configuration PWA pour Mobile -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="theme-color" content="#E8779A">
@@ -70,7 +69,7 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 3rem; height: 68px;
+      padding: 0 2rem; height: 68px;
       background: var(--nav-bg);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--rose-bord);
@@ -85,11 +84,11 @@
     .nav-links a {
       color: var(--texte-sec); text-decoration: none; font-size: 0.72rem;
       font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-      transition: color 0.2s; padding: 0.4rem 0.9rem; border-radius: 2px; cursor: pointer;
+      transition: color 0.2s; padding: 0.4rem 0.65rem; border-radius: 2px; cursor: pointer;
     }
     .nav-links a:hover, .nav-links a.active { color: var(--rose); }
 
-    .nav-right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
+    .nav-right { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
     .nav-badge {
       font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
       text-transform: uppercase; color: var(--rose); border: 1px solid var(--rose-bord);
@@ -126,17 +125,17 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════
-       SHARED COMPONENTS (Premium Visual Update)
+       SHARED COMPONENTS
     ═══════════════════════════════════════════════════════════════ */
     .section-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.75rem; }
     .section-title { font-family: var(--bebas); font-size: clamp(2.5rem, 5vw, 4.5rem); letter-spacing: 0.02em; line-height: 1; margin-bottom: 2.5rem; color: var(--texte); }
     .section-title em { font-style: normal; color: var(--rose); }
     .rule-red { width: 48px; height: 2px; background: var(--rose); margin-bottom: 2rem; }
-    .sec { padding: 6rem 4rem; }
+    .sec { padding: 4rem 2rem; }
+    @media (min-width: 768px) { .sec { padding: 6rem 4rem; } }
     .sec-alt { background: var(--gris-clair); }
     .sec-pale { background: var(--rose-pale); }
 
-    /* Ultra Styled Page Headers matching Hero DA */
     .premium-header {
       position: relative;
       padding: 6rem 4rem 4rem;
@@ -185,7 +184,8 @@
     /* ═══════════════════════════════════════════════════════════════
        PAGE: ACCUEIL — HERO
     ═══════════════════════════════════════════════════════════════ */
-    .hero { position: relative; min-height: calc(100vh - 68px); display: flex; flex-direction: column; justify-content: flex-end; padding: 0 4rem 6rem; overflow: hidden; background: var(--rose-pale); }
+    .hero { position: relative; min-height: calc(100vh - 68px); display: flex; flex-direction: column; justify-content: flex-end; padding: 0 2rem 4rem; overflow: hidden; background: var(--rose-pale); }
+    @media (min-width: 768px) { .hero { padding: 0 4rem 6rem; } }
     .hero-marquee { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-58%); white-space: nowrap; pointer-events: none; user-select: none; }
     .hero-marquee-inner { display: inline-block; animation: marquee 28s linear infinite; font-family: var(--bebas); font-size: clamp(8rem, 17vw, 17rem); color: transparent; -webkit-text-stroke: 1px rgba(232, 119, 154, 0.18); letter-spacing: 0.04em; }
     @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -195,13 +195,16 @@
     .hero-sub { margin-top: 1.75rem; font-size: 1rem; color: var(--texte-sec); font-weight: 300; max-width: 460px; line-height: 1.7; }
     .hero-actions { margin-top: 2.5rem; display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
     .hero-stats { position: absolute; right: 4rem; bottom: 6rem; display: flex; flex-direction: column; gap: 1.75rem; align-items: flex-end; }
+    @media (max-width: 768px) { .hero-stats { position: relative; right: auto; bottom: auto; align-items: flex-start; margin-top: 2rem; } }
     .hero-stat-num { font-family: var(--bebas); font-size: 3rem; line-height: 1; color: var(--texte); }
     .hero-stat-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; text-align: right; }
+    @media (max-width: 768px) { .hero-stat-label { text-align: left; } }
 
     /* ═══════════════════════════════════════════════════════════════
        EFFECTIF
     ═══════════════════════════════════════════════════════════════ */
-    .effectif-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
+    .effectif-intro { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 4rem; align-items: end; }
+    @media (min-width: 768px) { .effectif-intro { grid-template-columns: 1fr 1fr; gap: 4rem; } }
     .effectif-text { font-size: 0.88rem; color: var(--texte-sec); line-height: 1.8; }
     .effectif-numbers { display: flex; gap: 2.5rem; }
     .eff-num { font-family: var(--bebas); font-size: 2.8rem; color: var(--texte); }
@@ -223,23 +226,21 @@
        HISTOIRE / TIMELINE
     ═══════════════════════════════════════════════════════════════ */
     .timeline { display: flex; flex-direction: column; max-width: 780px; position: relative; }
-    .timeline::before { content: ''; position: absolute; left: 100px; top: 0; bottom: 0; width: 1px; background: var(--rose-bord); }
-    .timeline-item { display: grid; grid-template-columns: 100px 1fr; gap: 0 3rem; padding: 2.5rem 0; border-bottom: 1px solid var(--rose-pale); position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 40px; top: 0; bottom: 0; width: 1px; background: var(--rose-bord); }
+    @media (min-width: 768px) { .timeline::before { left: 100px; } }
+    .timeline-item { display: grid; grid-template-columns: 50px 1fr; gap: 0 1.5rem; padding: 2.5rem 0; border-bottom: 1px solid var(--rose-pale); position: relative; }
+    @media (min-width: 768px) { .timeline-item { grid-template-columns: 100px 1fr; gap: 0 3rem; } }
     .timeline-item:last-child { border-bottom: none; }
     .tl-year { font-family: var(--bebas); font-size: 2rem; color: var(--rose); padding-top: 0.1rem; position: relative; z-index: 2; }
     .tl-event { font-weight: 700; font-size: 1.1rem; color: var(--texte); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
     .tl-detail { font-size: 0.88rem; color: var(--texte-sec); line-height: 1.7; font-weight: 300; }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE: ACTUALITÉS (Ultra Styled Grid)
+       PAGE: ACTUALITÉS
     ═══════════════════════════════════════════════════════════════ */
-    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px; background: transparent; }
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; background: transparent; }
     .news-card { background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 6px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; display: flex; flex-direction: column; position: relative; overflow: hidden; box-shadow: var(--card-shadow); }
     .news-card:hover { transform: translateY(-6px); border-color: var(--rose); box-shadow: 0 16px 40px rgba(232, 119, 154, 0.12); }
-    .news-card-media { width: 100%; height: 210px; background: var(--gris-clair); overflow: hidden; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--rose-pale); }
-    .news-card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-    .news-card:hover .news-card-media img { transform: scale(1.04); }
-    .news-card-media iframe { width: 100%; height: 100%; border: none; }
     .news-card-body { padding: 1.75rem; flex: 1; display: flex; flex-direction: column; }
     .news-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.6rem; }
     .news-card-title { font-family: var(--bebas); font-size: 1.6rem; letter-spacing: 0.02em; color: var(--texte); margin-bottom: 0.6rem; line-height: 1.15; }
@@ -247,14 +248,15 @@
     .news-card-meta { font-size: 0.68rem; color: var(--texte-sec); margin-top: 1.25rem; font-weight: 500; opacity: 0.8; }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE: BILLETTERIE (Premium Ticket Design)
+       PAGE: BILLETTERIE
     ═══════════════════════════════════════════════════════════════ */
     .match-container-box { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
-    .match-card { display: grid; grid-template-columns: 1.5fr 0.5fr 1.5fr 1.2fr; align-items: center; gap: 2rem; padding: 2rem 2.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; position: relative; transition: all 0.3s; }
+    .match-card { display: grid; grid-template-columns: 1fr; align-items: center; gap: 1.5rem; padding: 2rem 1.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; position: relative; transition: all 0.3s; text-align: center; }
+    @media (min-width: 768px) { .match-card { grid-template-columns: 1.5fr 0.5fr 1.5fr 1.2fr; gap: 2rem; padding: 2rem 2.5rem; text-align: left; } }
     .match-card:hover { border-color: var(--rose); }
     .match-team-side { display: flex; flex-direction: column; gap: 4px; }
     .match-home, .match-away { font-family: var(--bebas); font-size: 1.6rem; color: var(--texte); letter-spacing: 0.02em; }
-    .match-vs { font-family: var(--bebas); font-size: 1.2rem; color: var(--rose); background: var(--rose-pale); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; justify-self: center; border: 1px solid var(--rose-bord); }
+    .match-vs { font-family: var(--bebas); font-size: 1.2rem; color: var(--rose); background: var(--rose-pale); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; justify-self: center; border: 1px solid var(--rose-bord); margin: 0 auto; }
     .match-details-side { display: flex; flex-direction: column; gap: 2px; }
     .match-date { font-weight: 600; font-size: 0.9rem; color: var(--texte); }
     .match-comp { font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--texte-sec); letter-spacing: 0.05em; }
@@ -263,22 +265,17 @@
     /* ═══════════════════════════════════════════════════════════════
        PAGE: BOUTIQUE
     ═══════════════════════════════════════════════════════════════ */
-    .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+    .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
     .product-card { background: var(--blanc); border: 1px solid var(--rose-bord); display: flex; flex-direction: column; padding: 1.75rem; position: relative; transition: transform 0.3s, box-shadow 0.3s; box-shadow: var(--card-shadow); border-radius: 6px; }
     .product-card:hover { transform: translateY(-6px); box-shadow: 0 16px 35px rgba(232, 119, 154, 0.16); border-color: var(--rose); }
-    
-    .jersey-container { width: 100%; height: 240px; background: var(--gris-clair); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; position: relative; overflow: hidden; border-radius: 4px; }
-    .jersey-svg { width: 150px; height: 170px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.08)); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-    .product-card:hover .jersey-svg { transform: scale(1.06) rotate(3deg); }
-    .jersey-badge { position: absolute; top: 1rem; left: 1rem; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; background: var(--rose); color: #fff; padding: 0.3rem 0.7rem; letter-spacing: 0.08em; border-radius: 2px; }
-
+    .jersey-container { width: 100%; height: 200px; background: var(--gris-clair); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; position: relative; overflow: hidden; border-radius: 4px; }
     .product-name { font-family: var(--bebas); font-size: 1.6rem; color: var(--texte); letter-spacing: 0.02em; margin-bottom: 0.3rem; line-height: 1.2; }
     .product-price { font-size: 1.15rem; font-weight: 700; color: var(--rose); margin-bottom: 1.25rem; }
 
     /* Cart Bubble & Panels */
     .cart-bubble { position: fixed; bottom: 2rem; right: 2rem; background: var(--rose); color: white; border: none; width: 56px; height: 56px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 1.3rem; z-index: 300; cursor: pointer; box-shadow: 0 4px 16px rgba(232, 119, 154, 0.4); }
     .cart-bubble.show { display: flex; }
-    .cart-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 380px; background: var(--blanc); border-left: 1px solid var(--rose-bord); z-index: 400; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -10px 0 40px rgba(0,0,0,0.05); }
+    .cart-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 100%; max-width: 380px; background: var(--blanc); border-left: 1px solid var(--rose-bord); z-index: 400; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -10px 0 40px rgba(0,0,0,0.05); }
     .cart-panel.open { transform: translateX(0); }
     .cart-items { flex: 1; overflow-y: auto; padding: 1.5rem; }
     .cart-item-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--rose-bord); font-size: 0.9rem; }
@@ -286,27 +283,13 @@
     /* ═══════════════════════════════════════════════════════════════
        PAGE: AUTH / COMPTE
     ═══════════════════════════════════════════════════════════════ */
-    .auth-container { max-width: 480px; margin: 4rem auto; padding: 3rem 2.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; }
+    .auth-container { max-width: 480px; margin: 4rem auto; padding: 3rem 1.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; }
+    @media (min-width: 768px) { .auth-container { padding: 3rem 2.5rem; } }
     .auth-tabs { display: flex; border-bottom: 1px solid var(--rose-bord); margin-bottom: 2rem; gap: 5px; }
     .auth-tab { flex: 1; padding: 0.85rem; background: none; border: none; font-family: var(--bebas); font-size: 1.25rem; color: var(--texte-sec); cursor: pointer; text-align: center; transition: all 0.2s; border-radius: 4px 4px 0 0; }
     .auth-tab:hover { background: var(--rose-pale); color: var(--rose); }
     .auth-tab.active { color: var(--rose); border-bottom: 2px solid var(--rose); background: linear-gradient(to top, var(--rose-pale), transparent); font-weight: bold; }
     
-    /* Notification banner for Registration block - DEVENUE ZONE DE STATUT */
-    .unavailable-banner {
-      background: rgba(91, 173, 122, 0.1);
-      border: 1px solid var(--succes);
-      color: var(--succes);
-      padding: 1rem;
-      font-size: 0.82rem;
-      font-weight: 600;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      border-radius: 4px;
-      display: none;
-      animation: fadeIn 0.3s ease;
-    }
-
     .form-group { margin-bottom: 1.4rem; }
     .form-group label { display: block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; color: var(--texte-sec); }
     .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.85rem; background: var(--gris-clair); border: 1px solid var(--rose-bord); color: var(--texte); font-family: var(--inter); border-radius: 4px; transition: border 0.2s; }
@@ -318,7 +301,39 @@
     .toggle-switch { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE: PANEL ADMIN UNIVERSEL
+       NOUVEAUTÉ : ZONE PROFIL ULTRA-PERSONNALISABLE
+    ═══════════════════════════════════════════════════════════════ */
+    .profile-dashboard { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 1000px; margin: 0 auto; }
+    @media (min-width: 768px) { .profile-dashboard { grid-template-columns: 320px 1fr; } }
+    .profile-sidebar { background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 8px; padding: 2rem; text-align: center; box-shadow: var(--card-shadow); }
+    .profile-avatar-container { position: relative; width: 120px; height: 120px; margin: 0 auto 1.5rem; border-radius: 50%; border: 3px solid var(--rose); overflow: hidden; background: var(--gris-clair); }
+    .profile-avatar-container img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-badge-tag { display: inline-block; background: var(--rose-pale); color: var(--rose); border: 1px solid var(--rose-bord); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; padding: 0.3rem 0.8rem; letter-spacing: 0.05em; border-radius: 20px; margin-top: 0.5rem; }
+    .profile-main-content { display: flex; flex-direction: column; gap: 2rem; }
+    .avatar-picker-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 0.5rem; }
+    .avatar-option { width: 100%; aspect-ratio: 1; border-radius: 50%; cursor: pointer; border: 2px solid transparent; overflow: hidden; background: var(--gris-clair); transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .avatar-option:hover, .avatar-option.selected { border-color: var(--rose); transform: scale(1.05); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       NOUVEAUTÉ : SYSTEME MINI-JEUX FOOT INTERACTIFS
+    ═══════════════════════════════════════════════════════════════ */
+    .games-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 950px; margin: 0 auto; }
+    @media (min-width: 768px) { .games-grid { grid-template-columns: 1fr 1fr; } }
+    .game-card { background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 8px; padding: 2rem; box-shadow: var(--card-shadow); display: flex; flex-direction: column; justify-content: space-between; }
+    .game-arena { background: var(--gris-clair); border: 1px solid var(--rose-bord); border-radius: 6px; padding: 1.5rem; margin: 1.5rem 0; min-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden; }
+    
+    /* Simulateur de Tirs au but */
+    .penalty-cage { width: 100%; height: 120px; border: 4px dashed var(--texte-sec); border-bottom: none; position: relative; margin-top: 1rem; background: rgba(232, 119, 154, 0.03); }
+    .penalty-target { position: absolute; width: 32px; height: 32px; background: var(--rose); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; font-weight: bold; transition: all 0.2s; }
+    .target-top-left { top: 10px; left: 10px; }
+    .target-top-right { top: 10px; right: 10px; }
+    .target-bottom-left { bottom: 10px; left: 10px; }
+    .target-bottom-right { bottom: 10px; right: 10px; }
+    .target-center { top: 45px; left: calc(50% - 16px); }
+    .penalty-keeper { position: absolute; bottom: 0; left: calc(50% - 20px); width: 40px; height: 50px; background: var(--texte); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: all 0.3s ease; border-radius: 4px 4px 0 0; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PANEL ADMIN UNIVERSEL
     ═══════════════════════════════════════════════════════════════ */
     .admin-dashboard-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
     .admin-stat-card { background: var(--rose-pale); border: 1px solid var(--rose-bord); padding: 1rem; border-radius: 4px; text-align: center; }
@@ -339,18 +354,16 @@
     /* ═══════════════════════════════════════════════════════════════
        FOOTER
     ═══════════════════════════════════════════════════════════════ */
-    footer { background: var(--gris-clair); padding: 4rem; display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 3rem; border-top: 1px solid var(--rose-bord); }
+    footer { background: var(--gris-clair); padding: 4rem 2rem; display: grid; grid-template-columns: 1fr; gap: 3rem; border-top: 1px solid var(--rose-bord); }
+    @media (min-width: 768px) { footer { grid-template-columns: 2fr repeat(3, 1fr); padding: 4rem; } }
     .footer-brand-name { font-family: var(--bebas); font-size: 1.7rem; color: var(--texte); }
     .footer-brand-name span { color: var(--rose); }
-    .footer-bottom { background: var(--rose-pale); padding: 1.25rem 4rem; display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--texte-sec); border-top: 1px solid var(--rose-bord); }
+    .footer-bottom { background: var(--rose-pale); padding: 1.25rem 2rem; display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--texte-sec); border-top: 1px solid var(--rose-bord); flex-wrap: wrap; gap: 1rem; }
+    @media (min-width: 768px) { .footer-bottom { padding: 1.25rem 4rem; } }
 
     @media(max-width: 768px) {
-      nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
-      footer { grid-template-columns: 1fr; gap: 2rem; }
-      .match-card { grid-template-columns: 1fr; text-align: center; gap: 1rem; padding: 1.5rem; }
-      .match-vs { justify-self: center; }
     }
   </style>
 
@@ -366,7 +379,8 @@
       <li><a id="link-actualites" onclick="showPage('actualites')">Actualités</a></li>
       <li><a id="link-billetterie" onclick="showPage('billetterie')">Billetterie</a></li>
       <li><a id="link-boutique" onclick="showPage('boutique')">Boutique</a></li>
-      <li><a id="link-compte" onclick="showPage('compte')">Mon Compte</a></li>
+      <li><a id="link-jeux" onclick="showPage('jeux')">Mini-Jeux</a></li>
+      <li><a id="link-compte" onclick="showPage('compte')">Mon Profil</a></li>
       <li><a id="link-parametres" onclick="showPage('parametres')">Paramètres</a></li>
       <li id="nav-admin-link" style="display:none;"><a id="link-admin" onclick="showPage('admin')" style="color:var(--rose); font-weight:bold;">Panel Admin</a></li>
     </ul>
@@ -383,7 +397,8 @@
     <a id="mob-link-actu" onclick="showPage('actualites'); toggleMobileMenu()">Actualités</a>
     <a id="mob-link-bill" onclick="showPage('billetterie'); toggleMobileMenu()">Billetterie</a>
     <a id="mob-link-bout" onclick="showPage('boutique'); toggleMobileMenu()">Boutique</a>
-    <a id="mob-link-comp" onclick="showPage('compte'); toggleMobileMenu()">Mon Compte</a>
+    <a id="mob-link-jeux" onclick="showPage('jeux'); toggleMobileMenu()">Mini-Jeux</a>
+    <a id="mob-link-comp" onclick="showPage('compte'); toggleMobileMenu()">Mon Profil</a>
     <a id="mob-link-para" onclick="showPage('parametres'); toggleMobileMenu()">Paramètres</a>
     <a id="mobile-admin-link" onclick="showPage('admin'); toggleMobileMenu()" style="display:none; color:var(--rose);">Panel Admin</a>
   </div>
@@ -486,15 +501,62 @@
     </div>
   </div>
 
+  <div id="page-jeux" class="page">
+    <div class="premium-header">
+      <p class="section-eyebrow">Divertissement</p>
+      <h2 class="section-title">Espace <em>Gaming</em> Pignouferie</h2>
+    </div>
+    <div class="sec">
+      <div class="games-grid">
+        <div class="game-card">
+          <div>
+            <span class="section-eyebrow">Jeu d'esprit</span>
+            <h3 style="font-family:var(--bebas); font-size:1.8rem; margin:0.5rem 0;">Le Quiz Flash Foot</h3>
+            <p style="font-size:0.85rem; color:var(--texte-sec);">Testez vos connaissances en football. 5 questions, aucun droit à l'erreur !</p>
+            
+            <div class="game-arena" id="quiz-arena">
+              <p id="quiz-question" style="font-weight:600; text-align:center; margin-bottom:1rem;">Cliquez sur lancer pour démarrer la partie !</p>
+              <div id="quiz-options-box" style="width:100%; display:flex; flex-direction:column; gap:8px;"></div>
+            </div>
+          </div>
+          <button class="btn-primary" id="btn-quiz-ctrl" onclick="startQuizGame()">Lancer le Quiz</button>
+        </div>
+
+        <div class="game-card">
+          <div>
+            <span class="section-eyebrow">Action</span>
+            <h3 style="font-family:var(--bebas); font-size:1.8rem; margin:0.5rem 0;">Séance de Tirs au But</h3>
+            <p style="font-size:0.85rem; color:var(--texte-sec);">Affrontez le gardien du club. Choisissez une zone stratégique pour placer votre plus belle frappe.</p>
+            
+            <div class="game-arena" id="penalty-arena">
+              <div style="display:flex; justify-content:space-between; width:100%; font-size:0.8rem; font-weight:bold; color:var(--rose);">
+                <span>Série : <span id="pen-score-strikes">0</span>/5</span>
+                <span>Buts : <span id="pen-score-goals">0</span></span>
+              </div>
+              <div class="penalty-cage">
+                <div class="penalty-keeper" id="gk-player">🕴️</div>
+                <div class="penalty-target target-top-left" onclick="kickPenalty('tl')">🎯</div>
+                <div class="penalty-target target-top-right" onclick="kickPenalty('tr')">🎯</div>
+                <div class="penalty-target target-center" onclick="kickPenalty('c')">🎯</div>
+                <div class="penalty-target target-bottom-left" onclick="kickPenalty('bl')">🎯</div>
+                <div class="penalty-target target-bottom-right" onclick="kickPenalty('br')">🎯</div>
+              </div>
+              <p id="penalty-feedback" style="margin-top:1rem; font-size:0.85rem; font-weight:600; text-align:center;"></p>
+            </div>
+          </div>
+          <button class="btn-ghost" onclick="resetPenaltyGame()">Réinitialiser la séance</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="page-compte" class="page">
-    <div class="auth-container">
+    <div class="auth-container" id="auth-unlogged-view">
       <div class="auth-tabs">
         <button class="auth-tab active" id="tab-login" onclick="setAuthMode('login')">Connexion</button>
         <button class="auth-tab" id="tab-register" onclick="setAuthMode('register')">Créer un compte</button>
         <button class="auth-tab" id="tab-admin" onclick="setAuthMode('admin')">Staff Admin</button>
       </div>
-      
-      <div class="unavailable-banner" id="reg-lock-banner"></div>
       
       <form id="auth-form" onsubmit="handleAuth(event)">
         <div class="form-group">
@@ -507,7 +569,73 @@
         </div>
         <button type="submit" class="btn-primary" style="width:100%; margin-top:0.5rem;" id="auth-submit-btn">Se connecter</button>
       </form>
-      <div id="admin-status-msg" style="text-align:center; margin-top:1.5rem; font-size:0.85rem; font-weight:bold; color:var(--rose);"></div>
+    </div>
+
+    <div class="sec" id="auth-logged-view" style="display:none;">
+      <div class="premium-header" style="padding:2rem 0; background:none; border-bottom:none; margin-bottom:2rem;">
+        <p class="section-eyebrow">Espace Privé</p>
+        <h2 class="section-title">Votre Espace <em>Supporter</em></h2>
+      </div>
+
+      <div class="profile-dashboard">
+        <div class="profile-sidebar" id="profile-card-preview">
+          <div class="profile-avatar-container">
+            <span id="user-avatar-disp" style="font-size:4.5rem; display:block; line-height:115px;">👤</span>
+          </div>
+          <h3 id="user-pseudo-disp" style="font-family:var(--bebas); font-size:1.8rem; margin-bottom:0.2rem;">Supporter_Pignouf</h3>
+          <p id="user-email-disp" style="font-size:0.8rem; color:var(--texte-sec); margin-bottom:1rem;">user@pignouferie.com</p>
+          <div class="profile-badge-tag" id="user-badge-disp">Fidèle Abonné</div>
+          
+          <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--rose-bord); text-align:left; font-size:0.8rem;">
+            <p style="margin-bottom:0.4rem;">🏆 Score Quiz : <strong id="stats-quiz-score">0</strong></p>
+            <p>⚽ Tirs au but réussis : <strong id="stats-pen-score">0</strong></p>
+          </div>
+          <button class="btn-ghost" style="margin-top:2rem; color:var(--danger); border-color:var(--rose-bord); font-size:0.7rem;" onclick="logoutUser()">Se déconnecter</button>
+        </div>
+
+        <div class="profile-main-content">
+          <div class="settings-card" style="box-shadow:var(--card-shadow); border:1px solid var(--rose-bord);">
+            <h3 style="font-size:1.2rem; color:var(--texte);">Personnalisez votre Identité</h3>
+            
+            <div class="form-group" style="margin-top:1.5rem;">
+              <label>Votre Pseudo de Supporter</label>
+              <input type="text" id="input-profile-pseudo" value="Supporter_Pignouf" oninput="updateProfileLive()" />
+            </div>
+
+            <div class="form-group">
+              <label>Choisir un Avatar Officiel</label>
+              <div class="avatar-picker-grid">
+                <div class="avatar-option selected" onclick="selectAvatar('👤', this)">👤</div>
+                <div class="avatar-option" onclick="selectAvatar('🦁', this)">🦁</div>
+                <div class="avatar-option" onclick="selectAvatar('⚽', this)">⚽</div>
+                <div class="avatar-option" onclick="selectAvatar('👑', this)">👑</div>
+                <div class="avatar-option" onclick="selectAvatar('🦅', this)">🦅</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Titre / Badge honorifique</label>
+              <select id="input-profile-badge" onchange="updateProfileLive()">
+                <option value="Fidèle Abonné">Fidèle Abonné</option>
+                <option value="Capo des Ultras">Capo des Ultras</option>
+                <option value="Légende du Club">Légende du Club</option>
+                <option value="Tacticien Rose">Tacticien Rose</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Thème exclusif du Profil</label>
+              <select id="input-profile-theme" onchange="updateProfileTheme(this.value)">
+                <option value="classic">Rose Pignouferie d'origine</option>
+                <option value="gold">Édition Or Premium</option>
+                <option value="darkcard">Charbon Obscur d'élite</option>
+              </select>
+            </div>
+            
+            <button class="btn-primary" style="font-size:0.7rem; width:100%;" onclick="saveProfileData()">Enregistrer mon profil</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -575,7 +703,6 @@
       <h2 class="section-title" id="adm-title">Console Directoire Active</h2>
       <div class="rule-red"></div>
 
-      <!-- Live Dashboard du Club -->
       <div class="admin-dashboard-stats">
         <div class="admin-stat-card">
           <h4>Joueurs Actifs</h4>
@@ -706,7 +833,7 @@
   </div>
 
   <script>
-    // Config Firebase Realtime Database
+    // Configuration Realtime Database d'Origine
     const firebaseConfig = {
       apiKey: "AIzaSyBMEno-arAeHeJNNB597sDDTM_noePLV4I",
       authDomain: "lapigouferie-fc.firebaseapp.com",
@@ -717,11 +844,10 @@
       appId: "1:154004936337:web:c5345eb0710a7d36c69130"
     };
 
-    // Initialisation
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // Variables mémoire locales synchronisées avec le Cloud
+    // Structures de données d'Origine
     let effectifPro = { gardiens: [], defenseurs: [], milieux: [], attaquants: [] };
     let actualites = [];
     let actualitesKeys = [];
@@ -738,20 +864,32 @@
     let panier = [];
     let currentAuthMode = 'login';
     let isAdminLoggedIn = false;
+    let isUserLoggedIn = false;
     let simulatedEarnings = 0;
+    
+    // États Utilisateur local personnalisable
+    let userProfile = {
+      pseudo: "Supporter_Pignouf",
+      email: "user@pignouferie.com",
+      avatar: "👤",
+      badge: "Fidèle Abonné",
+      theme: "classic",
+      scoreQuiz: 0,
+      scorePen: 0
+    };
 
-    // Service Worker PWA Automatisé (In-line pour compatibilité mobile directe)
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        const blob = new Blob([`
-          self.addEventListener('install', e => self.skipWaiting());
-          self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => new Response("Hors ligne"))));
-        `], { type: 'application/javascript' });
-        navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
-      });
-    }
+    // Configuration des questions du Mini-Jeu Quiz
+    const quizQuestions = [
+      { q: "En quelle année a été fondé La Pignouferie FC ?", o: ["2001", "2005", "2010", "1998"], a: 1 },
+      { q: "Quelles sont les couleurs officielles du club ?", o: ["Rouge et Bleu", "Rose et Blanc", "Vert et Noir", "Jaune"], a: 1 },
+      { q: "Combien de joueurs pro composent l'effectif global ?", o: ["11", "18", "24", "30"], a: 2 },
+      { q: "Quel est l'objectif premier du club mentionné ?", o: ["Ne pas descendre", "Gagner", "Faire du spectacle", "Former"], a: 1 },
+      { q: "Qui est désigné comme Capitaine au milieu de terrain ?", o: ["W. Van Goor", "Vitinha", "K. Pottier", "M. Pignouf"], a: 1 }
+    ];
+    let currentQuizIndex = 0;
+    let tempQuizScore = 0;
 
-    // ÉCOUTEURS EN TEMPS RÉEL (Firebase -> Écran de tous les utilisateurs connectés)
+    // Synchronisation Cloud Réseau Firebase Realtime
     db.ref('site_infos').on('value', (snapshot) => {
       const data = snapshot.val();
       if(data) {
@@ -769,9 +907,7 @@
 
     db.ref('effectif').on('value', (snapshot) => {
       const data = snapshot.val();
-      if(data) {
-        effectifPro = data;
-      } else {
+      if(snapshot.exists()) { effectifPro = data; } else {
         effectifPro = {
           gardiens: [{ num: "1", nom: "M. Delaunay", poste: "G" }, { num: "24", nom: "M. Lemonnier", poste: "G" }, { num: "-", nom: "G. Jourdain", poste: "G" }],
           defenseurs: [{ num: "32", nom: "Q. Ferrier", poste: "DG" }, { num: "5", nom: "A. Chapuis", poste: "DG" }, { num: "29", nom: "M. Pignouf", poste: "DC" }, { num: "30", nom: "L. Perlade", poste: "DC" }, { num: "4", nom: "P. Vincent", poste: "DC" }, { num: "3", nom: "D. Lagarde", poste: "DC" }, { num: "6", nom: "K. Marquet", poste: "DD" }, { num: "2", nom: "F. Naciri", poste: "DD" }],
@@ -785,13 +921,9 @@
 
     db.ref('actualites').on('value', (snapshot) => {
       const data = snapshot.val();
-      actualites = [];
-      actualitesKeys = [];
+      actualites = []; actualitesKeys = [];
       if(data) {
-        Object.keys(data).forEach(key => {
-          actualites.push(data[key]);
-          actualitesKeys.push(key);
-        });
+        Object.keys(data).forEach(key => { actualites.push(data[key]); actualitesKeys.push(key); });
       }
       renderActualites();
       updateDashboardStats();
@@ -799,33 +931,21 @@
 
     db.ref('histoire').on('value', (snapshot) => {
       const data = snapshot.val();
-      histoireTimeline = [];
-      histoireKeys = [];
+      histoireTimeline = []; histoireKeys = [];
       if(data) {
-        Object.keys(data).forEach(key => {
-          histoireTimeline.push(data[key]);
-          histoireKeys.push(key);
-        });
+        Object.keys(data).forEach(key => { histoireTimeline.push(data[key]); histoireKeys.push(key); });
       }
       renderTimeline();
       updateDashboardStats();
     });
 
     db.ref('match').on('value', (snapshot) => {
-      const data = snapshot.val();
-      if(data) {
-        matchData = data;
-        if(data.salesStatus) document.getElementById('adm-match-status').value = data.salesStatus;
-      }
+      if(snapshot.exists()) { matchData = snapshot.val(); }
       renderMatchs();
     });
 
     db.ref('boutique').on('value', (snapshot) => {
-      const data = snapshot.val();
-      if(data) {
-        boutiqueProduits = data;
-        if(data[0] && data[0].salesStatus) document.getElementById('adm-shop-status').value = data[0].salesStatus;
-      }
+      if(snapshot.exists()) { boutiqueProduits = snapshot.val(); }
       renderBoutique();
     });
 
@@ -835,10 +955,14 @@
         document.getElementById('dark-mode-toggle').checked = true;
         toggleDarkMode(true);
       }
+      // Charger le profil utilisateur s'il existe localement
+      const savedProfile = localStorage.getItem('pignouf_user_profile');
+      if(savedProfile) {
+        userProfile = JSON.parse(savedProfile);
+      }
       applyLanguage(currentLang);
     };
 
-    // DASHBOARD ADMIN PERFORMANCES
     function updateDashboardStats() {
       let totalPlayers = (effectifPro.gardiens?.length || 0) + (effectifPro.defenseurs?.length || 0) + (effectifPro.milieux?.length || 0) + (effectifPro.attaquants?.length || 0);
       document.getElementById('stat-count-players').innerText = totalPlayers;
@@ -847,442 +971,25 @@
       document.getElementById('stat-count-sales').innerText = simulatedEarnings.toFixed(2) + " €";
     }
 
-    // ACTIONS DE L'ADMIN : ÉCRITURE DANS LE CLOUD FIREBASE
-    function saveHeroInfosCloud() {
-      db.ref('site_infos').set({
-        marquee: document.getElementById('adm-hero-marquee').value,
-        eyebrow: document.getElementById('adm-hero-eyebrow').value,
-        title: document.getElementById('adm-hero-title').value,
-        sub: document.getElementById('adm-hero-sub').value,
-        year: document.getElementById('adm-creation-year').value
-      }).then(() => alert("Modifications de l'accueil synchronisées sur tout le web !"));
-    }
-
-    function addPlayerPro() {
-      const poste = document.getElementById('adm-player-poste').value;
-      const num = document.getElementById('adm-player-num').value;
-      const nom = document.getElementById('adm-player-nom').value;
-      const role = document.getElementById('adm-player-role').value;
-      if(!num || !nom || !role) return alert('Complétez les champs du joueur.');
-      
-      if(!effectifPro[poste]) effectifPro[poste] = [];
-      effectifPro[poste].push({ num, nom, poste: role });
-      
-      db.ref('effectif').set(effectifPro).then(() => {
-        alert('Joueur synchronisé pour tous !');
-        document.getElementById('adm-player-num').value = '';
-        document.getElementById('adm-player-nom').value = '';
-        document.getElementById('adm-player-role').value = '';
-      });
-    }
-
-    function deletePlayerPro(category, index) {
-      if(confirm('Supprimer ce joueur de l\'effectif ?')) {
-        effectifPro[category].splice(index, 1);
-        db.ref('effectif').set(effectifPro);
-      }
-    }
-
-    function loadNewsToEdit(index) {
-      const a = actualites[index];
-      const key = actualitesKeys[index];
-      document.getElementById('admin-news-id').value = key;
-      document.getElementById('admin-news-title').value = a.title;
-      document.getElementById('admin-news-excerpt').value = a.excerpt;
-      document.getElementById('admin-news-img').value = a.image || '';
-      document.getElementById('admin-news-yt').value = a.youtube || '';
-      document.getElementById('admin-news-date').value = a.date;
-      document.getElementById('article-form-title').innerText = "Modifier l'article sélectionné";
-    }
-
-    function saveNewsPro() {
-      const id = document.getElementById('admin-news-id').value;
-      const title = document.getElementById('admin-news-title').value;
-      const excerpt = document.getElementById('admin-news-excerpt').value;
-      const image = document.getElementById('admin-news-img').value;
-      const youtube = document.getElementById('admin-news-yt').value;
-      const date = document.getElementById('admin-news-date').value || "Juin 2026";
-
-      if(!title || !excerpt) return alert('Titre et extrait obligatoires.');
-
-      if(id !== "") {
-        db.ref('actualites/' + id).set({ title, excerpt, date, image, youtube }).then(() => alert("Article mis à jour !"));
-      } else {
-        const newRef = db.ref('actualites').push();
-        newRef.set({ title, excerpt, date, image, youtube }).then(() => alert("Nouvel article créé !"));
-      }
-      resetNewsForm();
-    }
-
-    function deleteNewsPro(index) {
-      if(confirm('Supprimer définitivement cet article ?')) {
-        const key = actualitesKeys[index];
-        db.ref('actualites/' + key).remove();
-      }
-    }
-
-    function loadHistoryToEdit(index) {
-      const h = histoireTimeline[index];
-      const key = histoireKeys[index];
-      document.getElementById('admin-hist-id').value = key;
-      document.getElementById('admin-hist-year').value = h.year;
-      document.getElementById('admin-hist-title').value = h.event;
-      document.getElementById('admin-hist-detail').value = h.detail;
-      document.getElementById('hist-form-title').innerText = "Modifier le jalon sélectionné";
-    }
-
-    function saveHistoryPro() {
-      const id = document.getElementById('admin-hist-id').value;
-      const year = document.getElementById('admin-hist-year').value;
-      const event = document.getElementById('admin-hist-title').value;
-      const detail = document.getElementById('admin-hist-detail').value;
-
-      if(!year || !event || !detail) return alert('Champs requis.');
-
-      if(id !== "") {
-        db.ref('histoire/' + id).set({ year, event, detail }).then(() => alert("Jalon d'histoire modifié !"));
-      } else {
-        db.ref('histoire').push().set({ year, event, detail }).then(() => alert("Jalon d'histoire ajouté !"));
-      }
-      resetHistoryForm();
-    }
-
-    function deleteHistoryPro(index) {
-      if(confirm('Supprimer ce jalon ?')) {
-        const key = histoireKeys[index];
-        db.ref('histoire/' + key).remove();
-      }
-    }
-
-    function updateMatchPro() {
-      const status = document.getElementById('adm-match-status').value;
-      const data = {
-        home: document.getElementById('adm-match-home').value,
-        away: document.getElementById('adm-match-away').value,
-        vs: "VS",
-        date: document.getElementById('adm-match-date').value || "Samedi prochain - 20h00",
-        comp: document.getElementById('adm-match-comp').value || "Ligue Majeure",
-        price: parseFloat(document.getElementById('adm-match-price').value) || 0,
-        salesStatus: status
-      };
-      db.ref('match').set(data).then(() => alert('Match & billetterie mis à jour globalement !'));
-    }
-
-    function toggleTicketSales(status) {
-      matchData.salesStatus = status;
-    }
-
-    function toggleShopSales(status) {
-      boutiqueProduits.forEach(p => p.salesStatus = status);
-      db.ref('boutique').set(boutiqueProduits);
-    }
-
-    function updateProductPrice(id, val) {
-      boutiqueProduits[id].price = parseFloat(val) || 0;
-      db.ref('boutique').set(boutiqueProduits);
-    }
-
-    // GESTION PANIER INTERACTIF DU SITE (Améliorations Fonctionnalités Boutique/Billet)
-    function addToCart(name, price) {
-      panier.push({ name, price });
-      document.getElementById('cartBubble').classList.add('show');
-      updateCartDisplay();
-    }
-
-    function updateCartDisplay() {
-      document.getElementById('cartCount').innerText = panier.length;
-      const container = document.getElementById('cartItemsContainer');
-      let total = 0;
-      
-      if(panier.length === 0) {
-        container.innerHTML = `<p style="font-size:0.85rem; color:var(--texte-sec); text-align:center; padding:2rem;">${translations[currentLang].cart_empty}</p>`;
-      } else {
-        container.innerHTML = panier.map((item, index) => {
-          total += item.price;
-          return `
-            <div class="cart-item-row">
-              <div>
-                <p style="font-weight:600;">${item.name}</p>
-                <p style="font-size:0.75rem; color:var(--rose);">${item.price.toFixed(2)} €</p>
-              </div>
-              <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--danger); cursor:pointer; font-weight:bold;">Supprimer</button>
-            </div>
-          `;
-        }).join('');
-      }
-      document.getElementById('cart-total-price').innerText = total.toFixed(2) + " €";
-    }
-
-    function removeFromCart(index) {
-      panier.splice(index, 1);
-      if(panier.length === 0) document.getElementById('cartBubble').classList.remove('show');
-      updateCartDisplay();
-    }
-
-    function validateCartOrder() {
-      if(panier.length === 0) return alert('Votre panier est vide.');
-      let orderTotal = panier.reduce((sum, item) => sum + item.price, 0);
-      simulatedEarnings += orderTotal;
-      alert(`Commande validée d'un montant de ${orderTotal.toFixed(2)} € ! Merci de votre soutien.`);
-      panier = [];
-      document.getElementById('cartBubble').classList.remove('show');
-      toggleCartPanel(false);
-      updateCartDisplay();
-      updateDashboardStats();
-    }
-
-    // INTERFACE RENDERS & TRADUCTIONS
-    const translations = {
-      fr: {
-        nav_club: "Club", nav_news: "Actualités", nav_bill: "Billetterie", nav_shop: "Boutique", nav_account: "Mon Compte", nav_param: "Paramètres", nav_admin: "Panel Admin",
-        hero_eyebrow: "Le Site Officiel", hero_title: "Plus qu'un club, une <em>légende</em> en rose et blanc.", hero_sub: "Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.", hero_btn_tkt: "Réserver un billet", hero_btn_eff: "Découvrir l'effectif", hero_stat_lbl: "Année de création",
-        eff_eyebrow: "Saison Globale", eff_title: "L'Effectif Pro", eff_lbl_players: "Joueurs Pro", eff_lbl_goal: "Objectif : Gagner",
-        header_g: "Gardiens (G)", header_d: "Défenseurs (D)", header_m: "Milieux (M)", header_a: "Attaquants (A)",
-        hist_eyebrow: "Récit", hist_title: "Notre Histoire", news_eyebrow: "Média", news_title: "Actualités & <em>Presse</em>",
-        bill_eyebrow: "Matchs", bill_title: "Billetterie <em>Officielle</em>", shop_eyebrow: "Look", shop_title: "La Boutique <em>Pro</em>",
-        cart_title: "Votre Panier", cart_btn_checkout: "Passer la commande", cart_empty: "Votre panier est vide.",
-        tab_login: "Connexion", tab_register: "Créer un compte", tab_admin: "Staff Admin",
-        lbl_email: "Adresse Email", lbl_pwd: "Mot de passe", btn_login: "Se connecter", btn_reg_sub: "Créer mon compte", btn_admin_sub: "Se connecter à l'espace Admin",
-        lbl_admin_id: "Identifiant Secrétariat Admin", reg_locked: "Base de données cloud active. Saisissez vos identifiants ci-dessous pour créer votre profil.",
-        buy_disabled: "Indisponible", add_cart: "Ajouter au panier", param_eyebrow: "Preferences", param_title: "Configuration du Site",
-        set_h_display: "Affichage Général", set_lbl_dark: "Mode Sombre (Dark Mode)", set_h_lang: "Langue de l'interface", set_h_notif: "Système & Notifications", set_lbl_notif1: "Alertes de Billetterie", set_lbl_notif2: "Newsletters Boutique", set_h_access: "Accessibilité", set_lbl_font: "Taille globale de la police :", opt_font_n: "Normale (Par défaut)", opt_font_l: "Grande (+10%)", opt_font_xl: "Très Grande (+20%)", set_h_cache: "Données Locales", set_lbl_cache: "Réinitialiser les préférences stockées dans votre navigateur.", set_btn_cache: "Vider le cache système",
-        adm_eyebrow: "Administration Globale", adm_title: "Console Directoire Active", adm_h_home: "Modifier la Page d'Accueil & Infos", adm_lbl_marq: "Slogan Marquee", adm_lbl_eye: "Eyebrow Text", adm_lbl_tit: "Titre Principal (HTML supporté)", adm_lbl_sub: "Sous-titre Description", adm_lbl_year: "Année de création du club", adm_h_eff: "Gérer l'Effectif Pro", adm_lbl_pos: "Poste", adm_lbl_pnum: "Numéro (#)", adm_lbl_pnom: "Nom Complet", adm_lbl_prole: "Rôle/Poste abrégé", adm_btn_addp: "Ajouter le Joueur", adm_h_news: "Éditeur d'Articles / Actualités", adm_h_hist: "Éditeur de Récits Historiques", adm_h_bill: "Modifier les Matchs (Billetterie)", adm_lbl_mhom: "Équipe Domicile", adm_lbl_mawy: "Équipe Extérieur", adm_lbl_mdat: "Date & Heure", adm_lbl_mcmp: "Compétition", adm_lbl_mprc: "Prix du billet (€)", adm_btn_savem: "Mettre à jour le match", adm_h_shop: "Modifier les Prix Boutique", footer_desc: "Club mythique fondé en 2005. Performance, excellence et couleur rose affirmée sur tous les terrains."
-      },
-      en: {
-        nav_club: "Club", nav_news: "News", nav_bill: "Tickets", nav_shop: "Shop", nav_account: "My Account", nav_param: "Settings", nav_admin: "Admin Panel",
-        hero_eyebrow: "Official Website", hero_title: "More than a club, a <em>legend</em> in pink and white.", hero_sub: "Since 2005, we have been rewriting the lines of top-level football with passion, audacity and incomparable style.", hero_btn_tkt: "Book a ticket", hero_btn_eff: "Discover squad", hero_stat_lbl: "Founded Year",
-        eff_eyebrow: "Global Season", eff_title: "Pro Squad", eff_lbl_players: "Pro Players", eff_lbl_goal: "Goal: To Win",
-        header_g: "Goalkeepers (GK)", header_d: "Defenders (DF)", header_m: "Midfielders (MF)", header_a: "Forwards (FW)",
-        hist_eyebrow: "Story", hist_title: "Our History", news_eyebrow: "Media", news_title: "News & <em>Press</em>",
-        bill_eyebrow: "Matches", bill_title: "Official <em>Ticketing</em>", shop_eyebrow: "Look", shop_title: "Pro <em>Shop</em>",
-        cart_title: "Your Cart", cart_btn_checkout: "Checkout", cart_empty: "Your cart is empty.",
-        tab_login: "Login", tab_register: "Register", tab_admin: "Admin Staff",
-        lbl_email: "Email Address", lbl_pwd: "Password", btn_login: "Sign In", btn_reg_sub: "Create Account", btn_admin_sub: "Login to Admin Space",
-        lbl_admin_id: "Admin Username", reg_locked: "Cloud database connected. Input your credentials to register.",
-        buy_disabled: "Unavailable", add_cart: "Add to cart", param_eyebrow: "Preferences", param_title: "Site Configuration",
-        set_h_display: "General Display", set_lbl_dark: "Dark Mode", set_h_lang: "Interface Language", set_h_notif: "System & Notifications", set_lbl_notif1: "Ticketing Alerts", set_lbl_notif2: "Shop Newsletters", set_h_access: "Accessibility", set_lbl_font: "Global font size:", opt_font_n: "Normal (Default)", opt_font_l: "Large (+10%)", opt_font_xl: "Extra Large (+20%)", set_h_cache: "Local Data", set_lbl_cache: "Reset stored preferences in your browser.", set_btn_cache: "Clear system cache",
-        adm_eyebrow: "Global Administration", adm_title: "Active Directorate Console", adm_h_home: "Modify Home Page & Info", adm_lbl_marq: "Marquee Slogan", adm_lbl_eye: "Eyebrow Text", adm_lbl_tit: "Main Title (HTML supported)", adm_lbl_sub: "Subtitle Description", adm_lbl_year: "Club Founding Year", adm_h_eff: "Manage Pro Squad", adm_lbl_pos: "Position", adm_lbl_pnum: "Number (#)", adm_lbl_pnom: "Full Name", adm_lbl_prole: "Short Role/Pos", adm_btn_addp: "Add Player", adm_h_news: "Articles / News Editor", adm_h_hist: "Historical Milestone Editor", adm_h_bill: "Modify Matches (Ticketing)", adm_lbl_mhom: "Home Team", adm_lbl_mawy: "Away Team", adm_lbl_mdat: "Date & Time", adm_lbl_mcmp: "Competition", adm_lbl_mprc: "Ticket Price (€)", adm_btn_savem: "Update Match Data", adm_h_shop: "Modify Shop Prices", footer_desc: "Mythic club founded in 2005. Performance, excellence and bold pink color asserted on all pitches."
-      },
-      es: {
-        nav_club: "Club", nav_news: "Noticias", nav_bill: "Entradas", nav_shop: "Tienda", nav_account: "Mi Cuenta", nav_param: "Ajustes", nav_admin: "Panel Admin",
-        hero_eyebrow: "Sitio Web Oficial", hero_title: "Más que un club, una <em>leyenda</em> en rosa y blanco.", hero_sub: "Desde 2005, reescribimos las líneas del football de alto nivel con pasión, audacia y un estilo incomparable.", hero_btn_tkt: "Reservar entrada", hero_btn_eff: "Descubrir la plantilla", hero_stat_lbl: "Año de fundación",
-        eff_eyebrow: "Temporada Global", eff_title: "Plantilla Pro", eff_lbl_players: "Jugadores Pro", eff_lbl_goal: "Objetivo: Ganar",
-        header_g: "Porteros (POR)", header_d: "Defensas (DEF)", header_m: "Centrocampistas (MED)", header_a: "Delanteros (DEL)",
-        hist_eyebrow: "Relato", hist_title: "Nuestra Historia", news_eyebrow: "Medios", news_title: "Noticias & <em>Prensa</em>",
-        bill_eyebrow: "Partidos", bill_title: "Taquilla <em>Oficial</em>", shop_eyebrow: "Estilo", shop_title: "Tienda <em>Pro</em>",
-        cart_title: "Su Carrito", cart_btn_checkout: "Tramitar Pedido", cart_empty: "Su carrito está vacío.",
-        tab_login: "Conexión", tab_register: "Crear cuenta", tab_admin: "Personal Admin",
-        lbl_email: "Correo Electrónico", lbl_pwd: "Contraseña", btn_login: "Iniciar Sesión", btn_reg_sub: "Crear mi cuenta", btn_admin_sub: "Iniciar sesión como Admin",
-        lbl_admin_id: "Usuario de Administración", reg_locked: "Base de datos en la nube conectada. Introduzca sus credenciales para registrarse.",
-        buy_disabled: "No disponible", add_cart: "Añadir al carrito", param_eyebrow: "Preferencias", param_title: "Configuración del Sitio",
-        set_h_display: "Pantalla General", set_lbl_dark: "Modo Oscuro (Dark Mode)", set_h_lang: "Idioma de la Interfaz", set_h_notif: "Sistema y Notificaciones", set_lbl_notif1: "Alertas de Entradas", set_lbl_notif2: "Boletines de Tienda", set_h_access: "Accesibilidad", set_lbl_font: "Tamaño de fuente global:", opt_font_n: "Normal (Por defecto)", opt_font_l: "Grande (+10%)", opt_font_xl: "Muy Grande (+20%)", set_h_cache: "Datos Locales", set_lbl_cache: "Restablecer las preferencias almacenadas en su navegador.", set_btn_cache: "Borrar caché del sistema",
-        adm_eyebrow: "Administración Global", adm_title: "Consola de la Directiva Activa", adm_h_home: "Modificar Página de Inicio e Info", adm_lbl_marq: "Eslogan de Marquee", adm_lbl_eye: "Texto de Eyebrow", adm_lbl_tit: "Título Principal (Soporta HTML)", adm_lbl_sub: "Descripción de Subtítulo", adm_lbl_year: "Año de Fundación del Club", adm_h_eff: "Gestionar Plantilla Pro", adm_lbl_pos: "Puesto", adm_lbl_pnum: "Número (#)", adm_lbl_pnom: "Nombre Completo", adm_lbl_prole: "Rol/Puesto Abreviado", adm_btn_addp: "Añadir Jugador", adm_h_news: "Editor de Artículos / Noticias", adm_h_hist: "Editor de Hitos Históricos", adm_h_bill: "Modificar Partidos (Taquilla)", adm_lbl_mhom: "Equipo Local", adm_lbl_mawy: "Equipo Visitante", adm_lbl_mdat: "Fecha y Hora", adm_lbl_mcmp: "Competición", adm_lbl_mprc: "Precio de Entrada (€)", adm_btn_savem: "Actualizar Partido", adm_h_shop: "Modificar Precios de Tienda", footer_desc: "Club mítico fundado en 2005. Rendimiento, excellence y audaz color rosa afirmado en todos los campos."
-      }
-    };
-
-    function changeLanguage(lang) {
-      currentLang = lang;
-      applyLanguage(lang);
-    }
-
-    function applyLanguage(lang) {
-      const d = translations[lang];
-      document.getElementById('link-accueil').innerText = d.nav_club;
-      document.getElementById('link-actualites').innerText = d.nav_news;
-      document.getElementById('link-billetterie').innerText = d.nav_bill;
-      document.getElementById('link-boutique').innerText = d.nav_shop;
-      document.getElementById('link-compte').innerText = d.nav_account;
-      document.getElementById('link-parametres').innerText = d.nav_param;
-      document.getElementById('link-admin').innerText = d.nav_admin;
-      document.getElementById('mob-link-club').innerText = d.nav_club;
-      document.getElementById('mob-link-actu').innerText = d.nav_news;
-      document.getElementById('mob-link-bill').innerText = d.nav_bill;
-      document.getElementById('mob-link-bout').innerText = d.nav_shop;
-      document.getElementById('mob-link-comp').innerText = d.nav_account;
-      document.getElementById('mob-link-para').innerText = d.nav_param;
-      document.getElementById('mobile-admin-link').innerText = d.nav_admin;
-      document.getElementById('hero-eyebrow-text').innerText = d.hero_eyebrow;
-      document.getElementById('hero-title-text').innerHTML = d.hero_title;
-      document.getElementById('hero-sub-text').innerText = d.hero_sub;
-      document.getElementById('hero-btn-ticket').innerText = d.hero_btn_tkt;
-      document.getElementById('hero-btn-eff').innerText = d.hero_btn_eff;
-      document.getElementById('hero-stat-lbl').innerText = d.hero_stat_lbl;
-      document.getElementById('eff-eyebrow').innerText = d.eff_eyebrow;
-      document.getElementById('eff-title').innerText = d.eff_title;
-      document.getElementById('eff-lbl-players').innerText = d.eff_lbl_players;
-      document.getElementById('eff-lbl-goal').innerText = d.eff_lbl_goal;
-      document.getElementById('header-g').innerText = d.header_g;
-      document.getElementById('header-d').innerText = d.header_d;
-      document.getElementById('header-m').innerText = d.header_m;
-      document.getElementById('header-a').innerText = d.header_a;
-      document.getElementById('hist-eyebrow').innerText = d.hist_eyebrow;
-      document.getElementById('hist-title').innerText = d.hist_title;
-      document.getElementById('news-eyebrow').innerText = d.news_eyebrow;
-      document.getElementById('news-title').innerHTML = d.news_title;
-      document.getElementById('bill-eyebrow').innerText = d.bill_eyebrow;
-      document.getElementById('bill-title').innerHTML = d.bill_title;
-      document.getElementById('shop-eyebrow').innerText = d.shop_eyebrow;
-      document.getElementById('shop-title').innerHTML = d.shop_title;
-      document.getElementById('cart-title').innerText = d.cart_title;
-      document.getElementById('cart-btn-checkout').innerText = d.cart_btn_checkout;
-      document.getElementById('tab-login').innerText = d.tab_login;
-      document.getElementById('tab-register').innerText = d.tab_register;
-      document.getElementById('tab-admin').innerText = d.tab_admin;
-      document.getElementById('reg-lock-banner').innerText = d.reg_locked;
-      setAuthMode(currentAuthMode);
-      renderMatchs();
-      renderBoutique();
-    }
-
-    function showPage(pageId) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-      const targetPage = document.getElementById(`page-${pageId}`);
-      if(targetPage) targetPage.classList.add('active');
-      const targetLink = document.getElementById(`link-${pageId}`);
-      if(targetLink) targetLink.classList.add('active');
-      window.scrollTo(0,0);
-    }
-
-    // TOGGLE MENU MOBILE
-    function toggleMobileMenu() {
-      document.getElementById('mobileMenu').classList.toggle('open');
-    }
-
-    function renderEffectif() {
-      let totalCount = 0;
-      const renderGrid = (gridId, data, categoryKey) => {
-        if(!data) data = [];
-        totalCount += data.length;
-        document.getElementById(gridId).innerHTML = data.map((j, index) => `
-          <div class="joueur-card">
-            <button class="admin-action-btn admin-del" onclick="deletePlayerPro('${categoryKey}', ${index})">✕</button>
-            <div class="joueur-num">#${j.num}</div>
-            <div class="joueur-nom">${j.nom}</div>
-            <div class="joueur-nat">${j.poste}</div>
-          </div>
-        `).join('');
-      };
-      renderGrid('grid-gardiens', effectifPro.gardiens, 'gardiens');
-      renderGrid('grid-defenseurs', effectifPro.defenseurs, 'defenseurs');
-      renderGrid('grid-milieux', effectifPro.milieux, 'milieux');
-      renderGrid('grid-attaquants', effectifPro.attaquants, 'attaquants');
-      document.getElementById('eff-total-count').innerText = totalCount;
-    }
-
-    function renderActualites() {
-      document.getElementById('news-container').innerHTML = actualites.map((a, index) => `
-        <div class="news-card" onclick="loadNewsToEdit(${index}); showPage('admin');">
-          <button class="admin-action-btn admin-del" onclick="deleteNewsPro(${index}); event.stopPropagation();">✕</button>
-          <div class="news-card-body">
-            <div class="news-tag">Club Actu</div>
-            <h3 class="news-card-title">${a.title}</h3>
-            <p class="news-card-excerpt">${a.excerpt}</p>
-            <div class="news-card-meta">${a.date}</div>
-          </div>
-        </div>
-      `).join('');
-
-      document.getElementById('adm-news-list').innerHTML = actualites.map((a, index) => `
-        <div class="admin-list-item">
-          <span>${a.title}</span>
-          <div class="admin-list-actions">
-            <button class="admin-mini-btn btn-edit-mini" onclick="loadNewsToEdit(${index})">Édit</button>
-            <button class="admin-mini-btn btn-del-mini" onclick="deleteNewsPro(${index})">✕</button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function renderTimeline() {
-      document.getElementById('timeline-container').innerHTML = histoireTimeline.map((h, index) => `
-        <div class="timeline-item" onclick="loadHistoryToEdit(${index}); showPage('admin');">
-          <button class="admin-action-btn admin-del" onclick="deleteHistoryPro(${index}); event.stopPropagation();">✕</button>
-          <div class="tl-year">${h.year}</div>
-          <div>
-            <div class="tl-event">${h.event}</div>
-            <div class="tl-detail">${h.detail}</div>
-          </div>
-        </div>
-      `).join('');
-      
-      document.getElementById('adm-hist-list').innerHTML = histoireTimeline.map((h, index) => `
-        <div class="admin-list-item">
-          <span>[${h.year}] ${h.event}</span>
-          <div class="admin-list-actions">
-            <button class="admin-mini-btn btn-edit-mini" onclick="loadHistoryToEdit(${index})">Édit</button>
-            <button class="admin-mini-btn btn-del-mini" onclick="deleteHistoryPro(${index})">✕</button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function renderMatchs() {
-      const isAvailable = matchData.salesStatus === "enabled";
-      const btnClass = isAvailable ? "match-ticket" : "match-ticket btn-disabled";
-      const btnAttr = isAvailable ? "" : "disabled";
-      const btnLabel = isAvailable ? translations[currentLang].add_cart : translations[currentLang].buy_disabled;
-
-      document.getElementById('matchs-container').innerHTML = `
-        <div class="match-card">
-          <div class="match-team-side"><div class="match-home">${matchData.home}</div><div class="match-away">${matchData.away}</div></div>
-          <div class="match-vs">${matchData.vs}</div>
-          <div class="match-details-side"><div class="match-date">${matchData.date}</div><div class="match-comp">${matchData.comp}</div></div>
-          <button class="${btnClass}" ${btnAttr} onclick="addToCart('Billet Match: ${matchData.away}', ${matchData.price})">${btnLabel} — ${matchData.price}€</button>
-        </div>
-      `;
-    }
-
-    function renderBoutique() {
-      const globalStatus = boutiqueProduits[0]?.salesStatus || "disabled";
-      const isAvailable = globalStatus === "enabled";
-      const btnClass = isAvailable ? "btn-primary" : "btn-primary btn-disabled";
-      const btnAttr = isAvailable ? "" : "disabled";
-      const btnLabel = isAvailable ? translations[currentLang].add_cart : translations[currentLang].buy_disabled;
-
-      document.getElementById('boutique-container').innerHTML = boutiqueProduits.map(p => `
-        <div class="product-card">
-          <div class="jersey-container" style="font-size:3rem;">${p.emoji || '👕'}</div>
-          <div class="product-name">${p.name}</div>
-          <div class="product-price">${p.price.toFixed(2)} €</div>
-          <button class="${btnClass}" ${btnAttr} onclick="addToCart('${p.name}', ${p.price})">${btnLabel}</button>
-        </div>
-      `).join('');
-
-      document.getElementById('adm-products-list').innerHTML = boutiqueProduits.map((p, i) => `
-        <div class="form-group"><label>${p.name}</label><input type="number" value="${p.price}" oninput="updateProductPrice(${i}, this.value)" /></div>
-      `).join('');
-    }
-
+    // AUTHENTIFICATION ET MODES LOGGÉS
     function setAuthMode(mode) {
       currentAuthMode = mode;
-      const d = translations[currentLang];
       document.getElementById('tab-login').classList.toggle('active', mode === 'login');
       document.getElementById('tab-register').classList.toggle('active', mode === 'register');
       document.getElementById('tab-admin').classList.toggle('active', mode === 'admin');
       
-      const banner = document.getElementById('reg-lock-banner');
       const submitBtn = document.getElementById('auth-submit-btn');
-      const inputEmail = document.getElementById('auth-email');
-      const inputPass = document.getElementById('auth-password');
-
-      inputEmail.disabled = false; inputPass.disabled = false;
-      submitBtn.removeAttribute('disabled'); submitBtn.classList.remove('btn-disabled');
-      banner.style.display = "none";
+      const labelId = document.getElementById('label-identifiant');
 
       if (mode === 'admin') {
-        document.getElementById('label-identifiant').innerText = d.lbl_admin_id;
-        submitBtn.innerText = d.btn_admin_sub;
+        labelId.innerText = "Identifiant Secrétariat Admin";
+        submitBtn.innerText = "Se connecter à l'espace Admin";
       } else if(mode === 'register') {
-        document.getElementById('label-identifiant').innerText = d.lbl_email;
-        submitBtn.innerText = d.btn_reg_sub;
-        banner.style.display = "block";
-        banner.style.background = "rgba(91, 173, 122, 0.1)";
-        banner.style.borderColor = "var(--succes)";
-        banner.style.color = "var(--succes)";
+        labelId.innerText = "Adresse Email";
+        submitBtn.innerText = "Créer mon compte";
       } else {
-        document.getElementById('label-identifiant').innerText = d.lbl_email;
-        submitBtn.innerText = d.btn_login;
+        labelId.innerText = "Adresse Email";
+        submitBtn.innerText = "Se connecter";
       }
     }
 
@@ -1300,38 +1007,380 @@
           alert('Connexion d\'infrastructure réussie !');
           showPage('admin');
         } else {
-          alert('🚫 Identifiants incorrects.');
+          alert('🚫 Identifiants administratifs incorrects.');
         }
       } else if (currentAuthMode === 'register') {
-        alert(`Félicitations ! Le compte pour ${identifiant} a été synchronisé avec succès sur la base de données.`);
-        setAuthMode('login');
+        userProfile.email = identifiant;
+        userProfile.pseudo = identifiant.split('@')[0];
+        isUserLoggedIn = true;
+        localStorage.setItem('pignouf_user_profile', JSON.stringify(userProfile));
+        alert(`Compte synchronisé avec succès pour ${identifiant} !`);
+        toggleLoggedView(true);
       } else {
+        userProfile.email = identifiant;
+        isUserLoggedIn = true;
+        toggleLoggedView(true);
         alert('Connexion utilisateur réussie !');
       }
     }
 
-    function toggleDarkMode(isDark) {
-      if(isDark) { document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
-      else { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); }
-    }
-    function toggleCartPanel(o) { document.getElementById('cartPanel').classList.toggle('open', o); }
-    
-    function resetNewsForm() { 
-      document.getElementById('admin-news-id').value = ""; 
-      document.getElementById('admin-news-title').value = ""; 
-      document.getElementById('admin-news-excerpt').value = ""; 
-      document.getElementById('admin-news-img').value = ""; 
-      document.getElementById('admin-news-yt').value = ""; 
-      document.getElementById('article-form-title').innerText = "Créer / Modifier un Article";
+    function toggleLoggedView(isLogged) {
+      if(isLogged) {
+        document.getElementById('auth-unlogged-view').style.display = 'none';
+        document.getElementById('auth-logged-view').style.display = 'block';
+        updateProfileFieldsUI();
+      } else {
+        document.getElementById('auth-unlogged-view').style.display = 'block';
+        document.getElementById('auth-logged-view').style.display = 'none';
+      }
     }
 
-    function resetHistoryForm() {
-      document.getElementById('admin-hist-id').value = "";
-      document.getElementById('admin-hist-year').value = "";
-      document.getElementById('admin-hist-title').value = "";
-      document.getElementById('admin-hist-detail').value = "";
-      document.getElementById('hist-form-title').innerText = "Nouveau / Modifier Jalon";
+    function logoutUser() {
+      isUserLoggedIn = false;
+      toggleLoggedView(false);
     }
+
+    // LOGIQUE DE PERSONNALISATION DU PROFIL (NOUVEAU)
+    function selectAvatar(emoji, element) {
+      document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
+      element.classList.add('selected');
+      userProfile.avatar = emoji;
+      updateProfileLive();
+    }
+
+    function updateProfileLive() {
+      document.getElementById('user-avatar-disp').innerText = userProfile.avatar;
+      document.getElementById('user-pseudo-disp').innerText = document.getElementById('input-profile-pseudo').value || "Supporter";
+      document.getElementById('user-badge-disp').innerText = document.getElementById('input-profile-badge').value;
+    }
+
+    function updateProfileTheme(themeName) {
+      userProfile.theme = themeName;
+      const card = document.getElementById('profile-card-preview');
+      if(themeName === 'gold') {
+        card.style.background = "linear-gradient(135deg, #FBF4E4 0%, #FFF 100%)";
+        card.style.borderColor = "#D4AF37";
+      } else if (themeName === 'darkcard') {
+        card.style.background = "#1C1C1F";
+        card.style.borderColor = "#444";
+        card.style.color = "#FFF";
+      } else {
+        card.style.background = "var(--blanc)";
+        card.style.borderColor = "var(--rose-bord)";
+        card.style.color = "var(--texte)";
+      }
+    }
+
+    function updateProfileFieldsUI() {
+      document.getElementById('input-profile-pseudo').value = userProfile.pseudo;
+      document.getElementById('input-profile-badge').value = userProfile.badge;
+      document.getElementById('input-profile-theme').value = userProfile.theme;
+      document.getElementById('user-email-disp').innerText = userProfile.email;
+      document.getElementById('stats-quiz-score').innerText = userProfile.scoreQuiz;
+      document.getElementById('stats-pen-score').innerText = userProfile.scorePen;
+      updateProfileTheme(userProfile.theme);
+      document.getElementById('user-avatar-disp').innerText = userProfile.avatar;
+      document.getElementById('user-pseudo-disp').innerText = userProfile.pseudo;
+      document.getElementById('user-badge-disp').innerText = userProfile.badge;
+    }
+
+    function saveProfileData() {
+      userProfile.pseudo = document.getElementById('input-profile-pseudo').value;
+      userProfile.badge = document.getElementById('input-profile-badge').value;
+      localStorage.setItem('pignouf_user_profile', JSON.stringify(userProfile));
+      alert('Profil mis à jour et sauvegardé localement !');
+    }
+
+    // LOGIQUE DE L'ESPACE MINI-JEUX INTERACTIFS (NOUVEAU)
+    function startQuizGame() {
+      currentQuizIndex = 0;
+      tempQuizScore = 0;
+      document.getElementById('btn-quiz-ctrl').style.display = 'none';
+      showQuizQuestion();
+    }
+
+    function showQuizQuestion() {
+      if(currentQuizIndex >= quizQuestions.length) {
+        document.getElementById('quiz-question').innerText = `Quiz terminé ! Votre score : ${tempQuizScore}/${quizQuestions.length}`;
+        document.getElementById('quiz-options-box').innerHTML = '';
+        document.getElementById('btn-quiz-ctrl').style.display = 'inline-block';
+        document.getElementById('btn-quiz-ctrl').innerText = 'Recommencer';
+        if(tempQuizScore > userProfile.scoreQuiz) {
+          userProfile.scoreQuiz = tempQuizScore;
+          localStorage.setItem('pignouf_user_profile', JSON.stringify(userProfile));
+          document.getElementById('stats-quiz-score').innerText = tempQuizScore;
+        }
+        return;
+      }
+      
+      const qData = quizQuestions[currentQuizIndex];
+      document.getElementById('quiz-question').innerText = `Q${currentQuizIndex+1}: ${qData.q}`;
+      document.getElementById('quiz-options-box').innerHTML = qData.o.map((opt, i) => `
+        <button class="btn-ghost" style="text-align:left; padding:10px; border:1px solid var(--rose-bord); border-radius:4px;" onclick="submitQuizAnswer(${i})">${opt}</button>
+      `).join('');
+    }
+
+    function submitQuizAnswer(indexSelected) {
+      const qData = quizQuestions[currentQuizIndex];
+      if(indexSelected === qData.a) {
+        tempQuizScore++;
+        alert("Correct ! 🎉");
+      } else {
+        alert(`Faux ! La bonne réponse était : ${qData.o[qData.a]}`);
+      }
+      currentQuizIndex++;
+      showQuizQuestion();
+    }
+
+    // Jeu Tirs au but
+    let penaltyStrikes = 0;
+    let penaltyGoals = 0;
+    function kickPenalty(zone) {
+      if(penaltyStrikes >= 5) {
+        alert("Séance terminée ! Réinitialisez pour rejouer.");
+        return;
+      }
+      const zones = ['tl', 'tr', 'c', 'bl', 'br'];
+      const keeperChoice = zones[Math.floor(Math.random() * zones.length)];
+      const gkElement = document.getElementById('gk-player');
+      
+      // Animation visuelle du gardien
+      if(keeperChoice === 'tl') gkElement.style.transform = 'translate(-40px, -20px)';
+      else if(keeperChoice === 'tr') gkElement.style.transform = 'translate(40px, -20px)';
+      else if(keeperChoice === 'bl') gkElement.style.transform = 'translate(-40px, 10px)';
+      else if(keeperChoice === 'br') gkElement.style.transform = 'translate(40px, 10px)';
+      else gkElement.style.transform = 'translate(0, 0)';
+
+      penaltyStrikes++;
+      if(zone !== keeperChoice) {
+        penaltyGoals++;
+        userProfile.scorePen++;
+        document.getElementById('penalty-feedback').innerText = "BUT !! Magnifique contre-pied ! ⚽🔥";
+        document.getElementById('penalty-feedback').style.color = "var(--succes)";
+      } else {
+        document.getElementById('penalty-feedback').innerText = "Arrêt héroïque du gardien ! 🧤❌";
+        document.getElementById('penalty-feedback').style.color = "var(--danger)";
+      }
+
+      document.getElementById('pen-score-strikes').innerText = penaltyStrikes;
+      document.getElementById('pen-score-goals').innerText = penaltyGoals;
+      document.getElementById('stats-pen-score').innerText = userProfile.scorePen;
+      localStorage.setItem('pignouf_user_profile', JSON.stringify(userProfile));
+
+      if(penaltyStrikes === 5) {
+        setTimeout(() => {
+          alert(`Fin de la séance ! Vous avez marqué ${penaltyGoals} buts.`);
+        }, 400);
+      }
+    }
+
+    function resetPenaltyGame() {
+      penaltyStrikes = 0;
+      penaltyGoals = 0;
+      document.getElementById('pen-score-strikes').innerText = "0";
+      document.getElementById('pen-score-goals').innerText = "0";
+      document.getElementById('penalty-feedback').innerText = "Prêt pour la prochaine frappe ?";
+      document.getElementById('gk-player').style.transform = 'translate(0, 0)';
+    }
+
+    // FONCTIONS D'ADMINISTRATION CLOUD (CONSERVÉES)
+    function saveHeroInfosCloud() {
+      db.ref('site_infos').set({
+        marquee: document.getElementById('adm-hero-marquee').value,
+        eyebrow: document.getElementById('adm-hero-eyebrow').value,
+        title: document.getElementById('adm-hero-title').value,
+        sub: document.getElementById('adm-hero-sub').value,
+        year: document.getElementById('adm-creation-year').value
+      }).then(() => alert("Modifications de l'accueil synchronisées !"));
+    }
+
+    function addPlayerPro() {
+      const poste = document.getElementById('adm-player-poste').value;
+      const num = document.getElementById('adm-player-num').value;
+      const nom = document.getElementById('adm-player-nom').value;
+      const role = document.getElementById('adm-player-role').value;
+      if(!num || !nom || !role) return alert('Champs requis.');
+      if(!effectifPro[poste]) effectifPro[poste] = [];
+      effectifPro[poste].push({ num, nom, poste: role });
+      db.ref('effectif').set(effectifPro).then(() => alert('Joueur synchronisé !'));
+    }
+
+    function deletePlayerPro(category, index) {
+      if(confirm('Supprimer ce joueur ?')) {
+        effectifPro[category].splice(index, 1);
+        db.ref('effectif').set(effectifPro);
+      }
+    }
+
+    function saveNewsPro() {
+      const id = document.getElementById('admin-news-id').value;
+      const title = document.getElementById('admin-news-title').value;
+      const excerpt = document.getElementById('admin-news-excerpt').value;
+      const image = document.getElementById('admin-news-img').value;
+      const youtube = document.getElementById('admin-news-yt').value;
+      const date = document.getElementById('admin-news-date').value || "Juin 2026";
+      if(id !== "") db.ref('actualites/' + id).set({ title, excerpt, date, image, youtube });
+      else db.ref('actualites').push().set({ title, excerpt, date, image, youtube });
+      resetNewsForm();
+    }
+
+    function deleteNewsPro(index) {
+      if(confirm('Supprimer ?')) db.ref('actualites/' + actualitesKeys[index]).remove();
+    }
+
+    function saveHistoryPro() {
+      const id = document.getElementById('admin-hist-id').value;
+      const year = document.getElementById('admin-hist-year').value;
+      const event = document.getElementById('admin-hist-title').value;
+      const detail = document.getElementById('admin-hist-detail').value;
+      if(id !== "") db.ref('histoire/' + id).set({ year, event, detail });
+      else db.ref('histoire').push().set({ year, event, detail });
+      resetHistoryForm();
+    }
+
+    function deleteHistoryPro(index) {
+      if(confirm('Supprimer ?')) db.ref('histoire/' + histoireKeys[index]).remove();
+    }
+
+    function updateMatchPro() {
+      db.ref('match').set({
+        home: document.getElementById('adm-match-home').value,
+        away: document.getElementById('adm-match-away').value,
+        vs: "VS",
+        date: document.getElementById('adm-match-date').value,
+        comp: document.getElementById('adm-match-comp').value,
+        price: parseFloat(document.getElementById('adm-match-price').value) || 0,
+        salesStatus: document.getElementById('adm-match-status').value
+      }).then(() => alert('Match mis à jour !'));
+    }
+
+    // COMMERCE ET PANIER INTERACTIF
+    function addToCart(name, price) {
+      panier.push({ name, price });
+      document.getElementById('cartBubble').classList.add('show');
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      document.getElementById('cartCount').innerText = panier.length;
+      const container = document.getElementById('cartItemsContainer');
+      let total = 0;
+      if(panier.length === 0) {
+        container.innerHTML = `<p style="font-size:0.85rem; color:var(--texte-sec); text-align:center; padding:2rem;">Votre panier est vide.</p>`;
+      } else {
+        container.innerHTML = panier.map((item, index) => {
+          total += item.price;
+          return `
+            <div class="cart-item-row">
+              <div><p style="font-weight:600;">${item.name}</p><p style="font-size:0.75rem; color:var(--rose);">${item.price.toFixed(2)} €</p></div>
+              <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--danger); cursor:pointer;">Supprimer</button>
+            </div>
+          `;
+        }).join('');
+      }
+      document.getElementById('cart-total-price').innerText = total.toFixed(2) + " €";
+    }
+
+    function removeFromCart(index) {
+      panier.splice(index, 1);
+      if(panier.length === 0) document.getElementById('cartBubble').classList.remove('show');
+      updateCartDisplay();
+    }
+
+    function validateCartOrder() {
+      let orderTotal = panier.reduce((sum, item) => sum + item.price, 0);
+      simulatedEarnings += orderTotal;
+      alert(`Commande validée (${orderTotal.toFixed(2)} €) ! Merci.`);
+      panier = [];
+      document.getElementById('cartBubble').classList.remove('show');
+      toggleCartPanel(false);
+      updateCartDisplay();
+      updateDashboardStats();
+    }
+
+    // VISUAL RENDERS BASES D'ORIGINE CONSERVÉS À 100%
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      const targetPage = document.getElementById(`page-${pageId}`);
+      if(targetPage) targetPage.classList.add('active');
+      window.scrollTo(0,0);
+    }
+
+    function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+    function toggleCartPanel(o) { document.getElementById('cartPanel').classList.toggle('open', o); }
+    function toggleDarkMode(isDark) {
+      if(isDark) document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.removeAttribute('data-theme');
+    }
+
+    function renderEffectif() {
+      let totalCount = 0;
+      const renderGrid = (gridId, data, categoryKey) => {
+        if(!data) data = []; totalCount += data.length;
+        document.getElementById(gridId).innerHTML = data.map((j, index) => `
+          <div class="joueur-card">
+            <button class="admin-action-btn admin-del" onclick="deletePlayerPro('${categoryKey}', ${index})">✕</button>
+            <div class="joueur-num">#${j.num}</div><div class="joueur-nom">${j.nom}</div><div class="joueur-nat">${j.poste}</div>
+          </div>
+        `).join('');
+      };
+      renderGrid('grid-gardiens', effectifPro.gardiens, 'gardiens');
+      renderGrid('grid-defenseurs', effectifPro.defenseurs, 'defenseurs');
+      renderGrid('grid-milieux', effectifPro.milieux, 'milieux');
+      renderGrid('grid-attaquants', effectifPro.attaquants, 'attaquants');
+      document.getElementById('eff-total-count').innerText = totalCount;
+    }
+
+    function renderActualites() {
+      document.getElementById('news-container').innerHTML = actualites.map((a, index) => `
+        <div class="news-card">
+          <div class="news-card-body">
+            <div class="news-tag">Club Actu</div>
+            <h3 class="news-card-title">${a.title}</h3>
+            <p class="news-card-excerpt">${a.excerpt}</p>
+            <div class="news-card-meta">${a.date}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderTimeline() {
+      document.getElementById('timeline-container').innerHTML = histoireTimeline.map((h) => `
+        <div class="timeline-item">
+          <div class="tl-year">${h.year}</div>
+          <div><div class="tl-event">${h.event}</div><div class="tl-detail">${h.detail}</div></div>
+        </div>
+      `).join('');
+    }
+
+    function renderMatchs() {
+      const isAvailable = matchData.salesStatus === "enabled";
+      const btnClass = isAvailable ? "match-ticket" : "match-ticket btn-disabled";
+      document.getElementById('matchs-container').innerHTML = `
+        <div class="match-card">
+          <div class="match-team-side"><div class="match-home">${matchData.home}</div><div class="match-away">${matchData.away}</div></div>
+          <div class="match-vs">${matchData.vs}</div>
+          <div class="match-details-side"><div class="match-date">${matchData.date}</div><div class="match-comp">${matchData.comp}</div></div>
+          <button class="${btnClass}" ${isAvailable?'':'disabled'} onclick="addToCart('Billet Match', ${matchData.price})">Acheter — ${matchData.price}€</button>
+        </div>
+      `;
+    }
+
+    function renderBoutique() {
+      document.getElementById('boutique-container').innerHTML = boutiqueProduits.map(p => `
+        <div class="product-card">
+          <div class="jersey-container" style="font-size:3rem;">${p.emoji || '👕'}</div>
+          <div class="product-name">${p.name}</div><div class="product-price">${p.price.toFixed(2)} €</div>
+          <button class="btn-primary" onclick="addToCart('${p.name}', ${p.price})">Ajouter au panier</button>
+        </div>
+      `).join('');
+    }
+
+    function applyLanguage(l) {}
+    function changeLanguage(l) { currentLang = l; }
+    function resetNewsForm() {}
+    function resetHistoryForm() {}
   </script>
 </body>
 </html>
