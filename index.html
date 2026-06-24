@@ -18,679 +18,1326 @@
        RESET & VARIABLES (Gérant le Mode Sombre)
     ═══════════════════════════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    
+
     :root {
-      --bg-primary: #f8f9fa;
-      --bg-card: #ffffff;
-      --text-main: #1f2937;
-      --text-muted: #4b5563;
-      --primary: #E8779A;
-      --primary-hover: #d05f81;
-      --secondary: #111827;
-      --accent: #ffd700;
-      --border: #e5e7eb;
-      --shadow: 0 10px 30px rgba(0,0,0,0.05);
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-sans: 'Inter', sans-serif;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --blanc:     #FFFFFF;
+      --rose:      #E8779A;
+      --rose-f:    #C4506E;
+      --rose-pale: #FDF0F4;
+      --rose-mid:  #F5D6E3;
+      --rose-bord: #ECC5D6;
+      --texte:     #1A1A22;
+      --texte-sec: #6B5F6B;
+      --gris-clair:#F7F3F5;
+      --succes:    #5BAD7A;
+      --danger:    #D9534F;
+      --bebas: 'Bebas Neue', sans-serif;
+      --inter: 'Inter', sans-serif;
+      --nav-bg: rgba(255, 255, 255, 0.96);
+      --font-modifier: 100%;
+      --card-shadow: 0 8px 32px rgba(232, 119, 154, 0.06);
+      --glass-bg: rgba(255, 255, 255, 0.7);
     }
 
     [data-theme="dark"] {
-      --bg-primary: #0f172a;
-      --bg-card: #1e293b;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --secondary: #f8fafc;
-      --border: #334155;
-      --shadow: 0 10px 30px rgba(0,0,0,0.3);
+      --blanc:     #121214;
+      --rose-pale: #22161A;
+      --rose-mid:  #44232E;
+      --rose-bord: #5C323F;
+      --texte:     #F5F5F7;
+      --texte-sec: #A192A1;
+      --gris-clair:#1A1A1E;
+      --nav-bg: rgba(18, 18, 20, 0.96);
+      --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --glass-bg: rgba(18, 18, 20, 0.7);
     }
 
+    html { scroll-behavior: smooth; font-size: var(--font-modifier); }
     body {
-      background-color: var(--bg-primary);
-      color: var(--text-main);
-      font-family: var(--font-sans);
-      transition: var(--transition);
+      background: var(--blanc);
+      color: var(--texte);
+      font-family: var(--inter);
+      font-size: 16px;
+      line-height: 1.6;
       overflow-x: hidden;
-      padding-bottom: 80px;
+      transition: background 0.3s, color 0.3s;
     }
 
     /* ═══════════════════════════════════════════════════════════════
-       TYPOGRAPHIE & UTILS
+       NAV
     ═══════════════════════════════════════════════════════════════ */
-    h1, h2, h3 { font-family: var(--font-display); letter-spacing: 1px; }
-    .section-title { font-size: 2.5rem; margin-bottom: 1.5rem; text-transform: uppercase; color: var(--primary); }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    .hidden { display: none !important; }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 68px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--rose-bord);
+    }
+    .nav-logo {
+      font-family: var(--bebas); font-size: 1.5rem; letter-spacing: 0.08em;
+      color: var(--texte); text-decoration: none; flex-shrink: 0; cursor: pointer;
+    }
+    .nav-logo span { color: var(--rose); }
 
-    /* ═══════════════════════════════════════════════════════════════
-       HEADER & NAVIGATION
-    ═══════════════════════════════════════════════════════════════ */
-    header {
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(10px);
+    .nav-links { display: flex; gap: 0; list-style: none; }
+    .nav-links a {
+      color: var(--texte-sec); text-decoration: none; font-size: 0.72rem;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.2s; padding: 0.4rem 0.65rem; border-radius: 2px; cursor: pointer;
     }
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 70px;
+    .nav-links a:hover, .nav-links a.active { color: var(--rose); }
+
+    .nav-right { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+    .nav-badge {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--rose); border: 1px solid var(--rose-bord);
+      padding: 0.28rem 0.7rem;
     }
-    .logo {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      color: var(--primary);
-      text-decoration: none;
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px;
     }
-    .nav-right { display: flex; align-items: center; gap: 15px; }
-    .btn-icon {
-      background: none;
-      border: none;
-      font-size: 1.3rem;
-      cursor: pointer;
-      color: var(--text-main);
-      position: relative;
-      padding: 5px;
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--texte); transition: all 0.3s; }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none; position: fixed; top: 68px; left: 0; right: 0;
+      background: var(--nav-bg); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--rose-bord); z-index: 199;
+      flex-direction: column; padding: 1rem 1.5rem; gap: 0.25rem;
     }
-    .badge {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background: var(--primary);
-      color: white;
-      font-size: 0.7rem;
-      padding: 2px 6px;
-      border-radius: 10px;
-      font-weight: bold;
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--texte-sec); text-decoration: none; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; padding: 0.7rem 0;
+      border-bottom: 1px solid var(--rose-bord); cursor: pointer;
     }
 
     /* ═══════════════════════════════════════════════════════════════
-       HERO BANNER
+       PAGE SYSTEM & STYLISH UPGRADES
     ═══════════════════════════════════════════════════════════════ */
-    .hero {
-      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1600&auto=format&fit=crop&q=80') center/cover;
-      height: 400px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: white;
-    }
-    .hero-content h1 { font-size: 5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
-    .hero-content p { font-size: 1.2rem; max-width: 600px; margin: 10px auto 0; font-weight: 300; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       COMPOSANTS RÉUTILISABLES (BOUTONS, CARDS)
-    ═══════════════════════════════════════════════════════════════ */
-    .btn-primary {
-      background-color: var(--primary);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-weight: 600;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
-    .btn-disabled { background-color: #cccccc !important; cursor: not-allowed; transform: none !important; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       SECTIONS DE CONTENU
-    ═══════════════════════════════════════════════════════════════ */
-    section { padding: 60px 0; border-bottom: 1px solid var(--border); }
+    .page { display: none; padding-top: 68px; min-height: 100vh; }
+    .page.active { display: block; animation: fadeIn 0.5s ease-out; }
     
-    /* Effectif */
-    .grid-effectif { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-    .player-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SHARED COMPONENTS
+    ═══════════════════════════════════════════════════════════════ */
+    .section-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--bebas); font-size: clamp(2.5rem, 5vw, 4.5rem); letter-spacing: 0.02em; line-height: 1; margin-bottom: 2.5rem; color: var(--texte); }
+    .section-title em { font-style: normal; color: var(--rose); }
+    .rule-red { width: 48px; height: 2px; background: var(--rose); margin-bottom: 2rem; }
+    .sec { padding: 4rem 2rem; }
+    @media (min-width: 768px) { .sec { padding: 6rem 4rem; } }
+    .sec-alt { background: var(--gris-clair); }
+    .sec-pale { background: var(--rose-pale); }
+
+    .premium-header {
+      position: relative;
+      padding: 6rem 4rem 4rem;
+      background: linear-gradient(185deg, var(--rose-pale) 0%, var(--blanc) 100%);
+      border-bottom: 1px solid var(--rose-bord);
       overflow: hidden;
-      box-shadow: var(--shadow);
-      text-align: center;
-      padding: 20px;
     }
-    .player-number { font-family: var(--font-display); font-size: 3rem; color: var(--primary); opacity: 0.3; }
-    .player-name { font-size: 1.2rem; font-weight: 600; margin: 10px 0 5px; }
-    .player-role { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-
-    /* Matchs & Billetterie */
-    .match-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .match-team-side { display: flex; flex-direction: column; font-size: 1.5rem; font-weight: 700; }
-    .match-vs { font-family: var(--font-display); font-size: 2rem; color: var(--primary); }
-    .match-details-side { text-align: right; }
-    .match-date { font-weight: 600; }
-    .match-comp { font-size: 0.9rem; color: var(--text-muted); }
-    .match-ticket { background: var(--secondary); color: var(--bg-card); border: none; padding: 12px 24px; font-weight: bold; border-radius: 6px; cursor: pointer; }
-
-    /* Boutique */
-    .grid-boutique { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
-    .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; box-shadow: var(--shadow); }
-    .product-name { font-size: 1.1rem; font-weight: 600; margin: 15px 0 5px; }
-    .product-price { color: var(--primary); font-weight: 700; margin-bottom: 15px; }
-
-    /* HISTORIQUE */
-    .history-timeline { position: relative; max-width: 800px; margin: 0 auto; padding-left: 30px; border-left: 2px solid var(--primary); }
-    .timeline-item { position: relative; margin-bottom: 40px; }
-    .timeline-item::before { content: ''; position: absolute; left: -37px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--primary); border: 4px solid var(--bg-primary); }
-    .timeline-year { font-family: var(--font-display); font-size: 1.8rem; color: var(--primary); }
-
-    /* ═══════════════════════════════════════════════════════════════
-       ESPACE DIVERTISSEMENT & MINI-JEUX
-    ═══════════════════════════════════════════════════════════════ */
-    .games-layout {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 30px;
-    }
-    @media (max-width: 900px) {
-      .games-layout { grid-template-columns: 1fr; }
-    }
-    
-    .game-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 25px;
-      box-shadow: var(--shadow);
-      margin-bottom: 30px;
-      position: relative;
-    }
-    
-    /* Lock Overlay pour les non-connectés */
-    .game-lock-overlay {
+    .premium-header::before {
+      content: "PIGNOUFERIE FC";
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
-      border-radius: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      z-index: 10;
-      text-align: center;
-      padding: 20px;
-      backdrop-filter: blur(4px);
-    }
-    .game-lock-overlay span { font-size: 3rem; margin-bottom: 10px; }
-    .game-lock-overlay p { margin-bottom: 15px; font-size: 1.1rem; }
-
-    /* Classement / Leaderboard */
-    .leaderboard-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-    .leaderboard-table th, .leaderboard-table td {
-      padding: 12px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-    }
-    .leaderboard-table tr:first-child td {
-      font-weight: bold;
-      color: var(--accent);
-    }
-
-    /* Roue de la fortune */
-    .wheel-container { position: relative; width: 260px; height: 260px; margin: 20px auto; }
-    .wheel { width: 100%; height: 100%; border-radius: 50%; border: 8px solid var(--secondary); transition: transform 4s cubic-bezier(0.1, 0.8, 0.1, 1); background: conic-gradient(#E8779A 0deg 60deg, #3b82f6 60deg 120deg, #10b981 120deg 180deg, #f59e0b 180deg 240deg, #8b5cf6 240deg 300deg, #ec4899 300deg 360deg); }
-    .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 25px solid var(--secondary); z-index: 10; }
-
-    /* Quiz */
-    .quiz-options { display: flex; flex-direction: column; gap: 10px; margin: 15px 0; }
-    .quiz-btn { background: var(--bg-primary); border: 1px solid var(--border); color: var(--text-main); padding: 12px; border-radius: 8px; cursor: pointer; text-align: left; font-weight: 500; transition: var(--transition); }
-    .quiz-btn:hover { background: var(--border); }
-
-    /* Amélioration Tir au but */
-    .penalty-game-container {
-      background: #1e3a1e;
-      border: 4px solid #fff;
-      border-radius: 8px;
-      padding: 20px;
-      position: relative;
-      color: white;
-      text-align: center;
-      min-height: 240px;
-    }
-    .penalty-cage {
-      width: 80%;
-      height: 120px;
-      border: 5px solid #fff;
-      border-bottom: none;
-      margin: 0 auto 20px;
-      position: relative;
-      background: rgba(255,255,255,0.1);
-    }
-    .keeper {
-      position: absolute;
-      bottom: 0;
-      left: 45%;
-      width: 40px;
-      height: 50px;
-      background: #ffd700;
-      border-radius: 5px;
-      transition: left 0.5s ease;
-    }
-    .keeper-label {
-      font-size: 0.7rem;
-      color: #000;
-      font-weight: bold;
-      display: block;
-      margin-top: 10px;
-    }
-    .penalty-targets {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    .target-btn {
-      background: rgba(255,255,255,0.2);
-      border: 2px dashed #fff;
-      color: #fff;
-      padding: 8px;
-      cursor: pointer;
-      border-radius: 4px;
-      font-weight: bold;
-    }
-    .target-btn:hover {
-      background: var(--primary);
-    }
-
-    /* Nouveau Jeu : Babyfoot */
-    .foosball-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-    #foosballCanvas {
-      background: #2e7d32;
-      border: 4px solid #8d6e63;
-      border-radius: 4px;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
-      max-width: 100%;
-    }
-
-    /* ═══════════════════════════════════════════════════════════════
-       MODALS & COINS DROITE (PANIER / CONNEXION)
-    ═══════════════════════════════════════════════════════════════ */
-    .sidebar-panel {
-      position: fixed;
-      top: 0; right: -400px;
-      width: 100%; max-width: 400px; height: 100%;
-      background: var(--bg-card);
-      box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-      z-index: 200;
-      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-    }
-    .sidebar-panel.active { right: 0; }
-    .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .sidebar-close { font-size: 1.5rem; cursor: pointer; background: none; border: none; color: var(--text-main); }
-    
-    .cart-items { flex: 1; overflow-y: auto; }
-    .cart-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
-    .cart-total { font-size: 1.3rem; font-weight: bold; margin: 20px 0; display: flex; justify-content: space-between; }
-    
-    .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; margin-bottom: 5px; font-size: 0.9rem; }
-    .form-group input { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-primary); color: var(--text-main); }
-
-    /* ═══════════════════════════════════════════════════════════════
-       BARRE DE NAVIGATION BASSE (MOBILE OPTIMIZED)
-    ═══════════════════════════════════════════════════════════════ */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: var(--bg-card);
-      border-top: 1px solid var(--border);
-      height: 65px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 90;
-    }
-    .bottom-nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: var(--text-muted);
-      font-size: 0.75rem;
-      font-weight: 500;
-      transition: var(--transition);
-    }
-    .bottom-nav-item.active, .bottom-nav-item:hover { color: var(--primary); }
-    .bottom-nav-item span:first-child { font-size: 1.4rem; margin-bottom: 2px; }
-
-    /* Notification Toast */
-    .toast {
-      position: fixed;
-      bottom: 80px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: #333;
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 30px;
-      font-size: 0.9rem;
-      z-index: 1000;
-      transition: transform 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      right: -5%;
+      bottom: -20%;
+      font-family: var(--bebas);
+      font-size: clamp(6rem, 15vw, 12rem);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(232, 119, 154, 0.08);
+      white-space: nowrap;
       pointer-events: none;
+      user-select: none;
     }
-    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    .btn-primary {
+      display: inline-block; background: var(--rose); color: #FFF; text-decoration: none; font-size: 0.78rem;
+      font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.85rem 2.2rem;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); border: none; cursor: pointer;
+      box-shadow: 0 4px 12px rgba(232, 119, 154, 0.2);
+    }
+    .btn-primary:hover:not(:disabled) { background: var(--rose-f); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232, 119, 154, 0.3); }
+    
+    .btn-disabled {
+      background: #cccccc !important;
+      color: #777777 !important;
+      cursor: not-allowed !important;
+      box-shadow: none !important;
+      transform: none !important;
+      border: 1px solid #bbbbbb !important;
+    }
+
+    .btn-ghost {
+      display: inline-block; color: var(--texte); text-decoration: none; font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid var(--rose-bord);
+      padding-bottom: 0.15rem; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; cursor: pointer;
+    }
+    .btn-ghost:hover { border-color: var(--rose); color: var(--rose); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE: ACCUEIL — HERO
+    ═══════════════════════════════════════════════════════════════ */
+    .hero { position: relative; min-height: calc(100vh - 68px); display: flex; flex-direction: column; justify-content: flex-end; padding: 0 2rem 4rem; overflow: hidden; background: var(--rose-pale); }
+    @media (min-width: 768px) { .hero { padding: 0 4rem 6rem; } }
+    .hero-marquee { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-58%); white-space: nowrap; pointer-events: none; user-select: none; }
+    .hero-marquee-inner { display: inline-block; animation: marquee 28s linear infinite; font-family: var(--bebas); font-size: clamp(8rem, 17vw, 17rem); color: transparent; -webkit-text-stroke: 1px rgba(232, 119, 154, 0.18); letter-spacing: 0.04em; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .hero-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); margin-bottom: 1.25rem; }
+    .hero-title { font-family: var(--bebas); font-size: clamp(4rem, 10vw, 9rem); line-height: 0.9; letter-spacing: 0.02em; max-width: 900px; position: relative; color: var(--texte); }
+    .hero-title em { font-style: normal; color: var(--rose); }
+    .hero-sub { margin-top: 1.75rem; font-size: 1rem; color: var(--texte-sec); font-weight: 300; max-width: 460px; line-height: 1.7; }
+    .hero-actions { margin-top: 2.5rem; display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
+    .hero-stats { position: absolute; right: 4rem; bottom: 6rem; display: flex; flex-direction: column; gap: 1.75rem; align-items: flex-end; }
+    @media (max-width: 768px) { .hero-stats { position: relative; right: auto; bottom: auto; align-items: flex-start; margin-top: 2rem; } }
+    .hero-stat-num { font-family: var(--bebas); font-size: 3rem; line-height: 1; color: var(--texte); }
+    .hero-stat-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; text-align: right; }
+    @media (max-width: 768px) { .hero-stat-label { text-align: left; } }
+
+    /* ═══════════════════════════════════════════════════════════════
+       EFFECTIF
+    ═══════════════════════════════════════════════════════════════ */
+    .effectif-intro { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 4rem; align-items: end; }
+    @media (min-width: 768px) { .effectif-intro { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+    .effectif-text { font-size: 0.88rem; color: var(--texte-sec); line-height: 1.8; }
+    .effectif-numbers { display: flex; gap: 2.5rem; }
+    .eff-num { font-family: var(--bebas); font-size: 2.8rem; color: var(--texte); }
+    .eff-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--texte-sec); margin-top: 0.2rem; }
+    .poste-header { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); padding: 1.25rem 0 0.75rem; border-top: 1px solid var(--rose-bord); margin-top: 1.5rem; }
+    .joueurs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; background: transparent; margin-bottom: 1.5rem; }
+    .joueur-card { background: var(--blanc); padding: 1.5rem 1.25rem; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); position: relative; border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 4px; }
+    .joueur-card:hover { background: var(--rose-pale); transform: translateY(-4px); border-color: var(--rose); }
+    .joueur-num { font-family: var(--bebas); font-size: 2rem; color: rgba(232, 119, 154, 0.4); line-height: 1; margin-bottom: 0.4rem; }
+    .joueur-nom { font-size: 0.9rem; font-weight: 600; color: var(--texte); margin-bottom: 0.2rem; }
+    .joueur-nat { font-size: 0.72rem; color: var(--texte-sec); font-weight: 500; }
+    
+    .admin-action-btn { display: none; position: absolute; top: 5px; background: var(--texte); color: white; border: none; font-size: 0.6rem; padding: 2px 6px; cursor: pointer; z-index: 10; font-family: var(--inter); font-weight: 600; text-transform: uppercase; }
+    .admin-del { right: 5px; background: var(--rose); }
+    .admin-edit { right: 35px; background: #333; }
+    body.is-admin-mode .admin-action-btn { display: block; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       HISTOIRE / TIMELINE
+    ═══════════════════════════════════════════════════════════════ */
+    .timeline { display: flex; flex-direction: column; max-width: 780px; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 40px; top: 0; bottom: 0; width: 1px; background: var(--rose-bord); }
+    @media (min-width: 768px) { .timeline::before { left: 100px; } }
+    .timeline-item { display: grid; grid-template-columns: 50px 1fr; gap: 0 1.5rem; padding: 2.5rem 0; border-bottom: 1px solid var(--rose-pale); position: relative; }
+    @media (min-width: 768px) { .timeline-item { grid-template-columns: 100px 1fr; gap: 0 3rem; } }
+    .timeline-item:last-child { border-bottom: none; }
+    .tl-year { font-family: var(--bebas); font-size: 2rem; color: var(--rose); padding-top: 0.1rem; position: relative; z-index: 2; }
+    .tl-event { font-weight: 700; font-size: 1.1rem; color: var(--texte); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+    .tl-detail { font-size: 0.88rem; color: var(--texte-sec); line-height: 1.7; font-weight: 300; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE: ACTUALITÉS
+    ═══════════════════════════════════════════════════════════════ */
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; background: transparent; }
+    .news-card { background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 6px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; display: flex; flex-direction: column; position: relative; overflow: hidden; box-shadow: var(--card-shadow); }
+    .news-card:hover { transform: translateY(-6px); border-color: var(--rose); box-shadow: 0 16px 40px rgba(232, 119, 154, 0.12); }
+    .news-card-body { padding: 1.75rem; flex: 1; display: flex; flex-direction: column; }
+    .news-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.6rem; }
+    .news-card-title { font-family: var(--bebas); font-size: 1.6rem; letter-spacing: 0.02em; color: var(--texte); margin-bottom: 0.6rem; line-height: 1.15; }
+    .news-card-excerpt { font-size: 0.85rem; color: var(--texte-sec); line-height: 1.6; flex: 1; font-weight: 300; }
+    .news-card-meta { font-size: 0.68rem; color: var(--texte-sec); margin-top: 1.25rem; font-weight: 500; opacity: 0.8; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE: BILLETTERIE
+    ═══════════════════════════════════════════════════════════════ */
+    .match-container-box { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+    .match-card { display: grid; grid-template-columns: 1fr; align-items: center; gap: 1.5rem; padding: 2rem 1.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; position: relative; transition: all 0.3s; text-align: center; }
+    @media (min-width: 768px) { .match-card { grid-template-columns: 1.5fr 0.5fr 1.5fr 1.2fr; gap: 2rem; padding: 2rem 2.5rem; text-align: left; } }
+    .match-card:hover { border-color: var(--rose); }
+    .match-team-side { display: flex; flex-direction: column; gap: 4px; }
+    .match-home, .match-away { font-family: var(--bebas); font-size: 1.6rem; color: var(--texte); letter-spacing: 0.02em; }
+    .match-vs { font-family: var(--bebas); font-size: 1.2rem; color: var(--rose); background: var(--rose-pale); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; justify-self: center; border: 1px solid var(--rose-bord); margin: 0 auto; }
+    .match-details-side { display: flex; flex-direction: column; gap: 2px; }
+    .match-date { font-weight: 600; font-size: 0.9rem; color: var(--texte); }
+    .match-comp { font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--texte-sec); letter-spacing: 0.05em; }
+    .match-ticket { font-family: var(--inter); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: var(--rose); color: #FFF; border: none; padding: 0.85rem 1.5rem; cursor: pointer; transition: all 0.3s; text-align: center; border-radius: 3px; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE: BOUTIQUE
+    ═══════════════════════════════════════════════════════════════ */
+    .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
+    .product-card { background: var(--blanc); border: 1px solid var(--rose-bord); display: flex; flex-direction: column; padding: 1.75rem; position: relative; transition: transform 0.3s, box-shadow 0.3s; box-shadow: var(--card-shadow); border-radius: 6px; }
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 16px 35px rgba(232, 119, 154, 0.16); border-color: var(--rose); }
+    .jersey-container { width: 100%; height: 200px; background: var(--gris-clair); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; position: relative; overflow: hidden; border-radius: 4px; }
+    .product-name { font-family: var(--bebas); font-size: 1.6rem; color: var(--texte); letter-spacing: 0.02em; margin-bottom: 0.3rem; line-height: 1.2; }
+    .product-price { font-size: 1.15rem; font-weight: 700; color: var(--rose); margin-bottom: 1.25rem; }
+
+    /* Cart Bubble & Panels */
+    .cart-bubble { position: fixed; bottom: 2rem; right: 2rem; background: var(--rose); color: white; border: none; width: 56px; height: 56px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 1.3rem; z-index: 300; cursor: pointer; box-shadow: 0 4px 16px rgba(232, 119, 154, 0.4); }
+    .cart-bubble.show { display: flex; }
+    .cart-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 100%; max-width: 380px; background: var(--blanc); border-left: 1px solid var(--rose-bord); z-index: 400; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -10px 0 40px rgba(0,0,0,0.05); }
+    .cart-panel.open { transform: translateX(0); }
+    .cart-items { flex: 1; overflow-y: auto; padding: 1.5rem; }
+    .cart-item-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--rose-bord); font-size: 0.9rem; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE: AUTH / COMPTE
+    ═══════════════════════════════════════════════════════════════ */
+    .auth-container { max-width: 480px; margin: 4rem auto; padding: 3rem 1.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; }
+    @media (min-width: 768px) { .auth-container { padding: 3rem 2.5rem; } }
+    .auth-tabs { display: flex; border-bottom: 1px solid var(--rose-bord); margin-bottom: 2rem; gap: 5px; }
+    .auth-tab { flex: 1; padding: 0.85rem; background: none; border: none; font-family: var(--bebas); font-size: 1.25rem; color: var(--texte-sec); cursor: pointer; text-align: center; transition: all 0.2s; border-radius: 4px 4px 0 0; }
+    .auth-tab:hover { background: var(--rose-pale); color: var(--rose); }
+    .auth-tab.active { color: var(--rose); border-bottom: 2px solid var(--rose); background: linear-gradient(to top, var(--rose-pale), transparent); font-weight: bold; }
+    
+    .form-group { margin-bottom: 1.4rem; }
+    .form-group label { display: block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; color: var(--texte-sec); }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.85rem; background: var(--gris-clair); border: 1px solid var(--rose-bord); color: var(--texte); font-family: var(--inter); border-radius: 4px; transition: border 0.2s; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--rose); background: var(--blanc); }
+
+    .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto; }
+    .settings-card { padding: 2rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; }
+    .settings-card h3 { font-family: var(--bebas); font-size: 1.5rem; color: var(--rose); margin-bottom: 1.25rem; border-bottom: 1px solid var(--rose-pale); padding-bottom: 0.4rem; letter-spacing: 0.01em; }
+    .toggle-switch { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ZONE PROFIL ULTRA-PERSONNALISABLE
+    ═══════════════════════════════════════════════════════════════ */
+    .profile-dashboard { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 1000px; margin: 0 auto; }
+    @media (min-width: 768px) { .profile-dashboard { grid-template-columns: 320px 1fr; } }
+    .profile-sidebar { background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 8px; padding: 2rem; text-align: center; box-shadow: var(--card-shadow); }
+    .profile-avatar-container { position: relative; width: 120px; height: 120px; margin: 0 auto 1.5rem; border-radius: 50%; border: 3px solid var(--rose); overflow: hidden; background: var(--gris-clair); }
+    .profile-avatar-container img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-badge-tag { display: inline-block; background: var(--rose-pale); color: var(--rose); border: 1px solid var(--rose-bord); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; padding: 0.3rem 0.8rem; letter-spacing: 0.05em; border-radius: 20px; margin-top: 0.5rem; }
+    .profile-main-content { display: flex; flex-direction: column; gap: 2rem; }
+    .avatar-picker-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 0.5rem; }
+    .avatar-option { width: 100%; aspect-ratio: 1; border-radius: 50%; cursor: pointer; border: 2px solid transparent; overflow: hidden; background: var(--gris-clair); transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .avatar-option:hover, .avatar-option.selected { border-color: var(--rose); transform: scale(1.05); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SYSTEME MINI-JEUX FOOT INTERACTIFS
+    ═══════════════════════════════════════════════════════════════ */
+    .games-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 950px; margin: 0 auto; }
+    @media (min-width: 768px) { .games-grid { grid-template-columns: 1fr 1fr; } }
+    .game-card { background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 8px; padding: 2rem; box-shadow: var(--card-shadow); display: flex; flex-direction: column; justify-content: space-between; }
+    .game-arena { background: var(--gris-clair); border: 1px solid var(--rose-bord); border-radius: 6px; padding: 1.5rem; margin: 1.5rem 0; min-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden; }
+    
+    /* Simulateur de Tirs au but */
+    .penalty-cage { width: 100%; height: 120px; border: 4px dashed var(--texte-sec); border-bottom: none; position: relative; margin-top: 1rem; background: rgba(232, 119, 154, 0.03); }
+    .penalty-target { position: absolute; width: 32px; height: 32px; background: var(--rose); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; font-weight: bold; transition: all 0.2s; }
+    .target-top-left { top: 10px; left: 10px; }
+    .target-top-right { top: 10px; right: 10px; }
+    .target-bottom-left { bottom: 10px; left: 10px; }
+    .target-bottom-right { bottom: 10px; right: 10px; }
+    .target-center { top: 45px; left: calc(50% - 16px); }
+    .penalty-keeper { position: absolute; bottom: 0; left: calc(50% - 20px); width: 40px; height: 50px; background: var(--texte); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: all 0.3s ease; border-radius: 4px 4px 0 0; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PANEL ADMIN UNIVERSEL
+    ═══════════════════════════════════════════════════════════════ */
+    .admin-dashboard-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .admin-stat-card { background: var(--rose-pale); border: 1px solid var(--rose-bord); padding: 1rem; border-radius: 4px; text-align: center; }
+    .admin-stat-card h4 { font-size: 0.7rem; text-transform: uppercase; color: var(--texte-sec); }
+    .admin-stat-card p { font-family: var(--bebas); font-size: 2rem; color: var(--rose); }
+
+    .admin-sections-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; padding: 2rem 0; }
+    .admin-block { border: 1px solid var(--rose-bord); padding: 1.75rem; background: var(--blanc); box-shadow: var(--card-shadow); border-radius: 6px; }
+    .admin-block h3 { font-family: var(--bebas); font-size: 1.5rem; margin-bottom: 1.25rem; color: var(--rose); border-bottom: 1px solid var(--rose-pale); padding-bottom: 0.4rem; }
+    .admin-scroll-list { max-height: 200px; overflow-y: auto; border: 1px solid var(--rose-bord); padding: 0.5rem; margin-bottom: 1rem; background: var(--gris-clair); }
+    .admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; border-bottom: 1px solid var(--rose-mid); font-size: 0.8rem; }
+    .admin-list-item:last-child { border-bottom: none; }
+    .admin-list-actions { display: flex; gap: 4px; }
+    .admin-mini-btn { padding: 2px 6px; font-size: 0.65rem; text-transform: uppercase; border: none; cursor: pointer; font-weight: bold; color: #fff; }
+    .btn-edit-mini { background: #333; }
+    .btn-del-mini { background: var(--rose); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════════ */
+    footer { background: var(--gris-clair); padding: 4rem 2rem; display: grid; grid-template-columns: 1fr; gap: 3rem; border-top: 1px solid var(--rose-bord); }
+    @media (min-width: 768px) { footer { grid-template-columns: 2fr repeat(3, 1fr); padding: 4rem; } }
+    .footer-brand-name { font-family: var(--bebas); font-size: 1.7rem; color: var(--texte); }
+    .footer-brand-name span { color: var(--rose); }
+    .footer-bottom { background: var(--rose-pale); padding: 1.25rem 2rem; display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--texte-sec); border-top: 1px solid var(--rose-bord); flex-wrap: wrap; gap: 1rem; }
+    @media (min-width: 768px) { .footer-bottom { padding: 1.25rem 4rem; } }
+
+    @media(max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+    }
   </style>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
 <body>
 
-  <div id="toast" class="toast">Action effectuée !</div>
-
-  <header>
-    <div class="container nav-container">
-      <a href="#" class="logo">PIGNOUFERIE FC</a>
-      <div class="nav-right">
-        <button class="btn-icon" onclick="toggleTheme()" title="Changer de Mode">🌓</button>
-        <button class="btn-icon" onclick="openPanel('panel-account')" title="Mon Compte">👤<span id="account-status-dot" style="display:none; position:absolute; top:2px; right:2px; width:8px; height:8px; background:#10b981; border-radius:50%;"></span></button>
-        <button class="btn-icon" onclick="openPanel('panel-cart')" title="Panier">🛒<span class="badge" id="cart-badge">0</span></button>
-        <select id="lang-select" onchange="changeLanguage(this.value)" style="background:var(--bg-card); color:var(--text-main); border:1px solid var(--border); padding:5px; border-radius:4px;">
-          <option value="fr">FR</option>
-          <option value="en">EN</option>
-        </select>
-      </div>
+  <nav>
+    <a class="nav-logo" onclick="showPage('accueil')">PIGNOUFERIE <span id="nav-logo-span">FC</span></a>
+    <ul class="nav-links">
+      <li><a id="link-accueil" onclick="showPage('accueil')" class="active">Club</a></li>
+      <li><a id="link-actualites" onclick="showPage('actualites')">Actualités</a></li>
+      <li><a id="link-billetterie" onclick="showPage('billetterie')">Billetterie</a></li>
+      <li><a id="link-boutique" onclick="showPage('boutique')">Boutique</a></li>
+      <li><a id="link-jeux" onclick="showPage('jeux')">Mini-Jeux</a></li>
+      <li><a id="link-compte" onclick="showPage('compte')">Mon Profil</a></li>
+      <li><a id="link-parametres" onclick="showPage('parametres')">Paramètres</a></li>
+      <li id="nav-admin-link" style="display:none;"><a id="link-admin" onclick="showPage('admin')" style="color:var(--rose); font-weight:bold;">Panel Admin</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-badge" id="nav-creation-badge">Fondé en 2005</div>
+      <button class="nav-hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </header>
-
-  <div class="hero">
-    <div class="hero-content">
-      <h1 id="hero-title">LA PIGNOUFERIE FC</h1>
-      <p id="hero-subtitle">Le site officiel du club le plus mythique de la région. Authenticité, rigolade et beaux gestes.</p>
-    </div>
-  </div>
-
-  <section id="effectif">
-    <div class="container">
-      <h2 class="section-title" id="title-effectif">L'Effectif</h2>
-      <div class="grid-effectif" id="effectif-container"></div>
-    </div>
-  </section>
-
-  <section id="matchs">
-    <div class="container">
-      <h2 class="section-title" id="title-matchs">Billetterie & Matchs</h2>
-      <div id="matchs-container"></div>
-    </div>
-  </section>
-
-  <section id="boutique">
-    <div class="container">
-      <h2 class="section-title" id="title-boutique">La Boutique Officielle</h2>
-      <div class="grid-boutique" id="boutique-container"></div>
-    </div>
-  </section>
-
-  <section id="historique">
-    <div class="container">
-      <h2 class="section-title" id="title-history">Notre Histoire</h2>
-      <div class="history-timeline" id="history-container"></div>
-    </div>
-  </section>
-
-  <section id="jeux">
-    <div class="container">
-      <h2 class="section-title" id="title-games">Espace Divertissement</h2>
-      
-      <div class="games-layout">
-        <div>
-          <div class="game-box">
-            <h3 style="margin-bottom:10px;" id="game-quiz-title">Le Quiz des Pignoufs</h3>
-            <div id="quiz-content">
-              <p id="quiz-question" style="font-weight:600; margin-bottom:15px;"></p>
-              <div class="quiz-options" id="quiz-options"></div>
-            </div>
-          </div>
-
-          <div class="game-box" id="box-penalty">
-            <div class="game-lock-overlay" id="lock-penalty">
-              <span>🔒</span>
-              <p>Vous devez être connecté pour jouer et enregistrer vos points !</p>
-              <button class="btn-primary" onclick="openPanel('panel-account')">Se connecter</button>
-            </div>
-            
-            <h3 style="margin-bottom:10px;">Mini-Jeu : Tir au but réaliste</h3>
-            <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;">Le gardien bouge de gauche à droite. Anticipez sa position et marquez ! (+10 pts par but)</p>
-            
-            <div class="penalty-game-container">
-              <div class="penalty-cage">
-                <div class="keeper" id="keeper-element"><span class="keeper-label">Gardien</span></div>
-              </div>
-              <div class="penalty-targets">
-                <button class="target-btn" onclick="shootPenalty('top-left')">Top Gauche</button>
-                <button class="target-btn" onclick="shootPenalty('top-center')">Plein Centre</button>
-                <button class="target-btn" onclick="shootPenalty('top-right')">Top Droite</button>
-                <button class="target-btn" onclick="shootPenalty('bottom-left')">Bas Gauche</button>
-                <button class="target-btn" onclick="shootPenalty('bottom-center')">Ras du sol</button>
-                <button class="target-btn" onclick="shootPenalty('bottom-right')">Bas Droite</button>
-              </div>
-              <p id="penalty-result" style="margin-top:15px; font-weight:bold; font-size:1.2rem;"></p>
-            </div>
-          </div>
-
-          <div class="game-box" id="box-foosball">
-            <div class="game-lock-overlay" id="lock-foosball">
-              <span>🔒</span>
-              <p>Vous devez être connecté pour jouer et enregistrer vos points !</p>
-              <button class="btn-primary" onclick="openPanel('panel-account')">Se connecter</button>
-            </div>
-            
-            <h3 style="margin-bottom:10px;">Mini-Jeu : Le Baby-Foot de la Pignouferie</h3>
-            <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;">Contrôlez vos barres (Bleu) avec les <b>Flèches Haut ↑ et Bas ↓</b> de votre clavier. Marquez 3 buts pour gagner ! (+50 pts)</p>
-            
-            <div class="foosball-container">
-              <div style="font-weight: bold; font-size: 1.2rem; display:flex; gap:20px;">
-                <span style="color:#2196f3;">Bleu (Vous) : <span id="foosball-score-user">0</span></span>
-                <span style="color:#f44336;">Rouge (IA) : <span id="foosball-score-ia">0</span></span>
-              </div>
-              <canvas id="foosballCanvas" width="500" height="300"></canvas>
-              <button class="btn-primary" id="btn-start-foosball" onclick="startFoosballGame()">Lancer / Réinitialiser le match</button>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="game-box">
-            <h3 style="margin-bottom:10px;" id="game-wheel-title">Roue de la Fortune</h3>
-            <p style="font-size:0.9rem; color:var(--text-muted);" id="game-wheel-desc">Tentez de gagner un bon d'achat ou des goodies une fois par jour !</p>
-            <div class="wheel-container">
-              <div class="wheel-pointer"></div>
-              <div class="wheel" id="wheel"></div>
-            </div>
-            <button class="btn-primary" style="width:100%;" onclick="spinWheel()" id="btn-wheel">Lancer la roue</button>
-            <p id="wheel-result" style="margin-top:15px; text-align:center; font-weight:bold; color:var(--primary);"></p>
-          </div>
-
-          <div class="game-box">
-            <h3>Classement des Joueurs</h3>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:10px;">Marquez des points dans les mini-jeux pour dominer le tableau !</p>
-            <table class="leaderboard-table">
-              <thead>
-                <tr>
-                  <th>Rang</th>
-                  <th>Pseudo</th>
-                  <th>Points</th>
-                </tr>
-              </thead>
-              <tbody id="leaderboard-body">
-                </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <div class="sidebar-panel" id="panel-account">
-    <div class="sidebar-header">
-      <h2 id="title-account-panel">Mon Compte</h2>
-      <button class="sidebar-close" onclick="closePanel('panel-account')">✕</button>
-    </div>
-    <div id="account-logged-out">
-      <div class="form-group">
-        <label>Adresse Email</label>
-        <input type="email" id="login-email" placeholder="nom@exemple.com" value="supporter@pignouferie.fr" />
-      </div>
-      <div class="form-group">
-        <label>Pseudo de Supporter</label>
-        <input type="text" id="login-username" placeholder="PignoufXxx" value="PignoufMaitre" />
-      </div>
-      <div class="form-group">
-        <label>Mot de passe</label>
-        <input type="password" id="login-pass" value="••••••••" />
-      </div>
-      <button class="btn-primary" style="width:100%; margin-top:10px;" onclick="handleLogin()">Se connecter / S'inscrire</button>
-    </div>
-    <div id="account-logged-in" class="hidden">
-      <p style="margin-bottom:10px;">Bienvenue, <strong id="user-display-name"></strong> !</p>
-      <div style="background:var(--bg-primary); padding:15px; border-radius:8px; margin-bottom:20px;">
-        <p>Vos Points Divertissement : <strong id="user-display-points" style="color:var(--primary); font-size:1.2rem;">0</strong> pts</p>
-      </div>
-      <button class="btn-primary" style="width:100%; background:#ef4444;" onclick="handleLogout()">Se déconnecter</button>
-    </div>
-  </div>
-
-  <div class="sidebar-panel" id="panel-cart">
-    <div class="sidebar-header">
-      <h2 id="title-cart-panel">Votre Panier</h2>
-      <button class="sidebar-close" onclick="closePanel('panel-cart')">✕</button>
-    </div>
-    <div class="cart-items" id="cart-items-container"></div>
-    <div class="cart-total">
-      <span>Total :</span>
-      <span id="cart-total-price">0.00 €</span>
-    </div>
-    <button class="btn-primary" style="width:100%;" onclick="checkout()" id="btn-checkout">Valider la commande</button>
-  </div>
-
-  <nav class="bottom-nav">
-    <a href="#effectif" class="bottom-nav-item active"><span>🏃‍♂️</span><span id="nav-item-team">Effectif</span></a>
-    <a href="#matchs" class="bottom-nav-item"><span>🎫</span><span id="nav-item-matchs">Billets</span></a>
-    <a href="#boutique" class="bottom-nav-item"><span>👕</span><span id="nav-item-shop">Boutique</span></a>
-    <a href="#jeux" class="bottom-nav-item"><span>🎮</span><span id="nav-item-games">Jeux</span></a>
   </nav>
 
-  <script>
-    // --- ACCESSOIRE DE DONNÉES INTACTS ---
-    const effectifData = [
-      { num: 1, name: "Rayan", role: "Gardien" },
-      { num: 4, name: "Thomas", role: "Défenseur" },
-      { num: 5, name: "Kylian", role: "Milieu" },
-      { num: 7, name: "Maxence", role: "Attaquant" },
-      { num: 8, name: "Lucas", role: "Milieu" },
-      { num: 9, name: "Antoine", role: "Attaquant" },
-      { num: 10, name: "Alexandre", role: "Attaquant" },
-      { num: 11, name: "Guillaume", role: "Milieu" }
-    ];
+  <div class="mobile-menu" id="mobileMenu">
+    <a id="mob-link-club" onclick="showPage('accueil'); toggleMobileMenu()">Club</a>
+    <a id="mob-link-actu" onclick="showPage('actualites'); toggleMobileMenu()">Actualités</a>
+    <a id="mob-link-bill" onclick="showPage('billetterie'); toggleMobileMenu()">Billetterie</a>
+    <a id="mob-link-bout" onclick="showPage('boutique'); toggleMobileMenu()">Boutique</a>
+    <a id="mob-link-jeux" onclick="showPage('jeux'); toggleMobileMenu()">Mini-Jeux</a>
+    <a id="mob-link-comp" onclick="showPage('compte'); toggleMobileMenu()">Mon Profil</a>
+    <a id="mob-link-para" onclick="showPage('parametres'); toggleMobileMenu()">Paramètres</a>
+    <a id="mobile-admin-link" onclick="showPage('admin'); toggleMobileMenu()" style="display:none; color:var(--rose);">Panel Admin</a>
+  </div>
 
-    const matchData = {
-      home: "La Pignouferie FC",
-      away: "FC Pieds Nickelés",
-      vs: "VS",
-      date: "Dimanche 28 Juin — 15h00",
-      comp: "Championnat Régional — J18",
-      price: 5.00,
-      salesStatus: "enabled"
-    };
+  <div id="page-accueil" class="page active">
+    <div class="hero">
+      <div class="hero-marquee">
+        <div class="hero-marquee-inner" id="hero-marquee-text">PIGNOUFERIE FC • PIGNOUFERIE FC •</div>
+      </div>
+      <div class="hero-eyebrow" id="hero-eyebrow-text">Le Site Officiel</div>
+      <h1 class="hero-title" id="hero-title-text">Plus qu'un club, une <em>légende</em> en rose et blanc.</h1>
+      <p class="hero-sub" id="hero-sub-text">Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" id="hero-btn-ticket" onclick="showPage('billetterie')">Réserver un billet</button>
+        <button class="btn-ghost" id="hero-btn-eff" onclick="document.getElementById('effectif-sec').scrollIntoView()">Découvrir l'effectif</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hero-stat-num" id="hero-stat-year-val">2005</div><div class="hero-stat-label" id="hero-stat-lbl-year">Année de création</div></div>
+      </div>
+    </div>
 
-    const boutiqueProduits = [
-      { name: "Maillot Domicile Rose 2026", price: 45.00, emoji: "👕" },
-      { name: "Écharpe 'Allez les Pignoufs'", price: 15.00, emoji: "🧣" },
-      { name: "Casquette Officielle", price: 18.00, emoji: "🧢" }
-    ];
-
-    const histoireData = [
-      { year: "2018", text: "Fondation du club entre potes sur un coup de tête autour d'un barbecue mémorable." },
-      { year: "2021", text: "Montée historique en division supérieure après une saison invaincue à domicile." },
-      { year: "2025", text: "Lancement du centre de formation et inauguration du nouveau terrain synthétique." }
-    ];
-
-    // Quiz nettoyé des anciens membres (uniquement les joueurs de la photo courante)
-    const quizQuestions = [
-      { q: "Qui porte le numéro 10 de l'effectif actuel ?", a: ["Alexandre", "Maxence", "Rayan"], c: 0 },
-      { q: "Quel est le poste attitré de Rayan ?", a: ["Défenseur", "Milieu", "Gardien"], c: 2 },
-      { q: "Quel joueur porte le numéro 7 à la Pignouferie FC ?", a: ["Thomas", "Maxence", "Lucas"], c: 1 }
-    ];
-
-    // --- ÉTAT GLOBAL DE L'APPLICATION ---
-    let currentTheme = 'light';
-    let currentLang = 'fr';
-    let cart = [];
-    let currentQuizIndex = 0;
-    
-    // Système Utilisateur Réel & Persistant
-    let userProfile = {
-      isLoggedIn: false,
-      username: "",
-      points: 0
-    };
-
-    // Classement fictif de la communauté incluant le score utilisateur s'il progresse
-    let standardLeaderboard = [
-      { username: "PignoufPro", points: 250 },
-      { username: "FuriousStriker", points: 180 },
-      { username: "UltraPink", points: 110 }
-    ];
-
-    // --- INITIALISATION AU CHARGEMENT ---
-    window.addEventListener('DOMContentLoaded', () => {
-      renderEffectif();
-      renderMatchs();
-      renderBoutique();
-      renderHistoire();
-      renderQuiz();
-      updateLeaderboard();
-      checkGameAccess();
-    });
-
-    // Toast Maker simple
-    function showToast(message) {
-      const t = document.getElementById('toast');
-      t.innerText = message;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2500);
-    }
-
-    // --- STRUCTURE DES COMPOSANTS ---
-    function renderEffectif() {
-      document.getElementById('effectif-container').innerHTML = effectifData.map(p => `
-        <div class="player-card">
-          <div class="player-number">#${p.num}</div>
-          <div class="player-name">${p.name}</div>
-          <div class="player-role">${p.role}</div>
+    <div id="effectif-sec" class="sec">
+      <div class="effectif-intro">
+        <div>
+          <p class="section-eyebrow" id="eff-eyebrow">Saison Globale</p>
+          <h2 class="section-title" id="eff-title">L'Effectif Pro</h2>
+          <div class="rule-red"></div>
         </div>
-      `).join('');
+        <div class="effectif-numbers">
+          <div><div class="eff-num" id="eff-total-count">24</div><div class="eff-label" id="eff-lbl-players">Joueurs Pro</div></div>
+          <div><div class="eff-num" id="eff-goal-num">1</div><div class="eff-label" id="eff-lbl-goals">Buts Inscrits</div></div>
+        </div>
+      </div>
+
+      <div class="poste-header" id="header-gardien">Gardiens</div>
+      <div class="joueurs-grid" id="grid-gardien"></div>
+
+      <div class="poste-header" id="header-defenseur">Défenseurs</div>
+      <div class="joueurs-grid" id="grid-defenseur"></div>
+
+      <div class="poste-header" id="header-milieu">Milieux de terrain</div>
+      <div class="joueurs-grid" id="grid-milieu"></div>
+
+      <div class="poste-header" id="header-attaquant">Attaquants</div>
+      <div class="joueurs-grid" id="grid-attaquant"></div>
+    </div>
+
+    <div class="sec sec-alt">
+      <p class="section-eyebrow" id="hist-eyebrow">Notre Héritage</p>
+      <h2 class="section-title" id="hist-title">L'Histoire du <em>Club</em></h2>
+      <div class="rule-red"></div>
+      <div class="timeline" id="timeline-container"></div>
+    </div>
+  </div>
+
+  <div id="page-actualites" class="page">
+    <div class="premium-header">
+      <p class="section-eyebrow" id="actu-eyebrow">Média & Presse</p>
+      <h2 class="section-title" id="actu-title">Actualités <em>Récentes</em></h2>
+    </div>
+    <div class="sec">
+      <div class="news-grid" id="news-container"></div>
+    </div>
+  </div>
+
+  <div id="page-billetterie" class="page">
+    <div class="premium-header">
+      <p class="section-eyebrow" id="bill-eyebrow">Stade de la Pignouferie</p>
+      <h2 class="section-title" id="bill-title">Prochain <em>Match</em></h2>
+    </div>
+    <div class="sec sec-pale">
+      <div class="match-container-box" id="matchs-container"></div>
+    </div>
+  </div>
+
+  <div id="page-boutique" class="page">
+    <div class="premium-header">
+      <p class="section-eyebrow" id="bout-eyebrow">Collection Officielle</p>
+      <h2 class="section-title" id="bout-title">La <em>Boutique</em></h2>
+    </div>
+    <div class="sec">
+      <div class="shop-grid" id="boutique-container"></div>
+    </div>
+  </div>
+
+  <div id="page-jeux" class="page">
+    <div class="premium-header">
+      <p class="section-eyebrow">Divertissement</p>
+      <h2 class="section-title">Mini-Jeux <em>Interactifs</em></h2>
+    </div>
+    <div class="sec sec-alt">
+      <div class="games-grid">
+        <div class="game-card">
+          <div>
+            <p class="section-eyebrow">Défi d'adresse</p>
+            <h3 style="font-family:var(--bebas); font-size:1.8rem; margin-bottom:0.5rem;">Séance de Tirs au But</h3>
+            <p style="font-size:0.85rem; color:var(--texte-sec);">Cliquez sur l'une des cibles pour frapper le ballon. Marquez un maximum de buts face au gardien !</p>
+          </div>
+          <div class="game-arena">
+            <div style="font-size:0.85rem; font-weight:bold; color:var(--rose);" id="penalty-score">Score : 0 | Tirs : 0</div>
+            <div class="penalty-cage">
+              <div class="penalty-keeper" id="penalty-keeper">🧤</div>
+              <div class="penalty-target target-top-left" onclick="shootPenalty('top-left')">🎯</div>
+              <div class="penalty-target target-top-right" onclick="shootPenalty('top-right')">🎯</div>
+              <div class="penalty-target target-bottom-left" onclick="shootPenalty('bottom-left')">🎯</div>
+              <div class="penalty-target target-bottom-right" onclick="shootPenalty('bottom-right')">🎯</div>
+              <div class="penalty-target target-center" onclick="shootPenalty('center')">🎯</div>
+            </div>
+            <div style="font-size:0.8rem; margin-top:0.75rem; font-weight:600; min-height:1.2rem;" id="penalty-feedback"></div>
+          </div>
+          <button class="btn-ghost" onclick="resetPenaltyGame()">Réinitialiser le jeu</button>
+        </div>
+
+        <div class="game-card">
+          <div>
+            <p class="section-eyebrow">Quiz Flash</p>
+            <h3 style="font-family:var(--bebas); font-size:1.8rem; margin-bottom:0.5rem;">Testez vos connaissances</h3>
+            <p style="font-size:0.85rem; color:var(--texte-sec);">Répondez correctement aux questions secrètes sur la riche histoire du club.</p>
+          </div>
+          <div class="game-arena" id="quiz-arena-box">
+            <div id="quiz-question-text" style="font-weight:600; text-align:center; margin-bottom:1rem; font-size:0.95rem;">Chargement du quiz...</div>
+            <div style="display:flex; flex-direction:column; gap:10px; width:100%;" id="quiz-options-container"></div>
+          </div>
+          <div style="font-size:0.8rem; text-align:center; font-weight:bold; color:var(--rose); min-height:1.2rem; margin-bottom:0.5rem;" id="quiz-score-msg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="page-compte" class="page">
+    <div class="premium-header">
+      <p class="section-eyebrow">Espace Membre</p>
+      <h2 class="section-title">Mon Espace <em>Supporter</em></h2>
+    </div>
+
+    <div class="sec">
+      <div id="auth-box-wrapper" class="auth-container">
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Connexion</button>
+          <button class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">S'inscrire</button>
+        </div>
+        
+        <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+          <div class="form-group">
+            <label for="auth-email">Adresse Email</label>
+            <input type="email" id="auth-email" required />
+          </div>
+          <div class="form-group">
+            <label for="auth-password">Mot de passe</label>
+            <input type="password" id="auth-password" required />
+          </div>
+          <div class="form-group" id="group-username" style="display: none;">
+            <label for="auth-username">Nom d'utilisateur / Pseudo</label>
+            <input type="text" id="auth-username" />
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;" id="auth-submit-btn">Se connecter</button>
+        </form>
+      </div>
+
+      <div id="profile-dashboard-wrapper" class="profile-dashboard" style="display: none;">
+        <div class="profile-sidebar">
+          <div class="profile-avatar-container">
+            <div id="user-avatar-display" style="font-size: 4.5rem; width:100%; height:100%; display:flex; align-items:center; justify-content:center;">🦁</div>
+          </div>
+          <h3 id="user-profile-name" style="font-family:var(--bebas); font-size:2rem; color:var(--texte);">Supporter</h3>
+          <p id="user-profile-email" style="font-size:0.8rem; color:var(--texte-sec); margin-bottom:1rem;"></p>
+          <span class="profile-badge-tag" id="user-role-badge">Membre Officiel</span>
+          <div style="margin-top:2rem;">
+            <button class="btn-ghost" onclick="handleLogout()">Se déconnecter</button>
+          </div>
+        </div>
+
+        <div class="profile-main-content">
+          <div class="settings-card">
+            <h3>Personnaliser mon Identité</h3>
+            <div class="form-group" style="margin-top:1rem;">
+              <label>Choisir mon Émoji / Avatar</label>
+              <div class="avatar-picker-grid">
+                <div class="avatar-option" onclick="selectProfileAvatar('🦁')">🦁</div>
+                <div class="avatar-option" onclick="selectProfileAvatar('⚽')">⚽</div>
+                <div class="avatar-option" onclick="selectProfileAvatar('👑')">👑</div>
+                <div class="avatar-option" onclick="selectProfileAvatar('⚡')">⚡</div>
+                <div class="avatar-option" onclick="selectProfileAvatar('💎')">💎</div>
+                <div class="avatar-option" onclick="selectProfileAvatar('🦖')">🦖</div>
+                <div class="avatar-option" onclick="selectProfileAvatar('🥷')">🥷</div>
+                <div class="avatar-option" onclick="selectProfileAvatar('🦄')">🦄</div>
+                <div class="avatar-option" onclick="selectProfileAvatar('🔥')">🔥</div>
+                <div class="avatar-option" onclick="selectProfileAvatar('🦅')">🦅</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="edit-profile-username">Modifier mon Pseudo</label>
+              <input type="text" id="edit-profile-username" placeholder="Nouveau pseudo" />
+            </div>
+            <button class="btn-primary" onclick="saveProfileCustomization()">Enregistrer les modifications</button>
+          </div>
+
+          <div class="settings-card">
+            <h3>Historique de mes Commandes / Réservations</h3>
+            <div id="user-orders-list" style="font-size:0.85rem; color:var(--texte-sec); margin-top:0.5rem;">Aucun achat enregistré.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="page-parametres" class="page">
+    <div class="premium-header">
+      <p class="section-eyebrow">Configuration</p>
+      <h2 class="section-title">Préférences & <em>Paramètres</em></h2>
+    </div>
+    <div class="sec">
+      <div class="settings-grid">
+        <div class="settings-card">
+          <h3>Affichage & Thème</h3>
+          <div class="toggle-switch">
+            <span style="font-size:0.9rem; font-weight:500;">Activer le Mode Sombre</span>
+            <input type="checkbox" id="dark-mode-toggle" style="width:40px; cursor:pointer;" onchange="toggleDarkMode(this.checked)" />
+          </div>
+        </div>
+        <div class="settings-card">
+          <h3>Accessibilité du texte</h3>
+          <div class="form-group" style="margin-top:1rem;">
+            <label for="font-size-select">Taille de la police globale</label>
+            <select id="font-size-select" onchange="changeFontSize(this.value)">
+              <option value="90%">Petite (Standard compact)</option>
+              <option value="100%" selected>Moyenne (Par défaut)</option>
+              <option value="110%">Grande</option>
+              <option value="120%">Très grande (Haute visibilité)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="page-admin" class="page">
+    <div class="premium-header">
+      <p class="section-eyebrow" style="color:var(--danger)">Espace Restreint</p>
+      <h2 class="section-title">Gestion Globale <em>Firebase</em></h2>
+    </div>
+    <div class="sec sec-alt">
+      <div class="admin-dashboard-stats">
+        <div class="admin-stat-card"><h4>Joueurs</h4><p id="stat-count-joueurs">0</p></div>
+        <div class="admin-stat-card"><h4>Articles</h4><p id="stat-count-news">0</p></div>
+        <div class="admin-stat-card"><h4>Histoire</h4><p id="stat-count-events">0</p></div>
+      </div>
+
+      <div class="admin-sections-grid">
+        <div class="admin-block">
+          <h3>Modifier la page d'accueil</h3>
+          <form onsubmit="handleSaveHomeTexts(event)">
+            <div class="form-group"><label>Bandeau Défilant (Marquee)</label><input type="text" id="adm-home-marquee" /></div>
+            <div class="form-group"><label>Sous-titre (Hero Eyebrow)</label><input type="text" id="adm-home-eyebrow" /></div>
+            <div class="form-group"><label>Grand Titre Principal (HTML autorisé)</label><input type="text" id="adm-home-title" /></div>
+            <div class="form-group"><label>Description Hero</label><textarea id="adm-home-sub" rows="2"></textarea></div>
+            <div class="form-group"><label>Texte Bouton Principal</label><input type="text" id="adm-home-btn-ticket" /></div>
+            <div class="form-group"><label>Texte Bouton Secondaire</label><input type="text" id="adm-home-btn-eff" /></div>
+            <div class="form-group"><label>Valeur Statistique Principale</label><input type="text" id="adm-home-stat-val" /></div>
+            <div class="form-group"><label>Label Statistique</label><input type="text" id="adm-home-stat-lbl" /></div>
+            <div style="border-top:1px dashed var(--rose-mid); margin:1rem 0; padding-top:1rem;">
+              <div class="form-group"><label>Section Effectif - Titre</label><input type="text" id="adm-eff-title" /></div>
+              <div class="form-group"><label>Section Effectif - Sous-titre</label><input type="text" id="adm-eff-eyebrow" /></div>
+              <div class="form-group"><label>Section Effectif - Label Total</label><input type="text" id="adm-eff-lbl-players" /></div>
+              <div class="form-group"><label>Section Effectif - Label Stats 2</label><input type="text" id="adm-eff-lbl-goals" /></div>
+              <div class="form-group"><label>Section Histoire - Titre</label><input type="text" id="adm-hist-title" /></div>
+              <div class="form-group"><label>Section Histoire - Sous-titre</label><input type="text" id="adm-hist-eyebrow" /></div>
+            </div>
+            <button type="submit" class="btn-primary" style="width:100%;">Mettre à jour l'accueil</button>
+          </form>
+        </div>
+
+        <div class="admin-block">
+          <h3>Ajouter / Modifier un Joueur</h3>
+          <form id="admin-player-form" onsubmit="handlePlayerSubmit(event)">
+            <input type="hidden" id="player-id" />
+            <div class="form-group"><label>Numéro de maillot</label><input type="number" id="player-num" required /></div>
+            <div class="form-group"><label>Nom complet</label><input type="text" id="player-name" required /></div>
+            <div class="form-group"><label>Nationalité / Rôle court</label><input type="text" id="player-nat" required /></div>
+            <div class="form-group">
+              <label>Poste sur le terrain</label>
+              <select id="player-position">
+                <option value="gardien">Gardien de but</option>
+                <option value="defenseur">Défenseur</option>
+                <option value="milieu">Milieu de terrain</option>
+                <option value="attaquant">Attaquant</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-primary" id="player-submit-btn" style="width:100%;">Enregistrer le joueur</button>
+            <button type="button" class="btn-ghost" id="player-cancel-btn" style="display:none; width:100%; margin-top:0.5rem;" onclick="cancelPlayerEdit()">Annuler les modifications</button>
+          </form>
+          <h4 style="margin:1.5rem 0 0.5rem; font-size:0.8rem; text-transform:uppercase;">Liste des Joueurs Pro</h4>
+          <div class="admin-scroll-list" id="admin-players-list"></div>
+        </div>
+
+        <div class="admin-block">
+          <h3>Ajouter / Modifier un Événement Historique</h3>
+          <form id="admin-history-form" onsubmit="handleHistorySubmit(event)">
+            <input type="hidden" id="history-id" />
+            <div class="form-group"><label>Année</label><input type="text" id="history-year" required /></div>
+            <div class="form-group"><label>Titre de l'événement</label><input type="text" id="history-title" required /></div>
+            <div class="form-group"><label>Description détaillée</label><textarea id="history-detail" rows="3" required></textarea></div>
+            <button type="submit" class="btn-primary" id="history-submit-btn" style="width:100%;">Ajouter l'événement</button>
+            <button type="button" class="btn-ghost" id="history-cancel-btn" style="display:none; width:100%; margin-top:0.5rem;" onclick="cancelHistoryEdit()">Annuler les modifications</button>
+          </form>
+          <h4 style="margin:1.5rem 0 0.5rem; font-size:0.8rem; text-transform:uppercase;">Événements Chronologiques</h4>
+          <div class="admin-scroll-list" id="admin-history-list"></div>
+        </div>
+
+        <div class="admin-block">
+          <h3>Contrôle du Match & Ventes</h3>
+          <form onsubmit="handleMatchSubmit(event)">
+            <div class="form-group"><label>Équipe Domicile</label><input type="text" id="match-home" required /></div>
+            <div class="form-group"><label>Équipe Extérieur</label><input type="text" id="match-away" required /></div>
+            <div class="form-group"><label>Texte Central (vs / score)</label><input type="text" id="match-vs" required /></div>
+            <div class="form-group"><label>Date et Heure du match</label><input type="text" id="match-date" required /></div>
+            <div class="form-group"><label>Compétition / Championnat</label><input type="text" id="match-comp" required /></div>
+            <div class="form-group"><label>Prix unitaire du billet (€)</label><input type="number" id="match-price" required /></div>
+            <div class="form-group">
+              <label>Statut de la billetterie</label>
+              <select id="match-sales-status">
+                <option value="enabled">Ouverte (Acheter activé)</option>
+                <option value="disabled">Fermée / Épuisé (Bouton désactivé)</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-primary" style="width:100%;">Enregistrer le match unique</button>
+          </form>
+        </div>
+
+        <div class="admin-block">
+          <h3>Ajouter / Modifier un Article d'Actualité</h3>
+          <form id="admin-news-form" onsubmit="handleNewsSubmit(event)">
+            <input type="hidden" id="news-id" />
+            <div class="form-group"><label>Catégorie / Tag (ex: MATCH, CLUB)</label><input type="text" id="news-tag" required /></div>
+            <div class="form-group"><label>Titre de l'actualité</label><input type="text" id="news-title" required /></div>
+            <div class="form-group"><label>Extrait textuel ou contenu</label><textarea id="news-excerpt" rows="3" required></textarea></div>
+            <div class="form-group"><label>Date de publication (ex: 20 JUIN 2026)</label><input type="text" id="news-meta" required /></div>
+            <button type="submit" class="btn-primary" id="news-submit-btn" style="width:100%;">Publier l'article</button>
+            <button type="button" class="btn-ghost" id="news-cancel-btn" style="display:none; width:100%; margin-top:0.5rem;" onclick="cancelNewsEdit()">Annuler les modifications</button>
+          </form>
+          <h4 style="margin:1.5rem 0 0.5rem; font-size:0.8rem; text-transform:uppercase;">Articles de Presse</h4>
+          <div class="admin-scroll-list" id="admin-news-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="cart-bubble" id="cart-bubble-btn" onclick="toggleCartPanel()">🛒</button>
+  <div class="cart-panel" id="cartPanel">
+    <div style="padding:1.5rem; border-bottom:1px solid var(--rose-bord); display:flex; justify-content:between; align-items:center;">
+      <h3 style="font-family:var(--bebas); font-size:1.5rem;">Votre Panier</h3>
+      <button class="btn-ghost" onclick="toggleCartPanel()">Fermer</button>
+    </div>
+    <div class="cart-items" id="cart-items-container"></div>
+    <div style="padding:1.5rem; border-top:1px solid var(--rose-bord); background:var(--gris-clair);">
+      <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:1rem;">
+        <span>Total :</span><span id="cart-total-value">0.00 €</span>
+      </div>
+      <button class="btn-primary" style="width:100%;" onclick="checkoutCart()">Valider la commande</button>
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-brand-name">PIGNOUFERIE <span>FC</span></div>
+      <p style="font-size:0.8rem; color:var(--texte-sec); margin-top:0.5rem;">L'excellence du football de légende depuis 2005.</p>
+    </div>
+    <div>
+      <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:1rem;">Navigation</h4>
+      <p style="font-size:0.8rem; margin-bottom:0.4rem;"><a onclick="showPage('accueil')" style="cursor:pointer; text-decoration:none; color:inherit;">Le Club</a></p>
+      <p style="font-size:0.8rem; margin-bottom:0.4rem;"><a onclick="showPage('actualites')" style="cursor:pointer; text-decoration:none; color:inherit;">Actualités</a></p>
+      <p style="font-size:0.8rem;"><a onclick="showPage('billetterie')" style="cursor:pointer; text-decoration:none; color:inherit;">Billetterie</a></p>
+    </div>
+    <div>
+      <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:1rem;">Boutique</h4>
+      <p style="font-size:0.8rem; margin-bottom:0.4rem;"><a onclick="showPage('boutique')" style="cursor:pointer; text-decoration:none; color:inherit;">Maillots Officiels</a></p>
+      <p style="font-size:0.8rem;"><a onclick="showPage('boutique')" style="cursor:pointer; text-decoration:none; color:inherit;">Équipements</a></p>
+    </div>
+    <div>
+      <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:1rem;">Contact</h4>
+      <p style="font-size:0.8rem; color:var(--texte-sec);">Stade Principal de la Pignouferie, France</p>
+    </div>
+  </footer>
+
+  <div class="footer-bottom">
+    <div>© 2026 La Pignouferie FC. Tous droits réservés.</div>
+    <div>Site internet sécurisé connecté via Realtime Database.</div>
+  </div>
+
+  <script>
+    /* ═══════════════════════════════════════════════════════════════
+       INITIALISATION FIREBASE
+    ═══════════════════════════════════════════════════════════════ */
+    const firebaseConfig = {
+      databaseURL: "https://pignouferiefc-default-rtdb.europe-west1.firebasedatabase.app/"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Modèle de secours pour la boutique en local (non Firebase)
+    const boutiqueProduits = [
+      { id: "m1", name: "Maillot Domicile Pro 2026/27", price: 85.00, emoji: "👕" },
+      { id: "m2", name: "Maillot Extérieur Rose Céleste", price: 85.00, emoji: "👚" },
+      { id: "m3", name: "Écharpe Collector Légende 2005", price: 20.00, emoji: "🧣" },
+      { id: "m4", name: "Ballon Officiel de Match", price: 35.00, emoji: "⚽" }
+    ];
+
+    // Variables globales locales
+    let currentUser = null;
+    let panier = [];
+    let matchData = { home: "Pignouferie FC", away: "Adversaire", vs: "vs", date: "Prochainement", comp: "Ligue de Légende", price: 15, salesStatus: "enabled" };
+
+    /* ═══════════════════════════════════════════════════════════════
+       ROUTING UNIQUE DES PAGES
+    ═══════════════════════════════════════════════════════════════ */
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+
+      const targetPage = document.getElementById(`page-${pageId}`);
+      if(targetPage) targetPage.classList.add('active');
+
+      const targetLink = document.getElementById(`link-${pageId}`);
+      if(targetLink) targetLink.classList.add('active');
+
+      window.scrollTo(0,0);
     }
 
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       AUTHENTIFICATION SIMULÉE VIA REALTIME DATABASE
+    ═══════════════════════════════════════════════════════════════ */
+    let currentAuthTab = 'login';
+    function switchAuthTab(tab) {
+      currentAuthTab = tab;
+      document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+      document.getElementById('tab-register').classList.toggle('active', tab === 'register');
+      document.getElementById('group-username').style.display = tab === 'register' ? 'block' : 'none';
+      document.getElementById('auth-submit-btn').innerText = tab === 'login' ? 'Se connecter' : "Créer mon compte";
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('auth-email').value.trim();
+      const password = document.getElementById('auth-password').value;
+      const username = document.getElementById('auth-username').value.trim();
+      const safeKey = btoa(email).replace(/\//g, '_').replace(/\+/g, '-').replace(/=/g, '');
+
+      if(currentAuthTab === 'register') {
+        db.ref('users/' + safeKey).get().then((snapshot) => {
+          if (snapshot.exists()) {
+            alert("Cette adresse email est déjà enregistrée.");
+          } else {
+            const role = (email.toLowerCase() === 'admin@pignouferie.fc') ? 'admin' : 'supporter';
+            const userData = {
+              email: email,
+              password: password,
+              username: username || email.split('@')[0],
+              role: role,
+              avatar: "🦁"
+            };
+            db.ref('users/' + safeKey).set(userData).then(() => {
+              alert("Inscription validée avec succès ! Vous êtes connecté.");
+              loginUserSession(userData);
+            });
+          }
+        });
+      } else {
+        db.ref('users/' + safeKey).get().then((snapshot) => {
+          if (snapshot.exists()) {
+            const u = snapshot.val();
+            if(u.password === password) {
+              alert("Connexion réussie ! Ravie de vous revoir.");
+              loginUserSession(u);
+            } else {
+              alert("Mot de passe incorrect.");
+            }
+          } else {
+            alert("Aucun compte trouvé avec cet email.");
+          }
+        });
+      }
+    }
+
+    function loginUserSession(user) {
+      currentUser = user;
+      document.getElementById('auth-box-wrapper').style.display = 'none';
+      document.getElementById('profile-dashboard-wrapper').style.display = 'grid';
+      
+      document.getElementById('user-profile-name').innerText = user.username;
+      document.getElementById('user-profile-email').innerText = user.email;
+      document.getElementById('user-avatar-display').innerText = user.avatar || '🦁';
+      
+      const isAdm = user.role === 'admin';
+      document.getElementById('user-role-badge').innerText = isAdm ? "Président Admin" : "Membre Officiel";
+      document.getElementById('nav-admin-link').style.display = isAdm ? 'block' : 'none';
+      document.getElementById('mobile-admin-link').style.display = isAdm ? 'block' : 'none';
+      
+      document.body.classList.toggle('is-admin-mode', isAdm);
+      loadUserOrders();
+    }
+
+    function handleLogout() {
+      currentUser = null;
+      document.body.classList.remove('is-admin-mode');
+      document.getElementById('nav-admin-link').style.display = 'none';
+      document.getElementById('mobile-admin-link').style.display = 'none';
+      document.getElementById('auth-box-wrapper').style.display = 'block';
+      document.getElementById('profile-dashboard-wrapper').style.display = 'none';
+      if(document.getElementById('page-admin').classList.contains('active')) {
+        showPage('accueil');
+      }
+    }
+
+    function selectProfileAvatar(emoji) {
+      document.querySelectorAll('.avatar-option').forEach(opt => {
+        opt.classList.toggle('selected', opt.innerText === emoji);
+      });
+      document.getElementById('user-avatar-display').innerText = emoji;
+    }
+
+    function saveProfileCustomization() {
+      if(!currentUser) return;
+      const newPseudo = document.getElementById('edit-profile-username').value.trim();
+      const currentAvatar = document.getElementById('user-avatar-display').innerText;
+      const safeKey = btoa(currentUser.email).replace(/\//g, '_').replace(/\+/g, '-').replace(/=/g, '');
+
+      if(newPseudo) currentUser.username = newPseudo;
+      currentUser.avatar = currentAvatar;
+
+      db.ref('users/' + safeKey).update({
+        username: currentUser.username,
+        avatar: currentUser.avatar
+      }).then(() => {
+        document.getElementById('user-profile-name').innerText = currentUser.username;
+        alert("Profil sauvegardé en ligne !");
+      });
+    }
+
+    function loadUserOrders() {
+      if(!currentUser) return;
+      const safeKey = btoa(currentUser.email).replace(/\//g, '_').replace(/\+/g, '-').replace(/=/g, '');
+      db.ref('orders/' + safeKey).get().then((snapshot) => {
+        if(snapshot.exists()) {
+          const listHtml = [];
+          snapshot.forEach(child => {
+            const ord = child.val();
+            listHtml.push(`<div style="padding:4px 0; border-bottom:1px solid var(--rose-pale); font-size:0.8rem;">📦 <strong>${ord.item}</strong> — ${ord.price}€ (Acheté le ${ord.date})</div>`);
+          });
+          document.getElementById('user-orders-list').innerHTML = listHtml.join('');
+        } else {
+          document.getElementById('user-orders-list').innerText = "Aucun achat enregistré.";
+        }
+      });
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PANIER FLOATING INTERACTIF
+    ═══════════════════════════════════════════════════════════════ */
+    function toggleCartPanel() {
+      document.getElementById('cartPanel').classList.toggle('open');
+    }
+
+    function addToCart(itemName, price) {
+      panier.push({ name: itemName, price: price });
+      updateCartUI();
+      document.getElementById('cart-bubble-btn').classList.add('show');
+      alert(`${itemName} a été ajouté au panier !`);
+    }
+
+    function updateCartUI() {
+      const container = document.getElementById('cart-items-container');
+      if(panier.length === 0) {
+        container.innerHTML = '<p style="font-size:0.85rem; color:var(--texte-sec);">Votre panier est vide.</p>';
+        document.getElementById('cart-total-value').innerText = '0.00 €';
+        return;
+      }
+      
+      let total = 0;
+      container.innerHTML = panier.map((item, index) => {
+        total += item.price;
+        return `
+          <div class="cart-item-row">
+            <div>${item.name}</div>
+            <div style="display:flex; gap:10px; align-items:center;">
+              <strong>${item.price.toFixed(2)} €</strong>
+              <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--danger); cursor:pointer; font-weight:bold;">X</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      document.getElementById('cart-total-value').innerText = total.toFixed(2) + ' €';
+    }
+
+    function removeFromCart(idx) {
+      panier.splice(idx, 1);
+      updateCartUI();
+      if(panier.length === 0) {
+        document.getElementById('cart-bubble-btn').classList.remove('show');
+        document.getElementById('cartPanel').classList.remove('open');
+      }
+    }
+
+    function checkoutCart() {
+      if(!currentUser) {
+        alert("Veuillez vous connecter sur votre profil pour valider la commande.");
+        showPage('compte');
+        document.getElementById('cartPanel').classList.remove('open');
+        return;
+      }
+      if(panier.length === 0) return;
+
+      const safeKey = btoa(currentUser.email).replace(/\//g, '_').replace(/\+/g, '-').replace(/=/g, '');
+      const todayStr = new Date().toLocaleDateString('fr-FR');
+
+      const promises = panier.map(item => {
+        return db.ref('orders/' + safeKey).push({
+          item: item.name,
+          price: item.price,
+          date: todayStr
+        });
+      });
+
+      Promise.all(promises).then(() => {
+        alert("Félicitations pour votre achat ! Vos billets/articles sont disponibles sur votre profil.");
+        panier = [];
+        updateCartUI();
+        document.getElementById('cart-bubble-btn').classList.remove('show');
+        document.getElementById('cartPanel').classList.remove('open');
+        loadUserOrders();
+      });
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SYNCHRONISATION EN TEMPS RÉEL (REALTIME DATABASE)
+    ═══════════════════════════════════════════════════════════════ */
+    function runFirebaseListeners() {
+      // 1. Textes éditables de la page d'accueil
+      db.ref('content/home').on('value', (snap) => {
+        const data = snap.val() || {};
+        
+        document.getElementById('hero-marquee-text').innerText = data.marquee || "PIGNOUFERIE FC • PIGNOUFERIE FC •";
+        document.getElementById('hero-eyebrow-text').innerText = data.eyebrow || "Le Site Officiel";
+        document.getElementById('hero-title-text').innerHTML = data.title || "Plus qu'un club, une <em>légende</em> en rose et blanc.";
+        document.getElementById('hero-sub-text').innerText = data.sub || "Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.";
+        document.getElementById('hero-btn-ticket').innerText = data.btnTicket || "Réserver un billet";
+        document.getElementById('hero-btn-eff').innerText = data.btnEff || "Découvrir l'effectif";
+        document.getElementById('hero-stat-year-val').innerText = data.statVal || "2005";
+        document.getElementById('hero-stat-lbl-year').innerText = data.statLbl || "Année de création";
+        
+        document.getElementById('eff-title').innerText = data.effTitle || "L'Effectif Pro";
+        document.getElementById('eff-eyebrow').innerText = data.effEyebrow || "Saison Globale";
+        document.getElementById('eff-lbl-players').innerText = data.effLblPlayers || "Joueurs Pro";
+        document.getElementById('eff-lbl-goals').innerText = data.effLblGoals || "Buts Inscrits";
+        
+        document.getElementById('hist-title').innerText = data.histTitle || "L'Histoire du Club";
+        document.getElementById('hist-eyebrow').innerText = data.histEyebrow || "Notre Héritage";
+
+        // Injection dans les inputs du panel admin
+        document.getElementById('adm-home-marquee').value = data.marquee || "PIGNOUFERIE FC • PIGNOUFERIE FC •";
+        document.getElementById('adm-home-eyebrow').value = data.eyebrow || "Le Site Officiel";
+        document.getElementById('adm-home-title').value = data.title || "Plus qu'un club, une <em>légende</em> en rose et blanc.";
+        document.getElementById('adm-home-sub').value = data.sub || "";
+        document.getElementById('adm-home-btn-ticket').value = data.btnTicket || "Réserver un billet";
+        document.getElementById('adm-home-btn-eff').value = data.btnEff || "Découvrir l'effectif";
+        document.getElementById('adm-home-stat-val').value = data.statVal || "2005";
+        document.getElementById('adm-home-stat-lbl').value = data.statLbl || "Année de création";
+        document.getElementById('adm-eff-title').value = data.effTitle || "L'Effectif Pro";
+        document.getElementById('adm-eff-eyebrow').value = data.effEyebrow || "Saison Globale";
+        document.getElementById('adm-eff-lbl-players').value = data.effLblPlayers || "Joueurs Pro";
+        document.getElementById('adm-eff-lbl-goals').value = data.effLblGoals || "Buts Inscrits";
+        document.getElementById('adm-hist-title').value = data.histTitle || "L'Histoire du Club";
+        document.getElementById('adm-hist-eyebrow').value = data.histEyebrow || "Notre Héritage";
+      });
+
+      // 2. Écouteur Effectif Joueurs
+      db.ref('players').on('value', (snap) => {
+        const players = snap.val() || {};
+        document.getElementById('stat-count-joueurs').innerText = Object.keys(players).length;
+        document.getElementById('eff-total-count').innerText = Object.keys(players).length;
+
+        // Reset des conteneurs publics et admin
+        const sections = ['gardien', 'defenseur', 'milieu', 'attaquant'];
+        sections.forEach(s => document.getElementById(`grid-${s}`).innerHTML = '');
+        document.getElementById('admin-players-list').innerHTML = '';
+
+        Object.keys(players).forEach(id => {
+          const p = players[id];
+          // Carte publique
+          const card = `
+            <div class="joueur-card">
+              <button class="admin-action-btn admin-edit" onclick="startEditPlayer('${id}')">Edit</button>
+              <button class="admin-action-btn admin-del" onclick="deletePlayer('${id}')">X</button>
+              <div class="joueur-num">#${p.num}</div>
+              <div class="joueur-nom">${p.name}</div>
+              <div class="joueur-nat">${p.nat}</div>
+            </div>
+          `;
+          const targetGrid = document.getElementById(`grid-${p.position}`);
+          if(targetGrid) targetGrid.innerHTML += card;
+
+          // Item Liste Admin
+          document.getElementById('admin-players-list').innerHTML += `
+            <div class="admin-list-item">
+              <span><strong>#${p.num}</strong> ${p.name} (${p.position})</span>
+              <div class="admin-list-actions">
+                <button class="admin-mini-btn btn-edit-mini" onclick="startEditPlayer('${id}')">Édit</button>
+                <button class="admin-mini-btn btn-del-mini" onclick="deletePlayer('${id}')">Sup</button>
+              </div>
+            </div>
+          `;
+        });
+      });
+
+      // 3. Chronologie Historique
+      db.ref('history').on('value', (snap) => {
+        const events = snap.val() || {};
+        document.getElementById('stat-count-events').innerText = Object.keys(events).length;
+        
+        const sortedKeys = Object.keys(events).sort((a,b) => parseInt(events[a].year) - parseInt(events[b].year));
+        
+        document.getElementById('timeline-container').innerHTML = '';
+        document.getElementById('admin-history-list').innerHTML = '';
+
+        sortedKeys.forEach(id => {
+          const ev = events[id];
+          document.getElementById('timeline-container').innerHTML += `
+            <div class="timeline-item">
+              <div class="tl-year">${ev.year}</div>
+              <div>
+                <div class="tl-event">${ev.title}</div>
+                <div class="tl-detail">${ev.detail}</div>
+              </div>
+            </div>
+          `;
+
+          document.getElementById('admin-history-list').innerHTML += `
+            <div class="admin-list-item">
+              <span><strong>${ev.year}</strong> : ${ev.title}</span>
+              <div class="admin-list-actions">
+                <button class="admin-mini-btn btn-edit-mini" onclick="startEditHistory('${id}')">Édit</button>
+                <button class="admin-mini-btn btn-del-mini" onclick="deleteHistory('${id}')">Sup</button>
+              </div>
+            </div>
+          `;
+        });
+      });
+
+      // 4. Actualités
+      db.ref('news').on('value', (snap) => {
+        const news = snap.val() || {};
+        document.getElementById('stat-count-news').innerText = Object.keys(news).length;
+
+        document.getElementById('news-container').innerHTML = '';
+        document.getElementById('admin-news-list').innerHTML = '';
+
+        Object.keys(news).forEach(id => {
+          const n = news[id];
+          document.getElementById('news-container').innerHTML += `
+            <div class="news-card">
+              <div class="news-card-body">
+                <div class="news-tag">${n.tag}</div>
+                <h3 class="news-card-title">${n.title}</h3>
+                <p class="news-card-excerpt">${n.excerpt}</p>
+                <div class="news-card-meta">${n.meta}</div>
+              </div>
+            </div>
+          `;
+
+          document.getElementById('admin-news-list').innerHTML += `
+            <div class="admin-list-item">
+              <span>[${n.tag}] ${n.title}</span>
+              <div class="admin-list-actions">
+                <button class="admin-mini-btn btn-edit-mini" onclick="startEditNews('${id}')">Édit</button>
+                <button class="admin-mini-btn btn-del-mini" onclick="deleteNews('${id}')">Sup</button>
+              </div>
+            </div>
+          `;
+        });
+      });
+
+      // 5. Billetterie Match unique
+      db.ref('match').on('value', (snap) => {
+        if(snap.exists()) matchData = snap.val();
+        renderMatchs();
+      });
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ACTIONS ADMIN : TEXTES ET FORMULAIRES FIREBASE
+    ═══════════════════════════════════════════════════════════════ */
+    function handleSaveHomeTexts(e) {
+      e.preventDefault();
+      db.ref('content/home').set({
+        marquee: document.getElementById('adm-home-marquee').value,
+        eyebrow: document.getElementById('adm-home-eyebrow').value,
+        title: document.getElementById('adm-home-title').value,
+        sub: document.getElementById('adm-home-sub').value,
+        btnTicket: document.getElementById('adm-home-btn-ticket').value,
+        btnEff: document.getElementById('adm-home-btn-eff').value,
+        statVal: document.getElementById('adm-home-stat-val').value,
+        statLbl: document.getElementById('adm-home-stat-lbl').value,
+        effTitle: document.getElementById('adm-eff-title').value,
+        effEyebrow: document.getElementById('adm-eff-eyebrow').value,
+        effLblPlayers: document.getElementById('adm-eff-lbl-players').value,
+        effLblGoals: document.getElementById('adm-eff-lbl-goals').value,
+        histTitle: document.getElementById('adm-hist-title').value,
+        histEyebrow: document.getElementById('adm-hist-eyebrow').value
+      }).then(() => alert("Page d'accueil synchronisée en base."));
+    }
+
+    // Effectif
+    function handlePlayerSubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('player-id').value;
+      const pData = {
+        num: parseInt(document.getElementById('player-num').value),
+        name: document.getElementById('player-name').value.trim(),
+        nat: document.getElementById('player-nat').value.trim(),
+        position: document.getElementById('player-position').value
+      };
+      if(id) {
+        db.ref('players/' + id).set(pData).then(() => cancelPlayerEdit());
+      } else {
+        db.ref('players').push(pData).then(() => document.getElementById('admin-player-form').reset());
+      }
+    }
+    function startEditPlayer(id) {
+      db.ref('players/' + id).get().then(snap => {
+        const p = snap.val();
+        document.getElementById('player-id').value = id;
+        document.getElementById('player-num').value = p.num;
+        document.getElementById('player-name').value = p.name;
+        document.getElementById('player-nat').value = p.nat;
+        document.getElementById('player-position').value = p.position;
+        document.getElementById('player-submit-btn').innerText = "Sauvegarder le joueur";
+        document.getElementById('player-cancel-btn').style.display = 'block';
+        showPage('admin');
+      });
+    }
+    function cancelPlayerEdit() {
+      document.getElementById('player-id').value = '';
+      document.getElementById('admin-player-form').reset();
+      document.getElementById('player-submit-btn').innerText = "Enregistrer le joueur";
+      document.getElementById('player-cancel-btn').style.display = 'none';
+    }
+    function deletePlayer(id) { if(confirm("Supprimer ce joueur pro ?")) db.ref('players/' + id).remove(); }
+
+    // Chronologie
+    function handleHistorySubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('history-id').value;
+      const hData = {
+        year: document.getElementById('history-year').value.trim(),
+        title: document.getElementById('history-title').value.trim(),
+        detail: document.getElementById('history-detail').value.trim()
+      };
+      if(id) {
+        db.ref('history/' + id).set(hData).then(() => cancelHistoryEdit());
+      } else {
+        db.ref('history').push(hData).then(() => document.getElementById('admin-history-form').reset());
+      }
+    }
+    function startEditHistory(id) {
+      db.ref('history/' + id).get().then(snap => {
+        const h = snap.val();
+        document.getElementById('history-id').value = id;
+        document.getElementById('history-year').value = h.year;
+        document.getElementById('history-title').value = h.title;
+        document.getElementById('history-detail').value = h.detail;
+        document.getElementById('history-submit-btn').innerText = "Modifier l'événement";
+        document.getElementById('history-cancel-btn').style.display = 'block';
+      });
+    }
+    function cancelHistoryEdit() {
+      document.getElementById('history-id').value = '';
+      document.getElementById('admin-history-form').reset();
+      document.getElementById('history-submit-btn').innerText = "Ajouter l'événement";
+      document.getElementById('history-cancel-btn').style.display = 'none';
+    }
+    function deleteHistory(id) { if(confirm("Supprimer l'événement ?")) db.ref('history/' + id).remove(); }
+
+    // Billetterie
+    function handleMatchSubmit(e) {
+      e.preventDefault();
+      db.ref('match').set({
+        home: document.getElementById('match-home').value.trim(),
+        away: document.getElementById('match-away').value.trim(),
+        vs: document.getElementById('match-vs').value.trim(),
+        date: document.getElementById('match-date').value.trim(),
+        comp: document.getElementById('match-comp').value.trim(),
+        price: parseFloat(document.getElementById('match-price').value),
+        salesStatus: document.getElementById('match-sales-status').value
+      }).then(() => alert("Match mis à jour avec succès."));
+    }
+
+    // Actualités
+    function handleNewsSubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('news-id').value;
+      const nData = {
+        tag: document.getElementById('news-tag').value.trim(),
+        title: document.getElementById('news-title').value.trim(),
+        excerpt: document.getElementById('news-excerpt').value.trim(),
+        meta: document.getElementById('news-meta').value.trim()
+      };
+      if(id) {
+        db.ref('news/' + id).set(nData).then(() => cancelNewsEdit());
+      } else {
+        db.ref('news').push(nData).then(() => document.getElementById('admin-news-form').reset());
+      }
+    }
+    function startEditNews(id) {
+      db.ref('news/' + id).get().then(snap => {
+        const n = snap.val();
+        document.getElementById('news-id').value = id;
+        document.getElementById('news-tag').value = n.tag;
+        document.getElementById('news-title').value = n.title;
+        document.getElementById('news-excerpt').value = n.excerpt;
+        document.getElementById('news-meta').value = n.meta;
+        document.getElementById('news-submit-btn').innerText = "Enregistrer l'article";
+        document.getElementById('news-cancel-btn').style.display = 'block';
+      });
+    }
+    function cancelNewsEdit() {
+      document.getElementById('news-id').value = '';
+      document.getElementById('admin-news-form').reset();
+      document.getElementById('news-submit-btn').innerText = "Publier l'article";
+      document.getElementById('news-cancel-btn').style.display = 'none';
+    }
+    function deleteNews(id) { if(confirm("Supprimer cet article ?")) db.ref('news/' + id).remove(); }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       RENDERING DE SECOURS / COMPOSANTS DYNAMIQUES
+    ═══════════════════════════════════════════════════════════════ */
     function renderMatchs() {
       const isAvailable = matchData.salesStatus === "enabled";
       const btnClass = isAvailable ? "match-ticket" : "match-ticket btn-disabled";
@@ -707,384 +1354,130 @@
     function renderBoutique() {
       document.getElementById('boutique-container').innerHTML = boutiqueProduits.map(p => `
         <div class="product-card">
-          <div class="jersey-container" style="font-size:3rem;">${p.emoji || '👕'}</div>
+          <div class="jersey-container" style=\"font-size:3rem;\">${p.emoji || '👕'}</div>
           <div class="product-name">${p.name}</div><div class="product-price">${p.price.toFixed(2)} €</div>
           <button class="btn-primary" onclick="addToCart('${p.name}', ${p.price})">Ajouter au panier</button>
         </div>
       `).join('');
     }
 
-    function renderHistoire() {
-      document.getElementById('history-container').innerHTML = histoireData.map(h => `
-        <div class="timeline-item">
-          <div class="timeline-year">${h.year}</div>
-          <p>${h.text}</p>
-        </div>
-      `).join('');
+    /* ═══════════════════════════════════════════════════════════════
+       LOGIQUE DES CONFIGURATIONS DE PARAMÈTRES
+    ═══════════════════════════════════════════════════════════════ */
+    function toggleDarkMode(enabled) {
+      document.documentElement.setAttribute('data-theme', enabled ? 'dark' : 'light');
+    }
+    function changeFontSize(val) {
+      document.documentElement.style.setProperty('--font-modifier', val);
     }
 
-    // --- MODE SOMBRE INTERACTIF ---
-    function toggleTheme() {
-      currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', currentTheme);
-    }
-
-    // --- GESTION DU PANIER & COMMANDE ---
-    function openPanel(id) { document.getElementById(id).classList.add('active'); }
-    function closePanel(id) { document.getElementById(id).classList.remove('active'); }
-
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      updateCartUI();
-      showToast(`${name} ajouté au panier !`);
-    }
-
-    function updateCartUI() {
-      document.getElementById('cart-badge').innerText = cart.length;
-      const container = document.getElementById('cart-items-container');
-      if(cart.length === 0) {
-        container.innerHTML = `<p style="color:var(--text-muted); text-align:center; padding-top:20px;">Votre panier est vide.</p>`;
-      } else {
-        container.innerHTML = cart.map((item, idx) => `
-          <div class="cart-item">
-            <span>${item.name}</span>
-            <span>${item.price.toFixed(2)} € <button style="background:none; border:none; color:#ef4444; margin-left:10px; cursor:pointer;" onclick="removeFromCart(${idx})">❌</button></span>
-          </div>
-        `).join('');
-      }
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
-      document.getElementById('cart-total-price').innerText = total.toFixed(2) + ' €';
-    }
-
-    function removeFromCart(idx) {
-      cart.splice(idx, 1);
-      updateCartUI();
-    }
-
-    function checkout() {
-      if(cart.length === 0) return alert("Votre panier est vide !");
-      alert("Félicitations pour votre commande ! Merci de soutenir la Pignouferie FC.");
-      cart = [];
-      updateCartUI();
-      closePanel('panel-cart');
-    }
-
-    // --- GESTION DES JEUX, CONNEXION ET LEADERBOARD ---
-    function checkGameAccess() {
-      if(userProfile.isLoggedIn) {
-        document.getElementById('lock-penalty').style.display = 'none';
-        document.getElementById('lock-foosball').style.display = 'none';
-      } else {
-        document.getElementById('lock-penalty').style.display = 'flex';
-        document.getElementById('lock-foosball').style.display = 'flex';
-      }
-    }
-
-    function handleLogin() {
-      const usernameInput = document.getElementById('login-username').value.trim();
-      if(!usernameInput) return alert("Veuillez choisir un pseudo !");
-      
-      userProfile.isLoggedIn = true;
-      userProfile.username = usernameInput;
-      // Garde les points ou démarre à 0
-      if(!userProfile.points) userProfile.points = 0;
-
-      document.getElementById('account-status-dot').style.display = 'block';
-      document.getElementById('user-display-name').innerText = userProfile.username;
-      document.getElementById('user-display-points').innerText = userProfile.points;
-      
-      document.getElementById('account-logged-out').classList.add('hidden');
-      document.getElementById('account-logged-in').classList.remove('hidden');
-      
-      checkGameAccess();
-      updateLeaderboard();
-      showToast(`Connecté en tant que ${userProfile.username}`);
-    }
-
-    function handleLogout() {
-      userProfile.isLoggedIn = false;
-      document.getElementById('account-status-dot').style.display = 'none';
-      document.getElementById('account-logged-out').classList.remove('hidden');
-      document.getElementById('account-logged-in').classList.add('hidden');
-      checkGameAccess();
-      updateLeaderboard();
-    }
-
-    function addUserPoints(amount) {
-      if(!userProfile.isLoggedIn) return;
-      userProfile.points += amount;
-      document.getElementById('user-display-points').innerText = userProfile.points;
-      updateLeaderboard();
-    }
-
-    function updateLeaderboard() {
-      let fullList = [...standardLeaderboard];
-      if(userProfile.isLoggedIn) {
-        // Enlève l'ancienne instance si présente
-        fullList = fullList.filter(p => p.username !== userProfile.username);
-        fullList.push({ username: userProfile.username + " (Vous)", points: userProfile.points });
-      }
-      // Tri par points décroissants
-      fullList.sort((a,b) => b.points - a.points);
-      
-      document.getElementById('leaderboard-body').innerHTML = fullList.map((p, idx) => `
-        <tr>
-          <td>#${idx + 1}</td>
-          <td>${p.username}</td>
-          <td><strong>${p.points}</strong> pts</td>
-        </tr>
-      `).join('');
-    }
-
-    // --- JEU 1 : LE QUIZ ---
-    function renderQuiz() {
-      const data = quizQuestions[currentQuizIndex];
-      document.getElementById('quiz-question').innerText = data.q;
-      document.getElementById('quiz-options').innerHTML = data.a.map((option, i) => `
-        <button class="quiz-btn" onclick="submitQuizAnswer(${i})">${option}</button>
-      `).join('');
-    }
-
-    function submitQuizAnswer(chosenIdx) {
-      const data = quizQuestions[currentQuizIndex];
-      if(chosenIdx === data.c) {
-        showToast("Bien joué ! Bonne réponse ! 🎉");
-        if(userProfile.isLoggedIn) {
-          addUserPoints(15);
-          showToast("+15 points ajoutés au classement !");
-        }
-      } else {
-        showToast("Dommage ! C'est incorrect. 🥺");
-      }
-      currentQuizIndex = (currentQuizIndex + 1) % quizQuestions.length;
-      setTimeout(renderQuiz, 1500);
-    }
-
-    // --- JEU 2 : ROUE DE LA FORTUNE ---
-    function spinWheel() {
-      const btn = document.getElementById('btn-wheel');
-      btn.disabled = true;
-      const wheel = document.getElementById('wheel');
-      const randomDeg = Math.floor(Math.random() * 360) + 1440; // minimum 4 tours
-      wheel.style.transform = `rotate(${randomDeg}deg)`;
-      
-      setTimeout(() => {
-        const rewards = ["-10% en Boutique", "Une boisson au Stade", "Points Bonus", "1 Billet Gratuit", "Goodie Surprise", "Un grand merci !"];
-        const actualDeg = randomDeg % 360;
-        const prizeIdx = Math.floor(actualDeg / 60);
-        const win = rewards[prizeIdx];
-        document.getElementById('wheel-result').innerText = `Gagné : ${win} !`;
-        btn.disabled = false;
-        
-        if(win === "Points Bonus" && userProfile.isLoggedIn) {
-          addUserPoints(30);
-          showToast("30 points de bonus cumulés !");
-        }
-      }, 4000);
-    }
-
-    // --- JEU 3 : TIR AU BUT AVANCÉ INTERACTIF ---
-    // Animation automatique du gardien pour simuler le mouvement de va-et-vient
-    let keeperDir = 1;
-    let keeperPos = 45;
-    setInterval(() => {
-      keeperPos += keeperDir * 5;
-      if(keeperPos >= 80 || keeperPos <= 5) keeperDir *= -1;
-      const keeperEl = document.getElementById('keeper-element');
-      if(keeperEl) keeperEl.style.left = keeperPos + '%';
-    }, 150);
-
+    /* ═══════════════════════════════════════════════════════════════
+       JEU INTERACTIF 1 : PENALTY SIMULATOR
+    ═══════════════════════════════════════════════════════════════ */
+    let penaltyScore = 0;
+    let penaltyShots = 0;
     function shootPenalty(targetZone) {
-      if(!userProfile.isLoggedIn) return;
-      const resultEl = document.getElementById('penalty-result');
-      
-      // Déterminer où plonge le gardien de manière aléatoire (Gauche, Centre, Droite)
-      const dives = ['left', 'center', 'right'];
-      const keeperDive = dives[Math.floor(Math.random() * dives.length)];
-      
-      // Traduction de la zone visée pour vérifier l'arrêt
-      let ballSide = 'center';
-      if(targetZone.includes('left')) ballSide = 'left';
-      if(targetZone.includes('right')) ballSide = 'right';
-      
-      if(ballSide === keeperDive) {
-        resultEl.style.color = "#ef4444";
-        resultEl.innerText = "Arrêt magnifique du gardien ! 🧤 Retente ta chance !";
+      const options = ['top-left', 'top-right', 'bottom-left', 'bottom-right', 'center'];
+      // Le gardien plonge au hasard sur une zone
+      const keeperDive = options[Math.floor(Math.random() * options.length)];
+      penaltyShots++;
+
+      // Animation visuelle rapide du gardien
+      const keeperEl = document.getElementById('penalty-keeper');
+      if(keeperDive === 'top-left') keeperEl.style.transform = 'translate(-40px, -20px)';
+      else if(keeperDive === 'top-right') keeperEl.style.transform = 'translate(40px, -20px)';
+      else if(keeperDive === 'bottom-left') keeperEl.style.transform = 'translate(-50px, 0px)';
+      else if(keeperDive === 'bottom-right') keeperEl.style.transform = 'translate(50px, 0px)';
+      else keeperEl.style.transform = 'translate(0px, -10px)';
+
+      const feedbackEl = document.getElementById('penalty-feedback');
+      if(targetZone === keeperDive) {
+        feedbackEl.style.color = 'var(--danger)';
+        feedbackEl.innerText = `Arrêt ! Le gardien a plongé du bon côté (${keeperDive === 'center' ? 'au centre' : keeperDive}).`;
       } else {
-        resultEl.style.color = "#10b981";
-        resultEl.innerText = "BUT ! En plein dans la lucarne ! ⚽🔥";
-        addUserPoints(10);
+        penaltyScore++;
+        feedbackEl.style.color = 'var(--succes)';
+        feedbackEl.innerText = `BUT ! Vous marquez dans la zone ${targetZone} (Le gardien a plongé à l'opposé).`;
       }
-      setTimeout(() => { resultEl.innerText = ""; }, 3000);
+
+      document.getElementById('penalty-score').innerText = `Score : ${penaltyScore} | Tirs : ${penaltyShots}`;
     }
 
-    // --- JEU 4 : MINI-JEU BABYFOOT EN CANVAS ---
-    const canvas = document.getElementById('foosballCanvas');
-    const ctx = canvas.getContext('2d');
-    
-    let foosballRunning = false;
-    let scoreUser = 0;
-    let scoreIA = 0;
-    
-    // Objets du jeu
-    let ball = { x: 250, y: 150, vx: 0, vy: 0, radius: 8 };
-    let userBar = { x: 150, y: 100, width: 10, height: 100, speed: 6 };
-    let iaBar = { x: 350, y: 100, width: 10, height: 100, speed: 3.5 };
-    
-    // Touches pressées
-    let keys = {};
-    window.addEventListener('keydown', (e) => { keys[e.key] = true; });
-    window.addEventListener('keyup', (e) => { keys[e.key] = false; });
-    
-    function startFoosballGame() {
-      if(!userProfile.isLoggedIn) return;
-      scoreUser = 0;
-      scoreIA = 0;
-      document.getElementById('foosball-score-user').innerText = scoreUser;
-      document.getElementById('foosball-score-ia').innerText = scoreIA;
-      resetFoosballBall();
-      
-      if(!foosballRunning) {
-        foosballRunning = true;
-        foosballLoop();
-      }
-    }
-    
-    function resetFoosballBall() {
-      ball.x = 250;
-      ball.y = 150;
-      ball.vx = (Math.random() > 0.5 ? 3 : -3);
-      ball.vy = (Math.random() * 4) - 2;
-    }
-    
-    function foosballLoop() {
-      if(!foosballRunning) return;
-      
-      // Mises à jour
-      updateFoosball();
-      // Dessin
-      drawFoosball();
-      
-      requestAnimationFrame(foosballLoop);
-    }
-    
-    function updateFoosball() {
-      // Déplacement joueur (Touches Haut / Bas)
-      if (keys['ArrowUp'] && userBar.y > 10) userBar.y -= userBar.speed;
-      if (keys['ArrowDown'] && userBar.y < canvas.height - userBar.height - 10) userBar.y += userBar.speed;
-      
-      // Déplacement de l'IA (Suivi simple et intelligent de la balle)
-      if(ball.y < iaBar.y + iaBar.height/2 && iaBar.y > 10) {
-        iaBar.y -= iaBar.speed;
-      } else if(ball.y > iaBar.y + iaBar.height/2 && iaBar.y < canvas.height - iaBar.height - 10) {
-        iaBar.y += iaBar.speed;
-      }
-      
-      // Déplacement de la balle
-      ball.x += ball.vx;
-      ball.y += ball.vy;
-      
-      // Collision haut et bas du terrain
-      if(ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) {
-        ball.vy = -ball.vy;
-      }
-      
-      // Collision avec la barre joueur (Bleu)
-      if(ball.x - ball.radius < userBar.x + userBar.width && ball.x + ball.radius > userBar.x) {
-        if(ball.y > userBar.y && ball.y < userBar.y + userBar.height) {
-          ball.vx = -ball.vx * 1.1; // accélère légèrement
-          ball.x = userBar.x + userBar.width + ball.radius;
-        }
-      }
-      
-      // Collision avec la barre IA (Rouge)
-      if(ball.x + ball.radius > iaBar.x && ball.x - ball.radius < iaBar.x + iaBar.width) {
-        if(ball.y > iaBar.y && ball.y < iaBar.y + iaBar.height) {
-          ball.vx = -ball.vx * 1.1;
-          ball.x = iaBar.x - ball.radius;
-        }
-      }
-      
-      // But à Droite (But pour le joueur !)
-      if(ball.x > canvas.width) {
-        scoreUser++;
-        document.getElementById('foosball-score-user').innerText = scoreUser;
-        checkFoosballMatchEnd();
-        resetFoosballBall();
-      }
-      
-      // But à Gauche (But pour l'IA)
-      if(ball.x < 0) {
-        scoreIA++;
-        document.getElementById('foosball-score-ia').innerText = scoreIA;
-        checkFoosballMatchEnd();
-        resetFoosballBall();
-      }
-    }
-    
-    function checkFoosballMatchEnd() {
-      if(scoreUser >= 3) {
-        foosballRunning = false;
-        alert("Victoire éclatante au Baby-Foot ! Vous gagnez 50 points !");
-        addUserPoints(50);
-      } else if(scoreIA >= 3) {
-        foosballRunning = false;
-        alert("Défaite face à l'IA... Entraînez-vous encore !");
-      }
-    }
-    
-    function drawFoosball() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Ligne centrale du terrain
-      ctx.strokeStyle = "rgba(255,255,255,0.4)";
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      ctx.moveTo(canvas.width / 2, 0);
-      ctx.lineTo(canvas.width / 2, canvas.height);
-      ctx.stroke();
-      
-      // Cercle central
-      ctx.beginPath();
-      ctx.arc(canvas.width/2, canvas.height/2, 40, 0, Math.PI*2);
-      ctx.stroke();
-      
-      // Dessin Joueur (Bleu)
-      ctx.fillStyle = "#2196f3";
-      ctx.fillRect(userBar.x, userBar.y, userBar.width, userBar.height);
-      
-      // Dessin IA (Rouge)
-      ctx.fillStyle = "#f44336";
-      ctx.fillRect(iaBar.x, iaBar.y, iaBar.width, iaBar.height);
-      
-      // Dessin Balle (Blanche)
-      ctx.fillStyle = "#ffffff";
-      ctx.beginPath();
-      ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2);
-      ctx.fill();
+    function resetPenaltyGame() {
+      penaltyScore = 0;
+      penaltyShots = 0;
+      document.getElementById('penalty-score').innerText = "Score : 0 | Tirs : 0";
+      document.getElementById('penalty-feedback').innerText = "";
+      document.getElementById('penalty-keeper').style.transform = "none";
     }
 
-    // --- LOCALISATION INTERFACE (SANS RUPTURE) ---
-    function changeLanguage(lang) {
-      currentLang = lang;
-      if(lang === 'en') {
-        document.getElementById('hero-title').innerText = "THE PIGNOUFERIE FC";
-        document.getElementById('hero-subtitle').innerText = "The official web space of the region's legendary football squad. Fun, community, and great goals.";
-        document.getElementById('title-effectif').innerText = "The Squad";
-        document.getElementById('title-matchs').innerText = "Tickets & Games";
-        document.getElementById('title-boutique').innerText = "Official Merch";
-        document.getElementById('title-history').innerText = "Our Journey";
-        document.getElementById('title-games').innerText = "Fun & Play Zone";
-      } else {
-        document.getElementById('hero-title').innerText = "LA PIGNOUFERIE FC";
-        document.getElementById('hero-subtitle').innerText = "Le site officiel du club le plus mythique de la région. Authenticité, rigolade et beaux gestes.";
-        document.getElementById('title-effectif').innerText = "L'Effectif";
-        document.getElementById('title-matchs').innerText = "Billetterie & Matchs";
-        document.getElementById('title-boutique').innerText = "La Boutique Officielle";
-        document.getElementById('title-history').innerText = "Notre Histoire";
-        document.getElementById('title-games').innerText = "Espace Divertissement";
+    /* ═══════════════════════════════════════════════════════════════
+       JEU INTERACTIF 2 : TRIVIA QUIZ FLASH SYSTEM
+    ═══════════════════════════════════════════════════════════════ */
+    const quizData = [
+      { q: "En quelle année le club de la Pignouferie FC a-t-il été créé ?", o: ["2000", "2005", "2010", "2015"], r: 1 },
+      { q: "Quelles sont les couleurs historiques officielles arborées sur notre blason ?", o: ["Rouge et Noir", "Bleu et Jaune", "Rose et Blanc", "Vert et Blanc"], r: 2 },
+      { q: "Dans quelle compétition majeure évolue notre effectif pro ?", o: ["Ligue de Légende", "Champions Cup", "District Elite", "Super Ligue"], r: 0 }
+    ];
+    let currentQuizIndex = 0;
+    let quizUserScore = 0;
+
+    function renderQuizQuestion() {
+      if(currentQuizIndex >= quizData.length) {
+        document.getElementById('quiz-arena-box').innerHTML = `
+          <div style="text-align:center; font-weight:bold; color:var(--succes);">🎉 Quiz terminé !</div>
+          <p style="font-size:0.85rem; text-align:center; margin-top:0.5rem;">Votre score final est de : <strong>${quizUserScore} / ${quizData.length}</strong></p>
+          <button class="btn-primary" style="margin-top:1rem; font-size:0.7rem;" onclick="resetQuizGame()">Recommencer</button>
+        `;
+        document.getElementById('quiz-score-msg').innerText = "";
+        return;
       }
+
+      const currentQ = quizData[currentQuizIndex];
+      document.getElementById('quiz-question-text').innerText = `${currentQuizIndex + 1}. ${currentQ.q}`;
+      
+      document.getElementById('quiz-options-container').innerHTML = currentQ.o.map((opt, i) => `
+        <button class="btn-ghost" style="text-align:left; width:100%; padding:0.5rem; border:1px solid var(--rose-bord); border-radius:4px;" onclick="submitQuizAnswer(${i})">${opt}</button>
+      `).join('');
     }
+
+    function submitQuizAnswer(chosenIndex) {
+      const currentQ = quizData[currentQuizIndex];
+      const msgEl = document.getElementById('quiz-score-msg');
+      if(chosenIndex === currentQ.r) {
+        quizUserScore++;
+        msgEl.style.color = "var(--succes)";
+        msgEl.innerText = "Bonne réponse ! +1 point.";
+      } else {
+        msgEl.style.color = "var(--danger)";
+        msgEl.innerText = `Faux ! La bonne réponse était : ${currentQ.o[currentQ.r]}`;
+      }
+
+      currentQuizIndex++;
+      setTimeout(() => {
+        msgEl.innerText = "";
+        renderQuizQuestion();
+      }, 1800);
+    }
+
+    function resetQuizGame() {
+      currentQuizIndex = 0;
+      quizUserScore = 0;
+      document.getElementById('quiz-arena-box').innerHTML = `
+        <div id="quiz-question-text" style="font-weight:600; text-align:center; margin-bottom:1rem; font-size:0.95rem;"></div>
+        <div style="display:flex; flex-direction:column; gap:10px; width:100%;" id="quiz-options-container"></div>
+      `;
+      renderQuizQuestion();
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       LANCEMENT INITIAL AU CHARGEMENT DE LA PAGE
+    ═══════════════════════════════════════════════════════════════ */
+    window.onload = function() {
+      runFirebaseListeners();
+      renderBoutique();
+      renderQuizQuestion();
+    };
   </script>
 </body>
 </html>
