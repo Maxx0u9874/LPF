@@ -301,7 +301,7 @@
     .toggle-switch { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; }
 
     /* ═══════════════════════════════════════════════════════════════
-       NOUVEAUTÉ : ZONE PROFIL ULTRA-PERSONNALISABLE
+       ZONE PROFIL ULTRA-PERSONNALISABLE
     ═══════════════════════════════════════════════════════════════ */
     .profile-dashboard { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 1000px; margin: 0 auto; }
     @media (min-width: 768px) { .profile-dashboard { grid-template-columns: 320px 1fr; } }
@@ -315,7 +315,7 @@
     .avatar-option:hover, .avatar-option.selected { border-color: var(--rose); transform: scale(1.05); }
 
     /* ═══════════════════════════════════════════════════════════════
-       NOUVEAUTÉ : SYSTEME MINI-JEUX FOOT INTERACTIFS
+       SYSTEME MINI-JEUX FOOT INTERACTIFS
     ═══════════════════════════════════════════════════════════════ */
     .games-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 950px; margin: 0 auto; }
     @media (min-width: 768px) { .games-grid { grid-template-columns: 1fr 1fr; } }
@@ -350,6 +350,14 @@
     .admin-mini-btn { padding: 2px 6px; font-size: 0.65rem; text-transform: uppercase; border: none; cursor: pointer; font-weight: bold; color: #fff; }
     .btn-edit-mini { background: #333; }
     .btn-del-mini { background: var(--rose); }
+
+    /* CSS Liste des Comptes Utilisateurs */
+    .admin-users-container { display: flex; flex-direction: column; gap: 10px; margin-top: 5px; }
+    .admin-user-card { border: 1px solid var(--rose-bord); background: var(--blanc); border-radius: 4px; padding: 10px; font-size: 0.85rem; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+    .admin-user-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--rose-pale); padding-bottom: 4px; margin-bottom: 6px; }
+    .admin-user-email { font-weight: 600; color: var(--rose); }
+    .admin-user-role { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; background: var(--rose-pale); padding: 2px 6px; border-radius: 10px; color: var(--rose-f); font-weight: bold; }
+    .admin-user-details { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; color: var(--texte-sec); font-size: 0.75rem; }
 
     /* ═══════════════════════════════════════════════════════════════
        FOOTER
@@ -393,20 +401,20 @@
   </nav>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a id="mob-link-club" onclick="showPage('accueil'); toggleMobileMenu()">Club</a>
-    <a id="mob-link-actu" onclick="showPage('actualites'); toggleMobileMenu()">Actualités</a>
-    <a id="mob-link-bill" onclick="showPage('billetterie'); toggleMobileMenu()">Billetterie</a>
-    <a id="mob-link-bout" onclick="showPage('boutique'); toggleMobileMenu()">Boutique</a>
-    <a id="mob-link-jeux" onclick="showPage('jeux'); toggleMobileMenu()">Mini-Jeux</a>
-    <a id="mob-link-comp" onclick="showPage('compte'); toggleMobileMenu()">Mon Profil</a>
-    <a id="mob-link-para" onclick="showPage('parametres'); toggleMobileMenu()">Paramètres</a>
-    <a id="mobile-admin-link" onclick="showPage('admin'); toggleMobileMenu()" style="display:none; color:var(--rose);">Panel Admin</a>
+    <a onclick="showPage('accueil'); toggleMobileMenu()">Club</a>
+    <a onclick="showPage('actualites'); toggleMobileMenu()">Actualités</a>
+    <a onclick="showPage('billetterie'); toggleMobileMenu()">Billetterie</a>
+    <a onclick="showPage('boutique'); toggleMobileMenu()">Boutique</a>
+    <a onclick="showPage('jeux'); toggleMobileMenu()">Mini-Jeux</a>
+    <a onclick="showPage('compte'); toggleMobileMenu()">Mon Profil</a>
+    <a onclick="showPage('parametres'); toggleMobileMenu()">Paramètres</a>
+    <a id="mobile-admin-link" onclick="showPage('admin'); toggleMobileMenu()" style="display:none; color:var(--rose); font-weight:bold;">Panel Admin</a>
   </div>
 
   <div id="page-accueil" class="page active">
     <div class="hero">
       <div class="hero-marquee">
-        <div class="hero-marquee-inner" id="hero-marquee-text">PIGNOUFERIE FC • PIGNOUFERIE FC •</div>
+        <div class="hero-marquee-inner">LA PIGNOUFERIE FC — LA PIGNOUFERIE FC —</div>
       </div>
       <div class="hero-eyebrow" id="hero-eyebrow-text">Le Site Officiel</div>
       <h1 class="hero-title" id="hero-title-text">Plus qu'un club, une <em>légende</em> en rose et blanc.</h1>
@@ -428,25 +436,36 @@
           <div class="rule-red"></div>
         </div>
         <div class="effectif-numbers">
-          <div><div class="eff-num" id="eff-total-count">24</div><div class="eff-label" id="eff-lbl-total">Joueurs Pro</div></div>
+          <div><div class="eff-num" id="eff-total-count">24</div><div class="eff-label" id="eff-lbl-players">Joueurs Pro</div></div>
+          <div><div class="eff-num" id="eff-goal-num">1</div><div class="eff-label" id="eff-lbl-goal">Objectif : Gagner</div></div>
         </div>
       </div>
 
-      <div id="effectif-container"></div>
+      <div class="poste-header" id="header-g">Gardiens (G)</div>
+      <div class="joueurs-grid" id="grid-gardiens"></div>
+
+      <div class="poste-header" id="header-d">Défenseurs (D)</div>
+      <div class="joueurs-grid" id="grid-defenseurs"></div>
+
+      <div class="poste-header" id="header-m">Milieux (M)</div>
+      <div class="joueurs-grid" id="grid-milieux"></div>
+
+      <div class="poste-header" id="header-a">Attaquants (A)</div>
+      <div class="joueurs-grid" id="grid-attaquants"></div>
     </div>
 
     <div class="sec sec-alt">
-      <p class="section-eyebrow">Notre Héritage</p>
-      <h2 class="section-title">L'Histoire <em>Immortelle</em></h2>
+      <p class="section-eyebrow" id="hist-eyebrow">Patrimoine</p>
+      <h2 class="section-title" id="hist-title">Notre <em>Histoire</em></h2>
       <div class="rule-red"></div>
-      <div class="timeline" id="timeline-container"></div>
+      <div class="timeline" id="history-timeline-container"></div>
     </div>
   </div>
 
   <div id="page-actualites" class="page">
     <div class="premium-header">
-      <p class="section-eyebrow">Fil d'actualité</p>
-      <h2 class="section-title">Les dernières <em>nouvelles</em></h2>
+      <p class="section-eyebrow" id="news-eyebrow">Média</p>
+      <h2 class="section-title" id="news-title">Actualités & <em>Reportages</em></h2>
     </div>
     <div class="sec">
       <div class="news-grid" id="news-container"></div>
@@ -455,8 +474,8 @@
 
   <div id="page-billetterie" class="page">
     <div class="premium-header">
-      <p class="section-eyebrow">Stade de la Pignouferie</p>
-      <h2 class="section-title">Prochain <em>Match</em></h2>
+      <p class="section-eyebrow" id="tickets-eyebrow">Stade de la Pignouferie</p>
+      <h2 class="section-title" id="tickets-title">Prochaines <em>Rencontres</em></h2>
     </div>
     <div class="sec">
       <div class="match-container-box" id="matchs-container"></div>
@@ -465,8 +484,8 @@
 
   <div id="page-boutique" class="page">
     <div class="premium-header">
-      <p class="section-eyebrow">Collection Officielle</p>
-      <h2 class="section-title">La <em>Boutique</em></h2>
+      <p class="section-eyebrow" id="shop-eyebrow">Collection Officielle</p>
+      <h2 class="section-title" id="shop-title">Boutique <em>Élite</em></h2>
     </div>
     <div class="sec">
       <div class="shop-grid" id="boutique-container"></div>
@@ -475,108 +494,95 @@
 
   <div id="page-jeux" class="page">
     <div class="premium-header">
-      <p class="section-eyebrow">Divertissement</p>
-      <h2 class="section-title">Mini-Jeux <em>Interactifs</em></h2>
+      <p class="section-eyebrow" id="games-eyebrow">Divertissement</p>
+      <h2 class="section-title" id="games-title">Espace <em>Gaming</em></h2>
     </div>
     <div class="sec">
       <div class="games-grid">
         <div class="game-card">
           <div>
-            <p class="section-eyebrow">Entraînement</p>
-            <h3 style="font-family:var(--bebas); font-size:1.8rem; margin-bottom:0.5rem;">Séance de Tirs au But</h3>
-            <p style="font-size:0.85rem; color:var(--texte-sec);">Tentez de tromper le gardien en choisissant une cible !</p>
-          </div>
-          <div class="game-arena">
-            <div id="penalty-score" style="font-weight:700; font-size:0.9rem; margin-bottom:0.5rem;">Score : 0 | Tirs : 0</div>
-            <div id="penalty-feedback" style="font-size:0.8rem; font-weight:600; color:var(--rose); height:20px;"></div>
-            <div class="penalty-cage">
-              <div class="penalty-keeper" id="keeper">🧤</div>
-              <div class="penalty-target target-top-left" onclick="shootPenalty('TL')">🎯</div>
-              <div class="penalty-target target-top-right" onclick="shootPenalty('TR')">🎯</div>
-              <div class="penalty-target target-bottom-left" onclick="shootPenalty('BL')">🎯</div>
-              <div class="penalty-target target-bottom-right" onclick="shootPenalty('BR')">🎯</div>
-              <div class="penalty-target target-center" onclick="shootPenalty('C')">🎯</div>
+            <p class="section-eyebrow" style="color:var(--succes);">Simulateur 3D</p>
+            <h3 font-family="var(--bebas)" style="font-size:1.75rem; margin-bottom:0.5rem;" id="game-penalty-title">Séance de Tirs au But</h3>
+            <p style="font-size:0.85rem; color:var(--texte-sec);" id="game-penalty-desc">Affrontez le gardien robotique de la Pignouferie ! Choisissez une zone stratégique pour placer votre plus belle frappe.</p>
+            <div class="game-arena" id="penalty-arena">
+              <div style="display:flex; justify-content:space-between; width:100%; font-size:0.8rem; font-weight:bold; color:var(--rose);">
+                <span>Série : <span id="pen-score-strikes">0</span>/5</span>
+                <span>Buts : <span id="pen-score-goals">0</span></span>
+              </div>
+              <div class="penalty-cage">
+                <div class="penalty-keeper" id="gk-player">🕴️</div>
+                <div class="penalty-target target-top-left" onclick="kickPenalty('tl')">🎯</div>
+                <div class="penalty-target target-top-right" onclick="kickPenalty('tr')">🎯</div>
+                <div class="penalty-target target-center" onclick="kickPenalty('c')">🎯</div>
+                <div class="penalty-target target-bottom-left" onclick="kickPenalty('bl')">🎯</div>
+                <div class="penalty-target target-bottom-right" onclick="kickPenalty('br')">🎯</div>
+              </div>
+              <p id="penalty-feedback" style="margin-top:1rem; font-size:0.85rem; font-weight:600; text-align:center;"></p>
             </div>
           </div>
-          <button class="btn-ghost" onclick="resetPenaltyGame()">Réinitialiser</button>
-        </div>
-
-        <div class="game-card">
-          <div>
-            <p class="section-eyebrow">Pronostics</p>
-            <h3 style="font-family:var(--bebas); font-size:1.8rem; margin-bottom:0.5rem;">Le Juste Score</h3>
-            <p style="font-size:0.85rem; color:var(--texte-sec);">Devinez le score du prochain match officiel !</p>
-          </div>
-          <div class="game-arena" style="gap:1rem;">
-            <div style="display:flex; align-items:center; gap:1rem; font-family:var(--bebas); font-size:1.5rem;">
-              <span id="prono-home">Home</span>
-              <input type="number" id="prono-score-home" min="0" value="0" style="width:50px; text-align:center; padding:5px; font-family:var(--inter);">
-              <span>-</span>
-              <input type="number" id="prono-score-away" min="0" value="0" style="width:50px; text-align:center; padding:5px; font-family:var(--inter);">
-              <span id="prono-away">Away</span>
-            </div>
-            <button class="btn-primary" onclick="saveProno()">Enregistrer mon prono</button>
-            <div id="prono-feedback" style="font-size:0.8rem; font-weight:600; color:var(--succes);"></div>
-          </div>
+          <button class="btn-ghost" onclick="resetPenaltyGame()">Réinitialiser la séance</button>
         </div>
       </div>
     </div>
   </div>
 
   <div id="page-compte" class="page">
-    <div class="sec">
-      <div id="auth-section" class="auth-container">
-        <div class="auth-tabs">
-          <button id="tab-login" class="auth-tab active" onclick="switchAuthTab('login')">Connexion</button>
-          <button id="tab-register" class="auth-tab" onclick="switchAuthTab('register')">Inscription</button>
-        </div>
-        <form id="auth-form" onsubmit="handleAuth(event)">
-          <div class="form-group">
-            <label for="auth-email">Adresse Email</label>
-            <input type="email" id="auth-email" required />
-          </div>
-          <div class="form-group">
-            <label for="auth-password">Mot de passe</label>
-            <input type="password" id="auth-password" required />
-          </div>
-          <button type="submit" class="btn-primary" style="width:100%;" id="auth-submit-btn">Se connecter</button>
-        </form>
+    <div class="auth-container" id="auth-unlogged-view">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="setAuthMode('login')">Connexion</button>
+        <button class="auth-tab" id="tab-register" onclick="setAuthMode('register')">Créer un compte</button>
+        <button class="auth-tab" id="tab-admin" onclick="setAuthMode('admin')">Staff Admin</button>
       </div>
+      <form id="auth-form" onsubmit="handleAuth(event)">
+        <div class="form-group">
+          <label id="label-identifiant" for="auth-email">Adresse Email</label>
+          <input type="text" id="auth-email" required />
+        </div>
+        <div class="form-group">
+          <label id="label-password" for="auth-password">Mot de passe</label>
+          <input type="password" id="auth-password" required />
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%; margin-top:0.5rem;" id="auth-submit-btn">Se connecter</button>
+      </form>
+    </div>
 
-      <div id="profile-section" style="display:none;" class="profile-dashboard">
+    <div class="sec" id="auth-logged-view" style="display:none;">
+      <div class="profile-dashboard">
         <div class="profile-sidebar">
           <div class="profile-avatar-container">
-            <span id="profile-avatar-display" style="font-size:4.5rem; display:block; line-height:110px;">👤</span>
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop" id="profile-avatar-img" alt="Avatar" />
           </div>
-          <h2 id="profile-name-display" style="font-family:var(--bebas); font-size:2rem; margin-bottom:0.25rem;">Support Officiel</h2>
-          <p id="profile-email-display" style="font-size:0.85rem; color:var(--texte-sec); margin-bottom:1rem;">user@example.com</p>
-          <span class="profile-badge-tag" id="profile-role-badge">Membre</span>
-          <div style="margin-top:2rem;">
-            <button class="btn-ghost" onclick="handleLogout()">Se déconnecter</button>
-          </div>
+          <h3 font-family="var(--bebas)" style="font-size:1.8rem;" id="profile-pseudo-display">Utilisateur</h3>
+          <p style="font-size:0.85rem; color:var(--texte-sec);" id="profile-email-display">user@pignouf.com</p>
+          <div><span class="profile-badge-tag" id="profile-role-badge">Membre Officiel</span></div>
+          <button class="btn-ghost" style="margin-top:2rem; font-size:0.7rem; color:var(--danger); border-color:var(--rose-bord);" onclick="logoutUser()">Se déconnecter</button>
         </div>
 
         <div class="profile-main-content">
           <div class="settings-card">
-            <h3>Personnaliser mon Avatar</h3>
-            <p style="font-size:0.85rem; color:var(--texte-sec); margin-bottom:1rem;">Choisissez l'émoji qui vous représentera sur la plateforme :</p>
+            <h3 id="profile-h-custom">Personnaliser mon Avatar</h3>
+            <p style="font-size:0.8rem; color:var(--texte-sec); margin-bottom:1rem;">Choisissez l'emblème graphique qui vous représentera sur la plateforme du club :</p>
             <div class="avatar-picker-grid">
-              <div class="avatar-option" onclick="selectAvatar('⚽')">⚽</div>
-              <div class="avatar-option" onclick="selectAvatar('👕')">👕</div>
-              <div class="avatar-option" onclick="selectAvatar('🏆')">🏆</div>
-              <div class="avatar-option" onclick="selectAvatar('🦁')">🦁</div>
-              <div class="avatar-option" onclick="selectAvatar('👑')">👑</div>
-              <div class="avatar-option" onclick="selectAvatar('⭐')">⭐</div>
-              <div class="avatar-option" onclick="selectAvatar('🔥')">🔥</div>
-              <div class="avatar-option" onclick="selectAvatar('😎')">😎</div>
-              <div class="avatar-option" onclick="selectAvatar('⚡')">⚡</div>
-              <div class="avatar-option" onclick="selectAvatar('🦅')">🦅</div>
+              <div class="avatar-option" onclick="changeAvatar('🦁')">🦁</div>
+              <div class="avatar-option" onclick="changeAvatar('🦅')">🦅</div>
+              <div class="avatar-option" onclick="changeAvatar('🐺')">🐺</div>
+              <div class="avatar-option" onclick="changeAvatar('🔥')">🔥</div>
+              <div class="avatar-option" onclick="changeAvatar('⚽')">⚽</div>
             </div>
           </div>
 
           <div class="settings-card">
-            <h3>Mes Pronostics Actifs</h3>
-            <div id="profile-prono-list" style="font-size:0.9rem; color:var(--texte-sec);">Aucun pronostic enregistré.</div>
+            <h3 id="profile-h-stats">Tableau de Bord & Éxpérience</h3>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:1rem;">
+              <div style="background:var(--gris-clair); padding:1rem; border-radius:4px; text-align:center;">
+                <p style="font-size:0.65rem; text-transform:uppercase; color:var(--texte-sec);">Score Quiz</p>
+                <p font-family="var(--bebas)" style="font-size:2rem; color:var(--rose);" id="stats-quiz-score">0</p>
+              </div>
+              <div style="background:var(--gris-clair); padding:1rem; border-radius:4px; text-align:center;">
+                <p style="font-size:0.65rem; text-transform:uppercase; color:var(--texte-sec);">Rang Supporteur</p>
+                <p font-family="var(--bebas)" style="font-size:1.5rem; color:var(--texte); margin-top:0.4rem;" id="stats-rank-val">Bronze</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -585,27 +591,37 @@
 
   <div id="page-parametres" class="page">
     <div class="premium-header">
-      <p class="section-eyebrow">Configuration</p>
-      <h2 class="section-title">Mes <em>Paramètres</em></h2>
+      <p class="section-eyebrow" id="setting-eyebrow">Configuration</p>
+      <h2 class="section-title" id="setting-title">Paramètres de <em>l'Application</em></h2>
     </div>
     <div class="sec">
       <div class="settings-grid">
         <div class="settings-card">
-          <h3>Préférences Visuelles</h3>
+          <h3 id="setting-h-theme">Apparence Visuelle</h3>
           <div class="toggle-switch">
-            <span style="font-size:0.9rem;">Mode Sombre (Dark Mode)</span>
-            <input type="checkbox" id="theme-toggle" onchange="toggleTheme()" style="width:auto; cursor:pointer;">
+            <span id="setting-lbl-dark">Mode Sombre (Dark Mode)</span>
+            <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode(this.checked)" style="width:40px; height:20px; cursor:pointer;" />
           </div>
         </div>
         <div class="settings-card">
-          <h3>Accessibilité</h3>
-          <div style="margin-top:1rem;">
-            <label style="font-size:0.8rem; font-weight:600; color:var(--texte-sec); text-transform:uppercase;">Taille de la police globale</label>
-            <select onchange="changeFontSize(this.value)" style="margin-top:0.5rem; width:100%; padding:0.5rem; background:var(--gris-clair); border:1px solid var(--rose-bord); border-radius:4px; color:var(--texte);">
-              <option value="100%">Normale (Par défaut)</option>
-              <option value="110%">Grande (+10%)</option>
-              <option value="120%">Très Grande (+20%)</option>
+          <h3 id="setting-h-lang">Langue de l'interface</h3>
+          <div class="form-group" style="margin-top:0.5rem;">
+            <select id="setting-lang" onchange="changeLanguage(this.value)">
+              <option value="fr">Français (FR)</option>
+              <option value="en">English (UK)</option>
+              <option value="es">Español (ES)</option>
             </select>
+          </div>
+        </div>
+        <div class="settings-card">
+          <h3 id="setting-h-notif">Système & Notifications</h3>
+          <div class="toggle-switch">
+            <span id="setting-lbl-notif1">Alertes de Billetterie</span>
+            <input type="checkbox" checked onclick="alert('Notification alert updated')" style="width:40px; height:20px;" />
+          </div>
+          <div class="toggle-switch" style="margin-top:0.5rem;">
+            <span id="setting-lbl-notif2">Newsletters Boutique</span>
+            <input type="checkbox" onclick="alert('Newsletter alert updated')" style="width:40px; height:20px;" />
           </div>
         </div>
       </div>
@@ -614,279 +630,460 @@
 
   <div id="page-admin" class="page">
     <div class="premium-header">
-      <p class="section-eyebrow">Console de Gestion Universelle</p>
-      <h2 class="section-title">Panel <em>Admin</em></h2>
+      <p class="section-eyebrow">Espace Secrétariat</p>
+      <h2 class="section-title">Console Administration <em>Club</em></h2>
     </div>
     <div class="sec">
       <div class="admin-dashboard-stats">
-        <div class="admin-stat-card"><h4>Joueurs</h4><p id="admin-stat-players">0</p></div>
-        <div class="admin-stat-card"><h4>News</h4><p id="admin-stat-news">0</p></div>
-        <div class="admin-stat-card"><h4>Billetterie</h4><p id="admin-stat-tickets">Statut</p></div>
+        <div class="admin-stat-card"><h4>Joueurs</h4><p id="stat-count-players">0</p></div>
+        <div class="admin-stat-card"><h4>Articles News</h4><p id="stat-count-news">0</p></div>
+        <div class="admin-stat-card"><h4>Matchs</h4><p>1</p></div>
+        <div class="admin-stat-card"><h4>Boutique</h4><p id="stat-count-shop">0</p></div>
       </div>
 
       <div class="admin-sections-grid">
         <div class="admin-block">
-          <h3>Contrôle du Match & Ventes</h3>
-          <form onsubmit="updateMatchConfig(event)">
-            <div class="form-group"><label>Équipe Domicile</label><input type="text" id="adm-match-home" required></div>
-            <div class="form-group"><label>Équipe Extérieur</label><input type="text" id="adm-match-away" required></div>
-            <div class="form-group"><label>Score/VS Separator</label><input type="text" id="adm-match-vs" placeholder="VS ou Score" required></div>
-            <div class="form-group"><label>Date & Heure</label><input type="text" id="adm-match-date" required></div>
-            <div class="form-group"><label>Compétition</label><input type="text" id="adm-match-comp" required></div>
-            <div class="form-group"><label>Prix (€)</label><input type="number" id="adm-match-price" required></div>
+          <h3>Effectif Joueurs Pro</h3>
+          <div class="admin-scroll-list" id="admin-players-list"></div>
+          <form onsubmit="savePlayerPro(event)">
+            <input type="hidden" id="admin-player-id" />
+            <div class="form-group"><input type="text" id="admin-player-name" placeholder="Nom complet" required /></div>
+            <div class="form-group"><input type="number" id="admin-player-num" placeholder="Numéro de maillot" required /></div>
             <div class="form-group">
-              <label>Statut des Ventes</label>
-              <select id="adm-match-status">
-                <option value="enabled">Activées (Bouton d'achat disponible)</option>
-                <option value="disabled">Désactivées (Bouton grisé / Ventes closes)</option>
+              <select id="admin-player-poste">
+                <option value="gardiens">Gardien</option>
+                <option value="defenseurs">Défenseur</option>
+                <option value="milieux">Milieu</option>
+                <option value="attaquants">Attaquant</option>
               </select>
             </div>
-            <button type="submit" class="btn-primary" style="width:100%;">Enregistrer la Configuration Match</button>
+            <div class="form-group"><input type="text" id="admin-player-nat" placeholder="Nationalité (ex: Français 🇫🇷)" required /></div>
+            <button type="submit" class="btn-primary" style="padding:0.5rem 1rem; font-size:0.7rem;">Enregistrer Joueur</button>
+            <button type="button" class="btn-ghost" onclick="resetPlayerForm()" style="font-size:0.7rem; margin-left:10px;">Annuler</button>
           </form>
         </div>
 
         <div class="admin-block">
-          <h3>Ajouter un Joueur</h3>
-          <form onsubmit="addJoueur(event)">
-            <div class="form-group"><label>Numéro</label><input type="number" id="player-num" required></div>
-            <div class="form-group"><label>Nom & Prénom</label><input type="text" id="player-name" required></div>
-            <div class="form-group"><label>Poste</label><select id="player-role"><option value="Gardiens">Gardien</option><option value="Défenseurs">Défenseur</option><option value="Milieux">Milieu</option><option value="Attaquants">Attaquant</option></select></div>
-            <div class="form-group"><label>Nationalité</label><input type="text" id="player-nat" required></div>
-            <button type="submit" class="btn-primary" style="width:100%;">Ajouter l'athlète</button>
-          </form>
-          <h4 style="margin-top:1.5rem; font-size:0.8rem; text-transform:uppercase;">Liste de l'effectif</h4>
-          <div class="admin-scroll-list" id="admin-players-list"></div>
-        </div>
-
-        <div class="admin-block">
-          <h3>Publier une Actualité</h3>
-          <form onsubmit="addNews(event)">
-            <div class="form-group"><label>Tag (ex: MATCH, CLUB)</label><input type="text" id="news-tag" required></div>
-            <div class="form-group"><label>Titre de la News</label><input type="text" id="news-title" required></div>
-            <div class="form-group"><label>Extrait / Contenu</label><textarea id="news-excerpt" rows="3" required></textarea></div>
-            <div class="form-group"><label>Date de Publication</label><input type="text" id="news-date" placeholder="ex: 24 Juin 2026" required></div>
-            <button type="submit" class="btn-primary" style="width:100%;">Publier</button>
-          </form>
-          <h4 style="margin-top:1.5rem; font-size:0.8rem; text-transform:uppercase;">Articles en ligne</h4>
+          <h3>Fils d'Actualités</h3>
           <div class="admin-scroll-list" id="admin-news-list"></div>
+          <form onsubmit="saveNewsPro(event)">
+            <input type="hidden" id="admin-news-id" />
+            <div class="form-group"><input type="text" id="admin-news-title" placeholder="Titre de la news" required /></div>
+            <div class="form-group"><textarea id="admin-news-excerpt" placeholder="Extrait / Contenu de la news" rows="2" required></textarea></div>
+            <div class="form-group"><input type="text" id="admin-news-img" placeholder="URL Image Unsplash (Optionnel)" /></div>
+            <div class="form-group"><input type="text" id="admin-news-yt" placeholder="ID Vidéo YouTube (Optionnel)" /></div>
+            <div class="form-group"><input type="text" id="admin-news-date" placeholder="Date (ex: Juin 2026)" /></div>
+            <button type="submit" class="btn-primary" style="padding:0.5rem 1rem; font-size:0.7rem;">Enregistrer l'article</button>
+            <button type="button" class="btn-ghost" onclick="resetNewsForm()" style="font-size:0.7rem; margin-left:10px;">Annuler</button>
+          </form>
         </div>
 
         <div class="admin-block">
-          <h3>Éditeur de Textes (Accueil)</h3>
-          <form onsubmit="updateHomeTexts(event)">
-            <div class="form-group"><label>Texte Défilant (Marquee)</label><input type="text" id="edit-marquee"></div>
-            <div class="form-group"><label>Surtitre Hero</label><input type="text" id="edit-eyebrow"></div>
-            <div class="form-group"><label>Titre Principal (Hero)</label><input type="text" id="edit-title"></div>
-            <div class="form-group"><label>Description Hero</label><textarea id="edit-sub" rows="2"></textarea></div>
-            <div class="form-group"><label>Texte Bouton Principal</label><input type="text" id="edit-btn-ticket"></div>
-            <div class="form-group"><label>Texte Bouton Secondaire</label><input type="text" id="edit-btn-eff"></div>
-            <div class="form-group"><label>Année de Création (Valeur)</label><input type="number" id="edit-stat-year-val"></div>
-            <div class="form-group"><label>Année de Création (Label)</label><input type="text" id="edit-stat-lbl-year"></div>
-            <div class="form-group"><label>Surtitre Effectif</label><input type="text" id="edit-eff-eyebrow"></div>
-            <div class="form-group"><label>Titre Effectif</label><input type="text" id="edit-eff-title"></div>
-            <div class="form-group"><label>Label Compteur Effectif</label><input type="text" id="edit-eff-lbl-total"></div>
-            <button type="submit" class="btn-primary" style="width:100%;">Enregistrer les Textes</button>
+          <h3>Chronologie du Club</h3>
+          <div class="admin-scroll-list" id="admin-history-list"></div>
+          <form onsubmit="saveHistoryPro(event)">
+            <input type="hidden" id="admin-hist-id" />
+            <div class="form-group"><input type="number" id="admin-hist-year" placeholder="Année (ex: 2018)" required /></div>
+            <div class="form-group"><input type="text" id="admin-hist-title" placeholder="Événement marquant" required /></div>
+            <div class="form-group"><textarea id="admin-hist-detail" placeholder="Détails de l'accomplissement historique" rows="2" required></textarea></div>
+            <button type="submit" class="btn-primary" style="padding:0.5rem 1rem; font-size:0.7rem;">Ajouter Événement</button>
+            <button type="button" class="btn-ghost" onclick="resetHistoryForm()" style="font-size:0.7rem; margin-left:10px;">Annuler</button>
           </form>
         </div>
+
+        <div class="admin-block">
+          <h3>Statut de Billetterie</h3>
+          <p style="font-size:0.8rem; margin-bottom:1rem; color:var(--texte-sec);">Activez ou désactivez les ventes globales de billets de match instantanément.</p>
+          <div class="form-group">
+            <select id="admin-sales-status" onchange="changeSalesStatusPro(this.value)">
+              <option value="enabled">Ventes Actives (Ouvert au public)</option>
+              <option value="disabled">Ventes Suspendues / Fermé</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="admin-block">
+          <h3>Comptes Utilisateurs Créés</h3>
+          <p style="font-size:0.8rem; margin-bottom:1rem; color:var(--texte-sec);">Liste en direct de l'infrastructure Firebase contenant les profils enregistrés :</p>
+          <div class="admin-scroll-list" style="max-height: 320px;" id="admin-users-list-container">
+            <div class="admin-users-container" id="admin-users-realtime-box">
+              <p style="font-size:0.75rem; color:var(--texte-sec); text-align:center; padding:10px;">Aucun utilisateur trouvé ou chargement...</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
-  <button class="cart-bubble" id="cartBubbleBtn" onclick="toggleCartPanel()">🛒</button>
-  <div class="cart-panel" id="cartPanel">
-    <div style="padding:1.5rem; border-bottom:1px solid var(--rose-bord); display:flex; justify-content:space-between; align-items:center;">
-      <h3 style="font-family:var(--bebas); font-size:1.5rem;">Votre Panier</h3>
-      <button onclick="toggleCartPanel()" style="background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--texte);">✕</button>
+  <button class="cart-bubble" id="cart-bubble-trigger" onclick="toggleCartPanel()">🛒 <span id="cart-count-badge" style="font-size:0.65rem; background:white; color:var(--rose); padding:2px 5px; border-radius:50%; position:absolute; top:2px; right:2px;">0</span></button>
+  <div class="cart-panel" id="cart-side-panel">
+    <div style="padding:1.5rem; border-bottom:1px solid var(--rose-bord); display:flex; justify-content:between; align-items:center;">
+      <h3 font-family="var(--bebas)" style="font-size:1.5rem; color:var(--texte);">Votre Panier</h3>
+      <button onclick="toggleCartPanel()" style="background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--texte-sec);">✕</button>
     </div>
-    <div class="cart-items" id="cart-items-container"></div>
+    <div class="cart-items" id="cart-items-box"></div>
     <div style="padding:1.5rem; border-top:1px solid var(--rose-bord); background:var(--gris-clair);">
-      <div style="display:flex; justify-content:between; font-weight:700; margin-bottom:1rem; font-size:1.05rem;">
-        <span>Total :</span>
-        <span id="cart-total-value" style="margin-left:auto; color:var(--rose);">0.00 €</span>
+      <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:1rem;">
+        <span>Total :</span><span id="cart-total-price">0.00 €</span>
       </div>
-      <button class="btn-primary" style="width:100%;" onclick="checkoutCart()">Passer la commande</button>
+      <button class="btn-primary" style="width:100%; text-align:center;" onclick="checkoutCart()">Procéder au paiement</button>
     </div>
   </div>
 
   <footer>
     <div>
       <div class="footer-brand-name">PIGNOUFERIE <span>FC</span></div>
-      <p style="font-size:0.85rem; color:var(--texte-sec); margin-top:0.5rem; max-width:280px;">L'excellence, la passion, et l'élégance du football depuis 2005.</p>
+      <p style="font-size:0.8rem; color:var(--texte-sec); margin-top:0.5rem; max-width:300px;">L'institution sportive de prestige qui fait briller les couleurs roses et blanches à travers le continent.</p>
     </div>
     <div>
       <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:1rem;">Club</h4>
-      <p style="font-size:0.8rem; color:var(--texte-sec); cursor:pointer;" onclick="showPage('accueil')">L'Équipe</p>
-      <p style="font-size:0.8rem; color:var(--texte-sec); cursor:pointer;" onclick="showPage('actualites')">Actualités</p>
+      <p style="font-size:0.8rem; margin-bottom:0.4rem;"><a onclick="showPage('accueil')" style="cursor:pointer; color:var(--texte-sec);">Effectif Pro</a></p>
+      <p style="font-size:0.8rem; margin-bottom:0.4rem;"><a onclick="showPage('actualites')" style="cursor:pointer; color:var(--texte-sec);">Actualités</a></p>
     </div>
     <div>
-      <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:1rem;">Support</h4>
-      <p style="font-size:0.8rem; color:var(--texte-sec); cursor:pointer;" onclick="showPage('compte')">Mon Compte</p>
-      <p style="font-size:0.8rem; color:var(--texte-sec); cursor:pointer;" onclick="showPage('parametres')">Paramètres</p>
+      <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:1rem;">Services</h4>
+      <p style="font-size:0.8rem; margin-bottom:0.4rem;"><a onclick="showPage('billetterie')" style="cursor:pointer; color:var(--texte-sec);">Billetterie en ligne</a></p>
+      <p style="font-size:0.8rem; margin-bottom:0.4rem;"><a onclick="showPage('boutique')" style="cursor:pointer; color:var(--texte-sec);">Boutique Élite</a></p>
     </div>
     <div>
       <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:1rem;">Légal</h4>
       <p style="font-size:0.8rem; color:var(--texte-sec);">Mentions Légales</p>
-      <p style="font-size:0.8rem; color:var(--texte-sec);">CGV / CGU</p>
+      <p style="font-size:0.8rem; color:var(--texte-sec); margin-top:0.4rem;">CGV & CGU</p>
     </div>
   </footer>
+
   <div class="footer-bottom">
     <div>© 2026 La Pignouferie FC. Tous droits réservés.</div>
-    <div>Design & Code Haute Couture</div>
+    <div style="display:flex; gap:15px;"><span>Infrastructures Connectées v4.8</span></div>
   </div>
 
   <script>
-    // Config Firebase Récupérée d'Origine
+    // CONFIGURATION ET INITIALISATION DE LA BASE FIREBASE INTEGRÉE
     const firebaseConfig = {
-      databaseURL: "https://pignouferie-fc-default-rtdb.europe-west1.firebasedatabase.app/"
+      databaseURL: "https://pignouferiefc-default-rtdb.europe-west1.firebasedatabase.app/"
     };
-    
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
     const db = firebase.database();
 
-    // États globaux
-    let currentUser = null;
-    let effectifData = {};
-    let newsData = {};
-    let matchData = { home: "Pignouferie FC", away: "Adversaire", vs: "VS", date: "Dimanche 15:00", comp: "Championnat", price: 15, salesStatus: "enabled" };
-    let homeTexts = {};
-    let timelineData = {};
-    let cart = [];
+    // VARIABLES ET ETATS DE L'APPLICATION GLOBALE
+    let activePage = "accueil";
+    let isAdminLoggedIn = false;
+    let isUserLoggedIn = false;
+    let currentAuthMode = "login";
+    let shoppingCart = [];
     
-    const boutiqueProduits = [
-      { id: "j1", name: "Maillot Domicile Pro", price: 85.00, emoji: "👕" },
-      { id: "j2", name: "Maillot Extérieur Elite", price: 85.00, emoji: "👚" },
-      { id: "e1", name: "Écharpe de Supporteur", price: 20.00, emoji: "🧣" },
-      { id: "cas", name: "Casquette Pignouferie", price: 25.00, emoji: "🧢" }
+    let userProfile = {
+      email: "invite@pignouf.com",
+      pseudo: "Anonyme",
+      role: "Supporteur",
+      currency: "EUR",
+      theme: "light",
+      lang: "fr",
+      scoreQuiz: 0,
+      avatar: "⚽"
+    };
+
+    // DONNÉES DE BASE EN CAS DE BASE DE DONNÉES VIDE
+    const initialJoueurs = [
+      { name: "Jean Pignouf", num: 1, poste: "gardiens", nat: "Français 🇫🇷" },
+      { name: "Lucas Sol", num: 4, poste: "defenseurs", nat: "Espagnol 🇪🇸" },
+      { name: "Mathieu Rose", num: 8, poste: "milieux", nat: "Français 🇫🇷" },
+      { name: "Pierre Frappeur", num: 9, poste: "attaquants", nat: "Belge 🇧🇪" }
     ];
 
-    // Synchronisation en temps réel Firebase
-    db.ref('effectif').on('value', snapshot => {
-      effectifData = snapshot.val() || {};
-      renderEffectif();
-      updateAdminDashboard();
-    });
+    const initialNews = [
+      { title: "Reprise des entraînements de pré-saison", excerpt: "Les joueurs ont retrouvé les terrains du complexe d'entraînement ce matin sous la direction du staff technique.", date: "Juin 2026" }
+    ];
 
-    db.ref('news').on('value', snapshot => {
-      newsData = snapshot.val() || {};
-      renderNews();
-      updateAdminDashboard();
-    });
+    const initialHistoire = [
+      { year: 2005, event: "Fondation du Club", detail: "Création officielle de l'institution sportive sous les couleurs roses et blanches." },
+      { year: 2015, event: "Montée en Ligue Élite", detail: "Après une saison historique, la Pignouferie FC accède au plus haut niveau professionnel." }
+    ];
 
-    db.ref('matchConfig').on('value', snapshot => {
-      if (snapshot.exists()) {
-        matchData = snapshot.val();
-        renderMatchs();
-        updateAdminFields();
-        updatePronoTeams();
-      }
-    });
+    const boutiqueProduits = [
+      { name: "Maillot Domicile Pro 2026/27", price: 85.00, emoji: "👕" },
+      { name: "Écharpe Satinée 'Rose & Blanc'", price: 20.00, emoji: "🧣" },
+      { name: "Ballon Cuir Édition Prestige", price: 35.00, emoji: "⚽" },
+      { name: "Casquette Trucker Pignouferie", price: 25.00, emoji: "🧢" }
+    ];
 
-    db.ref('homeTexts').on('value', snapshot => {
-      homeTexts = snapshot.val() || {};
-      applyHomeTexts();
-    });
+    let matchData = { home: "Pignouferie FC", away: "Olympique Galactique", vs: "VS", date: "Dimanche 28 Juin — 21:00", comp: "Ligue des Champions — J1", price: 45, salesStatus: "enabled" };
 
-    db.ref('timeline').on('value', snapshot => {
-      timelineData = snapshot.val() || {};
-      renderTimeline();
-    });
-
-    // Navigation & Pages
+    // SYSTEME DE NAVIGATION ET ROUTAGE DES PAGES
     function showPage(pageId) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      const activePage = document.getElementById(`page-${pageId}`);
-      if (activePage) activePage.classList.add('active');
-
-      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-      const activeLink = document.getElementById(`link-${pageId}`);
-      if (activeLink) activeLink.classList.add('active');
-
-      window.scrollTo(0, 0);
+      document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+      
+      const targetPage = document.getElementById('page-' + pageId);
+      if(targetPage) targetPage.classList.add('active');
+      
+      const targetLink = document.getElementById('link-' + pageId);
+      if(targetLink) targetLink.classList.add('active');
+      
+      activePage = pageId;
+      window.scrollTo(0,0);
     }
 
     function toggleMobileMenu() {
       document.getElementById('mobileMenu').classList.toggle('open');
     }
 
-    // Gestion du Thème (Sombre / Clair)
-    function toggleTheme() {
-      const isDark = document.getElementById('theme-toggle').checked;
-      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    }
+    // INTERFACE ET PRE-CHARGEMENT LOCALSTORAGE
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedProfile = localStorage.getItem('pignouf_user_profile');
+      if(savedProfile) {
+        userProfile = JSON.parse(savedProfile);
+        isUserLoggedIn = true;
+        toggleLoggedView(true);
+      }
+      
+      // Synchronisation Firebase en temps réel
+      listenFirebaseData();
+      renderBoutique();
+    });
 
-    function changeFontSize(size) {
-      document.documentElement.style.setProperty('--font-modifier', size);
-    }
+    // ÉCOUTEURS FIREBASE LIVE SYNCHRONISATION
+    let joueursKeys = [];
+    let actualitesKeys = [];
+    let histoireKeys = [];
 
-    // Rendu Effectif
-    function renderEffectif() {
-      const container = document.getElementById('effectif-container');
-      if (!container) return;
+    function listenFirebaseData() {
+      // 1. Gestion de l'effectif joueurs
+      db.ref('joueurs').on('value', snapshot => {
+        const data = snapshot.val();
+        const containerG = document.getElementById('grid-gardiens');
+        const containerD = document.getElementById('grid-defenseurs');
+        const containerM = document.getElementById('grid-milieux');
+        const containerA = document.getElementById('grid-attaquants');
+        const adminList = document.getElementById('admin-players-list');
+        
+        containerG.innerHTML = ''; containerD.innerHTML = ''; containerM.innerHTML = ''; containerA.innerHTML = '';
+        adminList.innerHTML = '';
+        joueursKeys = [];
+        let totalCount = 0;
 
-      const categories = ["Gardiens", "Défenseurs", "Milieux", "Attaquants"];
-      let html = "";
-      let totalCount = 0;
+        if(!data) {
+          initialJoueurs.forEach(j => db.ref('joueurs').push().set(j));
+          return;
+        }
 
-      categories.forEach(cat => {
-        const joueursCat = Object.entries(effectifData).filter(([id, j]) => j.role === cat);
-        if (joueursCat.length > 0) {
-          html += `<div class="poste-header">${cat}</div><div class="joueurs-grid">`;
-          joueursCat.forEach(([id, j]) => {
-            totalCount++;
-            html += `
-              <div class="joueur-card">
-                <button class="admin-action-btn admin-del" onclick="deleteJoueur('${id}')">X</button>
-                <div class="joueur-num">#${j.num}</div>
-                <div class="joueur-nom">${j.name}</div>
-                <div class="joueur-nat">${j.nat}</div>
+        let i = 0;
+        for(let key in data) {
+          const j = data[key];
+          joueursKeys.push(key);
+          totalCount++;
+          
+          const cardHtml = `
+            <div class="joueur-card">
+              <button class="admin-action-btn admin-edit" onclick="editPlayerPro(${i})">Éditer</button>
+              <button class="admin-action-btn admin-del" onclick="deletePlayerPro(${i})">X</button>
+              <div class="joueur-num">#${j.num}</div>
+              <div class="joueur-nom">${j.name}</div>
+              <div class="joueur-nat">${j.nat}</div>
+            </div>
+          `;
+
+          if(j.poste === "gardiens") containerG.innerHTML += cardHtml;
+          else if(j.poste === "defenseurs") containerD.innerHTML += cardHtml;
+          else if(j.poste === "milieux") containerM.innerHTML += cardHtml;
+          else if(j.poste === "attaquants") containerA.innerHTML += cardHtml;
+
+          adminList.innerHTML += `
+            <div class="admin-list-item">
+              <span>#${j.num} — ${j.name} (${j.poste.toUpperCase()})</span>
+              <div class="admin-list-actions">
+                <button class="admin-mini-btn btn-edit-mini" onclick="editPlayerPro(${i})">Édit</button>
+                <button class="admin-mini-btn btn-del-mini" onclick="deletePlayerPro(${i})">Suppr</button>
               </div>
-            `;
-          });
-          html += `</div>`;
+            </div>
+          `;
+          i++;
+        }
+        document.getElementById('eff-total-count').innerText = totalCount;
+        document.getElementById('stat-count-players').innerText = totalCount;
+      });
+
+      // 2. Gestion des Actualités
+      db.ref('actualites').on('value', snapshot => {
+        const data = snapshot.val();
+        const container = document.getElementById('news-container');
+        const adminList = document.getElementById('admin-news-list');
+        container.innerHTML = '';
+        adminList.innerHTML = '';
+        actualitesKeys = [];
+        let count = 0;
+
+        if(!data) {
+          initialNews.forEach(n => db.ref('actualites').push().set(n));
+          return;
+        }
+
+        let i = 0;
+        for(let key in data) {
+          const n = data[key];
+          actualitesKeys.push(key);
+          count++;
+
+          container.innerHTML += `
+            <div class="news-card">
+              <div class="news-card-body">
+                <div class="news-tag">${n.date || 'Juin 2026'}</div>
+                <h3 class="news-card-title">${n.title}</h3>
+                <p class="news-card-excerpt">${n.excerpt}</p>
+                <div class="news-card-meta">La Pignouferie Média</div>
+              </div>
+            </div>
+          `;
+
+          adminList.innerHTML += `
+            <div class="admin-list-item">
+              <span>${n.title}</span>
+              <div class="admin-list-actions">
+                <button class="admin-mini-btn btn-edit-mini" onclick="editNewsPro(${i})">Édit</button>
+                <button class="admin-mini-btn btn-del-mini" onclick="deleteNewsPro(${i})">Suppr</button>
+              </div>
+            </div>
+          `;
+          i++;
+        }
+        document.getElementById('stat-count-news').innerText = count;
+      });
+
+      // 3. Gestion de la Chronologie Histoire
+      db.ref('histoire').on('value', snapshot => {
+        const data = snapshot.val();
+        const container = document.getElementById('history-timeline-container');
+        const adminList = document.getElementById('admin-history-list');
+        container.innerHTML = '';
+        adminList.innerHTML = '';
+        histoireKeys = [];
+
+        if(!data) {
+          initialHistoire.forEach(h => db.ref('histoire').push().set(h));
+          return;
+        }
+
+        let i = 0;
+        for(let key in data) {
+          const h = data[key];
+          histoireKeys.push(key);
+
+          container.innerHTML += `
+            <div class="timeline-item">
+              <div class="tl-year">${h.year}</div>
+              <div>
+                <div class="tl-event">${h.event}</div>
+                <div class="tl-detail">${h.detail}</div>
+              </div>
+            </div>
+          `;
+
+          adminList.innerHTML += `
+            <div class="admin-list-item">
+              <span>[${h.year}] ${h.event}</span>
+              <div class="admin-list-actions">
+                <button class="admin-mini-btn btn-edit-mini" onclick="editHistoryPro(${i})">Édit</button>
+                <button class="admin-mini-btn btn-del-mini" onclick="deleteHistoryPro(${i})">Suppr</button>
+              </div>
+            </div>
+          `;
+          i++;
         }
       });
 
-      container.innerHTML = html || "<p style='color:var(--texte-sec); font-size:0.9rem;'>Aucun joueur référencé dans l'effectif actuel.</p>";
-      document.getElementById('eff-total-count').innerText = totalCount;
+      // 4. Gestion de la Billetterie Statut Global
+      db.ref('billetterie_status').on('value', snapshot => {
+        const status = snapshot.val();
+        if(status) {
+          matchData.salesStatus = status;
+          document.getElementById('admin-sales-status').value = status;
+        }
+        renderMatchs();
+      });
+
+      // 5. NOUVEAU : Récupération et écoute live de tous les comptes créés (Inscrit dans la branche 'utilisateurs')
+      db.ref('utilisateurs').on('value', snapshot => {
+        const usersData = snapshot.val();
+        const usersBox = document.getElementById('admin-users-realtime-box');
+        usersBox.innerHTML = '';
+
+        if (!usersData) {
+          usersBox.innerHTML = `<p style="font-size:0.75rem; color:var(--texte-sec); text-align:center; padding:10px;">Aucun compte utilisateur synchronisé dans Firebase.</p>`;
+          return;
+        }
+
+        for (let userId in usersData) {
+          const profile = usersData[userId];
+          usersBox.innerHTML += `
+            <div class="admin-user-card">
+              <div class="admin-user-header">
+                <span class="admin-user-email">${profile.email || 'Pas d\'email'}</span>
+                <span class="admin-user-role">${profile.role || 'Membre'}</span>
+              </div>
+              <div class="admin-user-details">
+                <div><strong>Pseudo :</strong> ${profile.pseudo || 'Non défini'}</div>
+                <div><strong>Avatar :</strong> ${profile.avatar || '⚽'}</div>
+                <div><strong>Score Quiz :</strong> ${profile.scoreQuiz || 0}</div>
+                <div><strong>Langue :</strong> ${profile.lang || 'fr'}</div>
+              </div>
+            </div>
+          `;
+        }
+      });
+
+      document.getElementById('stat-count-shop').innerText = boutiqueProduits.length;
     }
 
-    // Rendu Actualités
-    function renderNews() {
-      const container = document.getElementById('news-container');
-      if (!container) return;
+    // LOGIQUE DE COMMANDE ET GESTION DU PANIER (CART)
+    function addToCart(itemName, price) {
+      shoppingCart.push({ name: itemName, price: price });
+      updateCartUI();
+      document.getElementById('cart-bubble-trigger').classList.add('show');
+      alert(`"${itemName}" a été ajouté avec succès au panier.`);
+    }
 
-      const items = Object.entries(newsData).reverse();
-      container.innerHTML = items.map(([id, n]) => `
-        <div class="news-card">
-          <div class="news-card-body">
-            <div class="news-tag">${n.tag}</div>
-            <h3 class="news-card-title">${n.title}</h3>
-            <p class="news-card-excerpt">${n.excerpt}</p>
-            <div class="news-card-meta">${n.date}</div>
+    function updateCartUI() {
+      document.getElementById('cart-count-badge').innerText = shoppingCart.length;
+      const box = document.getElementById('cart-items-box');
+      box.innerHTML = '';
+      let total = 0;
+      
+      shoppingCart.forEach((item, index) => {
+        total += item.price;
+        box.innerHTML += `
+          <div class="cart-item-row">
+            <div>
+              <div style="font-weight:600; color:var(--texte);">${item.name}</div>
+              <div style="font-size:0.75rem; color:var(--rose);">${item.price.toFixed(2)} €</div>
+            </div>
+            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--danger); cursor:pointer; font-size:0.8rem;">Retirer</button>
           </div>
-        </div>
-      `).join('') || "<p style='color:var(--texte-sec); font-size:0.9rem;'>Aucune actualité publiée pour le moment.</p>";
+        `;
+      });
+      document.getElementById('cart-total-price').innerText = total.toFixed(2) + " €";
     }
 
-    // Rendu Histoire Timeline
-    function renderTimeline() {
-      const container = document.getElementById('timeline-container');
-      if (!container) return;
-      const items = Object.entries(timelineData).sort((a,b) => a[1].year - b[1].year);
-      container.innerHTML = items.map(([id, t]) => `
-        <div class="timeline-item">
-          <div class="tl-year">${t.year}</div>
-          <div>
-            <div class="tl-event">${t.title}</div>
-            <div class="tl-detail">${t.detail}</div>
-          </div>
-        </div>
-      `).join('');
+    function removeFromCart(index) {
+      shoppingCart.splice(index, 1);
+      updateCartUI();
+      if(shoppingCart.length === 0) toggleCartPanel();
     }
 
-    // Rendu Billetterie & Match d'origine
+    function toggleCartPanel() {
+      document.getElementById('cart-side-panel').classList.toggle('open');
+    }
+
+    function checkoutCart() {
+      if(shoppingCart.length === 0) return;
+      alert("Traitement de l'infrastructure bancaire... Achat validé ! Merci de votre soutien pour La Pignouferie FC.");
+      shoppingCart = [];
+      updateCartUI();
+      toggleCartPanel();
+    }
+
     function renderMatchs() {
       const isAvailable = matchData.salesStatus === "enabled";
       const btnClass = isAvailable ? "match-ticket" : "match-ticket btn-disabled";
@@ -900,7 +1097,6 @@
       `;
     }
 
-    // Rendu Boutique d'origine
     function renderBoutique() {
       document.getElementById('boutique-container').innerHTML = boutiqueProduits.map(p => `
         <div class="product-card">
@@ -911,342 +1107,316 @@
       `).join('');
     }
 
-    // Éditeur de Textes (Accueil) : Application en direct
-    function applyHomeTexts() {
-      if (homeTexts.marquee) document.getElementById('hero-marquee-text').innerText = homeTexts.marquee;
-      if (homeTexts.eyebrow) document.getElementById('hero-eyebrow-text').innerText = homeTexts.eyebrow;
-      if (homeTexts.title) document.getElementById('hero-title-text').innerHTML = homeTexts.title;
-      if (homeTexts.sub) document.getElementById('hero-sub-text').innerText = homeTexts.sub;
-      if (homeTexts.btnTicket) document.getElementById('hero-btn-ticket').innerText = homeTexts.btnTicket;
-      if (homeTexts.btnEff) document.getElementById('hero-btn-eff').innerText = homeTexts.btnEff;
-      if (homeTexts.statYearVal) document.getElementById('hero-stat-year-val').innerText = homeTexts.statYearVal;
-      if (homeTexts.statLblYear) document.getElementById('hero-stat-lbl-year').innerText = homeTexts.statLblYear;
-      if (homeTexts.effEyebrow) document.getElementById('eff-eyebrow').innerText = homeTexts.effEyebrow;
-      if (homeTexts.effTitle) document.getElementById('eff-title').innerText = homeTexts.effTitle;
-      if (homeTexts.effLblTotal) document.getElementById('eff-lbl-total').innerText = homeTexts.effLblTotal;
-    }
+    // ACTIONS BACK-END DU PANEL D'ADMINISTRATION
+    function savePlayerPro(e) {
+      e.preventDefault();
+      const id = document.getElementById('admin-player-id').value;
+      const name = document.getElementById('admin-player-name').value;
+      const num = parseInt(document.getElementById('admin-player-num').value);
+      const poste = document.getElementById('admin-player-poste').value;
+      const nat = document.getElementById('admin-player-nat').value;
 
-    function updatePronoTeams() {
-      document.getElementById('prono-home').innerText = matchData.home || "Home";
-      document.getElementById('prono-away').innerText = matchData.away || "Away";
-    }
+      const pData = { name, num, poste, nat };
 
-    // PANIER ACTIONS
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      updateCartUI();
-      document.getElementById('cartBubbleBtn').classList.add('show');
-      toggleCartPanel(true);
-    }
-
-    function toggleCartPanel(forceOpen = false) {
-      const panel = document.getElementById('cartPanel');
-      if (forceOpen) panel.classList.add('open');
-      else panel.classList.toggle('open');
-    }
-
-    function updateCartUI() {
-      const container = document.getElementById('cart-items-container');
-      container.innerHTML = cart.map((item, idx) => `
-        <div class="cart-item-row">
-          <span>${item.name}</span>
-          <span style="font-weight:600; margin-left:auto; margin-right:1rem;">${item.price.toFixed(2)} €</span>
-          <button onclick="removeFromCart(${idx})" style="background:none; border:none; color:var(--rose); cursor:pointer;">✕</button>
-        </div>
-      `).join('');
-
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
-      document.getElementById('cart-total-value').innerText = `${total.toFixed(2)} €`;
-    }
-
-    function removeFromCart(idx) {
-      cart.splice(idx, 1);
-      updateCartUI();
-      if (cart.length === 0) {
-        document.getElementById('cartBubbleBtn').classList.remove('show');
-        toggleCartPanel(false);
-      }
-    }
-
-    function checkoutCart() {
-      alert("Félicitations ! Votre commande / réservation a été validée avec succès !");
-      cart = [];
-      updateCartUI();
-      document.getElementById('cartBubbleBtn').classList.remove('show');
-      toggleCartPanel(false);
-    }
-
-    // MINI-JEUX LOGIQUE
-    let penaltyScore = 0;
-    let penaltyAttempts = 0;
-    function shootPenalty(target) {
-      const options = ['TL', 'TR', 'BL', 'BR', 'C'];
-      const keeperChoice = options[Math.floor(Math.random() * options.length)];
-      const keeperEl = document.getElementById('keeper');
-
-      // Animation simplifiée du gardien d'origine
-      if (keeperChoice === 'TL') keeperEl.style.transform = 'translate(-40px, -20px)';
-      else if (keeperChoice === 'TR') keeperEl.style.transform = 'translate(40px, -20px)';
-      else if (keeperChoice === 'BL') keeperEl.style.transform = 'translate(-40px, 10px)';
-      else if (keeperChoice === 'BR') keeperEl.style.transform = 'translate(40px, 10px)';
-      else keeperEl.style.transform = 'translate(0, 0)';
-
-      penaltyAttempts++;
-      const feedback = document.getElementById('penalty-feedback');
-      
-      if (target === keeperChoice) {
-        feedback.innerText = "Arrêt fantastique du gardien ! 🧤";
-        feedback.style.color = "var(--danger)";
+      if(id !== "") {
+        db.ref('joueurs/' + id).set(pData);
       } else {
-        penaltyScore++;
-        feedback.innerText = "BUT !!! Magnifique lucarne ! ⚽🔥";
-        feedback.style.color = "var(--succes)";
+        db.ref('joueurs').push().set(pData);
+      }
+      resetPlayerForm();
+    }
+
+    function editPlayerPro(index) {
+      const key = joueursKeys[index];
+      db.ref('joueurs/' + key).once('value', snapshot => {
+        const p = snapshot.val();
+        document.getElementById('admin-player-id').value = key;
+        document.getElementById('admin-player-name').value = p.name;
+        document.getElementById('admin-player-num').value = p.num;
+        document.getElementById('admin-player-poste').value = p.poste;
+        document.getElementById('admin-player-nat').value = p.nat;
+        document.getElementById('admin-player-name').focus();
+      });
+    }
+
+    function deletePlayerPro(index) {
+      if(confirm('Supprimer définitivement ce joueur de l\'effectif professionnel ?')) {
+        db.ref('joueurs/' + joueursKeys[index]).remove();
+      }
+    }
+
+    function resetPlayerForm() {
+      document.getElementById('admin-player-id').value = "";
+      document.getElementById('admin-player-name').value = "";
+      document.getElementById('admin-player-num').value = "";
+      document.getElementById('admin-player-nat').value = "";
+    }
+
+    function saveNewsPro(e) {
+      e.preventDefault();
+      const id = document.getElementById('admin-news-id').value;
+      const title = document.getElementById('admin-news-title').value;
+      const excerpt = document.getElementById('admin-news-excerpt').value;
+      const image = document.getElementById('admin-news-img').value;
+      const youtube = document.getElementById('admin-news-yt').value;
+      const date = document.getElementById('admin-news-date').value || "Juin 2026";
+
+      if(id !== "") db.ref('actualites/' + id).set({ title, excerpt, date, image, youtube });
+      else db.ref('actualites').push().set({ title, excerpt, date, image, youtube });
+      resetNewsForm();
+    }
+
+    function editNewsPro(index) {
+      const key = actualitesKeys[index];
+      db.ref('actualites/' + key).once('value', snapshot => {
+        const n = snapshot.val();
+        document.getElementById('admin-news-id').value = key;
+        document.getElementById('admin-news-title').value = n.title;
+        document.getElementById('admin-news-excerpt').value = n.excerpt;
+        document.getElementById('admin-news-img').value = n.image || "";
+        document.getElementById('admin-news-yt').value = n.youtube || "";
+        document.getElementById('admin-news-date').value = n.date || "";
+        document.getElementById('admin-news-title').focus();
+      });
+    }
+
+    function deleteNewsPro(index) {
+      if(confirm('Supprimer cet article d\'actualité ?')) db.ref('actualites/' + actualitesKeys[index]).remove();
+    }
+
+    document.getElementById('stat-count-shop').innerText = boutiqueProduits.length;
+
+    function resetNewsForm() {
+      document.getElementById('admin-news-id').value = "";
+      document.getElementById('admin-news-title').value = "";
+      document.getElementById('admin-news-excerpt').value = "";
+      document.getElementById('admin-news-img').value = "";
+      document.getElementById('admin-news-yt').value = "";
+      document.getElementById('admin-news-date').value = "";
+    }
+
+    function saveHistoryPro(e) {
+      e.preventDefault();
+      const id = document.getElementById('admin-hist-id').value;
+      const year = parseInt(document.getElementById('admin-hist-year').value);
+      const event = document.getElementById('admin-hist-title').value;
+      const detail = document.getElementById('admin-hist-detail').value;
+
+      if(id !== "") db.ref('histoire/' + id).set({ year, event, detail });
+      else db.ref('histoire').push().set({ year, event, detail });
+      resetHistoryForm();
+    }
+
+    function editHistoryPro(index) {
+      const key = histoireKeys[index];
+      db.ref('histoire/' + key).once('value', snapshot => {
+        const h = snapshot.val();
+        document.getElementById('admin-hist-id').value = key;
+        document.getElementById('admin-hist-year').value = h.year;
+        document.getElementById('admin-hist-title').value = h.event;
+        document.getElementById('admin-hist-detail').value = h.detail;
+        document.getElementById('admin-hist-year').focus();
+      });
+    }
+
+    function deleteHistoryPro(index) {
+      if(confirm('Supprimer cet événement de la chronologie historique du club ?')) db.ref('histoire/' + histoireKeys[index]).remove();
+    }
+
+    function resetHistoryForm() {
+      document.getElementById('admin-hist-id').value = "";
+      document.getElementById('admin-hist-year').value = "";
+      document.getElementById('admin-hist-title').value = "";
+      document.getElementById('admin-hist-detail').value = "";
+    }
+
+    function changeSalesStatusPro(val) {
+      db.ref('billetterie_status').set(val);
+    }
+
+    // SYSTEME INTERACTIF : SEANCE DE TIRS AU BUT
+    let penaltyStrikes = 0;
+    let penaltyGoals = 0;
+
+    function kickPenalty(zone) {
+      if(penaltyStrikes >= 5) {
+        alert("Séance de tirs au but terminée ! Réinitialisez pour pouvoir rejouer.");
+        return;
+      }
+      
+      const zones = ['tl', 'tr', 'c', 'bl', 'br'];
+      const keeperChoice = zones[Math.floor(Math.random() * zones.length)];
+      const gkElement = document.getElementById('gk-player');
+
+      // Alignement visuel du gardien robotique
+      if(keeperChoice === 'tl') gkElement.style.transform = 'translate(-40px, -20px)';
+      else if(keeperChoice === 'tr') gkElement.style.transform = 'translate(40px, -20px)';
+      else if(keeperChoice === 'bl') gkElement.style.transform = 'translate(-45px, 15px)';
+      else if(keeperChoice === 'br') gkElement.style.transform = 'translate(45px, 15px)';
+      else gkElement.style.transform = 'translate(0, 5px)';
+
+      penaltyStrikes++;
+      const feedback = document.getElementById('penalty-feedback');
+
+      if(zone === keeperChoice) {
+        feedback.innerHTML = "❌ <span style='color:var(--danger);'>Arrêt spectaculaire du gardien !</span>";
+      } else {
+        penaltyGoals++;
+        feedback.innerHTML = "⚽ <span style='color:var(--succes);'>BUT MAGNIFIQUE ! Pleine lucarne !</span>";
       }
 
-      document.getElementById('penalty-score').innerText = `Score : ${penaltyScore} | Tirs : ${penaltyAttempts}`;
+      document.getElementById('pen-score-strikes').innerText = penaltyStrikes;
+      document.getElementById('pen-score-goals').innerText = penaltyGoals;
+
+      if(penaltyStrikes === 5) {
+        setTimeout(() => {
+          alert(`Séance terminée. Score final : ${penaltyGoals} buts inscrits sur 5 tentatives !`);
+        }, 400);
+      }
     }
 
     function resetPenaltyGame() {
-      penaltyScore = 0;
-      penaltyAttempts = 0;
-      document.getElementById('keeper').style.transform = 'translate(0,0)';
-      document.getElementById('penalty-score').innerText = `Score : 0 | Tirs : 0`;
+      penaltyStrikes = 0;
+      penaltyGoals = 0;
+      document.getElementById('pen-score-strikes').innerText = "0";
+      document.getElementById('pen-score-goals').innerText = "0";
       document.getElementById('penalty-feedback').innerText = "";
+      document.getElementById('gk-player').style.transform = 'none';
     }
 
-    function saveProno() {
-      const hScore = document.getElementById('prono-score-home').value;
-      const aScore = document.getElementById('prono-score-away').value;
+    // CONFIGURATION DES OPTIONS DU PROFIL UTILISATEUR
+    function changeAvatar(emoji) {
+      userProfile.avatar = emoji;
+      document.getElementById('profile-avatar-img').parentElement.innerHTML = `<div id="profile-avatar-img" style="font-size:4rem; line-height:120px; text-align:center;">${emoji}</div>`;
+      saveUserProfileLocallyAndFirebase();
+    }
+
+    function saveUserProfileLocallyAndFirebase() {
+      localStorage.setItem('pignouf_user_profile', JSON.stringify(userProfile));
+      // Si connecté, sauvegarde ou met à jour aussi dans Firebase pour affichage admin
+      if (isUserLoggedIn && userProfile.email) {
+        const safeKey = userProfile.email.replace(/[.#$\[\]]/g, "_");
+        db.ref('utilisateurs/' + safeKey).set(userProfile);
+      }
+    }
+
+    // LOGIQUE D'AUTHENTIFICATION ET MODES LOGGÉS
+    function setAuthMode(mode) {
+      currentAuthMode = mode;
+      document.getElementById('tab-login').classList.toggle('active', mode === 'login');
+      document.getElementById('tab-register').classList.toggle('active', mode === 'register');
+      document.getElementById('tab-admin').classList.toggle('active', mode === 'admin');
       
-      if (currentUser) {
-        db.ref(`users/${currentUser.uid}/pronostics`).set({
-          match: `${matchData.home} vs ${matchData.away}`,
-          score: `${hScore} - ${aScore}`,
-          timestamp: Date.now()
-        }).then(() => {
-          document.getElementById('prono-feedback').innerText = "Pronostic enregistré avec succès !";
-          loadUserProno();
-        });
+      const submitBtn = document.getElementById('auth-submit-btn');
+      const labelId = document.getElementById('label-identifiant');
+
+      if (mode === 'admin') {
+        labelId.innerText = "Identifiant Secrétariat Admin";
+        submitBtn.innerText = "Se connecter à l'espace Admin";
+      } else if(mode === 'register') {
+        labelId.innerText = "Adresse Email";
+        submitBtn.innerText = "Créer mon compte";
       } else {
-        // Mode invité local d'origine
-        localStorage.setItem('guest_prono', JSON.stringify({
-          match: `${matchData.home} vs ${matchData.away}`,
-          score: `${hScore} - ${aScore}`
-        }));
-        document.getElementById('prono-feedback').innerText = "Pronostic sauvegardé localement ! (Connectez-vous pour le lier à votre profil)";
-        loadUserProno();
+        labelId.innerText = "Adresse Email";
+        submitBtn.innerText = "Se connecter";
       }
-    }
-
-    function loadUserProno() {
-      const listEl = document.getElementById('profile-prono-list');
-      if (!listEl) return;
-
-      if (currentUser) {
-        db.ref(`users/${currentUser.uid}/pronostics`).once('value', snap => {
-          if (snap.exists()) {
-            const p = snap.val();
-            listEl.innerHTML = `<div><strong>${p.match}</strong> : <span style="color:var(--rose); font-weight:700;">${p.score}</span></div>`;
-          } else {
-            listEl.innerText = "Aucun pronostic actif pour le moment.";
-          }
-        });
-      } else {
-        const guest = localStorage.getItem('guest_prono');
-        if (guest) {
-          const p = JSON.parse(guest);
-          listEl.innerHTML = `<div><strong>${p.match}</strong> : <span style="color:var(--rose); font-weight:700;">${p.score}</span> (Mode Invité)</div>`;
-        } else {
-          listEl.innerText = "Aucun pronostic enregistré.";
-        }
-      }
-    }
-
-    // COMPTE & AUTHENTIFICATION SYSTEM
-    function switchAuthTab(tab) {
-      document.getElementById('tab-login').classList.remove('active');
-      document.getElementById('tab-register').classList.remove('active');
-      document.getElementById(`tab-${tab}`).classList.add('active');
-      document.getElementById('auth-submit-btn').innerText = tab === 'login' ? "Se connecter" : "Créer mon compte";
     }
 
     function handleAuth(e) {
       e.preventDefault();
-      const email = document.getElementById('auth-email').value;
-      const password = document.getElementById('auth-password').value;
-      const isLogin = document.getElementById('tab-login').classList.contains('active');
+      const identifiant = document.getElementById('auth-email').value;
+      const mdp = document.getElementById('auth-password').value;
 
-      // Simulation d'authentification robuste d'origine pour éviter les soucis Firebase Auth
-      // Création d'une clé d'ID hashée simple basée sur l'email
-      const fakeUid = btoa(email).replace(/=/g, "");
-      
-      if (isLogin) {
-        // Simuler connexion
-        db.ref(`users/${fakeUid}`).once('value', snap => {
-          if (snap.exists()) {
-            loginUser(fakeUid, snap.val());
-          } else {
-            // Créer automatiquement si non existant pour fluidifier l'expérience d'origine
-            const newUser = { email, role: email.includes('admin') ? 'admin' : 'membre', name: email.split('@')[0], avatar: "⚽" };
-            db.ref(`users/${fakeUid}`).set(newUser).then(() => loginUser(fakeUid, newUser));
-          }
-        });
+      if(currentAuthMode === 'admin') {
+        if(identifiant === "admin" && mdp === "admin2026") {
+          isAdminLoggedIn = true;
+          document.body.classList.add('is-admin-mode');
+          document.getElementById('nav-admin-link').style.display = 'block';
+          document.getElementById('mobile-admin-link').style.display = 'block';
+          alert('Connexion d\'infrastructure réussie ! Espace d\'administration déverrouillé.');
+          showPage('admin');
+        } else {
+          alert('🚫 Identifiants administratifs incorrects.');
+        }
+      } else if (currentAuthMode === 'register') {
+        userProfile.email = identifiant;
+        userProfile.pseudo = identifiant.split('@')[0];
+        isUserLoggedIn = true;
+        saveUserProfileLocallyAndFirebase();
+        alert(`Compte synchronisé et enregistré avec succès pour ${identifiant} !`);
+        toggleLoggedView(true);
       } else {
-        // Simuler inscription
-        const newUser = { email, role: email.includes('admin') ? 'admin' : 'membre', name: email.split('@')[0], avatar: "⚽" };
-        db.ref(`users/${fakeUid}`).set(newUser).then(() => loginUser(fakeUid, newUser));
+        userProfile.email = identifiant;
+        userProfile.pseudo = identifiant.split('@')[0];
+        isUserLoggedIn = true;
+        saveUserProfileLocallyAndFirebase();
+        toggleLoggedView(true);
+        alert('Connexion utilisateur réussie !');
       }
     }
 
-    function loginUser(uid, data) {
-      currentUser = { uid, ...data };
-      document.getElementById('auth-section').style.display = 'none';
-      document.getElementById('profile-section').style.display = 'grid';
-      
-      document.getElementById('profile-name-display').innerText = currentUser.name;
-      document.getElementById('profile-email-display').innerText = currentUser.email;
-      document.getElementById('profile-role-badge').innerText = currentUser.role.toUpperCase();
-      document.getElementById('profile-avatar-display').innerText = currentUser.avatar || "👤";
-
-      // Gestion de la visibilité du Panel Admin d'origine
-      if (currentUser.role === 'admin') {
-        document.getElementById('nav-admin-link').style.display = 'block';
-        document.getElementById('mobile-admin-link').style.display = 'block';
-        document.body.classList.add('is-admin-mode');
-      }
-
-      loadUserProno();
-    }
-
-    function handleLogout() {
-      currentUser = null;
-      document.getElementById('auth-section').style.display = 'block';
-      document.getElementById('profile-section').style.display = 'none';
-      document.getElementById('nav-admin-link').style.display = 'none';
-      document.getElementById('mobile-admin-link').style.display = 'none';
-      document.body.classList.remove('is-admin-mode');
-      showPage('accueil');
-    }
-
-    function selectAvatar(emoji) {
-      if (!currentUser) return;
-      db.ref(`users/${currentUser.uid}/avatar`).set(emoji).then(() => {
-        currentUser.avatar = emoji;
-        document.getElementById('profile-avatar-display').innerText = emoji;
-      });
-    }
-
-    // CONSOLE & MANAGEMENT ADMIN D'ORIGINE
-    function updateAdminDashboard() {
-      if (document.getElementById('admin-stat-players')) {
-        document.getElementById('admin-stat-players').innerText = Object.keys(effectifData).length;
-        document.getElementById('admin-stat-news').innerText = Object.keys(newsData).length;
-        
-        // Rendu des listes modérables d'origine dans le panel
-        const pList = document.getElementById('admin-players-list');
-        pList.innerHTML = Object.entries(effectifData).map(([id, p]) => `
-          <div class="admin-list-item">
-            <span>#${p.num} - ${p.name} (${p.role})</span>
-            <button class="admin-mini-btn btn-del-mini" onclick="deleteJoueur('${id}')">Suppr</button>
-          </div>
-        `).join('');
-
-        const nList = document.getElementById('admin-news-list');
-        nList.innerHTML = Object.entries(newsData).map(([id, n]) => `
-          <div class="admin-list-item">
-            <span>[${n.tag}] ${n.title}</span>
-            <button class="admin-mini-btn btn-del-mini" onclick="deleteNews('${id}')">Suppr</button>
-          </div>
-        `).join('');
+    function toggleLoggedView(isLogged) {
+      if(isLogged) {
+        document.getElementById('auth-unlogged-view').style.display = 'none';
+        document.getElementById('auth-logged-view').style.display = 'block';
+        document.getElementById('profile-pseudo-display').innerText = userProfile.pseudo;
+        document.getElementById('profile-email-display').innerText = userProfile.email;
+        document.getElementById('stats-quiz-score').innerText = userProfile.scoreQuiz;
+        if(userProfile.avatar && userProfile.avatar !== '⚽') {
+          document.getElementById('profile-avatar-img').parentElement.innerHTML = `<div id="profile-avatar-img" style="font-size:4rem; line-height:120px; text-align:center;">${userProfile.avatar}</div>`;
+        }
+      } else {
+        document.getElementById('auth-unlogged-view').style.display = 'block';
+        document.getElementById('auth-logged-view').style.display = 'none';
       }
     }
 
-    function updateAdminFields() {
-      if (document.getElementById('adm-match-home')) {
-        document.getElementById('adm-match-home').value = matchData.home || "";
-        document.getElementById('adm-match-away').value = matchData.away || "";
-        document.getElementById('adm-match-vs').value = matchData.vs || "";
-        document.getElementById('adm-match-date').value = matchData.date || "";
-        document.getElementById('adm-match-comp').value = matchData.comp || "";
-        document.getElementById('adm-match-price').value = matchData.price || 15;
-        document.getElementById('adm-match-status').value = matchData.salesStatus || "enabled";
+    function logoutUser() {
+      isUserLoggedIn = false;
+      localStorage.removeItem('pignouf_user_profile');
+      userProfile = { email: "invite@pignouf.com", pseudo: "Anonyme", role: "Supporteur", currency: "EUR", theme: "light", lang: "fr", scoreQuiz: 0, avatar: "⚽" };
+      toggleLoggedView(false);
+      alert("Vous avez été déconnecté de votre session.");
+    }
+
+    // PRESETS ET INTERNATIONNALISATION DE LANGUES (I18N)
+    function changeLanguage(lang) {
+      userProfile.lang = lang;
+      saveUserProfileLocallyAndFirebase();
+      if(lang === "en") {
+        document.getElementById('link-accueil').innerText = "Club";
+        document.getElementById('link-actualites').innerText = "News";
+        document.getElementById('link-billetterie').innerText = "Tickets";
+        document.getElementById('link-boutique').innerText = "Shop";
+        document.getElementById('link-jeux').innerText = "Games";
+        document.getElementById('link-compte').innerText = "Profile";
+      } else if (lang === "es") {
+        document.getElementById('link-accueil').innerText = "Club";
+        document.getElementById('link-actualites').innerText = "Noticias";
+        document.getElementById('link-billetterie').innerText = "Entradas";
+        document.getElementById('link-boutique').innerText = "Tienda";
+        document.getElementById('link-jeux').innerText = "Juegos";
+        document.getElementById('link-compte').innerText = "Perfil";
+      } else {
+        document.getElementById('link-accueil').innerText = "Club";
+        document.getElementById('link-actualites').innerText = "Actualités";
+        document.getElementById('link-billetterie').innerText = "Billetterie";
+        document.getElementById('link-boutique').innerText = "Boutique";
+        document.getElementById('link-jeux').innerText = "Mini-Jeux";
+        document.getElementById('link-compte').innerText = "Mon Profil";
       }
     }
 
-    function updateMatchConfig(e) {
-      e.preventDefault();
-      const cfg = {
-        home: document.getElementById('adm-match-home').value,
-        away: document.getElementById('adm-match-away').value,
-        vs: document.getElementById('adm-match-vs').value,
-        date: document.getElementById('adm-match-date').value,
-        comp: document.getElementById('adm-match-comp').value,
-        price: parseFloat(document.getElementById('adm-match-price').value),
-        salesStatus: document.getElementById('adm-match-status').value
-      };
-      db.ref('matchConfig').set(cfg).then(() => alert("Configuration du match mise à jour !"));
-    }
-
-    function addJoueur(e) {
-      e.preventDefault();
-      const num = document.getElementById('player-num').value;
-      const name = document.getElementById('player-name').value;
-      const role = document.getElementById('player-role').value;
-      const nat = document.getElementById('player-nat').value;
-
-      db.ref('effectif').push({ num, name, role, nat }).then(() => {
-        alert("Joueur ajouté avec succès !");
-        e.target.reset();
-      });
-    }
-
-    function deleteJoueur(id) {
-      if (confirm("Supprimer ce joueur de l'effectif pro ?")) {
-        db.ref(`effectif/${id}`).remove();
+    function toggleDarkMode(isDark) {
+      if(isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        userProfile.theme = "dark";
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        userProfile.theme = "light";
       }
+      saveUserProfileLocallyAndFirebase();
     }
-
-    function addNews(e) {
-      e.preventDefault();
-      const tag = document.getElementById('news-tag').value;
-      const title = document.getElementById('news-title').value;
-      const excerpt = document.getElementById('news-excerpt').value;
-      const date = document.getElementById('news-date').value;
-
-      db.ref('news').push({ tag, title, excerpt, date }).then(() => {
-        alert("Actualité publiée !");
-        e.target.reset();
-      });
-    }
-
-    function deleteNews(id) {
-      if (confirm("Supprimer cet article définitivement ?")) {
-        db.ref(`news/${id}`).remove();
-      }
-    }
-
-    // Gestion de l'enregistrement des Textes de l'Accueil (Admin)
-    function updateHomeTexts(e) {
-      e.preventDefault();
-      const payload = {
-        marquee: document.getElementById('edit-marquee').value,
-        eyebrow: document.getElementById('edit-eyebrow').value,
-        title: document.getElementById('edit-title').value,
-        sub: document.getElementById('edit-sub').value,
-        btnTicket: document.getElementById('edit-btn-ticket').value,
-        btnEff: document.getElementById('edit-btn-eff').value,
-        statYearVal: document.getElementById('edit-stat-year-val').value,
-        statLblYear: document.getElementById('edit-stat-lbl-year').value,
-        effEyebrow: document.getElementById('edit-eff-eyebrow').value,
-        effTitle: document.getElementById('edit-eff-title').value,
-        effLblTotal: document.getElementById('edit-eff-lbl-total').value
-      };
-      db.ref('homeTexts').set(payload).then(() => alert("Textes de l'accueil enregistrés avec succès !"));
-    }
-
-    // Initialisation
-    renderBoutique();
-    loadUserProno();
   </script>
 </body>
 </html>
