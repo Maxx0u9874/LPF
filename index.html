@@ -318,23 +318,6 @@
     .avatar-option:hover:not(.locked), .avatar-option.selected { border-color: var(--rose); transform: scale(1.05); }
 
     /* ═══════════════════════════════════════════════════════════════
-       SYSTEME MINI-JEUX FOOT INTERACTIFS REVISITÉ
-    ═══════════════════════════════════════════════════════════════ */
-    .games-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 950px; margin: 0 auto; }
-    @media (min-width: 768px) { .games-grid { grid-template-columns: 1fr 1fr; } }
-    .game-card { background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 8px; padding: 2rem; box-shadow: var(--card-shadow); display: flex; flex-direction: column; justify-content: space-between; }
-    .game-arena { background: var(--gris-clair); border: 1px solid var(--rose-bord); border-radius: 6px; padding: 1.5rem; margin: 1.5rem 0; min-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden; }
-    
-    /* Simulateur de Tirs au but V2 */
-    .penalty-cage-v2 { width: 100%; height: 160px; border: 4px solid var(--texte); border-bottom: none; position: relative; background: url('https://www.transparenttextures.com/patterns/cubes.png'), rgba(232, 119, 154, 0.05); display:grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 2px; }
-    .penalty-zone { background: rgba(255,255,255,0.2); cursor:pointer; display:flex; justify-content:center; align-items:center; transition: background 0.2s; border:1px dashed rgba(0,0,0,0.1); }
-    .penalty-zone:hover { background: rgba(232, 119, 154, 0.3); }
-    .penalty-keeper-v2 { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 50px; height: 60px; background: var(--texte); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-radius: 8px 8px 0 0; pointer-events:none; }
-    
-    .leaderboard-list { margin-top: 2rem; border: 1px solid var(--rose-bord); background: var(--blanc); border-radius: 6px; padding: 1rem; }
-    .lb-row { display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--rose-pale); font-size: 0.85rem; }
-
-    /* ═══════════════════════════════════════════════════════════════
        PANEL ADMIN UNIVERSEL ETENDU
     ═══════════════════════════════════════════════════════════════ */
     .admin-dashboard-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
@@ -383,7 +366,6 @@
       <li><a data-i18n="nav_results" onclick="showPage('resultats')">Résultats</a></li>
       <li><a data-i18n="nav_tickets" onclick="showPage('billetterie')">Billetterie</a></li>
       <li><a data-i18n="nav_shop" onclick="showPage('boutique')">Boutique</a></li>
-      <li><a data-i18n="nav_games" onclick="showPage('jeux')">Mini-Jeux</a></li>
       <li><a data-i18n="nav_profile" onclick="showPage('compte')">Mon Profil</a></li>
       <li><a data-i18n="nav_settings" onclick="showPage('parametres')">Paramètres</a></li>
       <li id="nav-admin-link" style="display:none;"><a onclick="showPage('admin')" style="color:var(--rose); font-weight:bold;">Panel Admin</a></li>
@@ -402,7 +384,6 @@
     <a data-i18n="nav_results" onclick="showPage('resultats'); toggleMobileMenu()">Résultats</a>
     <a data-i18n="nav_tickets" onclick="showPage('billetterie'); toggleMobileMenu()">Billetterie</a>
     <a data-i18n="nav_shop" onclick="showPage('boutique'); toggleMobileMenu()">Boutique</a>
-    <a data-i18n="nav_games" onclick="showPage('jeux'); toggleMobileMenu()">Mini-Jeux</a>
     <a data-i18n="nav_profile" onclick="showPage('compte'); toggleMobileMenu()">Mon Profil</a>
     <a data-i18n="nav_settings" onclick="showPage('parametres'); toggleMobileMenu()">Paramètres</a>
     <a id="mobile-admin-link" onclick="showPage('admin'); toggleMobileMenu()" style="display:none; color:var(--rose);">Panel Admin</a>
@@ -516,63 +497,6 @@
     </div>
   </div>
 
-  <div id="page-jeux" class="page">
-    <div class="premium-header">
-      <p class="section-eyebrow" data-i18n="games_eyebrow">Divertissement</p>
-      <h2 class="section-title" data-i18n="games_title">Espace <em>Gaming</em> Pignouferie</h2>
-    </div>
-    <div class="sec">
-      <div class="games-grid">
-        <div class="game-card">
-          <div>
-            <span class="section-eyebrow">Jeu d'esprit</span>
-            <h3 style="font-family:var(--bebas); font-size:1.8rem; margin:0.5rem 0;">Le Quiz Flash Foot</h3>
-            <p style="font-size:0.85rem; color:var(--texte-sec);">Testez vos connaissances en football. 5 questions, aucun droit à l'erreur !</p>
-            
-            <div class="game-arena" id="quiz-arena">
-              <p id="quiz-question" style="font-weight:600; text-align:center; margin-bottom:1rem;">Cliquez sur lancer pour démarrer la partie !</p>
-              <div id="quiz-options-box" style="width:100%; display:flex; flex-direction:column; gap:8px;"></div>
-            </div>
-          </div>
-          <button class="btn-primary" id="btn-quiz-ctrl" onclick="startQuizGame()">Lancer le Quiz</button>
-        </div>
-
-        <div class="game-card">
-          <div>
-            <span class="section-eyebrow">Action</span>
-            <h3 style="font-family:var(--bebas); font-size:1.8rem; margin:0.5rem 0;">Séance de Tirs au But V2</h3>
-            <p style="font-size:0.85rem; color:var(--texte-sec);">Affrontez le gardien du club ! Cliquez sur une zone de la cage. (Active les vibrations sur mobile !)</p>
-            
-            <div class="game-arena" id="penalty-arena">
-              <div style="display:flex; justify-content:space-between; width:100%; font-size:0.8rem; font-weight:bold; color:var(--rose);">
-                <span>Série : <span id="pen-score-strikes">0</span>/5</span>
-                <span>Buts : <span id="pen-score-goals">0</span></span>
-              </div>
-              <div class="penalty-cage-v2" id="penalty-cage">
-                <div class="penalty-keeper-v2" id="gk-player-v2">🕴️</div>
-                <div class="penalty-zone" onclick="kickPenaltyV2(0)"></div>
-                <div class="penalty-zone" onclick="kickPenaltyV2(1)"></div>
-                <div class="penalty-zone" onclick="kickPenaltyV2(2)"></div>
-                <div class="penalty-zone" onclick="kickPenaltyV2(3)"></div>
-                <div class="penalty-zone" onclick="kickPenaltyV2(4)"></div>
-                <div class="penalty-zone" onclick="kickPenaltyV2(5)"></div>
-              </div>
-              <p id="penalty-feedback" style="margin-top:1rem; font-size:0.85rem; font-weight:600; text-align:center; height:1.5rem;"></p>
-            </div>
-          </div>
-          <button class="btn-ghost" onclick="resetPenaltyGame()">Réinitialiser la séance</button>
-        </div>
-      </div>
-
-      <div style="margin-top:4rem;">
-        <h3 style="font-family:var(--bebas); font-size:1.8rem; color:var(--texte);">Classement Global des Supporters</h3>
-        <p style="font-size:0.85rem; color:var(--texte-sec);">Seuls les supporters connectés figurent au classement (Score Quiz + Buts).</p>
-        <div class="leaderboard-list" id="leaderboard-container">
-          </div>
-      </div>
-    </div>
-  </div>
-
   <div id="page-compte" class="page">
     <div class="auth-container" id="auth-unlogged-view">
       <div class="auth-tabs">
@@ -583,12 +507,16 @@
       
       <form id="auth-form" onsubmit="handleAuth(event)">
         <div class="form-group">
-          <label id="label-identifiant" for="auth-email">Adresse Email</label>
-          <input type="text" id="auth-email" required />
+          <label id="label-identifiant" for="auth-username">Nom d'utilisateur</label>
+          <input type="text" id="auth-username" required />
         </div>
         <div class="form-group">
           <label id="label-password" for="auth-password">Mot de passe</label>
           <input type="password" id="auth-password" required />
+        </div>
+        <div class="form-group" style="display:flex; align-items:center; gap:8px;" id="auth-remember-group">
+          <input type="checkbox" id="auth-remember" style="width:auto; margin:0;" checked />
+          <label for="auth-remember" style="margin:0; font-size:0.75rem; text-transform:none;">Rester connecté</label>
         </div>
         <button type="submit" class="btn-primary" style="width:100%; margin-top:0.5rem;" id="auth-submit-btn">Se connecter</button>
       </form>
@@ -606,13 +534,11 @@
             <span id="user-avatar-disp" style="font-size:4.5rem; display:block; line-height:115px;">👤</span>
           </div>
           <h3 id="user-pseudo-disp" style="font-family:var(--bebas); font-size:1.8rem; margin-bottom:0.2rem;">Supporter_Pignouf</h3>
-          <p id="user-email-disp" style="font-size:0.8rem; color:var(--texte-sec); margin-bottom:1rem;">user@pignouferie.com</p>
+          <p id="user-email-disp" style="font-size:0.8rem; color:var(--texte-sec); margin-bottom:1rem;"></p>
           <div class="profile-badge-tag" id="user-badge-disp">Fidèle Abonné</div>
           
           <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--rose-bord); text-align:left; font-size:0.8rem;">
             <p style="margin-bottom:0.4rem; display:flex; justify-content:space-between;"><span>🌟 Niveau Supporter :</span> <strong id="user-level-disp">1</strong></p>
-            <p style="margin-bottom:0.4rem; display:flex; justify-content:space-between;"><span>🏆 Score Quiz :</span> <strong id="stats-quiz-score">0</strong></p>
-            <p style="display:flex; justify-content:space-between;"><span>⚽ Tirs au but réussis :</span> <strong id="stats-pen-score">0</strong></p>
           </div>
           <button class="btn-ghost" style="margin-top:2rem; color:var(--danger); border-color:var(--rose-bord); font-size:0.7rem;" onclick="logoutUser()">Se déconnecter</button>
         </div>
@@ -627,7 +553,7 @@
             </div>
 
             <div class="form-group">
-              <label>Choisir un Avatar Officiel (Débloqués par niveau)</label>
+              <label>Choisir un Avatar Officiel</label>
               <div class="avatar-picker-grid" id="avatar-grid-picker">
                 </div>
             </div>
@@ -636,9 +562,9 @@
               <label>Titre / Badge honorifique</label>
               <select id="input-profile-badge" onchange="updateProfileLive()">
                 <option value="Fidèle Abonné">Fidèle Abonné (Nv.1+)</option>
-                <option value="Capo des Ultras" id="badge-opt-2" disabled>Capo des Ultras (Nv.3+)</option>
-                <option value="Légende du Club" id="badge-opt-3" disabled>Légende du Club (Nv.5+)</option>
-                <option value="Tacticien Rose" id="badge-opt-4" disabled>Tacticien Rose (Nv.10+)</option>
+                <option value="Capo des Ultras" id="badge-opt-2">Capo des Ultras</option>
+                <option value="Légende du Club" id="badge-opt-3">Légende du Club</option>
+                <option value="Tacticien Rose" id="badge-opt-4">Tacticien Rose</option>
               </select>
             </div>
 
@@ -888,10 +814,14 @@
     let resultatsKeys = [];
     let leaderboardUsers = [];
     let matchData = { home: "La Pignouferie FC", away: "Stade de l'Aube FC", vs: "VS", date: "Samedi prochain - 20h00", comp: "Ligue Majeure", price: 15, salesStatus: "disabled" };
+    
+    // ══════════════════════════════════════════════════════════════════
+    // EMPLACEMENTS IMAGES BOUTIQUE (Remplacer les "" par des liens web)
+    // ══════════════════════════════════════════════════════════════════
     let boutiqueProduits = [
-      { id: 0, type: "jersey", badge: "Home", name: "Maillot Domicile Pro 2026", price: 85, emoji: "👕" },
-      { id: 1, type: "jersey", badge: "Away", name: "Maillot Extérieur 2026", price: 85, emoji: "👕" },
-      { id: 2, type: "accessory", emoji: "🧣", name: "Écharpe Ultras Pignouferie", price: 18 }
+      { id: 0, type: "jersey", badge: "Home", name: "Maillot Domicile Pro 2026", price: 85, emoji: "👕", image: "" /* EMPLACEMENT IMAGE 1 */ },
+      { id: 1, type: "jersey", badge: "Away", name: "Maillot Extérieur 2026", price: 85, emoji: "👕", image: "" /* EMPLACEMENT IMAGE 2 */ },
+      { id: 2, type: "accessory", emoji: "🧣", name: "Écharpe Ultras Pignouferie", price: 18, image: "" /* EMPLACEMENT IMAGE 3 */ }
     ];
 
     let currentLang = 'fr';
@@ -909,8 +839,8 @@
       avatar: "👤",
       badge: "Fidèle Abonné",
       theme: "classic",
-      scoreQuiz: 0,
-      scorePen: 0
+      scoreQuiz: 0, // Conservé pour d'éventuelles features ou l'historique
+      scorePen: 0   // Conservé pour d'éventuelles features ou l'historique
     };
     
     // Système de niveaux / avatars
@@ -922,7 +852,7 @@
     // Système de traduction basique
     const translations = {
       fr: {
-        nav_club: "Club", nav_news: "Actualités", nav_results: "Résultats", nav_tickets: "Billetterie", nav_shop: "Boutique", nav_games: "Mini-Jeux", nav_profile: "Mon Profil", nav_settings: "Paramètres",
+        nav_club: "Club", nav_news: "Actualités", nav_results: "Résultats", nav_tickets: "Billetterie", nav_shop: "Boutique", nav_profile: "Mon Profil", nav_settings: "Paramètres",
         hero_btn_ticket: "Réserver un billet", hero_btn_squad: "Découvrir l'effectif",
         eff_eyebrow: "Saison Globale", eff_title: "L'Effectif Pro", eff_lbl_players: "Joueurs Pro", eff_lbl_goal: "Objectif : Gagner",
         poste_gk: "Gardiens (G)", poste_def: "Défenseurs (D)", poste_mid: "Milieux (M)", poste_att: "Attaquants (A)",
@@ -930,7 +860,7 @@
         cart_title: "Votre Panier", cart_total: "Total :", cart_checkout: "Passer la commande"
       },
       en: {
-        nav_club: "Club", nav_news: "News", nav_results: "Results", nav_tickets: "Tickets", nav_shop: "Store", nav_games: "Mini-Games", nav_profile: "My Profile", nav_settings: "Settings",
+        nav_club: "Club", nav_news: "News", nav_results: "Results", nav_tickets: "Tickets", nav_shop: "Store", nav_profile: "My Profile", nav_settings: "Settings",
         hero_btn_ticket: "Book a ticket", hero_btn_squad: "Discover the squad",
         eff_eyebrow: "Global Season", eff_title: "Pro Squad", eff_lbl_players: "Pro Players", eff_lbl_goal: "Goal: Win",
         poste_gk: "Goalkeepers (GK)", poste_def: "Defenders (DEF)", poste_mid: "Midfielders (MID)", poste_att: "Forwards (FWD)",
@@ -938,7 +868,7 @@
         cart_title: "Your Cart", cart_total: "Total:", cart_checkout: "Checkout"
       },
       es: {
-        nav_club: "Club", nav_news: "Noticias", nav_results: "Resultados", nav_tickets: "Entradas", nav_shop: "Tienda", nav_games: "Mini-Juegos", nav_profile: "Mi Perfil", nav_settings: "Ajustes",
+        nav_club: "Club", nav_news: "Noticias", nav_results: "Resultados", nav_tickets: "Entradas", nav_shop: "Tienda", nav_profile: "Mi Perfil", nav_settings: "Ajustes",
         hero_btn_ticket: "Reserva una entrada", hero_btn_squad: "Descubrir la plantilla",
         eff_eyebrow: "Temporada Global", eff_title: "Plantilla Pro", eff_lbl_players: "Jugadores Pro", eff_lbl_goal: "Objetivo: Ganar",
         poste_gk: "Porteros (POR)", poste_def: "Defensas (DEF)", poste_mid: "Centrocampistas (MED)", poste_att: "Delanteros (DEL)",
@@ -946,17 +876,6 @@
         cart_title: "Tu Carrito", cart_total: "Total:", cart_checkout: "Realizar pedido"
       }
     };
-
-    // Configuration des questions du Mini-Jeu Quiz
-    const quizQuestions = [
-      { q: "En quelle année a été fondé La Pignouferie FC ?", o: ["2001", "2005", "2010", "1998"], a: 1 },
-      { q: "Quelles sont les couleurs officielles du club ?", o: ["Rouge et Bleu", "Rose et Blanc", "Vert et Noir", "Jaune"], a: 1 },
-      { q: "Combien de joueurs pro composent l'effectif global ?", o: ["11", "18", "24", "30"], a: 2 },
-      { q: "Quel est l'objectif premier du club mentionné ?", o: ["Ne pas descendre", "Gagner", "Faire du spectacle", "Former"], a: 1 },
-      { q: "Qui est désigné comme Capitaine au milieu de terrain ?", o: ["W. Van Goor", "Vitinha", "K. Pottier", "M. Pignouf"], a: 1 }
-    ];
-    let currentQuizIndex = 0;
-    let tempQuizScore = 0;
 
     // SYNCHRONISATION CLOUD FIREBASE
     db.ref('site_infos').on('value', (snapshot) => {
@@ -1013,7 +932,6 @@
       });
       // Tri par score total décroissant
       leaderboardUsers.sort((a,b) => ((b.scoreQuiz||0)+(b.scorePen||0)) - ((a.scoreQuiz||0)+(a.scorePen||0)));
-      renderLeaderboard();
       renderAdminUsersList();
     });
 
@@ -1067,7 +985,7 @@
       document.getElementById('stat-count-sales').innerText = simulatedEarnings.toFixed(2) + " €";
     }
 
-    // AUTHENTIFICATION FIREBASE
+    // AUTHENTIFICATION FIREBASE (Simplifiée : Nom d'utilisateur)
     function setAuthMode(mode) {
       currentAuthMode = mode;
       document.getElementById('tab-login').classList.toggle('active', mode === 'login');
@@ -1076,27 +994,32 @@
       
       const submitBtn = document.getElementById('auth-submit-btn');
       const labelId = document.getElementById('label-identifiant');
+      const rememberGroup = document.getElementById('auth-remember-group');
 
       if (mode === 'admin') {
         labelId.innerText = "Identifiant Secrétariat Admin";
         submitBtn.innerText = "Se connecter à l'espace Admin";
+        rememberGroup.style.display = "none";
       } else if(mode === 'register') {
-        labelId.innerText = "Adresse Email";
+        labelId.innerText = "Nom d'utilisateur";
         submitBtn.innerText = "Créer mon compte";
+        rememberGroup.style.display = "flex";
       } else {
-        labelId.innerText = "Adresse Email";
+        labelId.innerText = "Nom d'utilisateur";
         submitBtn.innerText = "Se connecter";
+        rememberGroup.style.display = "flex";
       }
     }
 
     function handleAuth(e) {
       e.preventDefault();
-      const email = document.getElementById('auth-email').value;
+      const usernameInput = document.getElementById('auth-username').value.trim();
       const pwd = document.getElementById('auth-password').value;
+      const remember = document.getElementById('auth-remember').checked;
 
       if(currentAuthMode === 'admin') {
         // Simple hardcoded admin check for demo purposes
-        if(email === "admin" && pwd === "admin2026") {
+        if(usernameInput === "admin" && pwd === "admin2026") {
           isAdminLoggedIn = true;
           document.body.classList.add('is-admin-mode');
           document.getElementById('nav-admin-link').style.display = 'block';
@@ -1106,14 +1029,33 @@
         } else {
           alert('🚫 Identifiants administratifs incorrects.');
         }
-      } else if (currentAuthMode === 'register') {
-        auth.createUserWithEmailAndPassword(email, pwd)
-          .then(() => alert('Compte créé avec succès !'))
-          .catch(err => alert("Erreur : " + err.message));
       } else {
-        auth.signInWithEmailAndPassword(email, pwd)
-          .then(() => alert('Connexion réussie !'))
-          .catch(err => alert("Erreur de connexion : " + err.message));
+        // On génère une adresse email fictive propre pour le backend Firebase à partir du nom d'utilisateur
+        const safeUsername = usernameInput.toLowerCase().replace(/[^a-z0-9]/g, '');
+        if(safeUsername.length < 3) return alert("Le nom d'utilisateur doit contenir au moins 3 caractères alphanumériques.");
+        const fakeEmail = safeUsername + "@pignouferie.local";
+
+        const persistenceType = remember ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
+
+        auth.setPersistence(persistenceType).then(() => {
+          if (currentAuthMode === 'register') {
+            return auth.createUserWithEmailAndPassword(fakeEmail, pwd)
+              .then((userCred) => {
+                // Initialiser le profil utilisateur
+                userProfile.pseudo = usernameInput;
+                userProfile.email = usernameInput; // On affiche le pseudo à la place du mail
+                db.ref('users/' + userCred.user.uid).set(userProfile);
+                alert('Compte créé avec succès !');
+              });
+          } else {
+            return auth.signInWithEmailAndPassword(fakeEmail, pwd)
+              .then(() => alert('Connexion réussie !'));
+          }
+        }).catch(err => {
+            if(err.code === 'auth/email-already-in-use') alert("Ce nom d'utilisateur est déjà pris.");
+            else if(err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') alert("Nom d'utilisateur ou mot de passe incorrect.");
+            else alert("Erreur : " + err.message);
+        });
       }
     }
 
@@ -1177,17 +1119,17 @@
       document.getElementById('input-profile-pseudo').value = userProfile.pseudo || "";
       document.getElementById('input-profile-badge').value = userProfile.badge || "Fidèle Abonné";
       document.getElementById('input-profile-theme').value = userProfile.theme || "classic";
-      document.getElementById('user-email-disp').innerText = userProfile.email;
+      // Afficher le pseudo au lieu du fake email généré
+      document.getElementById('user-email-disp').innerText = "@" + (userProfile.pseudo || "Supporter").toLowerCase().replace(/\s/g, '');
       
       const lvl = getUserLevel();
       document.getElementById('user-level-disp').innerText = lvl;
-      document.getElementById('stats-quiz-score').innerText = userProfile.scoreQuiz || 0;
-      document.getElementById('stats-pen-score').innerText = userProfile.scorePen || 0;
       
       // Unlock badges
-      document.getElementById('badge-opt-2').disabled = lvl < 3;
-      document.getElementById('badge-opt-3').disabled = lvl < 5;
-      document.getElementById('badge-opt-4').disabled = lvl < 10;
+      // Sans les mini jeux le niveau reste à 1, mais la mécanique reste prête pour de futurs ajouts
+      if (document.getElementById('badge-opt-2')) document.getElementById('badge-opt-2').disabled = lvl < 3;
+      if (document.getElementById('badge-opt-3')) document.getElementById('badge-opt-3').disabled = lvl < 5;
+      if (document.getElementById('badge-opt-4')) document.getElementById('badge-opt-4').disabled = lvl < 10;
 
       updateProfileTheme(userProfile.theme);
       document.getElementById('user-avatar-disp').innerText = userProfile.avatar || "👤";
@@ -1205,118 +1147,6 @@
         .then(() => { alert('Profil mis à jour et sauvegardé sur le Cloud !'); updateProfileFieldsUI(); });
     }
 
-    // MINI-JEUX : QUIZ
-    function startQuizGame() {
-      currentQuizIndex = 0;
-      tempQuizScore = 0;
-      document.getElementById('btn-quiz-ctrl').style.display = 'none';
-      showQuizQuestion();
-    }
-
-    function showQuizQuestion() {
-      if(currentQuizIndex >= quizQuestions.length) {
-        document.getElementById('quiz-question').innerText = `Quiz terminé ! Votre score : ${tempQuizScore}/${quizQuestions.length}`;
-        document.getElementById('quiz-options-box').innerHTML = '';
-        document.getElementById('btn-quiz-ctrl').style.display = 'inline-block';
-        document.getElementById('btn-quiz-ctrl').innerText = 'Recommencer';
-        if(currentUserUid && tempQuizScore > (userProfile.scoreQuiz||0)) {
-          userProfile.scoreQuiz = tempQuizScore;
-          db.ref('users/' + currentUserUid + '/scoreQuiz').set(tempQuizScore);
-          updateProfileFieldsUI();
-        }
-        return;
-      }
-      
-      const qData = quizQuestions[currentQuizIndex];
-      document.getElementById('quiz-question').innerText = `Q${currentQuizIndex+1}: ${qData.q}`;
-      document.getElementById('quiz-options-box').innerHTML = qData.o.map((opt, i) => `
-        <button class="btn-ghost" style="text-align:left; padding:10px; border:1px solid var(--rose-bord); border-radius:4px;" onclick="submitQuizAnswer(${i})">${opt}</button>
-      `).join('');
-    }
-
-    function submitQuizAnswer(indexSelected) {
-      const qData = quizQuestions[currentQuizIndex];
-      if(indexSelected === qData.a) {
-        tempQuizScore++;
-      }
-      currentQuizIndex++;
-      showQuizQuestion();
-    }
-
-    // MINI-JEUX : TIRS AU BUT V2
-    let penaltyStrikes = 0;
-    let penaltyGoals = 0;
-    
-    function kickPenaltyV2(zoneIndex) {
-      if(penaltyStrikes >= 5) {
-        alert("Séance terminée ! Réinitialisez pour rejouer.");
-        return;
-      }
-      
-      const keeperPositions = [
-        '-40px, -30px', '0px, -30px', '40px, -30px',
-        '-40px, 30px', '0px, 10px', '40px, 30px'
-      ];
-      const keeperChoice = Math.floor(Math.random() * 6);
-      
-      const gkElement = document.getElementById('gk-player-v2');
-      gkElement.style.transform = `translate(-50%, 0) translate(${keeperPositions[keeperChoice]})`;
-
-      penaltyStrikes++;
-      
-      if(zoneIndex !== keeperChoice) {
-        penaltyGoals++;
-        if(currentUserUid) {
-          userProfile.scorePen = (userProfile.scorePen||0) + 1;
-          db.ref('users/' + currentUserUid + '/scorePen').set(userProfile.scorePen);
-          updateProfileFieldsUI();
-        }
-        document.getElementById('penalty-feedback').innerText = "BUT !! Magnifique frappe ! ⚽🔥";
-        document.getElementById('penalty-feedback').style.color = "var(--succes)";
-        // Haptic Feedback
-        if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
-      } else {
-        document.getElementById('penalty-feedback').innerText = "Arrêt héroïque du gardien ! 🧤❌";
-        document.getElementById('penalty-feedback').style.color = "var(--danger)";
-        if(navigator.vibrate) navigator.vibrate(50);
-      }
-
-      document.getElementById('pen-score-strikes').innerText = penaltyStrikes;
-      document.getElementById('pen-score-goals').innerText = penaltyGoals;
-
-      if(penaltyStrikes === 5) {
-        setTimeout(() => {
-          alert(`Fin de la séance ! Vous avez marqué ${penaltyGoals} buts.`);
-        }, 500);
-      }
-    }
-
-    function resetPenaltyGame() {
-      penaltyStrikes = 0;
-      penaltyGoals = 0;
-      document.getElementById('pen-score-strikes').innerText = "0";
-      document.getElementById('pen-score-goals').innerText = "0";
-      document.getElementById('penalty-feedback').innerText = "";
-      document.getElementById('gk-player-v2').style.transform = 'translate(-50%, 0)';
-    }
-
-    // CLASSEMENT RENDERING
-    function renderLeaderboard() {
-      const container = document.getElementById('leaderboard-container');
-      if(leaderboardUsers.length === 0) {
-         container.innerHTML = "<p>Aucun supporter classé pour le moment.</p>";
-         return;
-      }
-      container.innerHTML = leaderboardUsers.map((u, i) => {
-        let total = (u.scoreQuiz||0) + (u.scorePen||0);
-        return `
-          <div class="lb-row">
-            <div><strong style="color:var(--rose);">${i+1}.</strong> ${u.avatar||'👤'} ${u.pseudo||'Anonyme'}</div>
-            <div style="font-weight:bold;">${total} pts</div>
-          </div>
-        `;
-      }).join('');
-    }
 
     // ADMIN CLOUD FIREBASE
     function saveHeroInfosCloud() {
@@ -1633,13 +1463,20 @@
     }
 
     function renderBoutique() {
-      document.getElementById('boutique-container').innerHTML = boutiqueProduits.map(p => `
+      document.getElementById('boutique-container').innerHTML = boutiqueProduits.map(p => {
+        // Si l'utilisateur insère un lien web valide, on affiche l'image au lieu de l'emoji
+        const hasImage = p.image && p.image.trim() !== "";
+        const visualContent = hasImage ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:contain;" />` : (p.emoji || '👕');
+        
+        return `
         <div class="product-card">
-          <div class="jersey-container" style="font-size:3rem;">${p.emoji || '👕'}</div>
+          <div class="jersey-container" style="font-size:3rem; padding:${hasImage ? '10px' : '0'};">
+            ${visualContent}
+          </div>
           <div class="product-name">${p.name}</div><div class="product-price">${p.price.toFixed(2)} €</div>
           <button class="btn-primary" onclick="addToCart('${p.name}', ${p.price})">Ajouter au panier</button>
         </div>
-      `).join('');
+      `}).join('');
     }
 
     // SYSTEME DE TRADUCTION
@@ -1654,7 +1491,6 @@
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if(dict[key]) {
-          // Gérer le cas du innerHTML si on a mis <em> dedans (ex: billetterie) mais ici ce sont des textes simples
           el.innerText = dict[key];
         }
       });
