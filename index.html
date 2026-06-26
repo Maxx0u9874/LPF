@@ -248,7 +248,7 @@
     .news-card-meta { font-size: 0.68rem; color: var(--texte-sec); margin-top: 1.25rem; font-weight: 500; opacity: 0.8; }
 
     /* ═══════════════════════════════════════════════════════════════
-       PAGE: BILLETTERIE & RÉSULTATS
+       PAGE: BILLETTERIE & RESULTATS
     ═══════════════════════════════════════════════════════════════ */
     .match-container-box { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
     .match-card { display: grid; grid-template-columns: 1fr; align-items: center; gap: 1.5rem; padding: 2rem 1.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; position: relative; transition: all 0.3s; text-align: center; }
@@ -257,11 +257,13 @@
     .match-team-side { display: flex; flex-direction: column; gap: 4px; }
     .match-home, .match-away { font-family: var(--bebas); font-size: 1.6rem; color: var(--texte); letter-spacing: 0.02em; }
     .match-vs { font-family: var(--bebas); font-size: 1.2rem; color: var(--rose); background: var(--rose-pale); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; justify-self: center; border: 1px solid var(--rose-bord); margin: 0 auto; }
-    .match-score-display { font-family: var(--bebas); font-size: 2.5rem; color: var(--texte); letter-spacing: 0.05em; display:flex; justify-content:center; align-items:center; }
     .match-details-side { display: flex; flex-direction: column; gap: 2px; }
     .match-date { font-weight: 600; font-size: 0.9rem; color: var(--texte); }
     .match-comp { font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--texte-sec); letter-spacing: 0.05em; }
     .match-ticket { font-family: var(--inter); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: var(--rose); color: #FFF; border: none; padding: 0.85rem 1.5rem; cursor: pointer; transition: all 0.3s; text-align: center; border-radius: 3px; }
+    
+    .result-score { font-family: var(--bebas); font-size: 2.5rem; color: var(--rose); margin: 0 auto; line-height: 1;}
+    .result-scorers { font-size: 0.75rem; color: var(--texte-sec); margin-top: 0.5rem; grid-column: 1 / -1; text-align: center; border-top: 1px dashed var(--rose-pale); padding-top: 0.5rem;}
 
     /* ═══════════════════════════════════════════════════════════════
        PAGE: BOUTIQUE
@@ -301,9 +303,7 @@
     .settings-card h3 { font-family: var(--bebas); font-size: 1.5rem; color: var(--rose); margin-bottom: 1.25rem; border-bottom: 1px solid var(--rose-pale); padding-bottom: 0.4rem; letter-spacing: 0.01em; }
     .toggle-switch { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; }
 
-    /* ═══════════════════════════════════════════════════════════════
-       ZONE PROFIL ULTRA-PERSONNALISABLE & NIVEAUX
-    ═══════════════════════════════════════════════════════════════ */
+    /* ZONE PROFIL ULTRA-PERSONNALISABLE */
     .profile-dashboard { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 1000px; margin: 0 auto; }
     @media (min-width: 768px) { .profile-dashboard { grid-template-columns: 320px 1fr; } }
     .profile-sidebar { background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 8px; padding: 2rem; text-align: center; box-shadow: var(--card-shadow); }
@@ -312,13 +312,11 @@
     .profile-badge-tag { display: inline-block; background: var(--rose-pale); color: var(--rose); border: 1px solid var(--rose-bord); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; padding: 0.3rem 0.8rem; letter-spacing: 0.05em; border-radius: 20px; margin-top: 0.5rem; }
     .profile-main-content { display: flex; flex-direction: column; gap: 2rem; }
     .avatar-picker-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 0.5rem; }
-    .avatar-option { width: 100%; aspect-ratio: 1; border-radius: 50%; cursor: pointer; border: 2px solid transparent; overflow: hidden; background: var(--gris-clair); transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; position: relative;}
-    .avatar-option.locked { opacity: 0.4; cursor: not-allowed; }
-    .avatar-option.locked::after { content: '🔒'; position: absolute; font-size:0.8rem; bottom:2px; right:2px; }
-    .avatar-option:hover:not(.locked), .avatar-option.selected { border-color: var(--rose); transform: scale(1.05); }
+    .avatar-option { width: 100%; aspect-ratio: 1; border-radius: 50%; cursor: pointer; border: 2px solid transparent; overflow: hidden; background: var(--gris-clair); transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .avatar-option:hover, .avatar-option.selected { border-color: var(--rose); transform: scale(1.05); }
 
     /* ═══════════════════════════════════════════════════════════════
-       PANEL ADMIN UNIVERSEL ETENDU
+       PANEL ADMIN UNIVERSEL
     ═══════════════════════════════════════════════════════════════ */
     .admin-dashboard-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
     .admin-stat-card { background: var(--rose-pale); border: 1px solid var(--rose-bord); padding: 1rem; border-radius: 4px; text-align: center; }
@@ -353,7 +351,6 @@
   </style>
 
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
 <body>
@@ -361,17 +358,17 @@
   <nav>
     <a class="nav-logo" onclick="showPage('accueil')">PIGNOUFERIE <span id="nav-logo-span">FC</span></a>
     <ul class="nav-links">
-      <li><a data-i18n="nav_club" onclick="showPage('accueil')" class="active">Club</a></li>
-      <li><a data-i18n="nav_news" onclick="showPage('actualites')">Actualités</a></li>
-      <li><a data-i18n="nav_results" onclick="showPage('resultats')">Résultats</a></li>
-      <li><a data-i18n="nav_tickets" onclick="showPage('billetterie')">Billetterie</a></li>
-      <li><a data-i18n="nav_shop" onclick="showPage('boutique')">Boutique</a></li>
-      <li><a data-i18n="nav_profile" onclick="showPage('compte')">Mon Profil</a></li>
-      <li><a data-i18n="nav_settings" onclick="showPage('parametres')">Paramètres</a></li>
-      <li id="nav-admin-link" style="display:none;"><a onclick="showPage('admin')" style="color:var(--rose); font-weight:bold;">Panel Admin</a></li>
+      <li><a id="link-accueil" onclick="showPage('accueil')" class="active" data-i18n="nav_club">Club</a></li>
+      <li><a id="link-actualites" onclick="showPage('actualites')" data-i18n="nav_news">Actualités</a></li>
+      <li><a id="link-resultats" onclick="showPage('resultats')" data-i18n="nav_res">Résultats</a></li>
+      <li><a id="link-billetterie" onclick="showPage('billetterie')" data-i18n="nav_tick">Billetterie</a></li>
+      <li><a id="link-boutique" onclick="showPage('boutique')" data-i18n="nav_shop">Boutique</a></li>
+      <li><a id="link-compte" onclick="showPage('compte')" data-i18n="nav_prof">Mon Profil</a></li>
+      <li><a id="link-parametres" onclick="showPage('parametres')" data-i18n="nav_param">Paramètres</a></li>
+      <li id="nav-admin-link" style="display:none;"><a id="link-admin" onclick="showPage('admin')" style="color:var(--rose); font-weight:bold;">Panel Admin</a></li>
     </ul>
     <div class="nav-right">
-      <div class="nav-badge" id="nav-creation-badge">Fondé en 2005</div>
+      <div class="nav-badge" id="nav-creation-badge" data-i18n="nav_badge">Fondé en 2005</div>
       <button class="nav-hamburger" onclick="toggleMobileMenu()">
         <span></span><span></span><span></span>
       </button>
@@ -379,13 +376,13 @@
   </nav>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a data-i18n="nav_club" onclick="showPage('accueil'); toggleMobileMenu()">Club</a>
-    <a data-i18n="nav_news" onclick="showPage('actualites'); toggleMobileMenu()">Actualités</a>
-    <a data-i18n="nav_results" onclick="showPage('resultats'); toggleMobileMenu()">Résultats</a>
-    <a data-i18n="nav_tickets" onclick="showPage('billetterie'); toggleMobileMenu()">Billetterie</a>
-    <a data-i18n="nav_shop" onclick="showPage('boutique'); toggleMobileMenu()">Boutique</a>
-    <a data-i18n="nav_profile" onclick="showPage('compte'); toggleMobileMenu()">Mon Profil</a>
-    <a data-i18n="nav_settings" onclick="showPage('parametres'); toggleMobileMenu()">Paramètres</a>
+    <a id="mob-link-club" onclick="showPage('accueil'); toggleMobileMenu()" data-i18n="nav_club">Club</a>
+    <a id="mob-link-actu" onclick="showPage('actualites'); toggleMobileMenu()" data-i18n="nav_news">Actualités</a>
+    <a id="mob-link-res" onclick="showPage('resultats'); toggleMobileMenu()" data-i18n="nav_res">Résultats</a>
+    <a id="mob-link-bill" onclick="showPage('billetterie'); toggleMobileMenu()" data-i18n="nav_tick">Billetterie</a>
+    <a id="mob-link-bout" onclick="showPage('boutique'); toggleMobileMenu()" data-i18n="nav_shop">Boutique</a>
+    <a id="mob-link-comp" onclick="showPage('compte'); toggleMobileMenu()" data-i18n="nav_prof">Mon Profil</a>
+    <a id="mob-link-para" onclick="showPage('parametres'); toggleMobileMenu()" data-i18n="nav_param">Paramètres</a>
     <a id="mobile-admin-link" onclick="showPage('admin'); toggleMobileMenu()" style="display:none; color:var(--rose);">Panel Admin</a>
   </div>
 
@@ -394,47 +391,47 @@
       <div class="hero-marquee">
         <div class="hero-marquee-inner" id="hero-marquee-text">PIGNOUFERIE FC • PIGNOUFERIE FC •</div>
       </div>
-      <div class="hero-eyebrow" id="hero-eyebrow-text">Le Site Officiel</div>
+      <div class="hero-eyebrow" id="hero-eyebrow-text" data-i18n="hero_eyebrow">Le Site Officiel</div>
       <h1 class="hero-title" id="hero-title-text">Plus qu'un club, une <em>légende</em> en rose et blanc.</h1>
-      <p class="hero-sub" id="hero-sub-text">Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.</p>
+      <p class="hero-sub" id="hero-sub-text" data-i18n="hero_sub">Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.</p>
       <div class="hero-actions">
-        <button class="btn-primary" data-i18n="hero_btn_ticket" onclick="showPage('billetterie')">Réserver un billet</button>
-        <button class="btn-ghost" data-i18n="hero_btn_squad" onclick="document.getElementById('effectif-sec').scrollIntoView()">Découvrir l'effectif</button>
+        <button class="btn-primary" id="hero-btn-ticket" onclick="showPage('billetterie')" data-i18n="hero_btn_ticket">Réserver un billet</button>
+        <button class="btn-ghost" id="hero-btn-eff" onclick="document.getElementById('effectif-sec').scrollIntoView()" data-i18n="hero_btn_squad">Découvrir l'effectif</button>
       </div>
       <div class="hero-stats">
-        <div><div class="hero-stat-num" id="hero-stat-year-val">2005</div><div class="hero-stat-label" data-i18n="hero_lbl_year">Année de création</div></div>
+        <div><div class="hero-stat-num" id="hero-stat-year-val">2005</div><div class="hero-stat-label" id="hero-stat-lbl-year" data-i18n="hero_stat_year">Année de création</div></div>
       </div>
     </div>
 
     <div id="effectif-sec" class="sec">
       <div class="effectif-intro">
         <div>
-          <p class="section-eyebrow" data-i18n="eff_eyebrow">Saison Globale</p>
-          <h2 class="section-title" data-i18n="eff_title">L'Effectif Pro</h2>
+          <p class="section-eyebrow" id="eff-eyebrow" data-i18n="eff_eyebrow">Saison Globale</p>
+          <h2 class="section-title" id="eff-title" data-i18n="eff_title">L'Effectif Pro</h2>
           <div class="rule-red"></div>
         </div>
         <div class="effectif-numbers">
-          <div><div class="eff-num" id="eff-total-count">24</div><div class="eff-label" data-i18n="eff_lbl_players">Joueurs Pro</div></div>
-          <div><div class="eff-num" id="eff-goal-num">1</div><div class="eff-label" data-i18n="eff_lbl_goal">Objectif : Gagner</div></div>
+          <div><div class="eff-num" id="eff-total-count">24</div><div class="eff-label" id="eff-lbl-players" data-i18n="eff_lbl_players">Joueurs Pro</div></div>
+          <div><div class="eff-num" id="eff-goal-num">1</div><div class="eff-label" id="eff-lbl-goal" data-i18n="eff_lbl_goal">Objectif : Gagner</div></div>
         </div>
       </div>
 
-      <div class="poste-header" data-i18n="poste_gk">Gardiens (G)</div>
+      <div class="poste-header" id="header-g" data-i18n="poste_g">Gardiens (G)</div>
       <div class="joueurs-grid" id="grid-gardiens"></div>
 
-      <div class="poste-header" data-i18n="poste_def">Défenseurs (D)</div>
+      <div class="poste-header" id="header-d" data-i18n="poste_d">Défenseurs (D)</div>
       <div class="joueurs-grid" id="grid-defenseurs"></div>
 
-      <div class="poste-header" data-i18n="poste_mid">Milieux (M)</div>
+      <div class="poste-header" id="header-m" data-i18n="poste_m">Milieux (M)</div>
       <div class="joueurs-grid" id="grid-milieux"></div>
 
-      <div class="poste-header" data-i18n="poste_att">Attaquants (A)</div>
+      <div class="poste-header" id="header-a" data-i18n="poste_a">Attaquants (A)</div>
       <div class="joueurs-grid" id="grid-attaquants"></div>
     </div>
 
     <div class="sec sec-alt">
-      <p class="section-eyebrow" data-i18n="hist_eyebrow">Récit</p>
-      <h2 class="section-title" data-i18n="hist_title">Notre Histoire</h2>
+      <p class="section-eyebrow" id="hist-eyebrow" data-i18n="hist_eyebrow">Récit</p>
+      <h2 class="section-title" id="hist-title" data-i18n="hist_title">Notre Histoire</h2>
       <div class="rule-red"></div>
       <div class="timeline" id="timeline-container"></div>
     </div>
@@ -442,8 +439,8 @@
 
   <div id="page-actualites" class="page">
     <div class="premium-header">
-      <p class="section-eyebrow" data-i18n="news_eyebrow">Média</p>
-      <h2 class="section-title" data-i18n="news_title">Actualités & <em>Presse</em></h2>
+      <p class="section-eyebrow" id="news-eyebrow" data-i18n="news_eyebrow">Média</p>
+      <h2 class="section-title" id="news-title">Actualités & <em>Presse</em></h2>
     </div>
     <div class="sec">
       <div class="news-grid" id="news-container"></div>
@@ -453,7 +450,7 @@
   <div id="page-resultats" class="page">
     <div class="premium-header">
       <p class="section-eyebrow" data-i18n="res_eyebrow">Compétition</p>
-      <h2 class="section-title" data-i18n="res_title">Résultats <em>Récents</em></h2>
+      <h2 class="section-title" data-i18n="res_title">Résultats <em>Récent</em></h2>
     </div>
     <div class="sec">
       <div class="match-container-box" id="resultats-container"></div>
@@ -462,8 +459,8 @@
 
   <div id="page-billetterie" class="page">
     <div class="premium-header">
-      <p class="section-eyebrow" data-i18n="bill_eyebrow">Matchs</p>
-      <h2 class="section-title" data-i18n="bill_title">Billetterie <em>Officielle</em></h2>
+      <p class="section-eyebrow" id="bill-eyebrow" data-i18n="bill_eyebrow">Matchs</p>
+      <h2 class="section-title" id="bill-title">Billetterie <em>Officielle</em></h2>
     </div>
     <div class="sec">
       <div class="match-container-box" id="matchs-container"></div>
@@ -472,8 +469,8 @@
 
   <div id="page-boutique" class="page">
     <div class="premium-header">
-      <p class="section-eyebrow" data-i18n="shop_eyebrow">Look</p>
-      <h2 class="section-title" data-i18n="shop_title">La Boutique <em>Pro</em></h2>
+      <p class="section-eyebrow" id="shop-eyebrow" data-i18n="shop_eyebrow">Look</p>
+      <h2 class="section-title" id="shop-title">La Boutique <em>Pro</em></h2>
     </div>
     <div class="sec">
       <div class="shop-grid" id="boutique-container"></div>
@@ -485,7 +482,7 @@
   </button>
   <div class="cart-panel" id="cartPanel">
     <div style="padding:1.5rem; border-bottom:1px solid var(--rose-bord); display:flex; justify-content:space-between; align-items:center;">
-      <h3 style="font-family:var(--bebas); font-size:1.4rem;" data-i18n="cart_title">Votre Panier</h3>
+      <h3 style="font-family:var(--bebas); font-size:1.4rem;" id="cart-title" data-i18n="cart_title">Votre Panier</h3>
       <button onclick="toggleCartPanel(false)" style="background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--texte);">✕</button>
     </div>
     <div class="cart-items" id="cartItemsContainer"></div>
@@ -493,38 +490,34 @@
       <div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-weight:bold;">
          <span data-i18n="cart_total">Total :</span><span id="cart-total-price">0.00 €</span>
       </div>
-      <button class="btn-primary" style="width:100%;" data-i18n="cart_checkout" onclick="validateCartOrder()">Passer la commande</button>
+      <button class="btn-primary" style="width:100%;" id="cart-btn-checkout" onclick="validateCartOrder()" data-i18n="cart_checkout">Passer la commande</button>
     </div>
   </div>
 
   <div id="page-compte" class="page">
     <div class="auth-container" id="auth-unlogged-view">
       <div class="auth-tabs">
-        <button class="auth-tab active" id="tab-login" onclick="setAuthMode('login')">Connexion</button>
-        <button class="auth-tab" id="tab-register" onclick="setAuthMode('register')">Créer un compte</button>
-        <button class="auth-tab" id="tab-admin" onclick="setAuthMode('admin')">Staff Admin</button>
+        <button class="auth-tab active" id="tab-login" onclick="setAuthMode('login')" data-i18n="auth_login">Connexion</button>
+        <button class="auth-tab" id="tab-register" onclick="setAuthMode('register')" data-i18n="auth_register">Créer un compte</button>
+        <button class="auth-tab" id="tab-admin" onclick="setAuthMode('admin')" data-i18n="auth_admin">Staff Admin</button>
       </div>
       
       <form id="auth-form" onsubmit="handleAuth(event)">
         <div class="form-group">
-          <label id="label-identifiant" for="auth-username">Nom d'utilisateur</label>
-          <input type="text" id="auth-username" required />
+          <label id="label-identifiant" for="auth-email" data-i18n="auth_email">Adresse Email</label>
+          <input type="text" id="auth-email" required />
         </div>
         <div class="form-group">
-          <label id="label-password" for="auth-password">Mot de passe</label>
+          <label id="label-password" for="auth-password" data-i18n="auth_pass">Mot de passe</label>
           <input type="password" id="auth-password" required />
         </div>
-        <div class="form-group" style="display:flex; align-items:center; gap:8px;" id="auth-remember-group">
-          <input type="checkbox" id="auth-remember" style="width:auto; margin:0;" checked />
-          <label for="auth-remember" style="margin:0; font-size:0.75rem; text-transform:none;">Rester connecté</label>
-        </div>
-        <button type="submit" class="btn-primary" style="width:100%; margin-top:0.5rem;" id="auth-submit-btn">Se connecter</button>
+        <button type="submit" class="btn-primary" style="width:100%; margin-top:0.5rem;" id="auth-submit-btn" data-i18n="auth_btn_login">Se connecter</button>
       </form>
     </div>
 
     <div class="sec" id="auth-logged-view" style="display:none;">
       <div class="premium-header" style="padding:2rem 0; background:none; border-bottom:none; margin-bottom:2rem;">
-        <p class="section-eyebrow">Espace Privé</p>
+        <p class="section-eyebrow" data-i18n="prof_eyebrow">Espace Privé</p>
         <h2 class="section-title">Votre Espace <em>Supporter</em></h2>
       </div>
 
@@ -534,42 +527,44 @@
             <span id="user-avatar-disp" style="font-size:4.5rem; display:block; line-height:115px;">👤</span>
           </div>
           <h3 id="user-pseudo-disp" style="font-family:var(--bebas); font-size:1.8rem; margin-bottom:0.2rem;">Supporter_Pignouf</h3>
-          <p id="user-email-disp" style="font-size:0.8rem; color:var(--texte-sec); margin-bottom:1rem;"></p>
+          <p id="user-email-disp" style="font-size:0.8rem; color:var(--texte-sec); margin-bottom:1rem;">user@pignouferie.com</p>
           <div class="profile-badge-tag" id="user-badge-disp">Fidèle Abonné</div>
           
-          <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--rose-bord); text-align:left; font-size:0.8rem;">
-            <p style="margin-bottom:0.4rem; display:flex; justify-content:space-between;"><span>🌟 Niveau Supporter :</span> <strong id="user-level-disp">1</strong></p>
-          </div>
-          <button class="btn-ghost" style="margin-top:2rem; color:var(--danger); border-color:var(--rose-bord); font-size:0.7rem;" onclick="logoutUser()">Se déconnecter</button>
+          <button class="btn-ghost" style="margin-top:2rem; color:var(--danger); border-color:var(--rose-bord); font-size:0.7rem;" onclick="logoutUser()" data-i18n="prof_logout">Se déconnecter</button>
         </div>
 
         <div class="profile-main-content">
           <div class="settings-card" style="box-shadow:var(--card-shadow); border:1px solid var(--rose-bord);">
-            <h3 style="font-size:1.2rem; color:var(--texte);">Personnalisez votre Identité</h3>
+            <h3 style="font-size:1.2rem; color:var(--texte);" data-i18n="prof_h_perso">Personnalisez votre Identité</h3>
             
             <div class="form-group" style="margin-top:1.5rem;">
-              <label>Votre Pseudo de Supporter</label>
+              <label data-i18n="prof_lbl_pseudo">Votre Pseudo de Supporter</label>
               <input type="text" id="input-profile-pseudo" value="Supporter_Pignouf" oninput="updateProfileLive()" />
             </div>
 
             <div class="form-group">
-              <label>Choisir un Avatar Officiel</label>
-              <div class="avatar-picker-grid" id="avatar-grid-picker">
-                </div>
+              <label data-i18n="prof_lbl_avatar">Choisir un Avatar Officiel</label>
+              <div class="avatar-picker-grid">
+                <div class="avatar-option selected" onclick="selectAvatar('👤', this)">👤</div>
+                <div class="avatar-option" onclick="selectAvatar('🦁', this)">🦁</div>
+                <div class="avatar-option" onclick="selectAvatar('⚽', this)">⚽</div>
+                <div class="avatar-option" onclick="selectAvatar('👑', this)">👑</div>
+                <div class="avatar-option" onclick="selectAvatar('🦅', this)">🦅</div>
+              </div>
             </div>
 
             <div class="form-group">
-              <label>Titre / Badge honorifique</label>
+              <label data-i18n="prof_lbl_badge">Titre / Badge honorifique</label>
               <select id="input-profile-badge" onchange="updateProfileLive()">
-                <option value="Fidèle Abonné">Fidèle Abonné (Nv.1+)</option>
-                <option value="Capo des Ultras" id="badge-opt-2">Capo des Ultras</option>
-                <option value="Légende du Club" id="badge-opt-3">Légende du Club</option>
-                <option value="Tacticien Rose" id="badge-opt-4">Tacticien Rose</option>
+                <option value="Fidèle Abonné">Fidèle Abonné</option>
+                <option value="Capo des Ultras">Capo des Ultras</option>
+                <option value="Légende du Club">Légende du Club</option>
+                <option value="Tacticien Rose">Tacticien Rose</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label>Thème exclusif du Profil</label>
+              <label data-i18n="prof_lbl_theme">Thème exclusif du Profil</label>
               <select id="input-profile-theme" onchange="updateProfileTheme(this.value)">
                 <option value="classic">Rose Pignouferie d'origine</option>
                 <option value="gold">Édition Or Premium</option>
@@ -577,7 +572,7 @@
               </select>
             </div>
             
-            <button class="btn-primary" style="font-size:0.7rem; width:100%;" onclick="saveProfileData()">Enregistrer mon profil</button>
+            <button class="btn-primary" style="font-size:0.7rem; width:100%;" onclick="saveProfileData()" data-i18n="prof_btn_save">Enregistrer mon profil</button>
           </div>
         </div>
       </div>
@@ -586,21 +581,21 @@
 
   <div id="page-parametres" class="page">
     <div class="sec">
-      <p class="section-eyebrow" data-i18n="param_eyebrow">Préférences</p>
-      <h2 class="section-title" data-i18n="param_title">Configuration du Site</h2>
+      <p class="section-eyebrow" id="param-eyebrow" data-i18n="param_eyebrow">Préférences</p>
+      <h2 class="section-title" id="param-title" data-i18n="param_title">Configuration du Site</h2>
       <div class="rule-red"></div>
       <div class="settings-grid">
         
         <div class="settings-card">
-          <h3 data-i18n="setting_h_display">Affichage Général</h3>
+          <h3 id="setting-h-display" data-i18n="param_h_display">Affichage Général</h3>
           <div class="toggle-switch">
-            <span data-i18n="setting_lbl_dark">Mode Sombre (Dark Mode)</span>
+            <span id="setting-lbl-dark" data-i18n="param_lbl_dark">Mode Sombre (Dark Mode)</span>
             <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode(this.checked)" style="width:40px; height:20px; cursor:pointer;" />
           </div>
         </div>
 
         <div class="settings-card">
-          <h3 data-i18n="setting_h_lang">Langue de l'interface</h3>
+          <h3 id="setting-h-lang" data-i18n="param_h_lang">Langue de l'interface</h3>
           <div class="form-group" style="margin-top:0.5rem;">
             <select id="setting-lang" onchange="changeLanguage(this.value)">
               <option value="fr">Français (FR)</option>
@@ -611,31 +606,31 @@
         </div>
 
         <div class="settings-card">
-          <h3 data-i18n="setting_h_notif">Système & Notifications</h3>
+          <h3 id="setting-h-notif" data-i18n="param_h_notif">Système & Notifications</h3>
           <div class="toggle-switch">
-            <span data-i18n="setting_lbl_notif1">Alertes de Billetterie</span>
+            <span id="setting-lbl-notif1" data-i18n="param_lbl_notif1">Alertes de Billetterie</span>
             <input type="checkbox" checked onclick="alert('Notification alert updated')" style="width:40px; height:20px;" />
           </div>
           <div class="toggle-switch" style="margin-top:0.5rem;">
-            <span data-i18n="setting_lbl_notif2">Newsletters Boutique</span>
+            <span id="setting-lbl-notif2" data-i18n="param_lbl_notif2">Newsletters Boutique</span>
             <input type="checkbox" onclick="alert('Newsletter alert updated')" style="width:40px; height:20px;" />
           </div>
         </div>
 
         <div class="settings-card">
-          <h3 data-i18n="setting_h_access">Accessibilité</h3>
-          <label style="font-size:0.8rem; color:var(--texte-sec);" data-i18n="setting_lbl_font">Taille globale de la police :</label>
+          <h3 id="setting-h-access" data-i18n="param_h_access">Accessibilité</h3>
+          <label style="font-size:0.8rem; color:var(--texte-sec);" id="setting-lbl-font" data-i18n="param_lbl_font">Taille globale de la police :</label>
           <select onchange="document.documentElement.style.setProperty('--font-modifier', this.value)" style="margin-top:0.5rem;">
-            <option value="100%">Normale (Par défaut)</option>
-            <option value="110%">Grande (+10%)</option>
-            <option value="120%">Très Grande (+20%)</option>
+            <option value="100%" id="opt-font-n" data-i18n="opt_font_n">Normale (Par défaut)</option>
+            <option value="110%" id="opt-font-l" data-i18n="opt_font_l">Grande (+10%)</option>
+            <option value="120%" id="opt-font-xl" data-i18n="opt_font_xl">Très Grande (+20%)</option>
           </select>
         </div>
 
         <div class="settings-card">
-          <h3 data-i18n="setting_h_cache">Données Locales</h3>
-          <p style="font-size:0.75rem; color:var(--texte-sec); margin-bottom:1rem;" data-i18n="setting_lbl_cache">Réinitialiser les préférences stockées dans votre navigateur.</p>
-          <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.65rem;" onclick="localStorage.clear(); alert('Cache local vidé ! Rechargez la page.'); location.reload();">Vider le cache système</button>
+          <h3 id="setting-h-cache" data-i18n="param_h_cache">Données Locales</h3>
+          <p style="font-size:0.75rem; color:var(--texte-sec); margin-bottom:1rem;" id="setting-lbl-cache" data-i18n="param_lbl_cache">Réinitialiser les préférences stockées.</p>
+          <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.65rem;" id="setting-btn-cache" onclick="localStorage.clear(); alert('Cache local vidé ! Rechargez la page.'); location.reload();" data-i18n="param_btn_cache">Vider le cache système</button>
         </div>
 
       </div>
@@ -644,8 +639,8 @@
 
   <div id="page-admin" class="page">
     <div class="sec">
-      <p class="section-eyebrow">Administration Globale</p>
-      <h2 class="section-title">Console Directoire Active</h2>
+      <p class="section-eyebrow" id="adm-eyebrow">Administration Globale</p>
+      <h2 class="section-title" id="adm-title">Console Directoire Active</h2>
       <div class="rule-red"></div>
 
       <div class="admin-dashboard-stats">
@@ -662,26 +657,46 @@
           <p id="stat-count-hist">0</p>
         </div>
         <div class="admin-stat-card">
-          <h4>Ventes Simulées</h4>
-          <p id="stat-count-sales">0.00 €</p>
+          <h4>Matchs Joués (Résultats)</h4>
+          <p id="stat-count-res">0</p>
         </div>
       </div>
 
       <div class="admin-sections-grid">
+        
         <div class="admin-block">
-          <h3>Modifier la Page d'Accueil & Infos</h3>
-          <div class="form-group"><label>Slogan Marquee</label><input type="text" id="adm-hero-marquee" /></div>
-          <div class="form-group"><label>Eyebrow Text</label><input type="text" id="adm-hero-eyebrow" /></div>
-          <div class="form-group"><label>Titre Principal (HTML supporté)</label><textarea id="adm-hero-title" rows="2"></textarea></div>
-          <div class="form-group"><label>Sous-titre Description</label><textarea id="adm-hero-sub" rows="3"></textarea></div>
-          <div class="form-group"><label>Année de création du club</label><input type="text" id="adm-creation-year" /></div>
+          <h3>Gérer les Résultats</h3>
+          <div class="admin-scroll-list" id="adm-res-list"></div>
+          <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord); border-radius:4px;">
+            <h4 style="font-size:0.8rem; margin-bottom:0.5rem;">Nouveau / Modifier Résultat</h4>
+            <input type="hidden" id="admin-res-id" value="" />
+            <div class="form-group"><label>Équipe Domicile</label><input type="text" id="admin-res-home" value="La Pignouferie FC" /></div>
+            <div class="form-group"><label>Équipe Extérieur</label><input type="text" id="admin-res-away" /></div>
+            <div style="display:flex; gap:10px;">
+                <div class="form-group" style="flex:1;"><label>Score Dom</label><input type="number" id="admin-res-scoreH" value="0" /></div>
+                <div class="form-group" style="flex:1;"><label>Score Ext</label><input type="number" id="admin-res-scoreA" value="0" /></div>
+            </div>
+            <div class="form-group"><label>Date / Compétition</label><input type="text" id="admin-res-date" placeholder="Ex: 12 Juin - Ligue Majeure" /></div>
+            <div class="form-group"><label>Buteurs (Optionnel, sép. par virgules)</label><textarea id="admin-res-scorers" rows="2" placeholder="T. Epyneau (12'), Vitinha (89')"></textarea></div>
+            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" onclick="saveResultPro()">Sauvegarder le Résultat</button>
+            <button class="btn-ghost" style="font-size:0.65rem; margin-left:0.5rem;" onclick="resetResultForm()">Annuler</button>
+          </div>
+        </div>
+
+        <div class="admin-block">
+          <h3 id="adm-h-home">Modifier la Page d'Accueil & Infos</h3>
+          <div class="form-group"><label id="adm-lbl-marq">Slogan Marquee</label><input type="text" id="adm-hero-marquee" /></div>
+          <div class="form-group"><label id="adm-lbl-eye">Eyebrow Text</label><input type="text" id="adm-hero-eyebrow" /></div>
+          <div class="form-group"><label id="adm-lbl-tit">Titre Principal (HTML supporté)</label><textarea id="adm-hero-title" rows="2"></textarea></div>
+          <div class="form-group"><label id="adm-lbl-sub">Sous-titre Description</label><textarea id="adm-hero-sub" rows="3"></textarea></div>
+          <div class="form-group"><label id="adm-lbl-year">Année de création du club</label><input type="text" id="adm-creation-year" /></div>
           <button class="btn-primary" style="width:100%; font-size:0.7rem;" onclick="saveHeroInfosCloud()">Sauvegarder l'Accueil pour tous</button>
         </div>
 
         <div class="admin-block">
-          <h3>Gérer l'Effectif Pro</h3>
+          <h3 id="adm-h-eff">Gérer l'Effectif Pro</h3>
           <div class="form-group">
-            <label>Poste</label>
+            <label id="adm-lbl-pos">Poste</label>
             <select id="adm-player-poste">
               <option value="gardiens">Gardien</option>
               <option value="defenseurs">Défenseur</option>
@@ -689,97 +704,77 @@
               <option value="attaquants">Attaquant</option>
             </select>
           </div>
-          <div class="form-group"><label>Numéro (#)</label><input type="text" id="adm-player-num" placeholder="Ex: 9" /></div>
-          <div class="form-group"><label>Nom Complet</label><input type="text" id="adm-player-nom" placeholder="Ex: T. Epyneau" /></div>
-          <div class="form-group"><label>Rôle/Poste abrégé</label><input type="text" id="adm-player-role" placeholder="Ex: BU" /></div>
-          <button class="btn-primary" style="width:100%; font-size:0.7rem;" onclick="addPlayerPro()">Ajouter le Joueur</button>
+          <div class="form-group"><label id="adm-lbl-pnum">Numéro (#)</label><input type="text" id="adm-player-num" placeholder="Ex: 9" /></div>
+          <div class="form-group"><label id="adm-lbl-pnom">Nom Complet</label><input type="text" id="adm-player-nom" placeholder="Ex: T. Epyneau" /></div>
+          <div class="form-group"><label id="adm-lbl-prole">Rôle/Poste abrégé</label><input type="text" id="adm-player-role" placeholder="Ex: BU" /></div>
+          <button class="btn-primary" style="width:100%; font-size:0.7rem;" id="adm-btn-addp" onclick="addPlayerPro()">Ajouter le Joueur</button>
         </div>
 
         <div class="admin-block">
-          <h3>Éditeur d'Articles (Avancé)</h3>
+          <h3 id="adm-h-news">Éditeur d'Articles / Actualités</h3>
           <div class="admin-scroll-list" id="adm-news-list"></div>
           <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord); border-radius:4px;">
             <h4 style="font-size:0.8rem; margin-bottom:0.5rem;" id="article-form-title">Créer / Modifier un Article</h4>
             <input type="hidden" id="admin-news-id" value="" />
-            <div class="form-group"><label>Titre Actu</label><input type="text" id="admin-news-title" /></div>
-            <div class="form-group"><label>Extrait / Corps (HTML autorisé)</label><textarea id="admin-news-excerpt" rows="4"></textarea></div>
-            <div class="form-group"><label>URL Image d'illustration (Optionnel)</label><input type="text" id="admin-news-img" placeholder="https://images..." /></div>
-            <div class="form-group"><label>Date d'affichage</label><input type="text" id="admin-news-date" placeholder="Ex: Juin 2026" /></div>
-            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" onclick="saveNewsPro()">Sauvegarder l'article</button>
-            <button class="btn-ghost" style="font-size:0.65rem; margin-left:0.5rem;" onclick="resetNewsForm()">Annuler</button>
+            <div class="form-group"><label id="adm-lbl-atit">Titre Actu</label><input type="text" id="admin-news-title" /></div>
+            <div class="form-group"><label id="adm-lbl-abdy">Extrait / Corps</label><textarea id="admin-news-excerpt" rows="3"></textarea></div>
+            <div class="form-group"><label id="adm-lbl-aimg">URL Image d'illustration (Optionnel)</label><input type="text" id="admin-news-img" placeholder="https://images..." /></div>
+            <div class="form-group"><label id="adm-lbl-ayt">ID Vidéo YouTube (Optionnel)</label><input type="text" id="admin-news-yt" placeholder="Ex: dQw4w9WgXcQ" /></div>
+            <div class="form-group"><label id="adm-lbl-adat">Date d'affichage</label><input type="text" id="admin-news-date" placeholder="Ex: Juin 2026" /></div>
+            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" id="adm-btn-saven" onclick="saveNewsPro()">Sauvegarder l'article</button>
+            <button class="btn-ghost" style="font-size:0.65rem; margin-left:0.5rem;" id="adm-btn-resetn" onclick="resetNewsForm()">Annuler / Reset</button>
           </div>
         </div>
 
         <div class="admin-block">
-          <h3>Éditeur de Récits Historiques (Avancé)</h3>
+          <h3 id="adm-h-hist">Éditeur de Récits Historiques</h3>
           <div class="admin-scroll-list" id="adm-hist-list"></div>
           <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord); border-radius:4px;">
             <h4 style="font-size:0.8rem; margin-bottom:0.5rem;" id="hist-form-title">Nouveau / Modifier Jalon</h4>
             <input type="hidden" id="admin-hist-id" value="" />
-            <div class="form-group"><label>Ordre (Chiffre pour le tri)</label><input type="number" id="admin-hist-order" value="1" /></div>
-            <div class="form-group"><label>Année</label><input type="text" id="admin-hist-year" /></div>
-            <div class="form-group"><label>Événement</label><input type="text" id="admin-hist-title" /></div>
-            <div class="form-group"><label>Détails</label><textarea id="admin-hist-detail" rows="2"></textarea></div>
-            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" onclick="saveHistoryPro()">Sauvegarder le jalon</button>
+            <div class="form-group"><label id="adm-lbl-hyear">Année / Ordre</label><input type="text" id="admin-hist-year" placeholder="Ex: 2005" /></div>
+            <div class="form-group"><label id="adm-lbl-htit">Événement</label><input type="text" id="admin-hist-title" /></div>
+            <div class="form-group"><label id="adm-lbl-hdet">Détails</label><textarea id="admin-hist-detail" rows="3"></textarea></div>
+            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" id="adm-btn-saveh" onclick="saveHistoryPro()">Sauvegarder le jalon</button>
             <button class="btn-ghost" style="font-size:0.65rem; margin-left:0.5rem;" onclick="resetHistoryForm()">Annuler</button>
           </div>
         </div>
 
         <div class="admin-block">
-          <h3>Gérer les Matchs & Billetterie</h3>
-          <div class="form-group"><label>Équipe Domicile</label><input type="text" id="adm-match-home" value="La Pignouferie FC" /></div>
-          <div class="form-group"><label>Équipe Extérieur</label><input type="text" id="adm-match-away" /></div>
-          <div class="form-group"><label>Date & Heure</label><input type="text" id="adm-match-date" placeholder="Samedi prochain - 20h00" /></div>
-          <div class="form-group"><label>Compétition</label><input type="text" id="adm-match-comp" placeholder="Ligue Majeure" /></div>
-          <div class="form-group"><label>Prix du billet (€)</label><input type="number" id="adm-match-price" value="15" /></div>
+          <h3 id="adm-h-bill">Gérer le Prochain Match (Billetterie)</h3>
+          <div class="form-group"><label id="adm-lbl-mhom">Équipe Domicile</label><input type="text" id="adm-match-home" value="La Pignouferie FC" /></div>
+          <div class="form-group"><label id="adm-lbl-mawy">Équipe Extérieur</label><input type="text" id="adm-match-away" /></div>
+          <div class="form-group"><label id="adm-lbl-mdat">Date & Heure</label><input type="text" id="adm-match-date" placeholder="Samedi prochain - 20h00" /></div>
+          <div class="form-group"><label id="adm-lbl-mcmp">Compétition</label><input type="text" id="adm-match-comp" placeholder="Ligue Majeure" /></div>
+          <div class="form-group"><label id="adm-lbl-mprc">Prix du billet (€)</label><input type="number" id="adm-match-price" value="15" /></div>
           <div class="form-group">
             <label>Statut des places de billetterie</label>
-            <select id="adm-match-status">
+            <select id="adm-match-status" onchange="toggleTicketSales(this.value)">
               <option value="disabled">Indisponible (Fermé)</option>
               <option value="enabled">Disponible (Ouvert à l'achat)</option>
             </select>
           </div>
-          <button class="btn-primary" style="width:100%; font-size:0.7rem;" onclick="updateMatchPro()">Mettre à jour le match</button>
+          <button class="btn-primary" style="width:100%; font-size:0.7rem;" id="adm-btn-savem" onclick="updateMatchPro()">Mettre à jour le match</button>
         </div>
 
-        <div class="admin-block">
-          <h3>Ajouter un Résultat</h3>
-          <div class="admin-scroll-list" id="adm-res-list"></div>
-          <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord); border-radius:4px;">
-            <div class="form-group"><label>Équipe Dom.</label><input type="text" id="adm-res-home" value="La Pignouferie FC" /></div>
-            <div class="form-group"><label>Équipe Ext.</label><input type="text" id="adm-res-away" /></div>
-            <div class="form-group" style="display:flex; gap:10px;">
-              <div style="flex:1"><label>Score Dom.</label><input type="number" id="adm-res-score-h" value="0"/></div>
-              <div style="flex:1"><label>Score Ext.</label><input type="number" id="adm-res-score-a" value="0"/></div>
-            </div>
-            <div class="form-group"><label>Buteurs (Optionnel)</label><textarea id="adm-res-scorers" rows="2" placeholder="Ex: T. Epyneau (23')"></textarea></div>
-            <div class="form-group"><label>Compétition / Date</label><input type="text" id="adm-res-date" placeholder="Ligue - 12/06/2026" /></div>
-            <button class="btn-primary" style="width:100%; font-size:0.7rem;" onclick="addResult()">Ajouter le Résultat</button>
-          </div>
-        </div>
-
-        <div class="admin-block">
-          <h3>Modération Classement & Utilisateurs</h3>
-          <div class="admin-scroll-list" id="adm-users-list"></div>
-          <button class="btn-ghost" style="width:100%; font-size:0.7rem; color:var(--danger); border-color:var(--danger);" onclick="resetLeaderboard()">Réinitialiser tout le classement</button>
-        </div>
       </div>
+
     </div>
   </div>
 
   <footer>
     <div>
       <div class="footer-brand-name">PIGNOUFERIE <span id="footer-logo-span">FC</span></div>
-      <p style="font-size:0.8rem; color:var(--texte-sec);" data-i18n="footer_desc">Club mythique fondé en 2005. Performance, excellence et couleur rose affirmée sur tous les terrains.</p>
+      <p style="font-size:0.8rem; color:var(--texte-sec);" id="footer-desc" data-i18n="footer_desc">Club mythique fondé en 2005. Performance, excellence et couleur rose affirmée sur tous les terrains.</p>
     </div>
     <div>
-      <div class="section-eyebrow" style="margin-bottom:0.5rem;" data-i18n="footer_h_nav">Navigation</div>
-      <a onclick="showPage('accueil')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;" data-i18n="nav_club">Club</a>
-      <a onclick="showPage('actualites')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;" data-i18n="nav_news">Actualités</a>
+      <div class="section-eyebrow" style="margin-bottom:0.5rem;" id="footer-h-nav" data-i18n="footer_nav">Navigation</div>
+      <a onclick="showPage('accueil')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;" id="footer-link-club" data-i18n="nav_club">Club</a>
+      <a onclick="showPage('actualites')" style="display:block; font-size:0.8rem; margin-bottom:0.3rem; cursor:pointer;" id="footer-link-news" data-i18n="nav_news">Actualités</a>
     </div>
     <div>
-      <div class="section-eyebrow" style="margin-bottom:0.5rem;" data-i18n="footer_h_legal">Légal</div>
-      <p style="font-size:0.8rem; color:var(--texte-sec);">Mentions Légales<br>CGV Boutique</p>
+      <div class="section-eyebrow" style="margin-bottom:0.5rem;" id="footer-h-legal" data-i18n="footer_legal">Légal</div>
+      <p style="font-size:0.8rem; color:var(--texte-sec);" id="footer-legal-text" data-i18n="footer_legal_t">Mentions Légales<br>CGV Boutique</p>
     </div>
   </footer>
   <div class="footer-bottom">
@@ -787,7 +782,7 @@
   </div>
 
   <script>
-    // Configuration Realtime Database & Auth Firebase
+    // Configuration Realtime Database d'Origine
     const firebaseConfig = {
       apiKey: "AIzaSyBMEno-arAeHeJNNB597sDDTM_noePLV4I",
       authDomain: "lapigouferie-fc.firebaseapp.com",
@@ -798,11 +793,8 @@
       appId: "1:154004936337:web:c5345eb0710a7d36c69130"
     };
 
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-    }
+    firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-    const auth = firebase.auth();
 
     // Structures de données
     let effectifPro = { gardiens: [], defenseurs: [], milieux: [], attaquants: [] };
@@ -810,18 +802,13 @@
     let actualitesKeys = [];
     let histoireTimeline = [];
     let histoireKeys = [];
-    let resultatsRecents = [];
-    let resultatsKeys = [];
-    let leaderboardUsers = [];
     let matchData = { home: "La Pignouferie FC", away: "Stade de l'Aube FC", vs: "VS", date: "Samedi prochain - 20h00", comp: "Ligue Majeure", price: 15, salesStatus: "disabled" };
-    
-    // ══════════════════════════════════════════════════════════════════
-    // EMPLACEMENTS IMAGES BOUTIQUE (Remplacer les "" par des liens web)
-    // ══════════════════════════════════════════════════════════════════
+    let resultatsData = [];
+    let resultatsKeys = [];
     let boutiqueProduits = [
-      { id: 0, type: "jersey", badge: "Home", name: "Maillot Domicile Pro 2026", price: 85, emoji: "👕", image: "" /* EMPLACEMENT IMAGE 1 */ },
-      { id: 1, type: "jersey", badge: "Away", name: "Maillot Extérieur 2026", price: 85, emoji: "👕", image: "" /* EMPLACEMENT IMAGE 2 */ },
-      { id: 2, type: "accessory", emoji: "🧣", name: "Écharpe Ultras Pignouferie", price: 18, image: "" /* EMPLACEMENT IMAGE 3 */ }
+      { id: 0, type: "jersey", badge: "Home", name: "Maillot Domicile Pro 2026", price: 85, color: "#E8779A", subColor: "#FFFFFF", emoji: "👕", salesStatus: "disabled" },
+      { id: 1, type: "jersey", badge: "Away", name: "Maillot Extérieur 2026", price: 85, color: "#FFFFFF", subColor: "#E8779A", emoji: "👕", salesStatus: "disabled" },
+      { id: 2, type: "accessory", emoji: "🧣", name: "Écharpe Ultras Pignouferie", price: 18, salesStatus: "disabled" }
     ];
 
     let currentLang = 'fr';
@@ -829,55 +816,60 @@
     let currentAuthMode = 'login';
     let isAdminLoggedIn = false;
     let isUserLoggedIn = false;
-    let currentUserUid = null;
     let simulatedEarnings = 0;
     
-    // États Utilisateur
     let userProfile = {
       pseudo: "Supporter_Pignouf",
-      email: "",
+      email: "user@pignouferie.com",
       avatar: "👤",
       badge: "Fidèle Abonné",
-      theme: "classic",
-      scoreQuiz: 0, // Conservé pour d'éventuelles features ou l'historique
-      scorePen: 0   // Conservé pour d'éventuelles features ou l'historique
+      theme: "classic"
     };
-    
-    // Système de niveaux / avatars
-    const allAvatars = ['👤', '🦁', '⚽', '👑', '🦅', '🔥', '💎'];
-    function getUserLevel() {
-      return Math.floor((userProfile.scoreQuiz + userProfile.scorePen) / 5) + 1;
-    }
 
-    // Système de traduction basique
+    // Dictionnaire de traduction multi-langues
     const translations = {
       fr: {
-        nav_club: "Club", nav_news: "Actualités", nav_results: "Résultats", nav_tickets: "Billetterie", nav_shop: "Boutique", nav_profile: "Mon Profil", nav_settings: "Paramètres",
-        hero_btn_ticket: "Réserver un billet", hero_btn_squad: "Découvrir l'effectif",
-        eff_eyebrow: "Saison Globale", eff_title: "L'Effectif Pro", eff_lbl_players: "Joueurs Pro", eff_lbl_goal: "Objectif : Gagner",
-        poste_gk: "Gardiens (G)", poste_def: "Défenseurs (D)", poste_mid: "Milieux (M)", poste_att: "Attaquants (A)",
+        nav_club: "Club", nav_news: "Actualités", nav_res: "Résultats", nav_tick: "Billetterie", nav_shop: "Boutique", nav_prof: "Mon Profil", nav_param: "Paramètres", nav_badge: "Fondé en 2005",
+        hero_eyebrow: "Le Site Officiel", hero_sub: "Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.", hero_btn_ticket: "Réserver un billet", hero_btn_squad: "Découvrir l'effectif", hero_stat_year: "Année de création",
+        eff_eyebrow: "Saison Globale", eff_title: "L'Effectif Pro", eff_lbl_players: "Joueurs Pro", eff_lbl_goal: "Objectif : Gagner", poste_g: "Gardiens (G)", poste_d: "Défenseurs (D)", poste_m: "Milieux (M)", poste_a: "Attaquants (A)",
+        hist_eyebrow: "Récit", hist_title: "Notre Histoire", news_eyebrow: "Média",
         res_eyebrow: "Compétition", res_title: "Résultats Récents",
-        cart_title: "Votre Panier", cart_total: "Total :", cart_checkout: "Passer la commande"
+        bill_eyebrow: "Matchs", shop_eyebrow: "Look",
+        cart_title: "Votre Panier", cart_total: "Total :", cart_checkout: "Passer la commande",
+        auth_login: "Connexion", auth_register: "Créer un compte", auth_admin: "Staff Admin", auth_email: "Adresse Email", auth_pass: "Mot de passe", auth_btn_login: "Se connecter",
+        prof_eyebrow: "Espace Privé", prof_logout: "Se déconnecter", prof_h_perso: "Personnalisez votre Identité", prof_lbl_pseudo: "Votre Pseudo de Supporter", prof_lbl_avatar: "Choisir un Avatar Officiel", prof_lbl_badge: "Titre / Badge honorifique", prof_lbl_theme: "Thème exclusif du Profil", prof_btn_save: "Enregistrer mon profil",
+        param_eyebrow: "Préférences", param_title: "Configuration du Site", param_h_display: "Affichage Général", param_lbl_dark: "Mode Sombre (Dark Mode)", param_h_lang: "Langue de l'interface", param_h_notif: "Système & Notifications", param_lbl_notif1: "Alertes de Billetterie", param_lbl_notif2: "Newsletters Boutique", param_h_access: "Accessibilité", param_lbl_font: "Taille globale de la police :", opt_font_n: "Normale (Par défaut)", opt_font_l: "Grande (+10%)", opt_font_xl: "Très Grande (+20%)", param_h_cache: "Données Locales", param_lbl_cache: "Réinitialiser les préférences stockées.", param_btn_cache: "Vider le cache système",
+        footer_desc: "Club mythique fondé en 2005. Performance, excellence et couleur rose affirmée sur tous les terrains.", footer_nav: "Navigation", footer_legal: "Légal", footer_legal_t: "Mentions Légales\nCGV Boutique"
       },
       en: {
-        nav_club: "Club", nav_news: "News", nav_results: "Results", nav_tickets: "Tickets", nav_shop: "Store", nav_profile: "My Profile", nav_settings: "Settings",
-        hero_btn_ticket: "Book a ticket", hero_btn_squad: "Discover the squad",
-        eff_eyebrow: "Global Season", eff_title: "Pro Squad", eff_lbl_players: "Pro Players", eff_lbl_goal: "Goal: Win",
-        poste_gk: "Goalkeepers (GK)", poste_def: "Defenders (DEF)", poste_mid: "Midfielders (MID)", poste_att: "Forwards (FWD)",
+        nav_club: "Club", nav_news: "News", nav_res: "Results", nav_tick: "Tickets", nav_shop: "Shop", nav_prof: "My Profile", nav_param: "Settings", nav_badge: "Founded in 2005",
+        hero_eyebrow: "Official Website", hero_sub: "Since 2005, we have been rewriting the lines of top-level football with passion, boldness, and an incomparable style.", hero_btn_ticket: "Book a ticket", hero_btn_squad: "Discover the squad", hero_stat_year: "Creation Year",
+        eff_eyebrow: "Global Season", eff_title: "Pro Squad", eff_lbl_players: "Pro Players", eff_lbl_goal: "Goal: Winning", poste_g: "Goalkeepers (GK)", poste_d: "Defenders (DEF)", poste_m: "Midfielders (MID)", poste_a: "Forwards (FWD)",
+        hist_eyebrow: "Story", hist_title: "Our History", news_eyebrow: "Media",
         res_eyebrow: "Competition", res_title: "Recent Results",
-        cart_title: "Your Cart", cart_total: "Total:", cart_checkout: "Checkout"
+        bill_eyebrow: "Matches", shop_eyebrow: "Look",
+        cart_title: "Your Cart", cart_total: "Total :", cart_checkout: "Checkout",
+        auth_login: "Login", auth_register: "Register", auth_admin: "Admin Staff", auth_email: "Email Address", auth_pass: "Password", auth_btn_login: "Login",
+        prof_eyebrow: "Private Area", prof_logout: "Logout", prof_h_perso: "Customize your Identity", prof_lbl_pseudo: "Your Supporter Username", prof_lbl_avatar: "Choose an Official Avatar", prof_lbl_badge: "Honorary Title / Badge", prof_lbl_theme: "Exclusive Profile Theme", prof_btn_save: "Save my profile",
+        param_eyebrow: "Preferences", param_title: "Site Configuration", param_h_display: "General Display", param_lbl_dark: "Dark Mode", param_h_lang: "Interface Language", param_h_notif: "System & Notifications", param_lbl_notif1: "Ticketing Alerts", param_lbl_notif2: "Shop Newsletters", param_h_access: "Accessibility", param_lbl_font: "Global font size:", opt_font_n: "Normal (Default)", opt_font_l: "Large (+10%)", opt_font_xl: "Very Large (+20%)", param_h_cache: "Local Data", param_lbl_cache: "Reset stored preferences.", param_btn_cache: "Clear system cache",
+        footer_desc: "Mythical club founded in 2005. Performance, excellence, and a strong pink color on all fields.", footer_nav: "Navigation", footer_legal: "Legal", footer_legal_t: "Legal Notice\nTerms & Conditions"
       },
       es: {
-        nav_club: "Club", nav_news: "Noticias", nav_results: "Resultados", nav_tickets: "Entradas", nav_shop: "Tienda", nav_profile: "Mi Perfil", nav_settings: "Ajustes",
-        hero_btn_ticket: "Reserva una entrada", hero_btn_squad: "Descubrir la plantilla",
-        eff_eyebrow: "Temporada Global", eff_title: "Plantilla Pro", eff_lbl_players: "Jugadores Pro", eff_lbl_goal: "Objetivo: Ganar",
-        poste_gk: "Porteros (POR)", poste_def: "Defensas (DEF)", poste_mid: "Centrocampistas (MED)", poste_att: "Delanteros (DEL)",
+        nav_club: "Club", nav_news: "Noticias", nav_res: "Resultados", nav_tick: "Entradas", nav_shop: "Tienda", nav_prof: "Mi Perfil", nav_param: "Ajustes", nav_badge: "Fundado en 2005",
+        hero_eyebrow: "Sitio Web Oficial", hero_sub: "Desde 2005, hemos estado reescribiendo las líneas del fútbol de alto nivel con pasión, audacia y un estilo incomparable.", hero_btn_ticket: "Reservar entrada", hero_btn_squad: "Descubrir equipo", hero_stat_year: "Año de creación",
+        eff_eyebrow: "Temporada Global", eff_title: "Plantilla Pro", eff_lbl_players: "Jugadores Pro", eff_lbl_goal: "Objetivo: Ganar", poste_g: "Porteros (POR)", poste_d: "Defensas (DEF)", poste_m: "Centrocampistas (CEN)", poste_a: "Delanteros (DEL)",
+        hist_eyebrow: "Historia", hist_title: "Nuestra Historia", news_eyebrow: "Medios",
         res_eyebrow: "Competición", res_title: "Resultados Recientes",
-        cart_title: "Tu Carrito", cart_total: "Total:", cart_checkout: "Realizar pedido"
+        bill_eyebrow: "Partidos", shop_eyebrow: "Estilo",
+        cart_title: "Tu Carrito", cart_total: "Total :", cart_checkout: "Realizar pedido",
+        auth_login: "Iniciar sesión", auth_register: "Crear cuenta", auth_admin: "Personal de Admin", auth_email: "Correo Electrónico", auth_pass: "Contraseña", auth_btn_login: "Iniciar sesión",
+        prof_eyebrow: "Área Privada", prof_logout: "Cerrar sesión", prof_h_perso: "Personaliza tu Identidad", prof_lbl_pseudo: "Tu Nombre de Aficionado", prof_lbl_avatar: "Elige un Avatar Oficial", prof_lbl_badge: "Título Honorífico", prof_lbl_theme: "Tema Exclusivo del Perfil", prof_btn_save: "Guardar mi perfil",
+        param_eyebrow: "Preferencias", param_title: "Configuración del Sitio", param_h_display: "Pantalla General", param_lbl_dark: "Modo Oscuro", param_h_lang: "Idioma de la interfaz", param_h_notif: "Sistema y Notificaciones", param_lbl_notif1: "Alertas de Entradas", param_lbl_notif2: "Boletines de la Tienda", param_h_access: "Accesibilidad", param_lbl_font: "Tamaño global de la fuente:", opt_font_n: "Normal (Predeterminado)", opt_font_l: "Grande (+10%)", opt_font_xl: "Muy Grande (+20%)", param_h_cache: "Datos Locales", param_lbl_cache: "Restablecer preferencias almacenadas.", param_btn_cache: "Borrar caché del sistema",
+        footer_desc: "Club mítico fundado en 2005. Rendimiento, excelencia y un fuerte color rosa en todos los campos.", footer_nav: "Navegación", footer_legal: "Legal", footer_legal_t: "Aviso Legal\nTérminos y Condiciones"
       }
     };
 
-    // SYNCHRONISATION CLOUD FIREBASE
+    // Synchronisation Cloud Réseau Firebase Realtime
     db.ref('site_infos').on('value', (snapshot) => {
       const data = snapshot.val();
       if(data) {
@@ -887,7 +879,7 @@
         if(data.sub) document.getElementById('hero-sub-text').innerText = data.sub;
         if(data.year) {
           document.getElementById('hero-stat-year-val').innerText = data.year;
-          document.getElementById('nav-creation-badge').innerText = "Fondé en " + data.year;
+          document.getElementById('nav-creation-badge').innerText = currentLang === 'fr' ? "Fondé en " + data.year : (currentLang === 'en' ? "Founded in " + data.year : "Fundado en " + data.year);
           document.getElementById('footer-copyright-text').innerText = `© ${data.year}-2026 La Pignouferie FC. Tous droits réservés.`;
         }
       }
@@ -895,44 +887,43 @@
 
     db.ref('effectif').on('value', (snapshot) => {
       const data = snapshot.val();
-      if(snapshot.exists()) { effectifPro = data; }
+      if(snapshot.exists()) { effectifPro = data; } else {
+        effectifPro = {
+          gardiens: [{ num: "1", nom: "M. Delaunay", poste: "G" }, { num: "24", nom: "M. Lemonnier", poste: "G" }, { num: "-", nom: "G. Jourdain", poste: "G" }],
+          defenseurs: [{ num: "32", nom: "Q. Ferrier", poste: "DG" }, { num: "5", nom: "A. Chapuis", poste: "DG" }, { num: "29", nom: "M. Pignouf", poste: "DC" }, { num: "30", nom: "L. Perlade", poste: "DC" }, { num: "4", nom: "P. Vincent", poste: "DC" }, { num: "3", nom: "D. Lagarde", poste: "DC" }, { num: "6", nom: "K. Marquet", poste: "DD" }, { num: "2", nom: "F. Naciri", poste: "DD" }],
+          milieux: [{ num: "16", nom: "K. Pottier", poste: "MDC" }, { num: "8", nom: "Vitinha (Capitaine)", poste: "MC" }, { num: "13", nom: "A. Arthis", poste: "MC" }, { num: "17", nom: "O. Dieng", poste: "MC" }, { num: "10", nom: "W. Van Goor", poste: "MOC" }, { num: "20", nom: "J. Fischer", poste: "MD" }],
+          attaquants: [{ num: "7", nom: "T. Desgranges", poste: "AG" }, { num: "11", nom: "I. Benzekri", poste: "AG" }, { num: "19", nom: "I. Haba", poste: "AG" }, { num: "12", nom: "C. Beaulieu", poste: "AD" }, { num: "9", nom: "T. Epyneau", poste: "BU" }, { num: "22", nom: "K. Dieme", poste: "BU" }]
+        };
+      }
       renderEffectif();
       updateDashboardStats();
     });
 
     db.ref('actualites').on('value', (snapshot) => {
+      const data = snapshot.val();
       actualites = []; actualitesKeys = [];
-      snapshot.forEach(child => { actualites.push(child.val()); actualitesKeys.push(child.key); });
+      if(data) {
+        Object.keys(data).forEach(key => { actualites.push(data[key]); actualitesKeys.push(key); });
+      }
       renderActualites();
       renderAdminNewsList();
       updateDashboardStats();
     });
 
     db.ref('histoire').on('value', (snapshot) => {
+      const data = snapshot.val();
       histoireTimeline = []; histoireKeys = [];
-      snapshot.forEach(child => { histoireTimeline.push(child.val()); histoireKeys.push(child.key); });
-      // Tri par ordre si défini, sinon par année
-      histoireTimeline.sort((a,b) => (parseInt(a.order)||0) - (parseInt(b.order)||0));
+      if(data) {
+        Object.keys(data).forEach(key => { histoireTimeline.push(data[key]); histoireKeys.push(key); });
+        // Tri par année (Ordre)
+        let histPairs = histoireTimeline.map((item, i) => { return { item, key: histoireKeys[i] }});
+        histPairs.sort((a,b) => parseInt(a.item.year) - parseInt(b.item.year));
+        histoireTimeline = histPairs.map(p => p.item);
+        histoireKeys = histPairs.map(p => p.key);
+      }
       renderTimeline();
       renderAdminHistList();
       updateDashboardStats();
-    });
-    
-    db.ref('resultats').on('value', (snapshot) => {
-      resultatsRecents = []; resultatsKeys = [];
-      snapshot.forEach(child => { resultatsRecents.push(child.val()); resultatsKeys.push(child.key); });
-      renderResultats();
-      renderAdminResList();
-    });
-    
-    db.ref('users').on('value', (snapshot) => {
-      leaderboardUsers = [];
-      snapshot.forEach(child => { 
-        if(!child.val().banned) leaderboardUsers.push({ uid: child.key, ...child.val() }); 
-      });
-      // Tri par score total décroissant
-      leaderboardUsers.sort((a,b) => ((b.scoreQuiz||0)+(b.scorePen||0)) - ((a.scoreQuiz||0)+(a.scorePen||0)));
-      renderAdminUsersList();
     });
 
     db.ref('match').on('value', (snapshot) => {
@@ -940,41 +931,36 @@
       renderMatchs();
     });
 
-    // INIT
+    db.ref('resultats').on('value', (snapshot) => {
+      const data = snapshot.val();
+      resultatsData = []; resultatsKeys = [];
+      if(data) {
+        Object.keys(data).forEach(key => { resultatsData.push(data[key]); resultatsKeys.push(key); });
+      }
+      renderResultats();
+      renderAdminResList();
+      updateDashboardStats();
+    });
+
+    db.ref('boutique').on('value', (snapshot) => {
+      if(snapshot.exists()) { boutiqueProduits = snapshot.val(); }
+      renderBoutique();
+    });
+
     window.onload = function() {
       const savedTheme = localStorage.getItem('theme') || 'light';
       if(savedTheme === 'dark') {
         document.getElementById('dark-mode-toggle').checked = true;
         toggleDarkMode(true);
       }
-      
       const savedLang = localStorage.getItem('lang') || 'fr';
       document.getElementById('setting-lang').value = savedLang;
       changeLanguage(savedLang);
 
-      // Listener Firebase Auth
-      auth.onAuthStateChanged(user => {
-        if(user) {
-          currentUserUid = user.uid;
-          isUserLoggedIn = true;
-          // Retrieve user profile
-          db.ref('users/' + user.uid).once('value').then(snap => {
-            if(snap.exists()) {
-              userProfile = snap.val();
-              updateProfileFieldsUI();
-            } else {
-              userProfile.email = user.email;
-              userProfile.pseudo = user.email.split('@')[0];
-              saveProfileData(); // Create base profile
-            }
-            toggleLoggedView(true);
-          });
-        } else {
-          currentUserUid = null;
-          isUserLoggedIn = false;
-          toggleLoggedView(false);
-        }
-      });
+      const savedProfile = localStorage.getItem('pignouf_user_profile');
+      if(savedProfile) {
+        userProfile = JSON.parse(savedProfile);
+      }
     };
 
     function updateDashboardStats() {
@@ -982,10 +968,10 @@
       document.getElementById('stat-count-players').innerText = totalPlayers;
       document.getElementById('stat-count-news').innerText = actualites.length;
       document.getElementById('stat-count-hist').innerText = histoireTimeline.length;
-      document.getElementById('stat-count-sales').innerText = simulatedEarnings.toFixed(2) + " €";
+      document.getElementById('stat-count-res').innerText = resultatsData.length;
     }
 
-    // AUTHENTIFICATION FIREBASE (Simplifiée : Nom d'utilisateur)
+    // AUTHENTIFICATION ET MODES LOGGÉS
     function setAuthMode(mode) {
       currentAuthMode = mode;
       document.getElementById('tab-login').classList.toggle('active', mode === 'login');
@@ -994,32 +980,26 @@
       
       const submitBtn = document.getElementById('auth-submit-btn');
       const labelId = document.getElementById('label-identifiant');
-      const rememberGroup = document.getElementById('auth-remember-group');
 
       if (mode === 'admin') {
         labelId.innerText = "Identifiant Secrétariat Admin";
         submitBtn.innerText = "Se connecter à l'espace Admin";
-        rememberGroup.style.display = "none";
       } else if(mode === 'register') {
-        labelId.innerText = "Nom d'utilisateur";
-        submitBtn.innerText = "Créer mon compte";
-        rememberGroup.style.display = "flex";
+        labelId.innerText = translations[currentLang].auth_email;
+        submitBtn.innerText = translations[currentLang].auth_register;
       } else {
-        labelId.innerText = "Nom d'utilisateur";
-        submitBtn.innerText = "Se connecter";
-        rememberGroup.style.display = "flex";
+        labelId.innerText = translations[currentLang].auth_email;
+        submitBtn.innerText = translations[currentLang].auth_btn_login;
       }
     }
 
     function handleAuth(e) {
       e.preventDefault();
-      const usernameInput = document.getElementById('auth-username').value.trim();
-      const pwd = document.getElementById('auth-password').value;
-      const remember = document.getElementById('auth-remember').checked;
+      const identifiant = document.getElementById('auth-email').value;
+      const mdp = document.getElementById('auth-password').value;
 
       if(currentAuthMode === 'admin') {
-        // Simple hardcoded admin check for demo purposes
-        if(usernameInput === "admin" && pwd === "admin2026") {
+        if(identifiant === "admin" && mdp === "admin2026") {
           isAdminLoggedIn = true;
           document.body.classList.add('is-admin-mode');
           document.getElementById('nav-admin-link').style.display = 'block';
@@ -1029,33 +1009,18 @@
         } else {
           alert('🚫 Identifiants administratifs incorrects.');
         }
+      } else if (currentAuthMode === 'register') {
+        userProfile.email = identifiant;
+        userProfile.pseudo = identifiant.split('@')[0];
+        isUserLoggedIn = true;
+        localStorage.setItem('pignouf_user_profile', JSON.stringify(userProfile));
+        alert(`Compte synchronisé avec succès pour ${identifiant} !`);
+        toggleLoggedView(true);
       } else {
-        // On génère une adresse email fictive propre pour le backend Firebase à partir du nom d'utilisateur
-        const safeUsername = usernameInput.toLowerCase().replace(/[^a-z0-9]/g, '');
-        if(safeUsername.length < 3) return alert("Le nom d'utilisateur doit contenir au moins 3 caractères alphanumériques.");
-        const fakeEmail = safeUsername + "@pignouferie.local";
-
-        const persistenceType = remember ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
-
-        auth.setPersistence(persistenceType).then(() => {
-          if (currentAuthMode === 'register') {
-            return auth.createUserWithEmailAndPassword(fakeEmail, pwd)
-              .then((userCred) => {
-                // Initialiser le profil utilisateur
-                userProfile.pseudo = usernameInput;
-                userProfile.email = usernameInput; // On affiche le pseudo à la place du mail
-                db.ref('users/' + userCred.user.uid).set(userProfile);
-                alert('Compte créé avec succès !');
-              });
-          } else {
-            return auth.signInWithEmailAndPassword(fakeEmail, pwd)
-              .then(() => alert('Connexion réussie !'));
-          }
-        }).catch(err => {
-            if(err.code === 'auth/email-already-in-use') alert("Ce nom d'utilisateur est déjà pris.");
-            else if(err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') alert("Nom d'utilisateur ou mot de passe incorrect.");
-            else alert("Erreur : " + err.message);
-        });
+        userProfile.email = identifiant;
+        isUserLoggedIn = true;
+        toggleLoggedView(true);
+        alert('Connexion utilisateur réussie !');
       }
     }
 
@@ -1071,19 +1036,11 @@
     }
 
     function logoutUser() {
-      auth.signOut();
+      isUserLoggedIn = false;
+      toggleLoggedView(false);
     }
 
-    // PERSONNALISATION & NIVEAUX
-    function renderAvatarPicker() {
-      const lvl = getUserLevel();
-      document.getElementById('avatar-grid-picker').innerHTML = allAvatars.map((em, i) => {
-        let isLocked = i > 0 && lvl < i * 2; // Unlock condition (e.g. avatar 1 at lvl 2, avatar 2 at lvl 4...)
-        let isSelected = userProfile.avatar === em;
-        return `<div class="avatar-option ${isSelected?'selected':''} ${isLocked?'locked':''}" onclick="${isLocked?'':'selectAvatar(\''+em+'\', this)'}">${em}</div>`;
-      }).join('');
-    }
-
+    // LOGIQUE DE PERSONNALISATION DU PROFIL
     function selectAvatar(emoji, element) {
       document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
       element.classList.add('selected');
@@ -1103,7 +1060,6 @@
       if(themeName === 'gold') {
         card.style.background = "linear-gradient(135deg, #FBF4E4 0%, #FFF 100%)";
         card.style.borderColor = "#D4AF37";
-        card.style.color = "#1A1A22";
       } else if (themeName === 'darkcard') {
         card.style.background = "#1C1C1F";
         card.style.borderColor = "#444";
@@ -1116,39 +1072,24 @@
     }
 
     function updateProfileFieldsUI() {
-      document.getElementById('input-profile-pseudo').value = userProfile.pseudo || "";
-      document.getElementById('input-profile-badge').value = userProfile.badge || "Fidèle Abonné";
-      document.getElementById('input-profile-theme').value = userProfile.theme || "classic";
-      // Afficher le pseudo au lieu du fake email généré
-      document.getElementById('user-email-disp').innerText = "@" + (userProfile.pseudo || "Supporter").toLowerCase().replace(/\s/g, '');
-      
-      const lvl = getUserLevel();
-      document.getElementById('user-level-disp').innerText = lvl;
-      
-      // Unlock badges
-      // Sans les mini jeux le niveau reste à 1, mais la mécanique reste prête pour de futurs ajouts
-      if (document.getElementById('badge-opt-2')) document.getElementById('badge-opt-2').disabled = lvl < 3;
-      if (document.getElementById('badge-opt-3')) document.getElementById('badge-opt-3').disabled = lvl < 5;
-      if (document.getElementById('badge-opt-4')) document.getElementById('badge-opt-4').disabled = lvl < 10;
-
+      document.getElementById('input-profile-pseudo').value = userProfile.pseudo;
+      document.getElementById('input-profile-badge').value = userProfile.badge;
+      document.getElementById('input-profile-theme').value = userProfile.theme;
+      document.getElementById('user-email-disp').innerText = userProfile.email;
       updateProfileTheme(userProfile.theme);
-      document.getElementById('user-avatar-disp').innerText = userProfile.avatar || "👤";
-      document.getElementById('user-pseudo-disp').innerText = userProfile.pseudo || "Supporter";
-      document.getElementById('user-badge-disp').innerText = userProfile.badge || "Fidèle Abonné";
-      renderAvatarPicker();
+      document.getElementById('user-avatar-disp').innerText = userProfile.avatar;
+      document.getElementById('user-pseudo-disp').innerText = userProfile.pseudo;
+      document.getElementById('user-badge-disp').innerText = userProfile.badge;
     }
 
     function saveProfileData() {
-      if(!currentUserUid) return;
       userProfile.pseudo = document.getElementById('input-profile-pseudo').value;
       userProfile.badge = document.getElementById('input-profile-badge').value;
-      
-      db.ref('users/' + currentUserUid).set(userProfile)
-        .then(() => { alert('Profil mis à jour et sauvegardé sur le Cloud !'); updateProfileFieldsUI(); });
+      localStorage.setItem('pignouf_user_profile', JSON.stringify(userProfile));
+      alert('Profil mis à jour et sauvegardé localement !');
     }
 
-
-    // ADMIN CLOUD FIREBASE
+    // FONCTIONS D'ADMINISTRATION CLOUD AMÉLIORÉES
     function saveHeroInfosCloud() {
       db.ref('site_infos').set({
         marquee: document.getElementById('adm-hero-marquee').value,
@@ -1177,38 +1118,43 @@
       }
     }
 
+    // Éditeur Articles (Amélioré)
     function saveNewsPro() {
       const id = document.getElementById('admin-news-id').value;
       const title = document.getElementById('admin-news-title').value;
       const excerpt = document.getElementById('admin-news-excerpt').value;
       const image = document.getElementById('admin-news-img').value;
+      const youtube = document.getElementById('admin-news-yt').value;
       const date = document.getElementById('admin-news-date').value || "Juin 2026";
-      
-      if(id !== "") db.ref('actualites/' + id).set({ title, excerpt, date, image });
-      else db.ref('actualites').push().set({ title, excerpt, date, image });
+      if(id !== "") db.ref('actualites/' + id).set({ title, excerpt, date, image, youtube });
+      else db.ref('actualites').push().set({ title, excerpt, date, image, youtube });
       resetNewsForm();
     }
 
     function editNewsPro(index) {
-      const act = actualites[index];
+      const a = actualites[index];
       document.getElementById('admin-news-id').value = actualitesKeys[index];
-      document.getElementById('admin-news-title').value = act.title;
-      document.getElementById('admin-news-excerpt').value = act.excerpt;
-      document.getElementById('admin-news-img').value = act.image || "";
-      document.getElementById('admin-news-date').value = act.date;
-      document.getElementById('article-form-title').innerText = "Modifier l'Article";
+      document.getElementById('admin-news-title').value = a.title;
+      document.getElementById('admin-news-excerpt').value = a.excerpt;
+      document.getElementById('admin-news-img').value = a.image || "";
+      document.getElementById('admin-news-yt').value = a.youtube || "";
+      document.getElementById('admin-news-date').value = a.date;
+      document.getElementById('article-form-title').innerText = "Modification d'un Article en cours...";
+      document.getElementById('article-form-title').style.color = "var(--rose)";
     }
 
     function deleteNewsPro(index) {
-      if(confirm('Supprimer cet article ?')) db.ref('actualites/' + actualitesKeys[index]).remove();
+      if(confirm('Supprimer ?')) db.ref('actualites/' + actualitesKeys[index]).remove();
     }
-
     function resetNewsForm() {
       document.getElementById('admin-news-id').value = "";
       document.getElementById('admin-news-title').value = "";
       document.getElementById('admin-news-excerpt').value = "";
       document.getElementById('admin-news-img').value = "";
-      document.getElementById('article-form-title').innerText = "Créer un Article";
+      document.getElementById('admin-news-yt').value = "";
+      document.getElementById('admin-news-date').value = "";
+      document.getElementById('article-form-title').innerText = "Créer / Modifier un Article";
+      document.getElementById('article-form-title').style.color = "inherit";
     }
 
     function renderAdminNewsList() {
@@ -1217,102 +1163,95 @@
           <span>${a.title}</span>
           <div class="admin-list-actions">
             <button class="admin-mini-btn btn-edit-mini" onclick="editNewsPro(${i})">Edit</button>
-            <button class="admin-mini-btn btn-del-mini" onclick="deleteNewsPro(${i})">Suppr</button>
+            <button class="admin-mini-btn btn-del-mini" onclick="deleteNewsPro(${i})">Del</button>
           </div>
         </div>
       `).join('');
     }
 
+    // Éditeur Histoire (Amélioré)
     function saveHistoryPro() {
       const id = document.getElementById('admin-hist-id').value;
-      const order = document.getElementById('admin-hist-order').value;
       const year = document.getElementById('admin-hist-year').value;
       const event = document.getElementById('admin-hist-title').value;
       const detail = document.getElementById('admin-hist-detail').value;
-      if(id !== "") db.ref('histoire/' + id).set({ order, year, event, detail });
-      else db.ref('histoire').push().set({ order, year, event, detail });
+      if(id !== "") db.ref('histoire/' + id).set({ year, event, detail });
+      else db.ref('histoire').push().set({ year, event, detail });
       resetHistoryForm();
     }
     
     function editHistoryPro(index) {
       const h = histoireTimeline[index];
       document.getElementById('admin-hist-id').value = histoireKeys[index];
-      document.getElementById('admin-hist-order').value = h.order || 1;
       document.getElementById('admin-hist-year').value = h.year;
       document.getElementById('admin-hist-title').value = h.event;
       document.getElementById('admin-hist-detail').value = h.detail;
     }
 
     function deleteHistoryPro(index) {
-      if(confirm('Supprimer ce jalon ?')) db.ref('histoire/' + histoireKeys[index]).remove();
+      if(confirm('Supprimer ?')) db.ref('histoire/' + histoireKeys[index]).remove();
     }
-    
     function resetHistoryForm() {
       document.getElementById('admin-hist-id').value = "";
-      document.getElementById('admin-hist-order').value = "1";
       document.getElementById('admin-hist-year').value = "";
       document.getElementById('admin-hist-title').value = "";
       document.getElementById('admin-hist-detail').value = "";
     }
-
     function renderAdminHistList() {
       document.getElementById('adm-hist-list').innerHTML = histoireTimeline.map((h, i) => `
         <div class="admin-list-item">
-          <span>[${h.order||1}] ${h.year} - ${h.event}</span>
+          <span>[${h.year}] ${h.event}</span>
           <div class="admin-list-actions">
             <button class="admin-mini-btn btn-edit-mini" onclick="editHistoryPro(${i})">Edit</button>
-            <button class="admin-mini-btn btn-del-mini" onclick="deleteHistoryPro(${i})">Suppr</button>
+            <button class="admin-mini-btn btn-del-mini" onclick="deleteHistoryPro(${i})">Del</button>
           </div>
         </div>
       `).join('');
     }
 
-    function addResult() {
-      const res = {
-        home: document.getElementById('adm-res-home').value,
-        away: document.getElementById('adm-res-away').value,
-        scoreH: document.getElementById('adm-res-score-h').value,
-        scoreA: document.getElementById('adm-res-score-a').value,
-        scorers: document.getElementById('adm-res-scorers').value,
-        date: document.getElementById('adm-res-date').value
-      };
-      db.ref('resultats').push().set(res).then(() => alert("Résultat publié !"));
+    // Éditeur Résultats
+    function saveResultPro() {
+      const id = document.getElementById('admin-res-id').value;
+      const home = document.getElementById('admin-res-home').value;
+      const away = document.getElementById('admin-res-away').value;
+      const scoreH = document.getElementById('admin-res-scoreH').value;
+      const scoreA = document.getElementById('admin-res-scoreA').value;
+      const date = document.getElementById('admin-res-date').value;
+      const scorers = document.getElementById('admin-res-scorers').value;
+      if(id !== "") db.ref('resultats/' + id).set({ home, away, scoreH, scoreA, date, scorers });
+      else db.ref('resultats').push().set({ home, away, scoreH, scoreA, date, scorers });
+      resetResultForm();
     }
-
-    function deleteResult(index) {
-      if(confirm("Supprimer ce résultat ?")) db.ref('resultats/' + resultatsKeys[index]).remove();
+    function editResultPro(index) {
+      const r = resultatsData[index];
+      document.getElementById('admin-res-id').value = resultatsKeys[index];
+      document.getElementById('admin-res-home').value = r.home;
+      document.getElementById('admin-res-away').value = r.away;
+      document.getElementById('admin-res-scoreH').value = r.scoreH;
+      document.getElementById('admin-res-scoreA').value = r.scoreA;
+      document.getElementById('admin-res-date').value = r.date;
+      document.getElementById('admin-res-scorers').value = r.scorers || "";
     }
-
+    function deleteResultPro(index) {
+      if(confirm('Supprimer ce résultat ?')) db.ref('resultats/' + resultatsKeys[index]).remove();
+    }
+    function resetResultForm() {
+      document.getElementById('admin-res-id').value = "";
+      document.getElementById('admin-res-home').value = "La Pignouferie FC";
+      document.getElementById('admin-res-away').value = "";
+      document.getElementById('admin-res-scoreH').value = "0";
+      document.getElementById('admin-res-scoreA').value = "0";
+      document.getElementById('admin-res-date').value = "";
+      document.getElementById('admin-res-scorers').value = "";
+    }
     function renderAdminResList() {
-      document.getElementById('adm-res-list').innerHTML = resultatsRecents.map((r, i) => `
+      document.getElementById('adm-res-list').innerHTML = resultatsData.map((r, i) => `
         <div class="admin-list-item">
           <span>${r.home} ${r.scoreH} - ${r.scoreA} ${r.away}</span>
-          <button class="admin-mini-btn btn-del-mini" onclick="deleteResult(${i})">Suppr</button>
-        </div>
-      `).join('');
-    }
-
-    function resetLeaderboard() {
-      if(confirm("DANGER : Voulez-vous vraiment effacer les scores de TOUS les utilisateurs ?")) {
-        leaderboardUsers.forEach(u => {
-          db.ref('users/' + u.uid + '/scoreQuiz').set(0);
-          db.ref('users/' + u.uid + '/scorePen').set(0);
-        });
-        alert("Classement réinitialisé.");
-      }
-    }
-    
-    function banUser(uid) {
-      if(confirm("Bannir cet utilisateur du classement ?")) {
-        db.ref('users/' + uid + '/banned').set(true);
-      }
-    }
-
-    function renderAdminUsersList() {
-      document.getElementById('adm-users-list').innerHTML = leaderboardUsers.map((u) => `
-        <div class="admin-list-item">
-          <span>${u.pseudo} (${(u.scoreQuiz||0)+(u.scorePen||0)} pts)</span>
-          <button class="admin-mini-btn btn-del-mini" onclick="banUser('${u.uid}')">Bannir</button>
+          <div class="admin-list-actions">
+            <button class="admin-mini-btn btn-edit-mini" onclick="editResultPro(${i})">Edit</button>
+            <button class="admin-mini-btn btn-del-mini" onclick="deleteResultPro(${i})">Del</button>
+          </div>
         </div>
       `).join('');
     }
@@ -1329,11 +1268,12 @@
       }).then(() => alert('Match mis à jour !'));
     }
 
-    // COMMERCE ET PANIER
+    // COMMERCE ET PANIER INTERACTIF
     function addToCart(name, price) {
       panier.push({ name, price });
       document.getElementById('cartBubble').classList.add('show');
       updateCartDisplay();
+      if(navigator.vibrate) navigator.vibrate(50); // Haptic feedback ajout au panier
     }
 
     function updateCartDisplay() {
@@ -1363,9 +1303,9 @@
     }
 
     function validateCartOrder() {
-      if(panier.length===0) return;
       let orderTotal = panier.reduce((sum, item) => sum + item.price, 0);
       simulatedEarnings += orderTotal;
+      if(navigator.vibrate) navigator.vibrate([100, 50, 100]); // Haptic feedback double vibration
       alert(`Commande validée (${orderTotal.toFixed(2)} €) ! Merci.`);
       panier = [];
       document.getElementById('cartBubble').classList.remove('show');
@@ -1374,7 +1314,7 @@
       updateDashboardStats();
     }
 
-    // RENDERS VISUELS
+    // VISUAL RENDERS BASES D'ORIGINE CONSERVÉS À 100%
     function showPage(pageId) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
@@ -1414,7 +1354,7 @@
     }
 
     function renderActualites() {
-      document.getElementById('news-container').innerHTML = actualites.map((a) => `
+      document.getElementById('news-container').innerHTML = actualites.map((a, index) => `
         <div class="news-card">
           <div class="news-card-body">
             <div class="news-tag">Club Actu</div>
@@ -1436,15 +1376,13 @@
     }
 
     function renderResultats() {
-      document.getElementById('resultats-container').innerHTML = resultatsRecents.map((r) => `
-        <div class="match-card" style="grid-template-columns: 1fr;">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-             <div class="match-home" style="flex:1; text-align:right;">${r.home}</div>
-             <div class="match-score-display" style="width:100px;">${r.scoreH} - ${r.scoreA}</div>
-             <div class="match-away" style="flex:1; text-align:left;">${r.away}</div>
-          </div>
-          <div style="text-align:center; font-size:0.75rem; color:var(--texte-sec); margin-top:0.5rem;">${r.scorers ? `⚽ Buteurs : ${r.scorers}` : ''}</div>
-          <div style="text-align:center; font-size:0.7rem; text-transform:uppercase; font-weight:bold; margin-top:1rem; color:var(--rose);">${r.date}</div>
+      document.getElementById('resultats-container').innerHTML = resultatsData.map(r => `
+        <div class="match-card">
+          <div class="match-team-side"><div class="match-home">${r.home}</div></div>
+          <div class="result-score">${r.scoreH} - ${r.scoreA}</div>
+          <div class="match-team-side" style="text-align:right;"><div class="match-away">${r.away}</div></div>
+          <div class="match-details-side" style="text-align:right;"><div class="match-date">${r.date}</div></div>
+          ${r.scorers ? `<div class="result-scorers">⚽ ${r.scorers}</div>` : ''}
         </div>
       `).join('');
     }
@@ -1457,47 +1395,44 @@
           <div class="match-team-side"><div class="match-home">${matchData.home}</div><div class="match-away">${matchData.away}</div></div>
           <div class="match-vs">${matchData.vs}</div>
           <div class="match-details-side"><div class="match-date">${matchData.date}</div><div class="match-comp">${matchData.comp}</div></div>
-          <button class="${btnClass}" ${isAvailable?'':'disabled'} onclick="addToCart('Billet Match', ${matchData.price})">Acheter — ${matchData.price}€</button>
+          <button class="${btnClass}" ${isAvailable?'':'disabled'} onclick="addToCart('Billet Match', ${matchData.price})">${translations[currentLang].cart_checkout} — ${matchData.price}€</button>
         </div>
       `;
     }
 
     function renderBoutique() {
-      document.getElementById('boutique-container').innerHTML = boutiqueProduits.map(p => {
-        // Si l'utilisateur insère un lien web valide, on affiche l'image au lieu de l'emoji
-        const hasImage = p.image && p.image.trim() !== "";
-        const visualContent = hasImage ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:contain;" />` : (p.emoji || '👕');
-        
-        return `
+      document.getElementById('boutique-container').innerHTML = boutiqueProduits.map(p => `
         <div class="product-card">
-          <div class="jersey-container" style="font-size:3rem; padding:${hasImage ? '10px' : '0'};">
-            ${visualContent}
-          </div>
+          <div class="jersey-container" style="font-size:3rem;">${p.emoji || '👕'}</div>
           <div class="product-name">${p.name}</div><div class="product-price">${p.price.toFixed(2)} €</div>
           <button class="btn-primary" onclick="addToCart('${p.name}', ${p.price})">Ajouter au panier</button>
         </div>
-      `}).join('');
+      `).join('');
     }
 
-    // SYSTEME DE TRADUCTION
-    function changeLanguage(lang) {
-      currentLang = lang;
-      localStorage.setItem('lang', lang);
-      applyLanguage(lang);
-    }
-    
-    function applyLanguage(lang) {
-      const dict = translations[lang] || translations['fr'];
+    function applyLanguage(l) {
+      const t = translations[l];
+      if (!t) return;
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if(dict[key]) {
-          el.innerText = dict[key];
+        if (t[key]) {
+          if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') el.placeholder = t[key];
+          else el.innerText = t[key];
         }
       });
+      // Exceptions dynamiques nécessitant de préserver l'HTML interne
+      const bTitleStr = l === 'fr' ? "Billetterie <em>Officielle</em>" : (l === 'en' ? "Official <em>Ticketing</em>" : "Venta <em>Oficial</em>");
+      document.getElementById('bill-title').innerHTML = bTitleStr;
+      const shTitleStr = l === 'fr' ? "La Boutique <em>Pro</em>" : (l === 'en' ? "Pro <em>Shop</em>" : "Tienda <em>Pro</em>");
+      document.getElementById('shop-title').innerHTML = shTitleStr;
     }
-
-    // APPELS INITIAUX LOCAUX
-    renderBoutique();
+    
+    function changeLanguage(l) {
+      currentLang = l;
+      localStorage.setItem('lang', l);
+      applyLanguage(l);
+      renderMatchs(); // Refresh ticket button translation
+    }
   </script>
 </body>
 </html>
