@@ -791,13 +791,10 @@
     </div>
   </div>
 
-  <!-- PAGE ARTICLE DÉTAIL -->
   <div id="page-article-detail" style="display:none; padding-top:68px; min-height:100vh;">
     <button class="product-detail-back" onclick="closeArticleDetail()">← Retour aux actualités</button>
     <article class="article-detail-wrap">
-      <!-- Hero image -->
       <div class="article-hero-img" id="art-hero-img"></div>
-      <!-- Header -->
       <div class="article-header">
         <div class="article-meta-top">
           <span class="news-tag" id="art-tag">Club Actu</span>
@@ -805,19 +802,15 @@
         </div>
         <h1 class="article-main-title" id="art-title"></h1>
       </div>
-      <!-- Body -->
       <div class="article-body-wrap">
         <div class="article-body" id="art-body"></div>
-        <!-- Extra images gallery -->
         <div class="article-gallery" id="art-gallery"></div>
-        <!-- YouTube embed -->
         <div class="article-video-wrap" id="art-video" style="display:none;">
           <div class="article-video-label">📺 Vidéo</div>
           <div class="article-video-frame">
             <iframe id="art-yt-iframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
         </div>
-        <!-- Share / nav -->
         <div class="article-footer-nav">
           <button class="btn-ghost" onclick="closeArticleDetail()">← Retour aux actualités</button>
         </div>
@@ -851,12 +844,10 @@
         <button class="bill-tab" onclick="switchBillTab('abos', this)">Abonnements Saison</button>
       </div>
 
-      <!-- ONGLET MATCH -->
       <div class="bill-tab-content active" id="bill-tab-matchs">
         <div class="match-container-box" id="matchs-container"></div>
       </div>
 
-      <!-- ONGLET ABONNEMENTS -->
       <div class="bill-tab-content" id="bill-tab-abos">
         <p class="section-eyebrow" style="margin-bottom:0.5rem;">Saison 2025/2026</p>
         <h3 style="font-family:var(--bebas); font-size:clamp(1.8rem,4vw,3rem); margin-bottom:0.5rem; color:var(--texte);">Choisissez votre <em style="font-style:normal;color:var(--rose);">Formule</em></h3>
@@ -937,7 +928,6 @@
     </div>
   </div>
 
-  <!-- PAGE DETAIL PRODUIT -->
   <div id="page-product-detail">
     <button class="product-detail-back" onclick="closeProductDetail()">← Retour à la boutique</button>
     <div class="product-detail-grid">
@@ -1101,7 +1091,6 @@
             <button class="btn-primary" style="font-size:0.7rem; width:100%;" onclick="saveProfileData()" data-i18n="prof_btn_save">Enregistrer mon profil</button>
           </div>
 
-          <!-- Historique de commandes -->
           <div class="settings-card" style="box-shadow:var(--card-shadow); border:1px solid var(--rose-bord);">
             <h3 style="font-size:1.2rem; color:var(--texte);">Historique des commandes</h3>
             <div class="profile-history-list" id="profile-order-history">
@@ -1251,7 +1240,6 @@
             <h4 style="font-size:0.85rem; margin-bottom:1.25rem; color:var(--rose); font-family:var(--bebas); font-size:1.2rem; letter-spacing:0.04em;" id="article-form-title">Créer / Modifier un Article</h4>
             <input type="hidden" id="admin-news-id" value="" />
 
-            <!-- Ligne 1 : titre + date -->
             <div style="display:grid; grid-template-columns:1fr auto; gap:1rem; align-items:start;">
               <div class="form-group" style="margin-bottom:0;">
                 <label id="adm-lbl-atit">Titre de l'Article *</label>
@@ -1265,17 +1253,14 @@
 
             <div style="height:1rem;"></div>
 
-            <!-- Extrait court -->
             <div class="form-group">
               <label>Accroche / Extrait court <span style="font-weight:400;opacity:0.7;">(affiché sur la card)</span></label>
               <textarea id="admin-news-excerpt" rows="2" placeholder="Résumé accrocheur de l'article (2-3 phrases max)…"></textarea>
             </div>
 
-            <!-- Corps de l'article -->
             <div class="form-group">
               <label>Corps de l'Article <span style="font-weight:400;opacity:0.7;">(texte complet, affiché sur la page article)</span></label>
               <div style="border:1px solid var(--rose-bord); border-radius:4px; overflow:hidden; background:var(--blanc);">
-                <!-- Mini toolbar -->
                 <div style="display:flex; gap:4px; padding:0.5rem 0.75rem; background:var(--gris-clair); border-bottom:1px solid var(--rose-bord); flex-wrap:wrap;">
                   <button type="button" onclick="insertTextFormat('**','**')" style="padding:2px 8px; font-size:0.7rem; background:var(--blanc); border:1px solid var(--rose-bord); cursor:pointer; border-radius:2px; font-weight:800;">G</button>
                   <button type="button" onclick="insertTextFormat('_','_')" style="padding:2px 8px; font-size:0.7rem; background:var(--blanc); border:1px solid var(--rose-bord); cursor:pointer; border-radius:2px; font-style:italic;">I</button>
@@ -1287,7 +1272,6 @@
               </div>
             </div>
 
-            <!-- Images -->
             <div style="margin-bottom:1rem;">
               <label style="display:block; font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem; color:var(--texte-sec);">Images <span style="font-weight:400;opacity:0.7;">(URL directe — 1 hero obligatoire, 2 & 3 optionnelles)</span></label>
               <div style="display:flex; flex-direction:column; gap:0.5rem;">
@@ -1312,7 +1296,6 @@
               </div>
             </div>
 
-            <!-- YouTube -->
             <div class="form-group">
               <label id="adm-lbl-ayt">🎬 ID Vidéo YouTube <span style="font-weight:400;opacity:0.7;">(optionnel — ex: dQw4w9WgXcQ)</span></label>
               <div style="display:flex; gap:0.5rem; align-items:center;">
@@ -1324,7 +1307,6 @@
               </div>
             </div>
 
-            <!-- Actions -->
             <div style="display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap; padding-top:0.5rem; border-top:1px solid var(--rose-bord); margin-top:0.5rem;">
               <button class="btn-primary" style="padding: 0.65rem 1.5rem; font-size:0.75rem;" id="adm-btn-saven" onclick="saveNewsPro()">💾 Publier l'article</button>
               <button class="btn-ghost" style="font-size:0.7rem;" id="adm-btn-resetn" onclick="resetNewsForm()">✕ Annuler / Reset</button>
@@ -1396,15 +1378,18 @@
           <button class="btn-primary" style="width:100%; font-size:0.7rem;" id="adm-btn-savem" onclick="updateMatchPro()">Mettre à jour le match</button>
         </div>
 
+        <div class="admin-block" style="grid-column: 1 / -1;">
+          <h3>Comptes & Profils Utilisateurs</h3>
+          <div class="admin-scroll-list" id="adm-users-list" style="max-height: 250px;"></div>
+        </div>
+
       </div>
 
     </div>
   </div>
 
-  <!-- BON DE COMMANDE MODAL -->
   <div class="order-modal-overlay" id="orderModalOverlay" onclick="if(event.target===this)closeOrderModal()">
     <div class="order-modal">
-      <!-- Formulaire de commande -->
       <div id="order-form-view">
         <div class="order-modal-header">
           <div>
@@ -1495,7 +1480,6 @@
         <p style="font-size:0.65rem; color:var(--texte-sec); margin-top:0.75rem; text-align:center;">En validant, vous acceptez nos Conditions Générales de Vente. Livraison sous 5 à 7 jours ouvrés.</p>
       </div>
 
-      <!-- Confirmation -->
       <div id="order-confirmation-view" class="order-confirmation">
         <div class="order-confirm-icon">🎉</div>
         <h2 style="font-family:var(--bebas); font-size:2rem; color:var(--texte);">Commande Confirmée !</h2>
@@ -1697,6 +1681,16 @@
       renderBoutique();
     });
 
+    let allUsers = [];
+    db.ref('utilisateurs').on('value', (snapshot) => {
+      const data = snapshot.val();
+      allUsers = [];
+      if(data) {
+        Object.values(data).forEach(u => allUsers.push(u));
+      }
+      renderAdminUsersList();
+    });
+
     window.onload = function() {
       const savedTheme = localStorage.getItem('theme') || 'light';
       if(savedTheme === 'dark') {
@@ -1789,6 +1783,11 @@
         isUserLoggedIn = true;
         localStorage.setItem('pignouf_user_profile', JSON.stringify(userProfile));
         if(stayLogged) localStorage.setItem('pignouf_stay_logged', identifiant);
+
+        // Sauvegarde de l'utilisateur sur Firebase
+        const safeEmail = identifiant.replace(/[.#$[\]]/g, '_');
+        db.ref('utilisateurs/' + safeEmail).set(userProfile);
+
         alert(`Compte synchronisé avec succès pour ${identifiant} !`);
         toggleLoggedView(true);
       } else {
@@ -1796,6 +1795,11 @@
         if(!userProfile.memberSince) userProfile.memberSince = new Date().getFullYear();
         isUserLoggedIn = true;
         if(stayLogged) localStorage.setItem('pignouf_stay_logged', identifiant);
+        
+        // Mise à jour de l'utilisateur sur Firebase (si ancien compte local seulement)
+        const safeEmail = identifiant.replace(/[.#$[\]]/g, '_');
+        db.ref('utilisateurs/' + safeEmail).set(userProfile);
+
         toggleLoggedView(true);
         alert('Connexion utilisateur réussie !');
       }
@@ -1875,7 +1879,15 @@
       userProfile.badge = document.getElementById('input-profile-badge').value;
       userProfile.bio = document.getElementById('input-profile-bio')?.value || '';
       if(!userProfile.memberSince) userProfile.memberSince = new Date().getFullYear();
+      
       localStorage.setItem('pignouf_user_profile', JSON.stringify(userProfile));
+
+      // Sauvegarde du compte actualisé sur Firebase
+      if(userProfile.email) {
+        const safeEmail = userProfile.email.replace(/[.#$[\]]/g, '_');
+        db.ref('utilisateurs/' + safeEmail).set(userProfile);
+      }
+
       updateProfileFieldsUI();
       alert('Profil mis à jour et sauvegardé localement !');
     }
@@ -1998,6 +2010,15 @@
     function deleteNewsPro(index) {
       if(confirm('Supprimer cet article ?')) db.ref('actualites/' + actualitesKeys[index]).remove();
     }
+    
+    function moveNewsAdmin(index, dir) {
+      if (index + dir < 0 || index + dir >= actualites.length) return;
+      const temp = actualites[index];
+      actualites[index] = actualites[index + dir];
+      actualites[index + dir] = temp;
+      db.ref('actualites').set(actualites);
+    }
+
     function resetNewsForm() {
       ['admin-news-id','admin-news-title','admin-news-excerpt','admin-news-body','admin-news-img','admin-news-img2','admin-news-img3','admin-news-yt','admin-news-date'].forEach(id => {
         const el = document.getElementById(id);
@@ -2015,6 +2036,8 @@
         <div class="admin-list-item">
           <span>${a.title}</span>
           <div class="admin-list-actions">
+            <button class="admin-mini-btn" style="background:#555;" onclick="moveNewsAdmin(${i}, -1)" ${i===0?'style="opacity:0.5;cursor:not-allowed;" disabled':''}>↑</button>
+            <button class="admin-mini-btn" style="background:#555;" onclick="moveNewsAdmin(${i}, 1)" ${i===actualites.length-1?'style="opacity:0.5;cursor:not-allowed;" disabled':''}>↓</button>
             <button class="admin-mini-btn btn-edit-mini" onclick="editNewsPro(${i})">Edit</button>
             <button class="admin-mini-btn btn-del-mini" onclick="deleteNewsPro(${i})">Del</button>
           </div>
@@ -2119,6 +2142,27 @@
         price: parseFloat(document.getElementById('adm-match-price').value) || 0,
         salesStatus: document.getElementById('adm-match-status').value
       }).then(() => alert('Match mis à jour !'));
+    }
+
+    function renderAdminUsersList() {
+      const el = document.getElementById('adm-users-list');
+      if(!el) return;
+      if(allUsers.length === 0) {
+        el.innerHTML = '<p style="padding:1rem; font-size:0.8rem; color:var(--texte-sec);">Aucun compte enregistré pour le moment.</p>';
+        return;
+      }
+      el.innerHTML = allUsers.map(u => `
+        <div class="admin-list-item" style="display:flex; gap:15px; align-items:center;">
+          <div style="font-size:1.8rem; background:var(--blanc); width:40px; height:40px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:1px solid var(--rose-bord); flex-shrink:0;">${u.avatar || '👤'}</div>
+          <div style="flex:1;">
+            <div style="font-weight:700; color:var(--texte);">${u.pseudo || 'Inconnu'} <span style="font-weight:400; font-size:0.75rem; color:var(--texte-sec);">(${u.email})</span></div>
+            <div style="font-size:0.75rem; color:var(--texte-sec); margin-top:0.2rem;">
+              <span style="color:var(--rose); font-weight:600;">${u.badge || 'Fidèle Abonné'}</span> | Membre depuis ${u.memberSince || '2026'} | Thème : ${u.theme || 'classic'}
+            </div>
+            ${u.bio ? `<div style="font-size:0.7rem; color:var(--texte-sec); font-style:italic; margin-top:0.2rem;">"${u.bio}"</div>` : ''}
+          </div>
+        </div>
+      `).join('');
     }
 
     // COMMERCE ET PANIER INTERACTIF
