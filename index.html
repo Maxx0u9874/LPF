@@ -527,6 +527,55 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════
+       PAGE ARTICLE DÉTAIL
+    ═══════════════════════════════════════════════════════════════ */
+    #page-article-detail.active { display: block !important; animation: fadeIn 0.5s ease-out; }
+    .article-detail-wrap { max-width: 820px; margin: 0 auto; padding-bottom: 5rem; }
+    .article-hero-img {
+      width: 100%; height: 380px; background: var(--gris-clair);
+      overflow: hidden; position: relative;
+    }
+    @media (min-width: 768px) { .article-hero-img { height: 480px; } }
+    .article-hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .article-hero-img .art-hero-placeholder {
+      width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; background: linear-gradient(135deg, var(--rose-pale) 0%, var(--gris-clair) 100%);
+    }
+    .article-header { padding: 2.5rem 2rem 1.5rem; }
+    @media (min-width: 768px) { .article-header { padding: 3rem 3rem 1.5rem; } }
+    .article-meta-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .article-date { font-size: 0.72rem; font-weight: 600; color: var(--texte-sec); letter-spacing: 0.08em; text-transform: uppercase; }
+    .article-main-title {
+      font-family: var(--bebas); font-size: clamp(2rem, 6vw, 4rem);
+      letter-spacing: 0.02em; line-height: 1.05; color: var(--texte);
+    }
+    .article-body-wrap { padding: 0 2rem 2rem; }
+    @media (min-width: 768px) { .article-body-wrap { padding: 0 3rem 3rem; } }
+    .article-body {
+      font-size: 1rem; color: var(--texte); line-height: 1.85; font-weight: 300;
+      border-top: 2px solid var(--rose-bord); padding-top: 2rem;
+      margin-bottom: 2rem;
+    }
+    .article-body p { margin: 0 0 1rem; }
+    .article-body strong { font-weight: 700; color: var(--texte); }
+    .article-body em { font-style: italic; color: var(--texte-sec); }
+    .article-gallery {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem; margin-bottom: 2rem;
+    }
+    .article-gallery img { width: 100%; height: 200px; object-fit: cover; border-radius: 4px; border: 1px solid var(--rose-bord); }
+    .article-video-wrap { margin-bottom: 2.5rem; }
+    .article-video-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em; color: var(--rose); margin-bottom: 0.75rem; }
+    .article-video-frame { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; border: 1px solid var(--rose-bord); }
+    .article-video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .article-footer-nav { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--rose-bord); }
+
+    [data-theme="dark"] .article-hero-img { background: var(--gris-clair); }
+    [data-theme="dark"] #page-article-detail { background: var(--blanc); }
+    [data-theme="dark"] .article-body { color: var(--texte); }
+    [data-theme="dark"] .article-gallery img { border-color: var(--rose-bord); }
+
+    /* ═══════════════════════════════════════════════════════════════
        BON DE COMMANDE MODAL
     ═══════════════════════════════════════════════════════════════ */
     .order-modal-overlay {
@@ -635,6 +684,12 @@
     [data-theme="dark"] .shop-filter-bar { background: var(--gris-clair); }
     [data-theme="dark"] .shop-filter-btn { background: var(--blanc); color: var(--texte-sec); }
     [data-theme="dark"] .login-required-notice { background: var(--rose-mid); border-color: var(--rose-bord); }
+    [data-theme="dark"] #admin-news-img,
+    [data-theme="dark"] #admin-news-img2,
+    [data-theme="dark"] #admin-news-img3,
+    [data-theme="dark"] #admin-news-body { background: var(--gris-clair); border-color: var(--rose-bord); color: var(--texte); }
+    [data-theme="dark"] #admin-news-body { background: var(--gris-clair); }
+    [data-theme="dark"] .article-body { color: var(--texte); }
     [data-theme="dark"] #page-product-detail { background: var(--blanc); }
     [data-theme="dark"] .btn-unavailable { background: var(--gris-clair); color: var(--texte-sec); border-color: var(--rose-bord); }
   </style>
@@ -684,7 +739,7 @@
       <h1 class="hero-title" id="hero-title-text">Plus qu'un club, une <em>légende</em> en rose et blanc.</h1>
       <p class="hero-sub" id="hero-sub-text" data-i18n="hero_sub">Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.</p>
       <div class="hero-actions">
-        <button class="btn-primary" id="hero-btn-ticket" onclick="showPage('billetterie')" data-i18n="hero_btn_ticket">Réserver un billet</button>
+        <button class="btn-primary" id="hero-btn-ticket" onclick="showPage('boutique')" data-i18n="hero_btn_ticket">Commander un maillot</button>
         <button class="btn-ghost" id="hero-btn-eff" onclick="document.getElementById('effectif-sec').scrollIntoView()" data-i18n="hero_btn_squad">Découvrir l'effectif</button>
       </div>
       <div class="hero-stats">
@@ -734,6 +789,40 @@
     <div class="sec">
       <div class="news-grid" id="news-container"></div>
     </div>
+  </div>
+
+  <!-- PAGE ARTICLE DÉTAIL -->
+  <div id="page-article-detail" style="display:none; padding-top:68px; min-height:100vh;">
+    <button class="product-detail-back" onclick="closeArticleDetail()">← Retour aux actualités</button>
+    <article class="article-detail-wrap">
+      <!-- Hero image -->
+      <div class="article-hero-img" id="art-hero-img"></div>
+      <!-- Header -->
+      <div class="article-header">
+        <div class="article-meta-top">
+          <span class="news-tag" id="art-tag">Club Actu</span>
+          <span class="article-date" id="art-date"></span>
+        </div>
+        <h1 class="article-main-title" id="art-title"></h1>
+      </div>
+      <!-- Body -->
+      <div class="article-body-wrap">
+        <div class="article-body" id="art-body"></div>
+        <!-- Extra images gallery -->
+        <div class="article-gallery" id="art-gallery"></div>
+        <!-- YouTube embed -->
+        <div class="article-video-wrap" id="art-video" style="display:none;">
+          <div class="article-video-label">📺 Vidéo</div>
+          <div class="article-video-frame">
+            <iframe id="art-yt-iframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <!-- Share / nav -->
+        <div class="article-footer-nav">
+          <button class="btn-ghost" onclick="closeArticleDetail()">← Retour aux actualités</button>
+        </div>
+      </div>
+    </article>
   </div>
 
   <div id="page-resultats" class="page">
@@ -1155,19 +1244,92 @@
           <button class="btn-primary" style="width:100%; font-size:0.7rem;" id="adm-btn-addp" onclick="addPlayerPro()">Ajouter le Joueur</button>
         </div>
 
-        <div class="admin-block">
-          <h3 id="adm-h-news">Éditeur d'Articles / Actualités</h3>
+        <div class="admin-block" style="grid-column: 1 / -1;">
+          <h3 id="adm-h-news">✍️ Éditeur d'Articles Complet</h3>
           <div class="admin-scroll-list" id="adm-news-list"></div>
-          <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord); border-radius:4px;">
-            <h4 style="font-size:0.8rem; margin-bottom:0.5rem;" id="article-form-title">Créer / Modifier un Article</h4>
+          <div style="background:var(--gris-clair); padding:1.25rem; border:1px dashed var(--rose-bord); border-radius:6px; margin-top:1rem;">
+            <h4 style="font-size:0.85rem; margin-bottom:1.25rem; color:var(--rose); font-family:var(--bebas); font-size:1.2rem; letter-spacing:0.04em;" id="article-form-title">Créer / Modifier un Article</h4>
             <input type="hidden" id="admin-news-id" value="" />
-            <div class="form-group"><label id="adm-lbl-atit">Titre Actu</label><input type="text" id="admin-news-title" /></div>
-            <div class="form-group"><label id="adm-lbl-abdy">Extrait / Corps</label><textarea id="admin-news-excerpt" rows="3"></textarea></div>
-            <div class="form-group"><label id="adm-lbl-aimg">URL Image d'illustration (Optionnel)</label><input type="text" id="admin-news-img" placeholder="https://images..." /></div>
-            <div class="form-group"><label id="adm-lbl-ayt">ID Vidéo YouTube (Optionnel)</label><input type="text" id="admin-news-yt" placeholder="Ex: dQw4w9WgXcQ" /></div>
-            <div class="form-group"><label id="adm-lbl-adat">Date d'affichage</label><input type="text" id="admin-news-date" placeholder="Ex: Juin 2026" /></div>
-            <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" id="adm-btn-saven" onclick="saveNewsPro()">Sauvegarder l'article</button>
-            <button class="btn-ghost" style="font-size:0.65rem; margin-left:0.5rem;" id="adm-btn-resetn" onclick="resetNewsForm()">Annuler / Reset</button>
+
+            <!-- Ligne 1 : titre + date -->
+            <div style="display:grid; grid-template-columns:1fr auto; gap:1rem; align-items:start;">
+              <div class="form-group" style="margin-bottom:0;">
+                <label id="adm-lbl-atit">Titre de l'Article *</label>
+                <input type="text" id="admin-news-title" placeholder="Ex: Victoire éclatante contre l'Olympique…" />
+              </div>
+              <div class="form-group" style="margin-bottom:0; min-width:140px;">
+                <label id="adm-lbl-adat">Date d'affichage</label>
+                <input type="text" id="admin-news-date" placeholder="Ex: Juin 2026" />
+              </div>
+            </div>
+
+            <div style="height:1rem;"></div>
+
+            <!-- Extrait court -->
+            <div class="form-group">
+              <label>Accroche / Extrait court <span style="font-weight:400;opacity:0.7;">(affiché sur la card)</span></label>
+              <textarea id="admin-news-excerpt" rows="2" placeholder="Résumé accrocheur de l'article (2-3 phrases max)…"></textarea>
+            </div>
+
+            <!-- Corps de l'article -->
+            <div class="form-group">
+              <label>Corps de l'Article <span style="font-weight:400;opacity:0.7;">(texte complet, affiché sur la page article)</span></label>
+              <div style="border:1px solid var(--rose-bord); border-radius:4px; overflow:hidden; background:var(--blanc);">
+                <!-- Mini toolbar -->
+                <div style="display:flex; gap:4px; padding:0.5rem 0.75rem; background:var(--gris-clair); border-bottom:1px solid var(--rose-bord); flex-wrap:wrap;">
+                  <button type="button" onclick="insertTextFormat('**','**')" style="padding:2px 8px; font-size:0.7rem; background:var(--blanc); border:1px solid var(--rose-bord); cursor:pointer; border-radius:2px; font-weight:800;">G</button>
+                  <button type="button" onclick="insertTextFormat('_','_')" style="padding:2px 8px; font-size:0.7rem; background:var(--blanc); border:1px solid var(--rose-bord); cursor:pointer; border-radius:2px; font-style:italic;">I</button>
+                  <button type="button" onclick="insertTextFormat('\n\n## ','\n')" style="padding:2px 8px; font-size:0.7rem; background:var(--blanc); border:1px solid var(--rose-bord); cursor:pointer; border-radius:2px;">H2</button>
+                  <button type="button" onclick="insertLineBreak()" style="padding:2px 8px; font-size:0.7rem; background:var(--blanc); border:1px solid var(--rose-bord); cursor:pointer; border-radius:2px;">¶</button>
+                  <span style="font-size:0.62rem; color:var(--texte-sec); align-self:center; margin-left:4px;">Markdown supporté</span>
+                </div>
+                <textarea id="admin-news-body" rows="10" placeholder="Rédigez l'article complet ici…&#10;&#10;Astuce : utilisez des sauts de ligne pour aérer le texte. Le contenu Markdown simple (gras, italique, titres) est supporté." style="border:none; border-radius:0; background:var(--blanc); resize:vertical;"></textarea>
+              </div>
+            </div>
+
+            <!-- Images -->
+            <div style="margin-bottom:1rem;">
+              <label style="display:block; font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem; color:var(--texte-sec);">Images <span style="font-weight:400;opacity:0.7;">(URL directe — 1 hero obligatoire, 2 & 3 optionnelles)</span></label>
+              <div style="display:flex; flex-direction:column; gap:0.5rem;">
+                <div style="display:flex; gap:0.5rem; align-items:center;">
+                  <span style="font-size:0.7rem; font-weight:700; color:var(--rose); min-width:60px;">Image 1 ★</span>
+                  <input type="text" id="admin-news-img" placeholder="https://… (image principale / hero)" style="flex:1; padding:0.6rem; background:var(--blanc); border:1px solid var(--rose-bord); color:var(--texte); font-family:var(--inter); border-radius:4px; font-size:0.82rem;" />
+                  <button type="button" onclick="previewImg('admin-news-img','prev-img1')" style="font-size:0.65rem; padding:0.4rem 0.6rem; background:var(--rose); color:#fff; border:none; cursor:pointer; border-radius:3px; white-space:nowrap;">Aperçu</button>
+                </div>
+                <img id="prev-img1" src="" style="display:none; max-height:100px; border-radius:4px; border:1px solid var(--rose-bord);" />
+                <div style="display:flex; gap:0.5rem; align-items:center;">
+                  <span style="font-size:0.7rem; font-weight:700; color:var(--texte-sec); min-width:60px;">Image 2</span>
+                  <input type="text" id="admin-news-img2" placeholder="https://… (galerie)" style="flex:1; padding:0.6rem; background:var(--blanc); border:1px solid var(--rose-bord); color:var(--texte); font-family:var(--inter); border-radius:4px; font-size:0.82rem;" />
+                  <button type="button" onclick="previewImg('admin-news-img2','prev-img2')" style="font-size:0.65rem; padding:0.4rem 0.6rem; background:var(--rose); color:#fff; border:none; cursor:pointer; border-radius:3px; white-space:nowrap;">Aperçu</button>
+                </div>
+                <img id="prev-img2" src="" style="display:none; max-height:80px; border-radius:4px; border:1px solid var(--rose-bord);" />
+                <div style="display:flex; gap:0.5rem; align-items:center;">
+                  <span style="font-size:0.7rem; font-weight:700; color:var(--texte-sec); min-width:60px;">Image 3</span>
+                  <input type="text" id="admin-news-img3" placeholder="https://… (galerie)" style="flex:1; padding:0.6rem; background:var(--blanc); border:1px solid var(--rose-bord); color:var(--texte); font-family:var(--inter); border-radius:4px; font-size:0.82rem;" />
+                  <button type="button" onclick="previewImg('admin-news-img3','prev-img3')" style="font-size:0.65rem; padding:0.4rem 0.6rem; background:var(--rose); color:#fff; border:none; cursor:pointer; border-radius:3px; white-space:nowrap;">Aperçu</button>
+                </div>
+                <img id="prev-img3" src="" style="display:none; max-height:80px; border-radius:4px; border:1px solid var(--rose-bord);" />
+              </div>
+            </div>
+
+            <!-- YouTube -->
+            <div class="form-group">
+              <label id="adm-lbl-ayt">🎬 ID Vidéo YouTube <span style="font-weight:400;opacity:0.7;">(optionnel — ex: dQw4w9WgXcQ)</span></label>
+              <div style="display:flex; gap:0.5rem; align-items:center;">
+                <input type="text" id="admin-news-yt" placeholder="Ex: dQw4w9WgXcQ" style="flex:1;" />
+                <button type="button" onclick="previewYoutube()" style="font-size:0.65rem; padding:0.5rem 0.8rem; background:var(--texte); color:#fff; border:none; cursor:pointer; border-radius:3px; white-space:nowrap;">Prévisualiser</button>
+              </div>
+              <div id="yt-preview-wrap" style="display:none; margin-top:0.5rem; position:relative; padding-bottom:30%; height:0; overflow:hidden; border-radius:4px; border:1px solid var(--rose-bord);">
+                <iframe id="yt-preview-iframe" src="" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div style="display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap; padding-top:0.5rem; border-top:1px solid var(--rose-bord); margin-top:0.5rem;">
+              <button class="btn-primary" style="padding: 0.65rem 1.5rem; font-size:0.75rem;" id="adm-btn-saven" onclick="saveNewsPro()">💾 Publier l'article</button>
+              <button class="btn-ghost" style="font-size:0.7rem;" id="adm-btn-resetn" onclick="resetNewsForm()">✕ Annuler / Reset</button>
+              <span id="article-save-feedback" style="font-size:0.72rem; color:var(--succes); display:none;">✓ Article sauvegardé !</span>
+            </div>
           </div>
         </div>
 
@@ -1418,7 +1580,7 @@
     const translations = {
       fr: {
         nav_club: "Club", nav_news: "Actualités", nav_res: "Résultats", nav_tick: "Billetterie", nav_shop: "Boutique", nav_prof: "Mon Profil", nav_param: "Paramètres", nav_badge: "Fondé en 2005",
-        hero_eyebrow: "Le Site Officiel", hero_sub: "Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.", hero_btn_ticket: "Réserver un billet", hero_btn_squad: "Découvrir l'effectif", hero_stat_year: "Année de création",
+        hero_eyebrow: "Le Site Officiel", hero_sub: "Depuis 2005, nous réécrivons les lignes du football de haut niveau avec passion, audace et un style incomparable.", hero_btn_ticket: "Commander un maillot", hero_btn_squad: "Découvrir l'effectif", hero_stat_year: "Année de création",
         eff_eyebrow: "Saison Globale", eff_title: "L'Effectif Pro", eff_lbl_players: "Joueurs Pro", eff_lbl_goal: "Objectif : Gagner", poste_g: "Gardiens (G)", poste_d: "Défenseurs (D)", poste_m: "Milieux (M)", poste_a: "Attaquants (A)",
         hist_eyebrow: "Récit", hist_title: "Notre Histoire", news_eyebrow: "Média",
         res_eyebrow: "Compétition", res_title: "Résultats Récents",
@@ -1431,7 +1593,7 @@
       },
       en: {
         nav_club: "Club", nav_news: "News", nav_res: "Results", nav_tick: "Tickets", nav_shop: "Shop", nav_prof: "My Profile", nav_param: "Settings", nav_badge: "Founded in 2005",
-        hero_eyebrow: "Official Website", hero_sub: "Since 2005, we have been rewriting the lines of top-level football with passion, boldness, and an incomparable style.", hero_btn_ticket: "Book a ticket", hero_btn_squad: "Discover the squad", hero_stat_year: "Creation Year",
+        hero_eyebrow: "Official Website", hero_sub: "Since 2005, we have been rewriting the lines of top-level football with passion, boldness, and an incomparable style.", hero_btn_ticket: "Order a jersey", hero_btn_squad: "Discover the squad", hero_stat_year: "Creation Year",
         eff_eyebrow: "Global Season", eff_title: "Pro Squad", eff_lbl_players: "Pro Players", eff_lbl_goal: "Goal: Winning", poste_g: "Goalkeepers (GK)", poste_d: "Defenders (DEF)", poste_m: "Midfielders (MID)", poste_a: "Forwards (FWD)",
         hist_eyebrow: "Story", hist_title: "Our History", news_eyebrow: "Media",
         res_eyebrow: "Competition", res_title: "Recent Results",
@@ -1444,7 +1606,7 @@
       },
       es: {
         nav_club: "Club", nav_news: "Noticias", nav_res: "Resultados", nav_tick: "Entradas", nav_shop: "Tienda", nav_prof: "Mi Perfil", nav_param: "Ajustes", nav_badge: "Fundado en 2005",
-        hero_eyebrow: "Sitio Web Oficial", hero_sub: "Desde 2005, hemos estado reescribiendo las líneas del fútbol de alto nivel con pasión, audacia y un estilo incomparable.", hero_btn_ticket: "Reservar entrada", hero_btn_squad: "Descubrir equipo", hero_stat_year: "Año de creación",
+        hero_eyebrow: "Sitio Web Oficial", hero_sub: "Desde 2005, hemos estado reescribiendo las líneas del fútbol de alto nivel con pasión, audacia y un estilo incomparable.", hero_btn_ticket: "Pedir camiseta", hero_btn_squad: "Descubrir equipo", hero_stat_year: "Año de creación",
         eff_eyebrow: "Temporada Global", eff_title: "Plantilla Pro", eff_lbl_players: "Jugadores Pro", eff_lbl_goal: "Objetivo: Ganar", poste_g: "Porteros (POR)", poste_d: "Defensas (DEF)", poste_m: "Centrocampistas (CEN)", poste_a: "Delanteros (DEL)",
         hist_eyebrow: "Historia", hist_title: "Nuestra Historia", news_eyebrow: "Medios",
         res_eyebrow: "Competición", res_title: "Resultados Recientes",
@@ -1748,40 +1910,102 @@
     }
 
     // Éditeur Articles (Amélioré)
+    function renderSimpleMarkdown(text) {
+      if(!text) return '';
+      return text
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/^## (.+)$/gm, '<h2 style="font-family:var(--bebas);font-size:1.8rem;color:var(--texte);margin:1.5rem 0 0.5rem;letter-spacing:0.02em;">$1</h2>')
+        .replace(/^# (.+)$/gm, '<h1 style="font-family:var(--bebas);font-size:2.2rem;color:var(--texte);margin:1.5rem 0 0.5rem;letter-spacing:0.02em;">$1</h1>')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/_(.+?)_/g, '<em>$1</em>')
+        .replace(/\n\n/g, '</p><p style="margin:0 0 1rem;">')
+        .replace(/\n/g, '<br/>')
+        .replace(/^/, '<p style="margin:0 0 1rem;">')
+        .replace(/$/, '</p>');
+    }
+
+    function insertTextFormat(before, after) {
+      const ta = document.getElementById('admin-news-body');
+      const start = ta.selectionStart, end = ta.selectionEnd;
+      const sel = ta.value.substring(start, end);
+      ta.value = ta.value.substring(0, start) + before + sel + after + ta.value.substring(end);
+      ta.focus();
+      ta.selectionStart = start + before.length;
+      ta.selectionEnd = start + before.length + sel.length;
+    }
+    function insertLineBreak() {
+      const ta = document.getElementById('admin-news-body');
+      const pos = ta.selectionStart;
+      ta.value = ta.value.substring(0, pos) + '\n\n' + ta.value.substring(pos);
+      ta.selectionStart = ta.selectionEnd = pos + 2;
+      ta.focus();
+    }
+    function previewImg(inputId, imgId) {
+      const url = document.getElementById(inputId).value.trim();
+      const el = document.getElementById(imgId);
+      if(url) { el.src = url; el.style.display = 'block'; el.onerror = () => el.style.display = 'none'; }
+      else { el.style.display = 'none'; }
+    }
+    function previewYoutube() {
+      const ytId = document.getElementById('admin-news-yt').value.trim();
+      const wrap = document.getElementById('yt-preview-wrap');
+      const iframe = document.getElementById('yt-preview-iframe');
+      if(ytId) { iframe.src = `https://www.youtube.com/embed/${ytId}`; wrap.style.display = 'block'; }
+      else { wrap.style.display = 'none'; iframe.src = ''; }
+    }
+
     function saveNewsPro() {
       const id = document.getElementById('admin-news-id').value;
-      const title = document.getElementById('admin-news-title').value;
-      const excerpt = document.getElementById('admin-news-excerpt').value;
-      const image = document.getElementById('admin-news-img').value;
-      const youtube = document.getElementById('admin-news-yt').value;
-      const date = document.getElementById('admin-news-date').value || "Juin 2026";
-      if(id !== "") db.ref('actualites/' + id).set({ title, excerpt, date, image, youtube });
-      else db.ref('actualites').push().set({ title, excerpt, date, image, youtube });
-      resetNewsForm();
+      const title = document.getElementById('admin-news-title').value.trim();
+      const excerpt = document.getElementById('admin-news-excerpt').value.trim();
+      const body = document.getElementById('admin-news-body').value.trim();
+      const image = document.getElementById('admin-news-img').value.trim();
+      const image2 = document.getElementById('admin-news-img2').value.trim();
+      const image3 = document.getElementById('admin-news-img3').value.trim();
+      const youtube = document.getElementById('admin-news-yt').value.trim();
+      const date = document.getElementById('admin-news-date').value.trim() || new Date().toLocaleDateString('fr-FR', {month:'long', year:'numeric'});
+      if(!title) { alert('Le titre est obligatoire.'); return; }
+      const articleData = { title, excerpt, body, date, image, image2, image3, youtube };
+      const done = () => {
+        const fb = document.getElementById('article-save-feedback');
+        fb.style.display = 'inline';
+        setTimeout(() => fb.style.display = 'none', 3000);
+        resetNewsForm();
+      };
+      if(id !== "") db.ref('actualites/' + id).set(articleData).then(done);
+      else db.ref('actualites').push().set(articleData).then(done);
     }
 
     function editNewsPro(index) {
       const a = actualites[index];
       document.getElementById('admin-news-id').value = actualitesKeys[index];
-      document.getElementById('admin-news-title').value = a.title;
-      document.getElementById('admin-news-excerpt').value = a.excerpt;
-      document.getElementById('admin-news-img').value = a.image || "";
-      document.getElementById('admin-news-yt').value = a.youtube || "";
-      document.getElementById('admin-news-date').value = a.date;
-      document.getElementById('article-form-title').innerText = "Modification d'un Article en cours...";
+      document.getElementById('admin-news-title').value = a.title || '';
+      document.getElementById('admin-news-excerpt').value = a.excerpt || '';
+      document.getElementById('admin-news-body').value = a.body || a.excerpt || '';
+      document.getElementById('admin-news-img').value = a.image || '';
+      document.getElementById('admin-news-img2').value = a.image2 || '';
+      document.getElementById('admin-news-img3').value = a.image3 || '';
+      document.getElementById('admin-news-yt').value = a.youtube || '';
+      document.getElementById('admin-news-date').value = a.date || '';
+      document.getElementById('article-form-title').innerText = "✏️ Modification : " + a.title;
       document.getElementById('article-form-title').style.color = "var(--rose)";
+      // Show previews
+      ['admin-news-img','admin-news-img2','admin-news-img3'].forEach((id, i) => previewImg(id, 'prev-img'+(i+1)));
+      // Scroll to editor
+      document.getElementById('adm-h-news').scrollIntoView({ behavior:'smooth', block:'start' });
     }
 
     function deleteNewsPro(index) {
-      if(confirm('Supprimer ?')) db.ref('actualites/' + actualitesKeys[index]).remove();
+      if(confirm('Supprimer cet article ?')) db.ref('actualites/' + actualitesKeys[index]).remove();
     }
     function resetNewsForm() {
-      document.getElementById('admin-news-id').value = "";
-      document.getElementById('admin-news-title').value = "";
-      document.getElementById('admin-news-excerpt').value = "";
-      document.getElementById('admin-news-img').value = "";
-      document.getElementById('admin-news-yt').value = "";
-      document.getElementById('admin-news-date').value = "";
+      ['admin-news-id','admin-news-title','admin-news-excerpt','admin-news-body','admin-news-img','admin-news-img2','admin-news-img3','admin-news-yt','admin-news-date'].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.value = '';
+      });
+      ['prev-img1','prev-img2','prev-img3'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
+      const ytWrap = document.getElementById('yt-preview-wrap');
+      if(ytWrap) { ytWrap.style.display='none'; document.getElementById('yt-preview-iframe').src=''; }
       document.getElementById('article-form-title').innerText = "Créer / Modifier un Article";
       document.getElementById('article-form-title').style.color = "inherit";
     }
@@ -2032,8 +2256,11 @@
     // VISUAL RENDERS BASES D'ORIGINE CONSERVÉS À 100%
     function showPage(pageId) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      // Also hide product detail
+      // Also hide product & article detail pages
       document.getElementById('page-product-detail').classList.remove('active');
+      const artPage = document.getElementById('page-article-detail');
+      artPage.classList.remove('active');
+      artPage.style.display = 'none';
       document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
       const targetPage = document.getElementById(`page-${pageId}`);
       if(targetPage) targetPage.classList.add('active');
@@ -2075,16 +2302,71 @@
     }
 
     function renderActualites() {
-      document.getElementById('news-container').innerHTML = actualites.map((a, index) => `
-        <div class="news-card">
-          <div class="news-card-body">
-            <div class="news-tag">Club Actu</div>
-            <h3 class="news-card-title">${a.title}</h3>
-            <p class="news-card-excerpt">${a.excerpt}</p>
-            <div class="news-card-meta">${a.date}</div>
+      document.getElementById('news-container').innerHTML = actualites.map((a, index) => {
+        const imgHtml = a.image ? `<div style="height:180px;overflow:hidden;border-radius:6px 6px 0 0;"><img src="${a.image}" alt="${a.title}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.display='none'" /></div>` : '';
+        return `
+          <div class="news-card" onclick="openArticleDetail(${index})" style="cursor:pointer;">
+            ${imgHtml}
+            <div class="news-card-body">
+              <div class="news-tag">Club Actu</div>
+              <h3 class="news-card-title">${a.title}</h3>
+              <p class="news-card-excerpt">${a.excerpt ? a.excerpt.substring(0,140) + (a.excerpt.length > 140 ? '…' : '') : ''}</p>
+              <div class="news-card-meta">${a.date} — <span style="color:var(--rose);font-weight:700;">Lire la suite →</span></div>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
+    }
+
+    function openArticleDetail(index) {
+      const a = actualites[index];
+      // Hero image
+      const heroEl = document.getElementById('art-hero-img');
+      if(a.image) {
+        heroEl.innerHTML = `<img src="${a.image}" alt="${a.title}" onerror="this.parentElement.innerHTML='<div class=art-hero-placeholder>📰</div>'" />`;
+      } else {
+        heroEl.innerHTML = `<div class="art-hero-placeholder">📰</div>`;
+      }
+      document.getElementById('art-date').innerText = a.date || '';
+      document.getElementById('art-title').innerText = a.title || '';
+      // Body — use full body field, fallback to excerpt. Render simple markdown.
+      const rawBody = a.body || a.excerpt || '';
+      document.getElementById('art-body').innerHTML = renderSimpleMarkdown(rawBody);
+      // Gallery — extra images
+      const galleryEl = document.getElementById('art-gallery');
+      const extraImgs = [a.image2, a.image3, a.image4].filter(Boolean);
+      if(extraImgs.length) {
+        galleryEl.innerHTML = extraImgs.map(src => `<img src="${src}" alt="" onerror="this.style.display='none'" />`).join('');
+        galleryEl.style.display = 'grid';
+      } else {
+        galleryEl.innerHTML = '';
+        galleryEl.style.display = 'none';
+      }
+      // YouTube
+      const videoWrap = document.getElementById('art-video');
+      const ytIframe = document.getElementById('art-yt-iframe');
+      if(a.youtube) {
+        ytIframe.src = `https://www.youtube.com/embed/${a.youtube}`;
+        videoWrap.style.display = 'block';
+      } else {
+        ytIframe.src = '';
+        videoWrap.style.display = 'none';
+      }
+      // Show page
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-product-detail').classList.remove('active');
+      const artPage = document.getElementById('page-article-detail');
+      artPage.style.display = 'block';
+      artPage.classList.add('active');
+      window.scrollTo(0,0);
+    }
+
+    function closeArticleDetail() {
+      const artPage = document.getElementById('page-article-detail');
+      artPage.classList.remove('active');
+      artPage.style.display = 'none';
+      document.getElementById('page-actualites').classList.add('active');
+      window.scrollTo(0,0);
     }
 
     function renderTimeline() {
@@ -2131,10 +2413,10 @@
         const badgeHtml = p.promoBadge ? `<div class="product-card-badge promo">${p.promoBadge}</div>` : (p.badge ? `<div class="product-card-badge">${p.badge}</div>` : '');
         const isUnavailable = p.salesStatus === 'disabled';
         const cartBtnHtml = isUnavailable
-          ? `<button class="btn-unavailable" style="margin-top:0.75rem; width:100%; display:block;" disabled>✕ Indisponible</button>`
+          ? `<button class="btn-unavailable" style="margin-top:0.75rem; width:100%; display:block;" disabled onclick="event.stopPropagation()">✕ Indisponible</button>`
           : `<button class="btn-primary" style="margin-top:0.75rem;" onclick="event.stopPropagation();handleAddToCart('${p.name.replace(/'/g,"\\'")}', ${p.price})">🛒 Ajouter au panier</button>`;
         return `
-          <div class="product-card${isUnavailable ? ' product-card-disabled' : ''}" onclick="${isUnavailable ? '' : `openProductDetail(${realIdx})`}" style="${isUnavailable ? 'cursor:default; opacity:0.75;' : ''}">
+          <div class="product-card" onclick="openProductDetail(${realIdx})" style="${isUnavailable ? 'opacity:0.8;' : ''}">
             ${badgeHtml}
             <div class="jersey-container" style="height:220px;">${img}</div>
             <div class="product-name">${p.name}</div>
