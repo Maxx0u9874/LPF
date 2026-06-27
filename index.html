@@ -275,6 +275,183 @@
     .product-name { font-family: var(--bebas); font-size: 1.6rem; color: var(--texte); letter-spacing: 0.02em; margin-bottom: 0.3rem; line-height: 1.2; }
     .product-price { font-size: 1.15rem; font-weight: 700; color: var(--rose); margin-bottom: 1.25rem; }
 
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE: BOUTIQUE AMÉLIORÉE
+    ═══════════════════════════════════════════════════════════════ */
+    .shop-hero {
+      position: relative; min-height: 340px; display: flex; align-items: flex-end;
+      padding: 3rem 2rem 3rem; overflow: hidden;
+      background: linear-gradient(160deg, var(--rose-pale) 0%, var(--blanc) 60%);
+      border-bottom: 1px solid var(--rose-bord);
+    }
+    @media (min-width: 768px) { .shop-hero { padding: 4rem 4rem 3.5rem; min-height: 400px; } }
+    .shop-hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('entete');
+      background-size: cover; background-position: center;
+      opacity: 0.18; filter: saturate(1.2);
+    }
+    .shop-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(170deg, rgba(232,119,154,0.08) 0%, var(--blanc) 85%);
+    }
+    .shop-hero-content { position: relative; z-index: 2; }
+    .shop-hero-watermark {
+      position: absolute; right: -2%; bottom: -15%; z-index: 1;
+      font-family: var(--bebas); font-size: clamp(5rem, 14vw, 11rem);
+      color: transparent; -webkit-text-stroke: 1px rgba(232, 119, 154, 0.1);
+      white-space: nowrap; pointer-events: none; user-select: none; letter-spacing: 0.04em;
+    }
+    .shop-filter-bar {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--rose-bord); background: var(--gris-clair);
+    }
+    @media (min-width: 768px) { .shop-filter-bar { padding: 1.25rem 4rem; } }
+    .shop-filter-btn {
+      padding: 0.4rem 1.1rem; font-size: 0.7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em; border: 1px solid var(--rose-bord);
+      background: var(--blanc); color: var(--texte-sec); cursor: pointer; border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .shop-filter-btn:hover, .shop-filter-btn.active { background: var(--rose); color: #fff; border-color: var(--rose); }
+
+    .product-card { cursor: pointer; }
+    .product-card-badge {
+      position: absolute; top: 12px; left: 12px; background: var(--rose); color: #fff;
+      font-size: 0.58rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.22rem 0.6rem; border-radius: 2px;
+    }
+    .product-card-badge.promo { background: #D97B1C; }
+    .product-promo-price { font-size: 0.88rem; text-decoration: line-through; color: var(--texte-sec); margin-right: 0.5rem; }
+    .product-stock { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    .product-stock.ok { color: var(--succes); }
+    .product-stock.low { color: #D97B1C; }
+    .product-stock.out { color: var(--danger); }
+
+    /* IMAGE ZOOM dans la card */
+    .jersey-container img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .product-card:hover .jersey-container img { transform: scale(1.06); }
+
+    /* ═══ PAGE DETAIL PRODUIT ═══ */
+    #page-product-detail { display: none; padding-top: 68px; min-height: 100vh; }
+    #page-product-detail.active { display: block; animation: fadeIn 0.4s ease-out; }
+
+    .product-detail-back {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--texte-sec); cursor: pointer; margin: 2rem 2rem 0;
+      background: none; border: none; transition: color 0.2s;
+    }
+    @media (min-width: 768px) { .product-detail-back { margin: 2rem 4rem 0; } }
+    .product-detail-back:hover { color: var(--rose); }
+
+    .product-detail-grid {
+      display: grid; grid-template-columns: 1fr; gap: 2.5rem;
+      padding: 2rem; max-width: 1100px; margin: 0 auto;
+    }
+    @media (min-width: 768px) { .product-detail-grid { grid-template-columns: 1fr 1fr; padding: 3rem 4rem; gap: 4rem; } }
+
+    /* Carousel */
+    .carousel-wrap { position: relative; background: var(--gris-clair); border-radius: 8px; overflow: hidden; aspect-ratio: 1 / 1; }
+    .carousel-track { display: flex; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); height: 100%; }
+    .carousel-slide { min-width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .carousel-slide img { max-width: 100%; max-height: 100%; object-fit: contain; padding: 1.5rem; }
+    .carousel-slide .emoji-placeholder { font-size: 6rem; }
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: var(--blanc); border: 1px solid var(--rose-bord); color: var(--texte);
+      width: 40px; height: 40px; border-radius: 50%; font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; z-index: 5;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: all 0.2s;
+    }
+    .carousel-btn:hover { background: var(--rose); color: #fff; border-color: var(--rose); }
+    .carousel-btn.prev { left: 12px; }
+    .carousel-btn.next { right: 12px; }
+    .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 1rem; }
+    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rose-bord); cursor: pointer; transition: all 0.2s; border: none; }
+    .carousel-dot.active { background: var(--rose); transform: scale(1.3); }
+
+    /* Détail info */
+    .detail-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .detail-tag { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em; color: var(--rose); }
+    .detail-title { font-family: var(--bebas); font-size: clamp(2.2rem, 5vw, 3.5rem); letter-spacing: 0.02em; line-height: 1; color: var(--texte); }
+    .detail-price-row { display: flex; align-items: center; gap: 1rem; }
+    .detail-price { font-size: 2rem; font-weight: 700; color: var(--rose); }
+    .detail-old-price { font-size: 1.1rem; text-decoration: line-through; color: var(--texte-sec); }
+    .detail-promo-badge { background: #D97B1C; color: #fff; padding: 0.2rem 0.65rem; font-size: 0.7rem; font-weight: 800; border-radius: 2px; }
+    .detail-size-grid { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .size-btn { width: 48px; height: 48px; border: 1px solid var(--rose-bord); background: var(--blanc); font-size: 0.75rem; font-weight: 700; cursor: pointer; border-radius: 4px; transition: all 0.2s; }
+    .size-btn:hover, .size-btn.active { background: var(--rose); color: #fff; border-color: var(--rose); }
+    .detail-actions { display: flex; flex-direction: column; gap: 0.75rem; }
+    .btn-order-direct { background: var(--texte); color: #fff; border: none; padding: 0.85rem 2rem; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; cursor: pointer; transition: all 0.3s; border-radius: 2px; }
+    .btn-order-direct:hover { opacity: 0.85; transform: translateY(-1px); }
+    .detail-desc { font-size: 0.88rem; color: var(--texte-sec); line-height: 1.8; border-top: 1px solid var(--rose-bord); padding-top: 1.5rem; }
+
+    /* ═══ BILLETTERIE : ABONNEMENTS ═══ */
+    .stadium-banner {
+      background: linear-gradient(135deg, var(--texte) 0%, #2D1520 100%);
+      color: #fff; padding: 2rem 2rem 1.5rem; position: relative; overflow: hidden;
+    }
+    @media (min-width: 768px) { .stadium-banner { padding: 2.5rem 4rem; } }
+    .stadium-banner::before {
+      content: "DUREX STADIUM";
+      position: absolute; right: -2%; bottom: -20%;
+      font-family: var(--bebas); font-size: clamp(4rem, 10vw, 8rem);
+      color: rgba(255,255,255,0.04); white-space: nowrap; pointer-events: none;
+    }
+    .stadium-name { font-family: var(--bebas); font-size: clamp(1.8rem, 4vw, 3rem); color: var(--rose); letter-spacing: 0.06em; }
+    .stadium-capacity { font-size: 0.75rem; color: rgba(255,255,255,0.6); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.25rem; }
+
+    .bill-tabs { display: flex; border-bottom: 2px solid var(--rose-bord); margin-bottom: 2.5rem; gap: 0; }
+    .bill-tab {
+      padding: 0.9rem 1.75rem; font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; cursor: pointer; border: none; background: none; color: var(--texte-sec);
+      border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s;
+    }
+    .bill-tab.active { color: var(--rose); border-bottom-color: var(--rose); }
+    .bill-tab-content { display: none; }
+    .bill-tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+    .abos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+    .abo-card {
+      border: 1px solid var(--rose-bord); background: var(--blanc); padding: 2rem; border-radius: 6px;
+      position: relative; transition: all 0.3s; box-shadow: var(--card-shadow);
+    }
+    .abo-card:hover { transform: translateY(-4px); border-color: var(--rose); box-shadow: 0 16px 40px rgba(232,119,154,0.12); }
+    .abo-card.featured { border-color: var(--rose); background: linear-gradient(160deg, var(--rose-pale) 0%, var(--blanc) 100%); }
+    .abo-badge {
+      position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+      background: var(--rose); color: #fff; font-size: 0.58rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.12em; padding: 0.25rem 0.9rem; border-radius: 0 0 4px 4px;
+    }
+    .abo-name { font-family: var(--bebas); font-size: 1.8rem; color: var(--texte); letter-spacing: 0.02em; margin-bottom: 0.25rem; }
+    .abo-price { font-size: 2.4rem; font-weight: 800; color: var(--rose); line-height: 1; }
+    .abo-price span { font-size: 0.9rem; font-weight: 400; color: var(--texte-sec); }
+    .abo-features { list-style: none; margin: 1.25rem 0; display: flex; flex-direction: column; gap: 0.5rem; }
+    .abo-features li { font-size: 0.82rem; color: var(--texte-sec); display: flex; align-items: center; gap: 0.5rem; }
+    .abo-features li::before { content: "✓"; color: var(--succes); font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+
+    /* ═══ PROFIL AMÉLIORÉ ═══ */
+    .profile-stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .profile-stat-box { background: var(--rose-pale); border: 1px solid var(--rose-bord); border-radius: 6px; padding: 1rem; text-align: center; }
+    .profile-stat-box .num { font-family: var(--bebas); font-size: 2rem; color: var(--rose); }
+    .profile-stat-box .lbl { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--texte-sec); margin-top: 0.1rem; }
+
+    .profile-history-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; }
+    .profile-history-item { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1rem; background: var(--gris-clair); border-radius: 4px; border: 1px solid var(--rose-bord); font-size: 0.82rem; }
+    .profile-history-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+    /* Connexion : rester connecté */
+    .stay-logged-row { display: flex; align-items: center; gap: 0.5rem; margin: 0.75rem 0 1rem; }
+    .stay-logged-row input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--rose); cursor: pointer; }
+    .stay-logged-row label { font-size: 0.78rem; color: var(--texte-sec); cursor: pointer; }
+
+    /* Admin boutique block */
+    .admin-product-row { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 0.5rem; border-bottom: 1px solid var(--rose-bord); flex-wrap: wrap; }
+    .admin-product-row:last-child { border-bottom: none; }
+    .admin-product-name { font-size: 0.82rem; font-weight: 600; flex: 1; min-width: 100px; }
+    .admin-product-price { font-size: 0.82rem; color: var(--rose); font-weight: 700; width: 60px; }
+
     /* Cart Bubble & Panels */
     .cart-bubble { position: fixed; bottom: 2rem; right: 2rem; background: var(--rose); color: white; border: none; width: 56px; height: 56px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 1.3rem; z-index: 300; cursor: pointer; box-shadow: 0 4px 16px rgba(232, 119, 154, 0.4); }
     .cart-bubble.show { display: flex; }
@@ -462,18 +639,141 @@
       <p class="section-eyebrow" id="bill-eyebrow" data-i18n="bill_eyebrow">Matchs</p>
       <h2 class="section-title" id="bill-title">Billetterie <em>Officielle</em></h2>
     </div>
+    <div class="stadium-banner">
+      <p style="font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:0.3rem;">Enceinte Officielle</p>
+      <div class="stadium-name">Durex Stadium</div>
+      <div class="stadium-capacity">Capacité : 28 500 places · Châtellerault</div>
+    </div>
     <div class="sec">
-      <div class="match-container-box" id="matchs-container"></div>
+      <div class="bill-tabs">
+        <button class="bill-tab active" onclick="switchBillTab('matchs', this)">Prochain Match</button>
+        <button class="bill-tab" onclick="switchBillTab('abos', this)">Abonnements Saison</button>
+      </div>
+
+      <!-- ONGLET MATCH -->
+      <div class="bill-tab-content active" id="bill-tab-matchs">
+        <div class="match-container-box" id="matchs-container"></div>
+      </div>
+
+      <!-- ONGLET ABONNEMENTS -->
+      <div class="bill-tab-content" id="bill-tab-abos">
+        <p class="section-eyebrow" style="margin-bottom:0.5rem;">Saison 2025/2026</p>
+        <h3 style="font-family:var(--bebas); font-size:clamp(1.8rem,4vw,3rem); margin-bottom:0.5rem; color:var(--texte);">Choisissez votre <em style="font-style:normal;color:var(--rose);">Formule</em></h3>
+        <p style="font-size:0.88rem; color:var(--texte-sec); margin-bottom:2.5rem; max-width:500px; line-height:1.7;">Profitez de tous les matchs à domicile au Durex Stadium avec des avantages exclusifs réservés aux abonnés.</p>
+        <div class="abos-grid">
+          <div class="abo-card">
+            <div class="abo-name">Virage Nord</div>
+            <div class="abo-price">129 <span>€ / saison</span></div>
+            <ul class="abo-features">
+              <li>Accès à tous les matchs domicile</li>
+              <li>Place en Virage Nord (debout)</li>
+              <li>Écharpe abonné offerte</li>
+              <li>10% de remise en boutique</li>
+            </ul>
+            <button class="btn-primary" style="width:100%;" onclick="addToCart('Abonnement Virage Nord', 129)">S'abonner — 129 €</button>
+          </div>
+          <div class="abo-card featured">
+            <div class="abo-badge">⭐ Le plus populaire</div>
+            <div class="abo-name">Tribune Centrale</div>
+            <div class="abo-price">249 <span>€ / saison</span></div>
+            <ul class="abo-features">
+              <li>Accès à tous les matchs domicile</li>
+              <li>Siège numéroté en Tribune Centrale</li>
+              <li>Maillot domicile offert (après 2e saison)</li>
+              <li>20% de remise en boutique</li>
+              <li>Accès lounge avant-match</li>
+            </ul>
+            <button class="btn-primary" style="width:100%;" onclick="addToCart('Abonnement Tribune Centrale', 249)">S'abonner — 249 €</button>
+          </div>
+          <div class="abo-card">
+            <div class="abo-name">VIP Loge</div>
+            <div class="abo-price">590 <span>€ / saison</span></div>
+            <ul class="abo-features">
+              <li>Accès à tous les matchs domicile</li>
+              <li>Place VIP en loge privative</li>
+              <li>Hospitalité matchs : repas inclus</li>
+              <li>Maillot signé par le capitaine</li>
+              <li>30% de remise en boutique</li>
+              <li>Accès vestiaires hors compétition</li>
+            </ul>
+            <button class="btn-primary" style="width:100%;" onclick="addToCart('Abonnement VIP Loge', 590)">S'abonner — 590 €</button>
+          </div>
+          <div class="abo-card" style="border-style:dashed;">
+            <div class="abo-name">Jeune (<18 ans)</div>
+            <div class="abo-price">79 <span>€ / saison</span></div>
+            <ul class="abo-features">
+              <li>Accès à tous les matchs domicile</li>
+              <li>Place en Virage Nord ou Tribune Basse</li>
+              <li>Kit supporter offert</li>
+              <li>5% de remise en boutique</li>
+            </ul>
+            <button class="btn-primary" style="width:100%;" onclick="addToCart('Abonnement Jeune', 79)">S'abonner — 79 €</button>
+          </div>
+        </div>
+        <p style="font-size:0.72rem; color:var(--texte-sec); margin-top:2rem; text-align:center;">* Les abonnements sont nominatifs et non remboursables. Paiement en 3x sans frais disponible.</p>
+      </div>
     </div>
   </div>
 
   <div id="page-boutique" class="page">
-    <div class="premium-header">
-      <p class="section-eyebrow" id="shop-eyebrow" data-i18n="shop_eyebrow">Look</p>
-      <h2 class="section-title" id="shop-title">La Boutique <em>Pro</em></h2>
+    <div class="shop-hero">
+      <div class="shop-hero-bg"></div>
+      <div class="shop-hero-overlay"></div>
+      <div class="shop-hero-watermark">PIGNOUFERIE STORE</div>
+      <div class="shop-hero-content">
+        <p class="section-eyebrow" id="shop-eyebrow" data-i18n="shop_eyebrow">Look</p>
+        <h2 class="section-title" id="shop-title" style="margin-bottom:0.75rem;">La Boutique <em>Pro</em></h2>
+        <p style="font-size:0.88rem; color:var(--texte-sec); max-width:460px; font-weight:300; line-height:1.7;">Portez les couleurs. Maillots officiels, accessoires et éditions limitées du club.</p>
+      </div>
     </div>
-    <div class="sec">
+    <div class="shop-filter-bar">
+      <button class="shop-filter-btn active" onclick="filterShop('all', this)">Tout</button>
+      <button class="shop-filter-btn" onclick="filterShop('jersey', this)">Maillots</button>
+      <button class="shop-filter-btn" onclick="filterShop('accessory', this)">Accessoires</button>
+    </div>
+    <div class="sec" style="padding-top:2.5rem;">
       <div class="shop-grid" id="boutique-container"></div>
+    </div>
+  </div>
+
+  <!-- PAGE DETAIL PRODUIT -->
+  <div id="page-product-detail">
+    <button class="product-detail-back" onclick="closeProductDetail()">← Retour à la boutique</button>
+    <div class="product-detail-grid">
+      <div>
+        <div class="carousel-wrap">
+          <div class="carousel-track" id="detail-carousel-track"></div>
+          <button class="carousel-btn prev" onclick="carouselMove(-1)">‹</button>
+          <button class="carousel-btn next" onclick="carouselMove(1)">›</button>
+        </div>
+        <div class="carousel-dots" id="carousel-dots"></div>
+      </div>
+      <div class="detail-info">
+        <div class="detail-tag" id="detail-tag">Maillot Officiel</div>
+        <h1 class="detail-title" id="detail-title">Maillot Domicile Pro 2026</h1>
+        <div class="detail-price-row">
+          <span class="detail-price" id="detail-price">85 €</span>
+          <span class="detail-old-price" id="detail-old-price" style="display:none;"></span>
+          <span class="detail-promo-badge" id="detail-promo-badge" style="display:none;"></span>
+        </div>
+        <div>
+          <p style="font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.6rem; color:var(--texte-sec);">Taille</p>
+          <div class="detail-size-grid">
+            <button class="size-btn" onclick="selectSize(this)">XS</button>
+            <button class="size-btn active" onclick="selectSize(this)">S</button>
+            <button class="size-btn" onclick="selectSize(this)">M</button>
+            <button class="size-btn" onclick="selectSize(this)">L</button>
+            <button class="size-btn" onclick="selectSize(this)">XL</button>
+            <button class="size-btn" onclick="selectSize(this)">XXL</button>
+          </div>
+        </div>
+        <div class="detail-actions" id="detail-actions">
+          <button class="btn-primary" id="detail-btn-cart" onclick="addToCartFromDetail()">🛒 Ajouter au panier</button>
+          <button class="btn-order-direct" id="detail-btn-order" onclick="orderDirectFromDetail()">⚡ Commander directement</button>
+          <p id="detail-login-notice" style="font-size:0.75rem; color:var(--texte-sec); display:none;">Connectez-vous pour commander directement.</p>
+        </div>
+        <p class="detail-desc" id="detail-desc">Maillot authentique porté par l'équipe professionnelle. Tissu technique haute performance, coupe athlétique. Flocage personnalisable disponible.</p>
+      </div>
     </div>
   </div>
 
@@ -511,6 +811,10 @@
           <label id="label-password" for="auth-password" data-i18n="auth_pass">Mot de passe</label>
           <input type="password" id="auth-password" required />
         </div>
+        <div class="stay-logged-row" id="stay-logged-row">
+          <input type="checkbox" id="stay-logged-checkbox" />
+          <label for="stay-logged-checkbox">Rester connecté sur cet appareil</label>
+        </div>
         <button type="submit" class="btn-primary" style="width:100%; margin-top:0.5rem;" id="auth-submit-btn" data-i18n="auth_btn_login">Se connecter</button>
       </form>
     </div>
@@ -527,10 +831,18 @@
             <span id="user-avatar-disp" style="font-size:4.5rem; display:block; line-height:115px;">👤</span>
           </div>
           <h3 id="user-pseudo-disp" style="font-family:var(--bebas); font-size:1.8rem; margin-bottom:0.2rem;">Supporter_Pignouf</h3>
-          <p id="user-email-disp" style="font-size:0.8rem; color:var(--texte-sec); margin-bottom:1rem;">user@pignouferie.com</p>
+          <p id="user-email-disp" style="font-size:0.8rem; color:var(--texte-sec); margin-bottom:0.5rem;">user@pignouferie.com</p>
+          <p id="user-bio-disp" style="font-size:0.78rem; color:var(--texte-sec); margin-bottom:0.75rem; font-style:italic;"></p>
           <div class="profile-badge-tag" id="user-badge-disp">Fidèle Abonné</div>
-          
-          <button class="btn-ghost" style="margin-top:2rem; color:var(--danger); border-color:var(--rose-bord); font-size:0.7rem;" onclick="logoutUser()" data-i18n="prof_logout">Se déconnecter</button>
+          <p id="user-since-disp" style="font-size:0.65rem; color:var(--texte-sec); margin-top:0.75rem; letter-spacing:0.05em;">Membre depuis <strong id="user-since-year">2026</strong></p>
+
+          <div class="profile-stats-row" style="margin-top:1.5rem;">
+            <div class="profile-stat-box"><div class="num" id="stat-orders">0</div><div class="lbl">Commandes</div></div>
+            <div class="profile-stat-box"><div class="num" id="stat-billets">0</div><div class="lbl">Billets</div></div>
+            <div class="profile-stat-box"><div class="num">⭐</div><div class="lbl">Fidélité</div></div>
+          </div>
+
+          <button class="btn-ghost" style="margin-top:1.75rem; color:var(--danger); border-color:var(--rose-bord); font-size:0.7rem;" onclick="logoutUser()" data-i18n="prof_logout">Se déconnecter</button>
         </div>
 
         <div class="profile-main-content">
@@ -543,6 +855,11 @@
             </div>
 
             <div class="form-group">
+              <label>Bio (courte présentation)</label>
+              <textarea id="input-profile-bio" rows="2" placeholder="Ex: Ultra de la tribune Nord depuis 2015…" oninput="updateProfileLive()"></textarea>
+            </div>
+
+            <div class="form-group">
               <label data-i18n="prof_lbl_avatar">Choisir un Avatar Officiel</label>
               <div class="avatar-picker-grid">
                 <div class="avatar-option selected" onclick="selectAvatar('👤', this)">👤</div>
@@ -550,6 +867,11 @@
                 <div class="avatar-option" onclick="selectAvatar('⚽', this)">⚽</div>
                 <div class="avatar-option" onclick="selectAvatar('👑', this)">👑</div>
                 <div class="avatar-option" onclick="selectAvatar('🦅', this)">🦅</div>
+                <div class="avatar-option" onclick="selectAvatar('🐺', this)">🐺</div>
+                <div class="avatar-option" onclick="selectAvatar('🔥', this)">🔥</div>
+                <div class="avatar-option" onclick="selectAvatar('💎', this)">💎</div>
+                <div class="avatar-option" onclick="selectAvatar('🎯', this)">🎯</div>
+                <div class="avatar-option" onclick="selectAvatar('🏆', this)">🏆</div>
               </div>
             </div>
 
@@ -560,6 +882,8 @@
                 <option value="Capo des Ultras">Capo des Ultras</option>
                 <option value="Légende du Club">Légende du Club</option>
                 <option value="Tacticien Rose">Tacticien Rose</option>
+                <option value="Recrue 2026">Recrue 2026</option>
+                <option value="Collecteur de Maillots">Collecteur de Maillots</option>
               </select>
             </div>
 
@@ -573,6 +897,14 @@
             </div>
             
             <button class="btn-primary" style="font-size:0.7rem; width:100%;" onclick="saveProfileData()" data-i18n="prof_btn_save">Enregistrer mon profil</button>
+          </div>
+
+          <!-- Historique de commandes -->
+          <div class="settings-card" style="box-shadow:var(--card-shadow); border:1px solid var(--rose-bord);">
+            <h3 style="font-size:1.2rem; color:var(--texte);">Historique des commandes</h3>
+            <div class="profile-history-list" id="profile-order-history">
+              <p style="font-size:0.82rem; color:var(--texte-sec);">Aucune commande passée pour le moment.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -741,6 +1073,38 @@
         </div>
 
         <div class="admin-block">
+          <h3>Gérer la Boutique</h3>
+          <div id="adm-boutique-list"></div>
+          <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord); border-radius:4px; margin-top:0.75rem;">
+            <h4 style="font-size:0.8rem; margin-bottom:0.75rem;" id="adm-prod-form-title">Créer / Modifier un Produit</h4>
+            <input type="hidden" id="adm-prod-id" value="" />
+            <div class="form-group"><label>Nom du Produit</label><input type="text" id="adm-prod-name" placeholder="Ex: Maillot Domicile Pro" /></div>
+            <div class="form-group"><label>Type</label>
+              <select id="adm-prod-type">
+                <option value="jersey">Maillot (jersey)</option>
+                <option value="accessory">Accessoire</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Prix (€)</label><input type="number" id="adm-prod-price" value="85" step="0.01" /></div>
+            <div class="form-group"><label>Prix barré / Promo (€) — laisser vide si aucun</label><input type="number" id="adm-prod-promo" placeholder="Ex: 99" step="0.01" /></div>
+            <div class="form-group"><label>Badge promo (Ex: -15%) — laisser vide si aucun</label><input type="text" id="adm-prod-promobadge" placeholder="Ex: -15%" /></div>
+            <div class="form-group"><label>Image 1 (nom fichier sans extension, ex: maillot1)</label><input type="text" id="adm-prod-img1" placeholder="maillot1" /></div>
+            <div class="form-group"><label>Image 2 (optionnel)</label><input type="text" id="adm-prod-img2" placeholder="maillot2" /></div>
+            <div class="form-group"><label>Image 3 (optionnel)</label><input type="text" id="adm-prod-img3" placeholder="maillot3" /></div>
+            <div class="form-group"><label>Disponibilité</label>
+              <select id="adm-prod-status">
+                <option value="available">Disponible</option>
+                <option value="low">Stock limité</option>
+                <option value="disabled">Indisponible</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Description courte</label><textarea id="adm-prod-desc" rows="2" placeholder="Description du produit…"></textarea></div>
+            <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.7rem;" onclick="saveProductAdmin()">Sauvegarder le produit</button>
+            <button class="btn-ghost" style="font-size:0.65rem; margin-left:0.5rem;" onclick="resetProductAdminForm()">Annuler</button>
+          </div>
+        </div>
+
+        <div class="admin-block">
           <h3 id="adm-h-bill">Gérer le Prochain Match (Billetterie)</h3>
           <div class="form-group"><label id="adm-lbl-mhom">Équipe Domicile</label><input type="text" id="adm-match-home" value="La Pignouferie FC" /></div>
           <div class="form-group"><label id="adm-lbl-mawy">Équipe Extérieur</label><input type="text" id="adm-match-away" /></div>
@@ -806,10 +1170,16 @@
     let resultatsData = [];
     let resultatsKeys = [];
     let boutiqueProduits = [
-      { id: 0, type: "jersey", badge: "Home", name: "Maillot Domicile Pro 2026", price: 85, color: "#E8779A", subColor: "#FFFFFF", emoji: "👕", salesStatus: "disabled" },
-      { id: 1, type: "jersey", badge: "Away", name: "Maillot Extérieur 2026", price: 85, color: "#FFFFFF", subColor: "#E8779A", emoji: "👕", salesStatus: "disabled" },
-      { id: 2, type: "accessory", emoji: "🧣", name: "Écharpe Ultras Pignouferie", price: 18, salesStatus: "disabled" }
+      { id: 0, type: "jersey", badge: "Domicile", name: "Maillot Domicile Pro 2026", price: 85, imgs: ["maillot1","maillot2","maillot3"], salesStatus: "available", desc: "Maillot authentique porté par l'équipe professionnelle. Tissu technique haute performance, coupe athlétique." },
+      { id: 1, type: "jersey", badge: "Extérieur", name: "Maillot Extérieur 2026", price: 85, imgs: ["maillotext1","maillotext2","maillotext3"], salesStatus: "available", desc: "Le maillot extérieur officiel de la saison 2026. Blanc épuré et touchers de rose en contraste." },
+      { id: 2, type: "accessory", name: "Écharpe Ultras Pignouferie", price: 18, imgs: ["echarpe","echarpe2"], salesStatus: "available", desc: "Écharpe officielle brodée aux couleurs du club. Idéale pour les tribunes et les jours de match." }
     ];
+
+    let orderHistory = [];
+    let carouselIndex = 0;
+    let carouselImages = [];
+    let currentDetailProduct = null;
+    let shopFilter = 'all';
 
     let currentLang = 'fr';
     let panier = [];
@@ -961,6 +1331,23 @@
       if(savedProfile) {
         userProfile = JSON.parse(savedProfile);
       }
+
+      // Restaurer connexion persistante
+      const stayEmail = localStorage.getItem('pignouf_stay_logged');
+      if(stayEmail) {
+        userProfile.email = stayEmail;
+        isUserLoggedIn = true;
+        // Show the logged view if we're on the compte page
+        document.getElementById('auth-unlogged-view').style.display = 'none';
+        document.getElementById('auth-logged-view').style.display = 'none'; // will be shown when tab is opened
+      }
+      const stayAdmin = localStorage.getItem('pignouf_stay_admin');
+      if(stayAdmin) {
+        isAdminLoggedIn = true;
+        document.body.classList.add('is-admin-mode');
+        document.getElementById('nav-admin-link').style.display = 'block';
+        document.getElementById('mobile-admin-link').style.display = 'block';
+      }
     };
 
     function updateDashboardStats() {
@@ -981,13 +1368,17 @@
       const submitBtn = document.getElementById('auth-submit-btn');
       const labelId = document.getElementById('label-identifiant');
 
+      const stayRow = document.getElementById('stay-logged-row');
       if (mode === 'admin') {
         labelId.innerText = "Identifiant Secrétariat Admin";
         submitBtn.innerText = "Se connecter à l'espace Admin";
+        if(stayRow) stayRow.style.display = 'none';
       } else if(mode === 'register') {
+        if(stayRow) stayRow.style.display = 'flex';
         labelId.innerText = translations[currentLang].auth_email;
         submitBtn.innerText = translations[currentLang].auth_register;
       } else {
+        if(stayRow) stayRow.style.display = 'flex';
         labelId.innerText = translations[currentLang].auth_email;
         submitBtn.innerText = translations[currentLang].auth_btn_login;
       }
@@ -997,6 +1388,7 @@
       e.preventDefault();
       const identifiant = document.getElementById('auth-email').value;
       const mdp = document.getElementById('auth-password').value;
+      const stayLogged = document.getElementById('stay-logged-checkbox')?.checked;
 
       if(currentAuthMode === 'admin') {
         if(identifiant === "admin" && mdp === "admin2026") {
@@ -1004,6 +1396,7 @@
           document.body.classList.add('is-admin-mode');
           document.getElementById('nav-admin-link').style.display = 'block';
           document.getElementById('mobile-admin-link').style.display = 'block';
+          if(stayLogged) localStorage.setItem('pignouf_stay_admin', '1');
           alert('Connexion d\'infrastructure réussie !');
           showPage('admin');
         } else {
@@ -1012,13 +1405,17 @@
       } else if (currentAuthMode === 'register') {
         userProfile.email = identifiant;
         userProfile.pseudo = identifiant.split('@')[0];
+        userProfile.memberSince = new Date().getFullYear();
         isUserLoggedIn = true;
         localStorage.setItem('pignouf_user_profile', JSON.stringify(userProfile));
+        if(stayLogged) localStorage.setItem('pignouf_stay_logged', identifiant);
         alert(`Compte synchronisé avec succès pour ${identifiant} !`);
         toggleLoggedView(true);
       } else {
         userProfile.email = identifiant;
+        if(!userProfile.memberSince) userProfile.memberSince = new Date().getFullYear();
         isUserLoggedIn = true;
+        if(stayLogged) localStorage.setItem('pignouf_stay_logged', identifiant);
         toggleLoggedView(true);
         alert('Connexion utilisateur réussie !');
       }
@@ -1037,6 +1434,8 @@
 
     function logoutUser() {
       isUserLoggedIn = false;
+      localStorage.removeItem('pignouf_stay_logged');
+      localStorage.removeItem('pignouf_stay_admin');
       toggleLoggedView(false);
     }
 
@@ -1052,6 +1451,9 @@
       document.getElementById('user-avatar-disp').innerText = userProfile.avatar;
       document.getElementById('user-pseudo-disp').innerText = document.getElementById('input-profile-pseudo').value || "Supporter";
       document.getElementById('user-badge-disp').innerText = document.getElementById('input-profile-badge').value;
+      const bio = document.getElementById('input-profile-bio')?.value || '';
+      const bioEl = document.getElementById('user-bio-disp');
+      if(bioEl) bioEl.innerText = bio;
     }
 
     function updateProfileTheme(themeName) {
@@ -1073,6 +1475,7 @@
 
     function updateProfileFieldsUI() {
       document.getElementById('input-profile-pseudo').value = userProfile.pseudo;
+      if(document.getElementById('input-profile-bio')) document.getElementById('input-profile-bio').value = userProfile.bio || '';
       document.getElementById('input-profile-badge').value = userProfile.badge;
       document.getElementById('input-profile-theme').value = userProfile.theme;
       document.getElementById('user-email-disp').innerText = userProfile.email;
@@ -1080,12 +1483,20 @@
       document.getElementById('user-avatar-disp').innerText = userProfile.avatar;
       document.getElementById('user-pseudo-disp').innerText = userProfile.pseudo;
       document.getElementById('user-badge-disp').innerText = userProfile.badge;
+      const bioEl = document.getElementById('user-bio-disp');
+      if(bioEl) bioEl.innerText = userProfile.bio || '';
+      const sinceEl = document.getElementById('user-since-year');
+      if(sinceEl) sinceEl.innerText = userProfile.memberSince || new Date().getFullYear();
+      updateOrderHistoryUI();
     }
 
     function saveProfileData() {
       userProfile.pseudo = document.getElementById('input-profile-pseudo').value;
       userProfile.badge = document.getElementById('input-profile-badge').value;
+      userProfile.bio = document.getElementById('input-profile-bio')?.value || '';
+      if(!userProfile.memberSince) userProfile.memberSince = new Date().getFullYear();
       localStorage.setItem('pignouf_user_profile', JSON.stringify(userProfile));
+      updateProfileFieldsUI();
       alert('Profil mis à jour et sauvegardé localement !');
     }
 
@@ -1303,9 +1714,20 @@
     }
 
     function validateCartOrder() {
+      if(!isUserLoggedIn && !isAdminLoggedIn) { alert('Veuillez vous connecter pour passer commande.'); toggleCartPanel(false); showPage('compte'); return; }
       let orderTotal = panier.reduce((sum, item) => sum + item.price, 0);
       simulatedEarnings += orderTotal;
-      if(navigator.vibrate) navigator.vibrate([100, 50, 100]); // Haptic feedback double vibration
+      // Add to order history
+      const today = new Date().toLocaleDateString('fr-FR');
+      panier.forEach(item => {
+        orderHistory.push({ name: item.name, price: item.price, date: today });
+        if(item.name.toLowerCase().includes('billet') || item.name.toLowerCase().includes('abonnement')) {
+          const statEl = document.getElementById('stat-billets');
+          if(statEl) statEl.innerText = parseInt(statEl.innerText || 0) + 1;
+        }
+      });
+      updateOrderHistoryUI();
+      if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
       alert(`Commande validée (${orderTotal.toFixed(2)} €) ! Merci.`);
       panier = [];
       document.getElementById('cartBubble').classList.remove('show');
@@ -1317,9 +1739,15 @@
     // VISUAL RENDERS BASES D'ORIGINE CONSERVÉS À 100%
     function showPage(pageId) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      // Also hide product detail
+      document.getElementById('page-product-detail').classList.remove('active');
       document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
       const targetPage = document.getElementById(`page-${pageId}`);
       if(targetPage) targetPage.classList.add('active');
+      // Auto restore session on compte page
+      if(pageId === 'compte' && isUserLoggedIn) {
+        toggleLoggedView(true);
+      }
       window.scrollTo(0,0);
     }
 
@@ -1401,13 +1829,205 @@
     }
 
     function renderBoutique() {
-      document.getElementById('boutique-container').innerHTML = boutiqueProduits.map(p => `
-        <div class="product-card">
-          <div class="jersey-container" style="font-size:3rem;">${p.emoji || '👕'}</div>
-          <div class="product-name">${p.name}</div><div class="product-price">${p.price.toFixed(2)} €</div>
-          <button class="btn-primary" onclick="addToCart('${p.name}', ${p.price})">Ajouter au panier</button>
-        </div>
-      `).join('');
+      const filtered = shopFilter === 'all' ? boutiqueProduits : boutiqueProduits.filter(p => p.type === shopFilter);
+      document.getElementById('boutique-container').innerHTML = filtered.map((p, idx) => {
+        const realIdx = boutiqueProduits.indexOf(p);
+        const img = p.imgs && p.imgs[0] ? `<img src="${p.imgs[0]}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span style="display:none;font-size:3rem;align-items:center;justify-content:center;width:100%;height:100%;">👕</span>` : `<span style="font-size:3rem;">👕</span>`;
+        const stockHtml = p.salesStatus === 'available' ? `<div class="product-stock ok">✓ En stock</div>` : p.salesStatus === 'low' ? `<div class="product-stock low">⚠ Stock limité</div>` : `<div class="product-stock out">✕ Indisponible</div>`;
+        const promoHtml = p.promoPrice ? `<span class="product-promo-price">${p.promoPrice.toFixed(2)} €</span>` : '';
+        const badgeHtml = p.promoBadge ? `<div class="product-card-badge promo">${p.promoBadge}</div>` : (p.badge ? `<div class="product-card-badge">${p.badge}</div>` : '');
+        return `
+          <div class="product-card" onclick="openProductDetail(${realIdx})">
+            ${badgeHtml}
+            <div class="jersey-container" style="height:220px;">${img}</div>
+            <div class="product-name">${p.name}</div>
+            <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.4rem;">
+              ${promoHtml}<div class="product-price" style="margin:0;">${p.price.toFixed(2)} €</div>
+            </div>
+            ${stockHtml}
+            <button class="btn-primary" style="margin-top:0.75rem;" onclick="event.stopPropagation();addToCart('${p.name}', ${p.price})">Ajouter au panier</button>
+          </div>
+        `;
+      }).join('');
+      renderAdminBoutiqueList();
+    }
+
+    function filterShop(type, btn) {
+      shopFilter = type;
+      document.querySelectorAll('.shop-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderBoutique();
+    }
+
+    function openProductDetail(idx) {
+      currentDetailProduct = boutiqueProduits[idx];
+      const p = currentDetailProduct;
+      carouselImages = p.imgs || [];
+      carouselIndex = 0;
+      document.getElementById('detail-tag').innerText = p.type === 'jersey' ? 'Maillot Officiel' : 'Accessoire Officiel';
+      document.getElementById('detail-title').innerText = p.name;
+      document.getElementById('detail-price').innerText = p.price.toFixed(2) + ' €';
+      const oldPEl = document.getElementById('detail-old-price');
+      const promoBEl = document.getElementById('detail-promo-badge');
+      if(p.promoPrice) { oldPEl.innerText = p.promoPrice.toFixed(2) + ' €'; oldPEl.style.display='inline'; } else { oldPEl.style.display='none'; }
+      if(p.promoBadge) { promoBEl.innerText = p.promoBadge; promoBEl.style.display='inline-block'; } else { promoBEl.style.display='none'; }
+      document.getElementById('detail-desc').innerText = p.desc || '';
+      // Build carousel
+      const track = document.getElementById('detail-carousel-track');
+      const dots = document.getElementById('carousel-dots');
+      const imgs = carouselImages.length ? carouselImages : [''];
+      track.innerHTML = imgs.map(img => `
+        <div class="carousel-slide">
+          ${img ? `<img src="${img}" alt="${p.name}" onerror="this.style.display='none'"/>` : `<span class="emoji-placeholder">👕</span>`}
+        </div>`).join('');
+      dots.innerHTML = imgs.map((_, i) => `<button class="carousel-dot ${i===0?'active':''}" onclick="carouselGoTo(${i})"></button>`).join('');
+      // Auth check for direct order
+      const loginNotice = document.getElementById('detail-login-notice');
+      const orderBtn = document.getElementById('detail-btn-order');
+      if(!isUserLoggedIn && !isAdminLoggedIn) { loginNotice.style.display='block'; orderBtn.style.display='none'; } else { loginNotice.style.display='none'; orderBtn.style.display='block'; }
+      // Size row visibility
+      document.querySelector('.detail-size-grid').parentElement.style.display = p.type === 'jersey' ? 'block' : 'none';
+      // Show page
+      document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
+      document.getElementById('page-product-detail').classList.add('active');
+      window.scrollTo(0,0);
+    }
+
+    function closeProductDetail() {
+      document.getElementById('page-product-detail').classList.remove('active');
+      document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
+      document.getElementById('page-boutique').classList.add('active');
+      window.scrollTo(0,0);
+    }
+
+    function carouselMove(dir) {
+      carouselIndex = (carouselIndex + dir + carouselImages.length) % carouselImages.length;
+      updateCarousel();
+    }
+    function carouselGoTo(i) { carouselIndex = i; updateCarousel(); }
+    function updateCarousel() {
+      document.getElementById('detail-carousel-track').style.transform = `translateX(-${carouselIndex * 100}%)`;
+      document.querySelectorAll('.carousel-dot').forEach((d,i) => d.classList.toggle('active', i === carouselIndex));
+    }
+
+    function selectSize(btn) {
+      document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function addToCartFromDetail() {
+      if(!currentDetailProduct) return;
+      addToCart(currentDetailProduct.name, currentDetailProduct.price);
+    }
+
+    function orderDirectFromDetail() {
+      if(!isUserLoggedIn && !isAdminLoggedIn) { alert('Veuillez vous connecter pour commander directement.'); showPage('compte'); return; }
+      const p = currentDetailProduct;
+      const size = document.querySelector('.size-btn.active')?.innerText || '';
+      const sizeLabel = p.type === 'jersey' && size ? ` (Taille ${size})` : '';
+      orderHistory.push({ name: p.name + sizeLabel, price: p.price, date: new Date().toLocaleDateString('fr-FR') });
+      updateOrderHistoryUI();
+      if(navigator.vibrate) navigator.vibrate([100,50,100]);
+      alert(`✅ Commande passée pour ${p.name}${sizeLabel} ! Merci.`);
+    }
+
+    function updateOrderHistoryUI() {
+      const el = document.getElementById('profile-order-history');
+      const statEl = document.getElementById('stat-orders');
+      if(!el) return;
+      if(statEl) statEl.innerText = orderHistory.length;
+      if(orderHistory.length === 0) { el.innerHTML = `<p style="font-size:0.82rem; color:var(--texte-sec);">Aucune commande passée pour le moment.</p>`; return; }
+      el.innerHTML = orderHistory.slice().reverse().map(o => `
+        <div class="profile-history-item">
+          <span class="profile-history-icon">📦</span>
+          <div style="flex:1;"><div style="font-weight:600;">${o.name}</div><div style="font-size:0.72rem;color:var(--texte-sec);">${o.date}</div></div>
+          <div style="font-weight:700;color:var(--rose);">${o.price.toFixed(2)} €</div>
+        </div>`).join('');
+    }
+
+    function switchBillTab(tab, btn) {
+      document.querySelectorAll('.bill-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.bill-tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('bill-tab-' + tab).classList.add('active');
+    }
+
+    // Admin boutique
+    function renderAdminBoutiqueList() {
+      const el = document.getElementById('adm-boutique-list');
+      if(!el) return;
+      el.innerHTML = boutiqueProduits.map((p, i) => `
+        <div class="admin-product-row">
+          <span class="admin-product-name">${p.name}</span>
+          <span class="admin-product-price">${p.price.toFixed(2)} €</span>
+          <span style="font-size:0.7rem;color:var(--texte-sec);">${p.salesStatus || '-'}</span>
+          <div class="admin-list-actions">
+            <button class="admin-mini-btn btn-edit-mini" onclick="editProductAdmin(${i})">Edit</button>
+            <button class="admin-mini-btn btn-del-mini" onclick="deleteProductAdmin(${i})">Del</button>
+          </div>
+        </div>`).join('');
+    }
+
+    function editProductAdmin(i) {
+      const p = boutiqueProduits[i];
+      document.getElementById('adm-prod-id').value = i;
+      document.getElementById('adm-prod-name').value = p.name;
+      document.getElementById('adm-prod-type').value = p.type;
+      document.getElementById('adm-prod-price').value = p.price;
+      document.getElementById('adm-prod-promo').value = p.promoPrice || '';
+      document.getElementById('adm-prod-promobadge').value = p.promoBadge || '';
+      document.getElementById('adm-prod-img1').value = (p.imgs && p.imgs[0]) || '';
+      document.getElementById('adm-prod-img2').value = (p.imgs && p.imgs[1]) || '';
+      document.getElementById('adm-prod-img3').value = (p.imgs && p.imgs[2]) || '';
+      document.getElementById('adm-prod-status').value = p.salesStatus || 'available';
+      document.getElementById('adm-prod-desc').value = p.desc || '';
+      document.getElementById('adm-prod-form-title').innerText = 'Modifier un Produit';
+    }
+
+    function saveProductAdmin() {
+      const idVal = document.getElementById('adm-prod-id').value;
+      const imgs = [
+        document.getElementById('adm-prod-img1').value.trim(),
+        document.getElementById('adm-prod-img2').value.trim(),
+        document.getElementById('adm-prod-img3').value.trim()
+      ].filter(Boolean);
+      const promoP = parseFloat(document.getElementById('adm-prod-promo').value) || null;
+      const prod = {
+        name: document.getElementById('adm-prod-name').value,
+        type: document.getElementById('adm-prod-type').value,
+        price: parseFloat(document.getElementById('adm-prod-price').value) || 0,
+        promoPrice: promoP,
+        promoBadge: document.getElementById('adm-prod-promobadge').value.trim() || null,
+        imgs,
+        salesStatus: document.getElementById('adm-prod-status').value,
+        desc: document.getElementById('adm-prod-desc').value
+      };
+      if(idVal !== '') {
+        boutiqueProduits[parseInt(idVal)] = { ...boutiqueProduits[parseInt(idVal)], ...prod };
+      } else {
+        boutiqueProduits.push({ id: boutiqueProduits.length, ...prod });
+      }
+      db.ref('boutique').set(boutiqueProduits).then(() => { alert('Produit mis à jour !'); resetProductAdminForm(); renderBoutique(); });
+    }
+
+    function deleteProductAdmin(i) {
+      if(!confirm('Supprimer ce produit ?')) return;
+      boutiqueProduits.splice(i, 1);
+      db.ref('boutique').set(boutiqueProduits).then(() => renderBoutique());
+    }
+
+    function resetProductAdminForm() {
+      document.getElementById('adm-prod-id').value = '';
+      document.getElementById('adm-prod-name').value = '';
+      document.getElementById('adm-prod-price').value = '85';
+      document.getElementById('adm-prod-promo').value = '';
+      document.getElementById('adm-prod-promobadge').value = '';
+      document.getElementById('adm-prod-img1').value = '';
+      document.getElementById('adm-prod-img2').value = '';
+      document.getElementById('adm-prod-img3').value = '';
+      document.getElementById('adm-prod-status').value = 'available';
+      document.getElementById('adm-prod-desc').value = '';
+      document.getElementById('adm-prod-form-title').innerText = 'Créer / Modifier un Produit';
     }
 
     function applyLanguage(l) {
