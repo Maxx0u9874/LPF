@@ -287,7 +287,7 @@
     @media (min-width: 768px) { .shop-hero { padding: 4rem 4rem 3.5rem; min-height: 400px; } }
     .shop-hero-bg {
       position: absolute; inset: 0;
-      background-image: url('entete');
+      background-image: url('entete.jpg');
       background-size: cover; background-position: center;
       opacity: 0.18; filter: saturate(1.2);
     }
@@ -1088,9 +1088,9 @@
             <div class="form-group"><label>Prix (€)</label><input type="number" id="adm-prod-price" value="85" step="0.01" /></div>
             <div class="form-group"><label>Prix barré / Promo (€) — laisser vide si aucun</label><input type="number" id="adm-prod-promo" placeholder="Ex: 99" step="0.01" /></div>
             <div class="form-group"><label>Badge promo (Ex: -15%) — laisser vide si aucun</label><input type="text" id="adm-prod-promobadge" placeholder="Ex: -15%" /></div>
-            <div class="form-group"><label>Image 1 (nom fichier sans extension, ex: maillot1)</label><input type="text" id="adm-prod-img1" placeholder="maillot1" /></div>
-            <div class="form-group"><label>Image 2 (optionnel)</label><input type="text" id="adm-prod-img2" placeholder="maillot2" /></div>
-            <div class="form-group"><label>Image 3 (optionnel)</label><input type="text" id="adm-prod-img3" placeholder="maillot3" /></div>
+            <div class="form-group"><label>Image 1 (nom complet avec extension, ex: maillot1.jpg)</label><input type="text" id="adm-prod-img1" placeholder="maillot1.jpg" /></div>
+            <div class="form-group"><label>Image 2 (optionnel, ex: maillot2.jpg)</label><input type="text" id="adm-prod-img2" placeholder="maillot2.jpg" /></div>
+            <div class="form-group"><label>Image 3 (optionnel, ex: maillot3.jpg)</label><input type="text" id="adm-prod-img3" placeholder="maillot3.jpg" /></div>
             <div class="form-group"><label>Disponibilité</label>
               <select id="adm-prod-status">
                 <option value="available">Disponible</option>
@@ -1170,9 +1170,9 @@
     let resultatsData = [];
     let resultatsKeys = [];
     let boutiqueProduits = [
-      { id: 0, type: "jersey", badge: "Domicile", name: "Maillot Domicile Pro 2026", price: 85, imgs: ["maillot1","maillot2","maillot3"], salesStatus: "available", desc: "Maillot authentique porté par l'équipe professionnelle. Tissu technique haute performance, coupe athlétique." },
-      { id: 1, type: "jersey", badge: "Extérieur", name: "Maillot Extérieur 2026", price: 85, imgs: ["maillotext1","maillotext2","maillotext3"], salesStatus: "available", desc: "Le maillot extérieur officiel de la saison 2026. Blanc épuré et touchers de rose en contraste." },
-      { id: 2, type: "accessory", name: "Écharpe Ultras Pignouferie", price: 18, imgs: ["echarpe","echarpe2"], salesStatus: "available", desc: "Écharpe officielle brodée aux couleurs du club. Idéale pour les tribunes et les jours de match." }
+      { id: 0, type: "jersey", badge: "Domicile", name: "Maillot Domicile Pro 2026", price: 85, imgs: ["maillot1.jpg","maillot2.jpg","maillot3.jpg"], salesStatus: "available", desc: "Maillot authentique porté par l'équipe professionnelle. Tissu technique haute performance, coupe athlétique." },
+      { id: 1, type: "jersey", badge: "Extérieur", name: "Maillot Extérieur 2026", price: 85, imgs: ["maillotext1.jpg","maillotext2.jpg","maillotext3.jpg"], salesStatus: "available", desc: "Le maillot extérieur officiel de la saison 2026. Blanc épuré et touchers de rose en contraste." },
+      { id: 2, type: "accessory", name: "Écharpe Ultras Pignouferie", price: 18, imgs: ["echarpe.jpg","echarpe2.jpg"], salesStatus: "available", desc: "Écharpe officielle brodée aux couleurs du club. Idéale pour les tribunes et les jours de match." }
     ];
 
     let orderHistory = [];
