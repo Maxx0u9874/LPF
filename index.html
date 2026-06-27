@@ -329,7 +329,7 @@
     .product-stock.out { color: var(--danger); }
 
     /* IMAGE ZOOM dans la card */
-    .jersey-container img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .jersey-container img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
     .product-card:hover .jersey-container img { transform: scale(1.06); }
 
     /* ═══ PAGE DETAIL PRODUIT ═══ */
@@ -355,7 +355,7 @@
     .carousel-wrap { position: relative; background: var(--gris-clair); border-radius: 8px; overflow: hidden; aspect-ratio: 1 / 1; }
     .carousel-track { display: flex; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); height: 100%; }
     .carousel-slide { min-width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-    .carousel-slide img { max-width: 100%; max-height: 100%; object-fit: contain; padding: 1.5rem; }
+    .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .carousel-slide .emoji-placeholder { font-size: 6rem; }
     .carousel-btn {
       position: absolute; top: 50%; transform: translateY(-50%);
@@ -525,6 +525,118 @@
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
     }
+
+    /* ═══════════════════════════════════════════════════════════════
+       BON DE COMMANDE MODAL
+    ═══════════════════════════════════════════════════════════════ */
+    .order-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 600;
+      display: none; align-items: center; justify-content: center; padding: 1rem;
+    }
+    .order-modal-overlay.open { display: flex; }
+    .order-modal {
+      background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 8px;
+      max-width: 640px; width: 100%; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.18); padding: 2.5rem;
+      color: var(--texte);
+    }
+    .order-modal-header {
+      display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem;
+      border-bottom: 2px solid var(--rose-bord); padding-bottom: 1.25rem;
+    }
+    .order-modal-title { font-family: var(--bebas); font-size: 2rem; color: var(--texte); letter-spacing: 0.04em; }
+    .order-modal-subtitle { font-size: 0.72rem; color: var(--texte-sec); margin-top: 0.2rem; }
+    .order-modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--texte-sec); line-height: 1; }
+    .order-modal-close:hover { color: var(--rose); }
+
+    .order-form-section { margin-bottom: 1.75rem; }
+    .order-form-section h4 {
+      font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em;
+      color: var(--rose); margin-bottom: 1rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--rose-bord);
+    }
+    .order-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 480px) { .order-form-row { grid-template-columns: 1fr; } }
+
+    .order-items-summary { background: var(--gris-clair); border-radius: 6px; padding: 1.25rem; margin-bottom: 1.75rem; border: 1px solid var(--rose-bord); }
+    .order-items-summary h4 { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em; color: var(--rose); margin-bottom: 0.75rem; }
+    .order-item-line { display: flex; justify-content: space-between; padding: 0.4rem 0; font-size: 0.85rem; border-bottom: 1px solid var(--rose-bord); }
+    .order-item-line:last-child { border-bottom: none; }
+    .order-total-line { display: flex; justify-content: space-between; font-weight: 800; font-size: 1.05rem; padding-top: 0.75rem; border-top: 2px solid var(--rose-bord); margin-top: 0.5rem; color: var(--texte); }
+    .order-total-line span:last-child { color: var(--rose); }
+
+    .order-payment-methods { display: flex; gap: 0.75rem; margin-top: 0.5rem; flex-wrap: wrap; }
+    .order-pay-btn {
+      flex: 1; min-width: 100px; padding: 0.7rem 0.5rem; border: 1.5px solid var(--rose-bord);
+      background: var(--blanc); color: var(--texte); font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; border-radius: 4px;
+      transition: all 0.2s; text-align: center;
+    }
+    .order-pay-btn.selected { border-color: var(--rose); background: var(--rose-pale); color: var(--rose); }
+    .order-pay-btn:hover { border-color: var(--rose); }
+
+    .order-confirmation {
+      display: none; text-align: center; padding: 2rem 0;
+    }
+    .order-confirmation.show { display: block; }
+    .order-confirm-icon { font-size: 4rem; margin-bottom: 1rem; }
+    .order-confirm-num { font-family: var(--bebas); font-size: 1.5rem; color: var(--rose); letter-spacing: 0.1em; margin: 0.5rem 0; }
+    .order-confirm-msg { font-size: 0.88rem; color: var(--texte-sec); line-height: 1.7; max-width: 360px; margin: 0 auto; }
+
+    /* Bouton indisponible dans la fiche produit */
+    .btn-unavailable {
+      display: inline-block; background: var(--gris-clair); color: var(--texte-sec);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.85rem 2.2rem; border: 1px solid var(--rose-bord); cursor: not-allowed;
+      border-radius: 0;
+    }
+
+    /* Notice connexion requise */
+    .login-required-notice {
+      background: var(--rose-pale); border: 1px solid var(--rose-bord); border-radius: 4px;
+      padding: 0.85rem 1rem; font-size: 0.78rem; color: var(--texte-sec);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .login-required-notice a { color: var(--rose); font-weight: 700; cursor: pointer; text-decoration: underline; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CORRECTIONS DARK MODE GLOBAL
+    ═══════════════════════════════════════════════════════════════ */
+    [data-theme="dark"] .cart-panel { background: var(--blanc); border-color: var(--rose-bord); }
+    [data-theme="dark"] .cart-item-row { border-color: var(--rose-bord); }
+    [data-theme="dark"] .order-modal { background: var(--blanc); }
+    [data-theme="dark"] .order-items-summary { background: var(--gris-clair); }
+    [data-theme="dark"] .form-group input,
+    [data-theme="dark"] .form-group textarea,
+    [data-theme="dark"] .form-group select { background: var(--gris-clair); border-color: var(--rose-bord); color: var(--texte); }
+    [data-theme="dark"] .form-group input::placeholder,
+    [data-theme="dark"] .form-group textarea::placeholder { color: var(--texte-sec); }
+    [data-theme="dark"] .admin-block { background: var(--blanc); border-color: var(--rose-bord); }
+    [data-theme="dark"] .admin-scroll-list { background: var(--gris-clair); border-color: var(--rose-bord); }
+    [data-theme="dark"] .auth-container { background: var(--blanc); border-color: var(--rose-bord); }
+    [data-theme="dark"] .settings-card { background: var(--blanc); border-color: var(--rose-bord); }
+    [data-theme="dark"] .profile-sidebar { background: var(--blanc); border-color: var(--rose-bord); }
+    [data-theme="dark"] .abo-card { background: var(--blanc); border-color: var(--rose-bord); }
+    [data-theme="dark"] .abo-card.featured { background: linear-gradient(160deg, var(--rose-mid) 0%, var(--blanc) 100%); }
+    [data-theme="dark"] .jersey-container { background: var(--gris-clair); }
+    [data-theme="dark"] .carousel-wrap { background: var(--gris-clair); }
+    [data-theme="dark"] .size-btn { background: var(--gris-clair); color: var(--texte); }
+    [data-theme="dark"] .size-btn.active { background: var(--rose); color: #fff; }
+    [data-theme="dark"] .match-card { background: var(--blanc); }
+    [data-theme="dark"] .joueur-card { background: var(--blanc); }
+    [data-theme="dark"] .news-card { background: var(--blanc); }
+    [data-theme="dark"] .product-card { background: var(--blanc); }
+    [data-theme="dark"] .timeline-item { border-color: var(--rose-bord); }
+    [data-theme="dark"] .order-pay-btn { background: var(--gris-clair); color: var(--texte); border-color: var(--rose-bord); }
+    [data-theme="dark"] .order-pay-btn.selected { background: var(--rose-mid); color: var(--rose); }
+    [data-theme="dark"] .order-modal-close { color: var(--texte-sec); }
+    [data-theme="dark"] .profile-history-item { background: var(--gris-clair); }
+    [data-theme="dark"] .profile-stat-box { background: var(--rose-mid); }
+    [data-theme="dark"] .admin-stat-card { background: var(--rose-mid); }
+    [data-theme="dark"] .shop-filter-bar { background: var(--gris-clair); }
+    [data-theme="dark"] .shop-filter-btn { background: var(--blanc); color: var(--texte-sec); }
+    [data-theme="dark"] .login-required-notice { background: var(--rose-mid); border-color: var(--rose-bord); }
+    [data-theme="dark"] #page-product-detail { background: var(--blanc); }
+    [data-theme="dark"] .btn-unavailable { background: var(--gris-clair); color: var(--texte-sec); border-color: var(--rose-bord); }
   </style>
 
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -770,7 +882,8 @@
         <div class="detail-actions" id="detail-actions">
           <button class="btn-primary" id="detail-btn-cart" onclick="addToCartFromDetail()">🛒 Ajouter au panier</button>
           <button class="btn-order-direct" id="detail-btn-order" onclick="orderDirectFromDetail()">⚡ Commander directement</button>
-          <p id="detail-login-notice" style="font-size:0.75rem; color:var(--texte-sec); display:none;">Connectez-vous pour commander directement.</p>
+          <div id="detail-login-notice" class="login-required-notice" style="display:none;">🔐 <span>Connectez-vous pour commander. <a onclick="showPage('compte')">Se connecter →</a></span></div>
+          <div id="detail-unavailable-notice" style="display:none;" class="btn-unavailable" style="text-align:center;">✕ Article indisponible — commande impossible</div>
         </div>
         <p class="detail-desc" id="detail-desc">Maillot authentique porté par l'équipe professionnelle. Tissu technique haute performance, coupe athlétique. Flocage personnalisable disponible.</p>
       </div>
@@ -1123,6 +1236,111 @@
 
       </div>
 
+    </div>
+  </div>
+
+  <!-- BON DE COMMANDE MODAL -->
+  <div class="order-modal-overlay" id="orderModalOverlay" onclick="if(event.target===this)closeOrderModal()">
+    <div class="order-modal">
+      <!-- Formulaire de commande -->
+      <div id="order-form-view">
+        <div class="order-modal-header">
+          <div>
+            <div class="order-modal-title">Bon de Commande</div>
+            <div class="order-modal-subtitle">Pignouferie FC — Boutique Officielle</div>
+          </div>
+          <button class="order-modal-close" onclick="closeOrderModal()">✕</button>
+        </div>
+
+        <div class="order-items-summary" id="order-summary">
+          <h4>Récapitulatif</h4>
+          <div id="order-items-lines"></div>
+          <div class="order-total-line"><span>Total TTC</span><span id="order-total-display">0,00 €</span></div>
+        </div>
+
+        <div class="order-form-section">
+          <h4>Coordonnées du Commandant</h4>
+          <div class="order-form-row">
+            <div class="form-group">
+              <label>Prénom *</label>
+              <input type="text" id="ord-prenom" placeholder="Ex : Jean" required />
+            </div>
+            <div class="form-group">
+              <label>Nom *</label>
+              <input type="text" id="ord-nom" placeholder="Ex : Dupont" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Adresse Email *</label>
+            <input type="email" id="ord-email" placeholder="jean.dupont@exemple.fr" required />
+          </div>
+          <div class="form-group">
+            <label>Téléphone</label>
+            <input type="tel" id="ord-tel" placeholder="06 00 00 00 00" />
+          </div>
+        </div>
+
+        <div class="order-form-section">
+          <h4>Adresse de Livraison</h4>
+          <div class="form-group">
+            <label>Rue & Numéro *</label>
+            <input type="text" id="ord-adresse" placeholder="12 Rue de la Rose" required />
+          </div>
+          <div class="order-form-row">
+            <div class="form-group">
+              <label>Code Postal *</label>
+              <input type="text" id="ord-cp" placeholder="86100" required />
+            </div>
+            <div class="form-group">
+              <label>Ville *</label>
+              <input type="text" id="ord-ville" placeholder="Châtellerault" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Pays</label>
+            <select id="ord-pays">
+              <option value="France">France</option>
+              <option value="Belgique">Belgique</option>
+              <option value="Suisse">Suisse</option>
+              <option value="Luxembourg">Luxembourg</option>
+              <option value="Canada">Canada</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="order-form-section">
+          <h4>Mode de Paiement</h4>
+          <div class="order-payment-methods">
+            <button class="order-pay-btn selected" onclick="selectPayment(this, 'card')">💳 Carte Bancaire</button>
+            <button class="order-pay-btn" onclick="selectPayment(this, 'paypal')">🅿 PayPal</button>
+            <button class="order-pay-btn" onclick="selectPayment(this, 'virement')">🏦 Virement</button>
+            <button class="order-pay-btn" onclick="selectPayment(this, 'cheque')">📄 Chèque</button>
+          </div>
+          <p style="font-size:0.7rem; color:var(--texte-sec); margin-top:0.75rem;">* Paiement sécurisé. Vos données ne sont pas partagées.</p>
+        </div>
+
+        <div class="form-group">
+          <label>Commentaire / Note de commande (optionnel)</label>
+          <textarea id="ord-note" rows="2" placeholder="Flocage souhaité, instructions de livraison…"></textarea>
+        </div>
+
+        <div id="order-login-notice" class="login-required-notice" style="display:none; margin-bottom:1rem;">
+          🔐 Vous devez être <a onclick="closeOrderModal(); showPage('compte')">connecté</a> pour finaliser votre commande.
+        </div>
+
+        <button class="btn-primary" style="width:100%; font-size:0.85rem; padding:1rem;" onclick="submitOrderForm()">✅ Valider la Commande</button>
+        <p style="font-size:0.65rem; color:var(--texte-sec); margin-top:0.75rem; text-align:center;">En validant, vous acceptez nos Conditions Générales de Vente. Livraison sous 5 à 7 jours ouvrés.</p>
+      </div>
+
+      <!-- Confirmation -->
+      <div id="order-confirmation-view" class="order-confirmation">
+        <div class="order-confirm-icon">🎉</div>
+        <h2 style="font-family:var(--bebas); font-size:2rem; color:var(--texte);">Commande Confirmée !</h2>
+        <div class="order-confirm-num" id="order-confirm-num">N° PIG-000001</div>
+        <p class="order-confirm-msg" id="order-confirm-msg">Merci pour votre commande ! Un email de confirmation vous a été envoyé. Vous retrouverez votre commande dans votre espace profil.</p>
+        <button class="btn-primary" style="margin-top:2rem;" onclick="closeOrderModal()">Retour à la boutique</button>
+      </div>
     </div>
   </div>
 
@@ -1713,12 +1931,84 @@
       updateCartDisplay();
     }
 
+    let selectedPaymentMethod = 'card';
+    let orderCounter = parseInt(localStorage.getItem('pignouf_order_counter') || '0');
+
+    function handleAddToCart(name, price) {
+      if(!isUserLoggedIn && !isAdminLoggedIn) {
+        // Show notice then go to login
+        const notice = document.createElement('div');
+        notice.className = 'login-required-notice';
+        notice.style.cssText = 'position:fixed;bottom:90px;right:2rem;z-index:500;max-width:280px;box-shadow:0 4px 20px rgba(0,0,0,0.15);animation:fadeIn 0.3s ease;';
+        notice.innerHTML = '🔐 <span>Connectez-vous pour ajouter au panier. <a onclick="showPage(\'compte\');this.closest(\'.login-required-notice\').remove()">Se connecter</a></span>';
+        document.body.appendChild(notice);
+        setTimeout(() => notice.remove(), 4000);
+        return;
+      }
+      addToCart(name, price);
+    }
+
     function validateCartOrder() {
-      if(!isUserLoggedIn && !isAdminLoggedIn) { alert('Veuillez vous connecter pour passer commande.'); toggleCartPanel(false); showPage('compte'); return; }
+      if(!isUserLoggedIn && !isAdminLoggedIn) {
+        toggleCartPanel(false);
+        showPage('compte');
+        return;
+      }
+      openOrderModal();
+    }
+
+    function openOrderModal() {
+      // Fill summary
+      const lines = document.getElementById('order-items-lines');
+      let total = 0;
+      lines.innerHTML = panier.map(item => {
+        total += item.price;
+        return `<div class="order-item-line"><span>${item.name}</span><span>${item.price.toFixed(2)} €</span></div>`;
+      }).join('');
+      document.getElementById('order-total-display').innerText = total.toFixed(2) + ' €';
+      // Pre-fill email if logged
+      if(userProfile.email) document.getElementById('ord-email').value = userProfile.email;
+      // Show login notice if not logged (shouldn't happen but safety)
+      document.getElementById('order-login-notice').style.display = (!isUserLoggedIn && !isAdminLoggedIn) ? 'flex' : 'none';
+      // Reset to form view
+      document.getElementById('order-form-view').style.display = 'block';
+      document.getElementById('order-confirmation-view').classList.remove('show');
+      toggleCartPanel(false);
+      document.getElementById('orderModalOverlay').classList.add('open');
+    }
+
+    function closeOrderModal() {
+      document.getElementById('orderModalOverlay').classList.remove('open');
+    }
+
+    function selectPayment(btn, method) {
+      document.querySelectorAll('.order-pay-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedPaymentMethod = method;
+    }
+
+    function submitOrderForm() {
+      if(!isUserLoggedIn && !isAdminLoggedIn) {
+        document.getElementById('order-login-notice').style.display = 'flex';
+        return;
+      }
+      const prenom = document.getElementById('ord-prenom').value.trim();
+      const nom = document.getElementById('ord-nom').value.trim();
+      const email = document.getElementById('ord-email').value.trim();
+      const adresse = document.getElementById('ord-adresse').value.trim();
+      const cp = document.getElementById('ord-cp').value.trim();
+      const ville = document.getElementById('ord-ville').value.trim();
+      if(!prenom || !nom || !email || !adresse || !cp || !ville) {
+        alert('Veuillez remplir tous les champs obligatoires (*).');
+        return;
+      }
+      // Process order
+      orderCounter++;
+      localStorage.setItem('pignouf_order_counter', orderCounter);
+      const orderNum = 'PIG-' + String(orderCounter).padStart(6, '0');
+      const today = new Date().toLocaleDateString('fr-FR');
       let orderTotal = panier.reduce((sum, item) => sum + item.price, 0);
       simulatedEarnings += orderTotal;
-      // Add to order history
-      const today = new Date().toLocaleDateString('fr-FR');
       panier.forEach(item => {
         orderHistory.push({ name: item.name, price: item.price, date: today });
         if(item.name.toLowerCase().includes('billet') || item.name.toLowerCase().includes('abonnement')) {
@@ -1727,13 +2017,16 @@
         }
       });
       updateOrderHistoryUI();
-      if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
-      alert(`Commande validée (${orderTotal.toFixed(2)} €) ! Merci.`);
       panier = [];
       document.getElementById('cartBubble').classList.remove('show');
-      toggleCartPanel(false);
       updateCartDisplay();
       updateDashboardStats();
+      if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
+      // Show confirmation
+      document.getElementById('order-confirm-num').innerText = 'N° ' + orderNum;
+      document.getElementById('order-confirm-msg').innerText = `Merci ${prenom} pour votre commande ! Un email de confirmation sera envoyé à ${email}. Vous retrouverez votre commande dans votre espace profil.`;
+      document.getElementById('order-form-view').style.display = 'none';
+      document.getElementById('order-confirmation-view').classList.add('show');
     }
 
     // VISUAL RENDERS BASES D'ORIGINE CONSERVÉS À 100%
@@ -1836,8 +2129,12 @@
         const stockHtml = p.salesStatus === 'available' ? `<div class="product-stock ok">✓ En stock</div>` : p.salesStatus === 'low' ? `<div class="product-stock low">⚠ Stock limité</div>` : `<div class="product-stock out">✕ Indisponible</div>`;
         const promoHtml = p.promoPrice ? `<span class="product-promo-price">${p.promoPrice.toFixed(2)} €</span>` : '';
         const badgeHtml = p.promoBadge ? `<div class="product-card-badge promo">${p.promoBadge}</div>` : (p.badge ? `<div class="product-card-badge">${p.badge}</div>` : '');
+        const isUnavailable = p.salesStatus === 'disabled';
+        const cartBtnHtml = isUnavailable
+          ? `<button class="btn-unavailable" style="margin-top:0.75rem; width:100%; display:block;" disabled>✕ Indisponible</button>`
+          : `<button class="btn-primary" style="margin-top:0.75rem;" onclick="event.stopPropagation();handleAddToCart('${p.name.replace(/'/g,"\\'")}', ${p.price})">🛒 Ajouter au panier</button>`;
         return `
-          <div class="product-card" onclick="openProductDetail(${realIdx})">
+          <div class="product-card${isUnavailable ? ' product-card-disabled' : ''}" onclick="${isUnavailable ? '' : `openProductDetail(${realIdx})`}" style="${isUnavailable ? 'cursor:default; opacity:0.75;' : ''}">
             ${badgeHtml}
             <div class="jersey-container" style="height:220px;">${img}</div>
             <div class="product-name">${p.name}</div>
@@ -1845,7 +2142,7 @@
               ${promoHtml}<div class="product-price" style="margin:0;">${p.price.toFixed(2)} €</div>
             </div>
             ${stockHtml}
-            <button class="btn-primary" style="margin-top:0.75rem;" onclick="event.stopPropagation();addToCart('${p.name}', ${p.price})">Ajouter au panier</button>
+            ${cartBtnHtml}
           </div>
         `;
       }).join('');
@@ -1881,10 +2178,28 @@
           ${img ? `<img src="${img}" alt="${p.name}" onerror="this.style.display='none'"/>` : `<span class="emoji-placeholder">👕</span>`}
         </div>`).join('');
       dots.innerHTML = imgs.map((_, i) => `<button class="carousel-dot ${i===0?'active':''}" onclick="carouselGoTo(${i})"></button>`).join('');
-      // Auth check for direct order
+      // Unavailable & Auth check
       const loginNotice = document.getElementById('detail-login-notice');
       const orderBtn = document.getElementById('detail-btn-order');
-      if(!isUserLoggedIn && !isAdminLoggedIn) { loginNotice.style.display='block'; orderBtn.style.display='none'; } else { loginNotice.style.display='none'; orderBtn.style.display='block'; }
+      const cartBtn = document.getElementById('detail-btn-cart');
+      const unavailableNotice = document.getElementById('detail-unavailable-notice');
+      const isUnavail = p.salesStatus === 'disabled';
+      if(isUnavail) {
+        cartBtn.style.display = 'none';
+        orderBtn.style.display = 'none';
+        loginNotice.style.display = 'none';
+        unavailableNotice.style.display = 'block';
+      } else {
+        unavailableNotice.style.display = 'none';
+        cartBtn.style.display = 'inline-block';
+        if(!isUserLoggedIn && !isAdminLoggedIn) {
+          loginNotice.style.display = 'flex';
+          orderBtn.style.display = 'none';
+        } else {
+          loginNotice.style.display = 'none';
+          orderBtn.style.display = 'block';
+        }
+      }
       // Size row visibility
       document.querySelector('.detail-size-grid').parentElement.style.display = p.type === 'jersey' ? 'block' : 'none';
       // Show page
@@ -1917,18 +2232,17 @@
 
     function addToCartFromDetail() {
       if(!currentDetailProduct) return;
-      addToCart(currentDetailProduct.name, currentDetailProduct.price);
+      handleAddToCart(currentDetailProduct.name, currentDetailProduct.price);
     }
 
     function orderDirectFromDetail() {
-      if(!isUserLoggedIn && !isAdminLoggedIn) { alert('Veuillez vous connecter pour commander directement.'); showPage('compte'); return; }
+      if(!isUserLoggedIn && !isAdminLoggedIn) { showPage('compte'); return; }
       const p = currentDetailProduct;
       const size = document.querySelector('.size-btn.active')?.innerText || '';
       const sizeLabel = p.type === 'jersey' && size ? ` (Taille ${size})` : '';
-      orderHistory.push({ name: p.name + sizeLabel, price: p.price, date: new Date().toLocaleDateString('fr-FR') });
-      updateOrderHistoryUI();
-      if(navigator.vibrate) navigator.vibrate([100,50,100]);
-      alert(`✅ Commande passée pour ${p.name}${sizeLabel} ! Merci.`);
+      // Add to temp panier and open order modal
+      panier.push({ name: p.name + sizeLabel, price: p.price });
+      openOrderModal();
     }
 
     function updateOrderHistoryUI() {
