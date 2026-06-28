@@ -947,157 +947,48 @@
     .img-upload-thumb { width: 80px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid var(--rose-bord); }
 
     /* ═══════════════════════════════════════════════════════════════
-       LOADING SCREEN — ANIMATION LPF
+       LOADING SCREEN — BALLON QUI SE REMPLIT
     ═══════════════════════════════════════════════════════════════ */
     #lpf-loader {
       position: fixed; inset: 0; z-index: 9999;
-      background: #0f0a0c;
+      background: var(--blanc);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      overflow: hidden;
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      gap: 1.5rem;
+      transition: opacity 0.55s ease;
     }
     #lpf-loader.fade-out {
-      opacity: 0; pointer-events: none; transform: scale(1.04);
+      opacity: 0; pointer-events: none;
     }
 
-    /* Terrain de foot en fond */
-    .loader-field {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 38%;
-      background: linear-gradient(180deg, #1a6b35 0%, #145829 100%);
-      border-top: 3px solid rgba(255,255,255,0.12);
-      overflow: hidden;
-    }
-    .loader-field::before {
-      content: '';
-      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-      width: 160px; height: 80px;
-      border: 2px solid rgba(255,255,255,0.1);
-      border-top: none; border-radius: 0 0 80px 80px;
-    }
-    .loader-field-line {
-      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-      width: 1px; height: 100%; background: rgba(255,255,255,0.07);
+    /* SVG ballon container */
+    .loader-ball-svg {
+      width: clamp(100px, 28vw, 140px);
+      height: clamp(100px, 28vw, 140px);
+      filter: drop-shadow(0 8px 24px rgba(232, 119, 154, 0.25));
     }
 
-    /* Spotlight / lumières de stade */
-    .loader-spotlight {
-      position: absolute;
-      width: 300px; height: 300px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(232,119,154,0.12) 0%, transparent 70%);
-      animation: spotlightFloat 4s ease-in-out infinite alternate;
+    /* Masque de remplissage */
+    #ball-fill-rect {
+      transform-origin: bottom center;
+      transform: scaleY(0);
+      transition: none;
     }
-    .loader-spotlight:nth-child(1) { top: -80px; left: -60px; animation-delay: 0s; }
-    .loader-spotlight:nth-child(2) { top: -40px; right: -80px; animation-delay: 1.5s; width: 250px; height: 250px; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); }
-    @keyframes spotlightFloat { from { opacity: 0.4; transform: scale(1); } to { opacity: 1; transform: scale(1.2); } }
 
-    /* Logo LPF */
-    .loader-lpf-badge {
-      position: relative; z-index: 5;
-      display: flex; flex-direction: column; align-items: center;
-      margin-bottom: 1.5rem;
-    }
-    .loader-lpf-ring {
-      width: 110px; height: 110px; border-radius: 50%;
-      background: linear-gradient(145deg, #2a1520, #1a0d12);
-      border: 3px solid var(--rose);
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-      box-shadow: 0 0 40px rgba(232,119,154,0.4), 0 0 80px rgba(232,119,154,0.1), inset 0 0 30px rgba(232,119,154,0.05);
-      animation: ringPulse 2s ease-in-out infinite;
-    }
-    @keyframes ringPulse {
-      0%, 100% { box-shadow: 0 0 40px rgba(232,119,154,0.4), 0 0 80px rgba(232,119,154,0.1); }
-      50%       { box-shadow: 0 0 60px rgba(232,119,154,0.7), 0 0 120px rgba(232,119,154,0.2); }
-    }
-    .loader-lpf-text {
+    /* Texte "La Pignouferie FC" */
+    .loader-name {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.8rem; letter-spacing: 0.12em; line-height: 1;
+      font-size: clamp(1.5rem, 6vw, 2.2rem);
+      letter-spacing: 0.1em;
+      color: var(--texte);
+      text-align: center;
+      line-height: 1;
+    }
+    .loader-name em {
+      font-style: normal;
       color: var(--rose);
-      text-shadow: 0 0 20px rgba(232,119,154,0.6);
-    }
-    .loader-lpf-sub {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.7rem; letter-spacing: 0.35em;
-      color: rgba(255,255,255,0.35); margin-top: 3px;
     }
 
-    /* Nom du club */
-    .loader-club-name {
-      position: relative; z-index: 5;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2rem, 8vw, 3.5rem);
-      letter-spacing: 0.04em; color: #fff;
-      text-align: center; line-height: 1;
-    }
-    .loader-club-name span { color: var(--rose); }
-
-    /* Joueur SVG qui tire */
-    .loader-player-wrap {
-      position: absolute; z-index: 6;
-      bottom: 34%; right: 8%;
-      width: 130px;
-      animation: playerKick 1.2s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
-      animation-delay: 0.4s;
-      opacity: 0;
-      transform: translateX(120px);
-    }
-    @keyframes playerKick {
-      0%   { opacity: 0; transform: translateX(120px) rotate(5deg); }
-      60%  { opacity: 1; transform: translateX(-8px) rotate(-2deg); }
-      80%  { transform: translateX(4px) rotate(3deg); }
-      100% { opacity: 1; transform: translateX(0) rotate(0deg); }
-    }
-
-    /* Ballon SVG animé */
-    .loader-ball-wrap {
-      position: absolute; z-index: 7;
-      bottom: 36%; right: 22%;
-      width: 36px;
-      opacity: 0;
-      animation: ballFly 1s cubic-bezier(0.2,0.8,0.4,1) forwards;
-      animation-delay: 1.2s;
-    }
-    @keyframes ballFly {
-      0%   { opacity: 0; transform: translate(0,0) rotate(0deg) scale(0.6); }
-      20%  { opacity: 1; transform: translate(-20px,-30px) rotate(90deg) scale(1); }
-      70%  { opacity: 1; transform: translate(-160px,-120px) rotate(540deg) scale(0.85); }
-      100% { opacity: 0; transform: translate(-260px,-60px) rotate(720deg) scale(0.5); }
-    }
-
-    /* Confettis rose */
-    .loader-confetti {
-      position: absolute; z-index: 4;
-      width: 8px; height: 8px; border-radius: 2px;
-      opacity: 0;
-      animation: confettiFall 2.4s ease-in forwards;
-    }
-    @keyframes confettiFall {
-      0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
-      10%  { opacity: 1; }
-      100% { opacity: 0; transform: translateY(300px) rotate(720deg); }
-    }
-
-    /* Barre de progression */
-    .loader-progress-wrap {
-      position: relative; z-index: 5;
-      width: min(280px, 70vw); margin-top: 2rem;
-    }
-    .loader-progress-track {
-      height: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden;
-    }
-    .loader-progress-bar {
-      height: 100%; width: 0%; background: var(--rose);
-      border-radius: 2px;
-      box-shadow: 0 0 12px rgba(232,119,154,0.8);
-      transition: width 0.08s linear;
-    }
-    .loader-progress-label {
-      font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em;
-      text-transform: uppercase; color: rgba(255,255,255,0.3);
-      margin-top: 0.75rem; text-align: center;
-    }
-    .loader-progress-label span { color: var(--rose); }
+    [data-theme="dark"] #lpf-loader { background: var(--blanc); }
 
     /* ═══════════════════════════════════════════════════════════════
        MOBILE APP — BOTTOM TAB BAR
@@ -1116,16 +1007,16 @@
       }
 
       /* Décale le contenu pour que rien ne soit caché sous la tab bar */
-      .page { padding-top: 0 !important; padding-bottom: 80px; }
-      #page-article-detail { padding-top: 0 !important; padding-bottom: 80px; }
-      #page-product-detail { padding-top: 0 !important; padding-bottom: 80px; }
+      .page { padding-top: 0 !important; padding-bottom: 70px; }
+      #page-article-detail { padding-top: 0 !important; padding-bottom: 70px; }
+      #page-product-detail { padding-top: 0 !important; padding-bottom: 70px; }
 
       /* Hero adapté mobile */
       .hero { min-height: 92svh; padding: 4rem 1.25rem 2.5rem; }
       .hero-stats { flex-direction: row; gap: 2rem; }
 
       /* Toast au dessus de la tab bar */
-      #toast-container { bottom: 80px; }
+      #toast-container { bottom: 70px; }
 
       /* Modales: reset padding */
       .order-modal-overlay { padding: 0.5rem; }
@@ -1140,33 +1031,42 @@
       backdrop-filter: blur(18px) saturate(180%);
       border-top: 1px solid var(--rose-bord);
       padding-bottom: env(safe-area-inset-bottom, 0px);
+      padding-left: env(safe-area-inset-left, 0px);
+      padding-right: env(safe-area-inset-right, 0px);
       box-shadow: 0 -8px 32px rgba(0,0,0,0.08);
+      width: 100%;
     }
     .tab-bar-inner {
-      display: flex; align-items: stretch; height: 64px;
+      display: flex; align-items: stretch; height: 58px;
+      width: 100%;
+      justify-content: space-around;
     }
     .tab-btn {
       flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 3px; background: none; border: none; cursor: pointer;
       color: var(--texte-sec); transition: color 0.2s; padding: 0;
       -webkit-tap-highlight-color: transparent; position: relative;
+      min-width: 0;
     }
     .tab-btn.active { color: var(--rose); }
     .tab-btn.active .tab-icon { transform: scale(1.12); }
+    .tab-btn.active .tab-icon svg { stroke: var(--rose); }
     .tab-icon {
-      font-size: 1.4rem; line-height: 1; transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+      line-height: 1; transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+      display: flex; align-items: center; justify-content: center;
     }
+    .tab-icon svg { stroke: var(--texte-sec); transition: stroke 0.2s; }
     .tab-label {
-      font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      font-size: 0.52rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
     }
     /* Pill active indicator */
     .tab-btn.active::before {
       content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-      width: 36px; height: 3px; background: var(--rose); border-radius: 0 0 3px 3px;
+      width: 32px; height: 3px; background: var(--rose); border-radius: 0 0 3px 3px;
     }
     /* Badge compteur panier */
     .tab-cart-badge {
-      position: absolute; top: 8px; right: calc(50% - 18px);
+      position: absolute; top: 6px; right: calc(50% - 20px);
       background: var(--rose); color: #fff;
       font-size: 0.5rem; font-weight: 800; min-width: 16px; height: 16px;
       border-radius: 8px; display: none; align-items: center; justify-content: center;
@@ -1234,103 +1134,89 @@
 
   <!-- ═══════════ LOADING SCREEN LPF ═══════════ -->
   <div id="lpf-loader">
-    <!-- Lumières de stade -->
-    <div class="loader-spotlight"></div>
-    <div class="loader-spotlight"></div>
-
-    <!-- Terrain -->
-    <div class="loader-field"><div class="loader-field-line"></div></div>
-
-    <!-- Badge LPF principal -->
-    <div class="loader-lpf-badge">
-      <div class="loader-lpf-ring">
-        <div>
-          <div class="loader-lpf-text">LPF</div>
-          <div class="loader-lpf-sub">PIGNOUFERIE FC</div>
-        </div>
-      </div>
-    </div>
+    <!-- Ballon SVG qui se remplit de couleur rose -->
+    <svg class="loader-ball-svg" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Masque de remplissage : rectangle qui monte de bas en haut -->
+        <clipPath id="ball-clip">
+          <circle cx="70" cy="70" r="62"/>
+        </clipPath>
+        <clipPath id="fill-clip">
+          <rect id="ball-fill-rect" x="0" y="0" width="140" height="140"/>
+        </clipPath>
+      </defs>
+      <!-- Fond blanc du ballon -->
+      <circle cx="70" cy="70" r="62" fill="#F7F3F5" stroke="#ECC5D6" stroke-width="2"/>
+      <!-- Pentagones noirs classiques du ballon -->
+      <g clip-path="url(#ball-clip)" fill="none">
+        <!-- Pentagone central -->
+        <polygon points="70,22 87,35 81,55 59,55 53,35" fill="#2a1520" opacity="0.15"/>
+        <!-- Pentagones autour -->
+        <polygon points="87,35 108,32 118,52 104,67 81,55" fill="#2a1520" opacity="0.15"/>
+        <polygon points="108,32 125,18 135,36 128,58 118,52" fill="#2a1520" opacity="0.10"/>
+        <polygon points="53,35 30,32 20,52 34,67 59,55" fill="#2a1520" opacity="0.15"/>
+        <polygon points="30,32 13,18 5,36 12,58 20,52" fill="#2a1520" opacity="0.10"/>
+        <polygon points="104,67 118,52 128,72 118,92 104,80" fill="#2a1520" opacity="0.15"/>
+        <polygon points="34,67 20,52 12,72 22,92 36,80" fill="#2a1520" opacity="0.15"/>
+        <polygon points="81,55 104,67 104,80 81,90 59,80 59,55" fill="#2a1520" opacity="0.08"/>
+        <polygon points="81,90 104,80 118,92 110,112 87,115 70,105" fill="#2a1520" opacity="0.15"/>
+        <polygon points="59,80 36,80 22,92 30,112 53,115 70,105" fill="#2a1520" opacity="0.15"/>
+        <polygon points="70,105 87,115 82,128 58,128 53,115" fill="#2a1520" opacity="0.10"/>
+      </g>
+      <!-- Couche rose qui monte (remplissage) -->
+      <g clip-path="url(#fill-clip)">
+        <circle cx="70" cy="70" r="62" fill="#E8779A" opacity="0.88"/>
+        <!-- Pentagones sur fond rose (légèrement plus foncés) -->
+        <polygon points="70,22 87,35 81,55 59,55 53,35" fill="#C4506E" opacity="0.35"/>
+        <polygon points="87,35 108,32 118,52 104,67 81,55" fill="#C4506E" opacity="0.35"/>
+        <polygon points="53,35 30,32 20,52 34,67 59,55" fill="#C4506E" opacity="0.35"/>
+        <polygon points="104,67 118,52 128,72 118,92 104,80" fill="#C4506E" opacity="0.35"/>
+        <polygon points="34,67 20,52 12,72 22,92 36,80" fill="#C4506E" opacity="0.35"/>
+        <polygon points="81,90 104,80 118,92 110,112 87,115 70,105" fill="#C4506E" opacity="0.35"/>
+        <polygon points="59,80 36,80 22,92 30,112 53,115 70,105" fill="#C4506E" opacity="0.35"/>
+        <!-- Reflet léger -->
+        <ellipse cx="54" cy="44" rx="18" ry="10" fill="white" opacity="0.18" transform="rotate(-25 54 44)"/>
+      </g>
+      <!-- Contour final du ballon -->
+      <circle cx="70" cy="70" r="62" fill="none" stroke="#ECC5D6" stroke-width="2.5"/>
+    </svg>
 
     <!-- Nom du club -->
-    <div class="loader-club-name" style="margin-top:1.5rem;">
-      LA <span>PIGNOUFERIE</span> FC
-    </div>
-    <div style="font-size:0.6rem;letter-spacing:0.3em;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-top:0.4rem;position:relative;z-index:5;">
-      Fondé en 2005 · Site Officiel
-    </div>
-
-    <!-- Joueur SVG qui tire -->
-    <div class="loader-player-wrap">
-      <svg viewBox="0 0 100 160" xmlns="http://www.w3.org/2000/svg">
-        <!-- Corps joueur stylisé -->
-        <!-- Tête -->
-        <circle cx="52" cy="20" r="12" fill="#E8779A"/>
-        <!-- Maillot rose -->
-        <path d="M34 38 Q38 34 52 34 Q66 34 70 38 L68 80 Q60 82 52 82 Q44 82 36 80 Z" fill="#E8779A"/>
-        <!-- Numero -->
-        <text x="52" y="65" text-anchor="middle" font-size="12" font-weight="bold" fill="white" font-family="Arial">7</text>
-        <!-- Short blanc -->
-        <path d="M36 80 L40 105 L52 102 L64 105 L68 80 Q60 84 52 84 Q44 84 36 80Z" fill="white"/>
-        <!-- Jambe gauche -->
-        <rect x="38" y="103" width="11" height="30" rx="4" fill="#c4506e"/>
-        <!-- Jambe droite (en position tir) -->
-        <path d="M53 103 Q70 95 80 78 Q84 72 80 68 Q75 64 70 70 Q62 80 54 103Z" fill="#c4506e"/>
-        <!-- Pied gauche -->
-        <ellipse cx="43" cy="133" rx="9" ry="5" fill="#333"/>
-        <!-- Pied droit (botte vers ballon) -->
-        <ellipse cx="78" cy="67" rx="9" ry="5" fill="#333" transform="rotate(-30 78 67)"/>
-        <!-- Bras gauche -->
-        <path d="M36 42 Q22 50 20 65" stroke="#E8779A" stroke-width="8" fill="none" stroke-linecap="round"/>
-        <!-- Bras droit -->
-        <path d="M68 42 Q75 38 78 30" stroke="#E8779A" stroke-width="8" fill="none" stroke-linecap="round"/>
-      </svg>
-    </div>
-
-    <!-- Ballon SVG -->
-    <div class="loader-ball-wrap">
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="18" fill="white" stroke="#eee" stroke-width="1"/>
-        <polygon points="20,4 26,10 24,18 20,20 16,18 14,10" fill="#222"/>
-        <polygon points="4,16 10,12 16,18 14,26 8,28 4,22" fill="#222"/>
-        <polygon points="36,16 30,12 24,18 26,26 32,28 36,22" fill="#222"/>
-        <polygon points="12,34 14,26 20,24 26,26 28,34 20,36" fill="#222"/>
-      </svg>
-    </div>
-
-    <!-- Confettis roses -->
-    <div id="loader-confetti-container" style="position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden;"></div>
-
-    <!-- Progress bar -->
-    <div class="loader-progress-wrap">
-      <div class="loader-progress-track">
-        <div class="loader-progress-bar" id="loader-bar"></div>
-      </div>
-      <div class="loader-progress-label" id="loader-label">Chargement de <span>La Pignouferie FC</span></div>
-    </div>
+    <div class="loader-name">La <em>Pignouferie</em> FC</div>
   </div>
 
   <!-- ═══════════ MOBILE BOTTOM TAB BAR ═══════════ -->
   <div id="mobile-tab-bar">
     <div class="tab-bar-inner">
       <button class="tab-btn active" id="tab-accueil" onclick="mobileTabNav('accueil')">
-        <span class="tab-icon">🏠</span>
+        <span class="tab-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </span>
         <span class="tab-label">Club</span>
       </button>
       <button class="tab-btn" id="tab-resultats" onclick="mobileTabNav('resultats')">
-        <span class="tab-icon">⚽</span>
+        <span class="tab-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+        </span>
         <span class="tab-label">Résultats</span>
       </button>
       <button class="tab-btn" id="tab-actualites" onclick="mobileTabNav('actualites')">
-        <span class="tab-icon">📰</span>
+        <span class="tab-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10l6 6v8a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        </span>
         <span class="tab-label">Actus</span>
       </button>
       <button class="tab-btn" id="tab-boutique" onclick="mobileTabNav('boutique')">
-        <span class="tab-icon">🛒</span>
+        <span class="tab-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </span>
         <span class="tab-label">Shop</span>
         <span class="tab-cart-badge" id="tab-cart-count">0</span>
       </button>
       <button class="tab-btn" id="tab-compte" onclick="mobileTabNav('compte')">
-        <span class="tab-icon">👤</span>
+        <span class="tab-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </span>
         <span class="tab-label">Profil</span>
       </button>
     </div>
@@ -1393,17 +1279,6 @@
       <div class="mph-actions">
         <button class="mph-btn" onclick="openGlobalSearch()" title="Recherche">🔍</button>
         <button class="mph-btn" onclick="mobileTabNav('parametres')" title="Paramètres">⚙️</button>
-      </div>
-    </div>
-    <!-- Bannière prochain match (mobile only) -->
-    <div class="mobile-match-banner" id="mobile-match-banner-accueil" style="display:none;">
-      <div class="mmb-label">⚽ Prochain match</div>
-      <div class="mmb-content">
-        <div>
-          <div class="mmb-teams" id="mmb-teams">PFC vs —</div>
-          <div class="mmb-date" id="mmb-date">—</div>
-        </div>
-        <button class="mmb-btn" onclick="mobileTabNav('billetterie')">Billetterie →</button>
       </div>
     </div>
     <div class="hero">
@@ -1524,7 +1399,7 @@
     <div class="stadium-banner">
       <p style="font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:0.3rem;">Enceinte Officielle</p>
       <div class="stadium-name">Durex Stadium</div>
-      <div class="stadium-capacity">Capacité : 28 500 places · Châtellerault</div>
+      <div class="stadium-capacity">Capacité : 67 990 places · Châtellerault</div>
     </div>
     <div class="sec">
       <div class="bill-tabs">
@@ -4057,62 +3932,37 @@
 
     // ═══════════ LOADING SCREEN ═══════════
     (function initLoader() {
-      const bar = document.getElementById('loader-bar');
-      const label = document.getElementById('loader-label');
       const loader = document.getElementById('lpf-loader');
-      const confettiContainer = document.getElementById('loader-confetti-container');
-
-      const messages = [
-        'Chargement de <span>La Pignouferie FC</span>',
-        'Connexion aux serveurs <span>Firebase</span>',
-        'Récupération de <span>l\'effectif</span>',
-        'Préparation du <span>terrain</span>',
-        'Bienvenue au <span>Pignouferie FC</span> !'
-      ];
-
+      const fillRect = document.getElementById('ball-fill-rect');
+      // Le rect couvre 140px de hauteur. On anime scaleY de 0 → 1 (depuis le bas)
+      // On utilise un transform CSS direct sur l'élément
       let progress = 0;
-      let msgIdx = 0;
 
-      // Confettis
-      const colors = ['#E8779A','#C4506E','#FFF','#FFB3CB','#FF6B9D'];
-      for(let i = 0; i < 22; i++) {
-        const c = document.createElement('div');
-        c.className = 'loader-confetti';
-        c.style.cssText = `
-          left: ${Math.random() * 100}%;
-          top: ${-10 - Math.random() * 30}%;
-          background: ${colors[Math.floor(Math.random() * colors.length)]};
-          width: ${4 + Math.random() * 8}px;
-          height: ${4 + Math.random() * 8}px;
-          border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
-          animation-delay: ${0.8 + Math.random() * 1.5}s;
-          animation-duration: ${2 + Math.random() * 1.5}s;
-        `;
-        confettiContainer.appendChild(c);
+      function setFill(pct) {
+        // scaleY de 0 à 1, transform-origin: bottom
+        const scale = pct / 100;
+        // Le rect est positionné y=0 hauteur 140
+        // Pour remplir depuis le bas, on translate puis scale
+        const yOffset = 140 * (1 - scale);
+        fillRect.setAttribute('y', yOffset);
+        fillRect.setAttribute('height', 140 * scale);
       }
 
+      setFill(0);
+
       const interval = setInterval(() => {
-        progress += Math.random() * 14 + 4;
-        if(progress > 100) progress = 100;
-        bar.style.width = progress + '%';
+        progress += Math.random() * 13 + 4;
+        if (progress > 100) progress = 100;
+        setFill(progress);
 
-        const newIdx = Math.min(Math.floor(progress / 25), messages.length - 1);
-        if(newIdx !== msgIdx) {
-          msgIdx = newIdx;
-          label.innerHTML = messages[msgIdx];
-        }
-
-        if(progress >= 100) {
+        if (progress >= 100) {
           clearInterval(interval);
           setTimeout(() => {
-            label.innerHTML = '🎉 <span>En route !</span>';
-            setTimeout(() => {
-              loader.classList.add('fade-out');
-              setTimeout(() => { loader.style.display = 'none'; }, 650);
-            }, 400);
-          }, 300);
+            loader.classList.add('fade-out');
+            setTimeout(() => { loader.style.display = 'none'; }, 600);
+          }, 350);
         }
-      }, 90);
+      }, 80);
     })();
 
     function applyLanguage(l) {
@@ -4138,6 +3988,142 @@
       applyLanguage(l);
       renderMatchs(); // Refresh ticket button translation
     }
+
+    // ═══════════ SWIPE NAVIGATION MOBILE ═══════════
+    (function initSwipe() {
+      if (window.innerWidth > 768) return;
+      const tabOrder = ['accueil','resultats','actualites','boutique','compte'];
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let isSwiping = false;
+
+      document.addEventListener('touchstart', e => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        isSwiping = false;
+      }, { passive: true });
+
+      document.addEventListener('touchmove', e => {
+        const dx = e.touches[0].clientX - touchStartX;
+        const dy = e.touches[0].clientY - touchStartY;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 12) isSwiping = true;
+      }, { passive: true });
+
+      document.addEventListener('touchend', e => {
+        if (!isSwiping) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) < 60) return; // seuil minimum
+
+        // Trouver l'onglet actif courant
+        let currentIdx = -1;
+        tabOrder.forEach((t, i) => {
+          const btn = document.getElementById('tab-' + t);
+          if (btn && btn.classList.contains('active')) currentIdx = i;
+        });
+        if (currentIdx === -1) return;
+
+        if (dx < 0 && currentIdx < tabOrder.length - 1) {
+          // Swipe gauche → onglet suivant
+          mobileTabNav(tabOrder[currentIdx + 1]);
+        } else if (dx > 0 && currentIdx > 0) {
+          // Swipe droite → onglet précédent
+          mobileTabNav(tabOrder[currentIdx - 1]);
+        }
+        isSwiping = false;
+      }, { passive: true });
+    })();
+
+    // ═══════════ PULL-TO-REFRESH AVEC BALLON ═══════════
+    (function initPullToRefresh() {
+      if (window.innerWidth > 768) return;
+
+      // Créer l'élément PTR
+      const ptr = document.createElement('div');
+      ptr.id = 'ptr-indicator';
+      ptr.innerHTML = `
+        <svg id="ptr-ball" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="26" fill="#F7F3F5" stroke="#ECC5D6" stroke-width="1.5"/>
+          <polygon points="30,8 37,14 35,23 25,23 23,14" fill="#C4506E" opacity="0.2"/>
+          <polygon points="37,14 47,12 52,22 46,29 35,23" fill="#C4506E" opacity="0.2"/>
+          <polygon points="23,14 13,12 8,22 14,29 25,23" fill="#C4506E" opacity="0.2"/>
+          <polygon points="46,29 52,22 57,31 52,40 46,36" fill="#C4506E" opacity="0.2"/>
+          <polygon points="14,29 8,22 3,31 8,40 14,36" fill="#C4506E" opacity="0.2"/>
+          <polygon points="35,37 46,36 52,40 48,50 37,52 30,47" fill="#C4506E" opacity="0.2"/>
+          <polygon points="25,37 14,36 8,40 12,50 23,52 30,47" fill="#C4506E" opacity="0.2"/>
+          <circle cx="30" cy="30" r="26" fill="none" stroke="#ECC5D6" stroke-width="1.5"/>
+        </svg>
+      `;
+      document.body.prepend(ptr);
+
+      // Styles PTR
+      const style = document.createElement('style');
+      style.textContent = `
+        #ptr-indicator {
+          position: fixed;
+          top: -70px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 500;
+          width: 52px;
+          height: 52px;
+          transition: top 0.2s ease;
+          pointer-events: none;
+        }
+        #ptr-indicator.ptr-visible {
+          top: 12px;
+        }
+        #ptr-indicator.ptr-spin #ptr-ball {
+          animation: ptrSpin 0.7s linear infinite;
+        }
+        @keyframes ptrSpin {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+        #ptr-ball { width: 52px; height: 52px; display: block; }
+      `;
+      document.head.appendChild(style);
+
+      let startY = 0;
+      let pulling = false;
+      let refreshing = false;
+      let lastScrollTop = 0;
+
+      document.addEventListener('touchstart', e => {
+        const scrollEl = document.querySelector('.page.active');
+        lastScrollTop = scrollEl ? scrollEl.scrollTop : window.scrollY;
+        startY = e.touches[0].clientY;
+        pulling = false;
+      }, { passive: true });
+
+      document.addEventListener('touchmove', e => {
+        if (refreshing) return;
+        const dy = e.touches[0].clientY - startY;
+        const scrollTop = window.scrollY;
+        if (dy > 0 && scrollTop <= 0) {
+          pulling = true;
+          if (dy > 40) {
+            ptr.classList.add('ptr-visible');
+          }
+        }
+      }, { passive: true });
+
+      document.addEventListener('touchend', e => {
+        if (!pulling || refreshing) return;
+        const dy = e.changedTouches[0].clientY - startY;
+        if (dy > 80) {
+          refreshing = true;
+          ptr.classList.add('ptr-spin');
+          ptr.classList.add('ptr-visible');
+          setTimeout(() => {
+            // Actualiser les données Firebase
+            window.location.reload();
+          }, 1000);
+        } else {
+          ptr.classList.remove('ptr-visible');
+        }
+        pulling = false;
+      }, { passive: true });
+    })();
   </script>
 </body>
 </html>
