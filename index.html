@@ -945,12 +945,396 @@
     .img-upload-zone input[type="file"] { display: none; }
     .img-upload-preview { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
     .img-upload-thumb { width: 80px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid var(--rose-bord); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       LOADING SCREEN — ANIMATION LPF
+    ═══════════════════════════════════════════════════════════════ */
+    #lpf-loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #0f0a0c;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      overflow: hidden;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    #lpf-loader.fade-out {
+      opacity: 0; pointer-events: none; transform: scale(1.04);
+    }
+
+    /* Terrain de foot en fond */
+    .loader-field {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 38%;
+      background: linear-gradient(180deg, #1a6b35 0%, #145829 100%);
+      border-top: 3px solid rgba(255,255,255,0.12);
+      overflow: hidden;
+    }
+    .loader-field::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 160px; height: 80px;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-top: none; border-radius: 0 0 80px 80px;
+    }
+    .loader-field-line {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 1px; height: 100%; background: rgba(255,255,255,0.07);
+    }
+
+    /* Spotlight / lumières de stade */
+    .loader-spotlight {
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,119,154,0.12) 0%, transparent 70%);
+      animation: spotlightFloat 4s ease-in-out infinite alternate;
+    }
+    .loader-spotlight:nth-child(1) { top: -80px; left: -60px; animation-delay: 0s; }
+    .loader-spotlight:nth-child(2) { top: -40px; right: -80px; animation-delay: 1.5s; width: 250px; height: 250px; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); }
+    @keyframes spotlightFloat { from { opacity: 0.4; transform: scale(1); } to { opacity: 1; transform: scale(1.2); } }
+
+    /* Logo LPF */
+    .loader-lpf-badge {
+      position: relative; z-index: 5;
+      display: flex; flex-direction: column; align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .loader-lpf-ring {
+      width: 110px; height: 110px; border-radius: 50%;
+      background: linear-gradient(145deg, #2a1520, #1a0d12);
+      border: 3px solid var(--rose);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      box-shadow: 0 0 40px rgba(232,119,154,0.4), 0 0 80px rgba(232,119,154,0.1), inset 0 0 30px rgba(232,119,154,0.05);
+      animation: ringPulse 2s ease-in-out infinite;
+    }
+    @keyframes ringPulse {
+      0%, 100% { box-shadow: 0 0 40px rgba(232,119,154,0.4), 0 0 80px rgba(232,119,154,0.1); }
+      50%       { box-shadow: 0 0 60px rgba(232,119,154,0.7), 0 0 120px rgba(232,119,154,0.2); }
+    }
+    .loader-lpf-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem; letter-spacing: 0.12em; line-height: 1;
+      color: var(--rose);
+      text-shadow: 0 0 20px rgba(232,119,154,0.6);
+    }
+    .loader-lpf-sub {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.7rem; letter-spacing: 0.35em;
+      color: rgba(255,255,255,0.35); margin-top: 3px;
+    }
+
+    /* Nom du club */
+    .loader-club-name {
+      position: relative; z-index: 5;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      letter-spacing: 0.04em; color: #fff;
+      text-align: center; line-height: 1;
+    }
+    .loader-club-name span { color: var(--rose); }
+
+    /* Joueur SVG qui tire */
+    .loader-player-wrap {
+      position: absolute; z-index: 6;
+      bottom: 34%; right: 8%;
+      width: 130px;
+      animation: playerKick 1.2s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+      animation-delay: 0.4s;
+      opacity: 0;
+      transform: translateX(120px);
+    }
+    @keyframes playerKick {
+      0%   { opacity: 0; transform: translateX(120px) rotate(5deg); }
+      60%  { opacity: 1; transform: translateX(-8px) rotate(-2deg); }
+      80%  { transform: translateX(4px) rotate(3deg); }
+      100% { opacity: 1; transform: translateX(0) rotate(0deg); }
+    }
+
+    /* Ballon SVG animé */
+    .loader-ball-wrap {
+      position: absolute; z-index: 7;
+      bottom: 36%; right: 22%;
+      width: 36px;
+      opacity: 0;
+      animation: ballFly 1s cubic-bezier(0.2,0.8,0.4,1) forwards;
+      animation-delay: 1.2s;
+    }
+    @keyframes ballFly {
+      0%   { opacity: 0; transform: translate(0,0) rotate(0deg) scale(0.6); }
+      20%  { opacity: 1; transform: translate(-20px,-30px) rotate(90deg) scale(1); }
+      70%  { opacity: 1; transform: translate(-160px,-120px) rotate(540deg) scale(0.85); }
+      100% { opacity: 0; transform: translate(-260px,-60px) rotate(720deg) scale(0.5); }
+    }
+
+    /* Confettis rose */
+    .loader-confetti {
+      position: absolute; z-index: 4;
+      width: 8px; height: 8px; border-radius: 2px;
+      opacity: 0;
+      animation: confettiFall 2.4s ease-in forwards;
+    }
+    @keyframes confettiFall {
+      0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+      10%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(300px) rotate(720deg); }
+    }
+
+    /* Barre de progression */
+    .loader-progress-wrap {
+      position: relative; z-index: 5;
+      width: min(280px, 70vw); margin-top: 2rem;
+    }
+    .loader-progress-track {
+      height: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden;
+    }
+    .loader-progress-bar {
+      height: 100%; width: 0%; background: var(--rose);
+      border-radius: 2px;
+      box-shadow: 0 0 12px rgba(232,119,154,0.8);
+      transition: width 0.08s linear;
+    }
+    .loader-progress-label {
+      font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      margin-top: 0.75rem; text-align: center;
+    }
+    .loader-progress-label span { color: var(--rose); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       MOBILE APP — BOTTOM TAB BAR
+    ═══════════════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* Cache la nav classique et le hamburger */
+      nav { display: none !important; }
+      .mobile-menu { display: none !important; }
+
+      /* Safe area iOS */
+      body { padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+      /* Bottom Tab Bar fixe */
+      #mobile-tab-bar {
+        display: flex !important;
+      }
+
+      /* Décale le contenu pour que rien ne soit caché sous la tab bar */
+      .page { padding-top: 0 !important; padding-bottom: 80px; }
+      #page-article-detail { padding-top: 0 !important; padding-bottom: 80px; }
+      #page-product-detail { padding-top: 0 !important; padding-bottom: 80px; }
+
+      /* Hero adapté mobile */
+      .hero { min-height: 92svh; padding: 4rem 1.25rem 2.5rem; }
+      .hero-stats { flex-direction: row; gap: 2rem; }
+
+      /* Toast au dessus de la tab bar */
+      #toast-container { bottom: 80px; }
+
+      /* Modales: reset padding */
+      .order-modal-overlay { padding: 0.5rem; }
+    }
+
+    /* La tab bar est cachée sur desktop */
+    #mobile-tab-bar { display: none; }
+
+    #mobile-tab-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 300;
+      background: var(--nav-bg);
+      backdrop-filter: blur(18px) saturate(180%);
+      border-top: 1px solid var(--rose-bord);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      box-shadow: 0 -8px 32px rgba(0,0,0,0.08);
+    }
+    .tab-bar-inner {
+      display: flex; align-items: stretch; height: 64px;
+    }
+    .tab-btn {
+      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; background: none; border: none; cursor: pointer;
+      color: var(--texte-sec); transition: color 0.2s; padding: 0;
+      -webkit-tap-highlight-color: transparent; position: relative;
+    }
+    .tab-btn.active { color: var(--rose); }
+    .tab-btn.active .tab-icon { transform: scale(1.12); }
+    .tab-icon {
+      font-size: 1.4rem; line-height: 1; transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .tab-label {
+      font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    /* Pill active indicator */
+    .tab-btn.active::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 36px; height: 3px; background: var(--rose); border-radius: 0 0 3px 3px;
+    }
+    /* Badge compteur panier */
+    .tab-cart-badge {
+      position: absolute; top: 8px; right: calc(50% - 18px);
+      background: var(--rose); color: #fff;
+      font-size: 0.5rem; font-weight: 800; min-width: 16px; height: 16px;
+      border-radius: 8px; display: none; align-items: center; justify-content: center;
+      padding: 0 3px;
+    }
+    .tab-cart-badge.show { display: flex; }
+
+    /* Header mobile compact sur les pages internes */
+    @media (max-width: 768px) {
+      .mobile-page-header {
+        display: flex !important;
+      }
+    }
+    .mobile-page-header {
+      display: none;
+      position: sticky; top: 0; left: 0; right: 0; z-index: 150;
+      background: var(--nav-bg); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--rose-bord);
+      padding: 0 1rem; height: 56px;
+      align-items: center; justify-content: space-between;
+    }
+    .mph-logo {
+      font-family: var(--bebas); font-size: 1.3rem; letter-spacing: 0.08em; color: var(--texte);
+    }
+    .mph-logo span { color: var(--rose); }
+    .mph-actions { display: flex; align-items: center; gap: 0.5rem; }
+    .mph-btn {
+      background: none; border: 1px solid var(--rose-bord); border-radius: 6px;
+      width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; cursor: pointer; color: var(--texte-sec);
+      transition: all 0.2s; position: relative;
+    }
+    .mph-btn:active { background: var(--rose-pale); border-color: var(--rose); color: var(--rose); }
+
+    /* Mobile hero : prochainMatch en top priority */
+    @media (max-width: 768px) {
+      .mobile-match-banner {
+        display: block !important;
+      }
+    }
+    .mobile-match-banner {
+      display: none;
+      background: linear-gradient(135deg, var(--texte) 0%, #2a1520 100%);
+      color: #fff; padding: 1rem 1.25rem;
+      border-bottom: 2px solid var(--rose);
+    }
+    .mmb-label { font-size: 0.55rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.4rem; }
+    .mmb-content { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .mmb-teams { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.04em; }
+    .mmb-date { font-size: 0.7rem; color: rgba(255,255,255,0.6); margin-top: 0.15rem; }
+    .mmb-btn { background: var(--rose); color: #fff; border: none; padding: 0.5rem 1rem; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 4px; cursor: pointer; white-space: nowrap; }
+
+    /* App-like pull-to-refresh hint */
+    .ptr-hint {
+      display: none; text-align: center; padding: 0.75rem;
+      font-size: 0.65rem; color: var(--texte-sec); letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    @media (max-width: 768px) { .ptr-hint { display: block; } }
   </style>
 
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
 <body>
+
+  <!-- ═══════════ LOADING SCREEN LPF ═══════════ -->
+  <div id="lpf-loader">
+    <!-- Lumières de stade -->
+    <div class="loader-spotlight"></div>
+    <div class="loader-spotlight"></div>
+
+    <!-- Terrain -->
+    <div class="loader-field"><div class="loader-field-line"></div></div>
+
+    <!-- Badge LPF principal -->
+    <div class="loader-lpf-badge">
+      <div class="loader-lpf-ring">
+        <div>
+          <div class="loader-lpf-text">LPF</div>
+          <div class="loader-lpf-sub">PIGNOUFERIE FC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nom du club -->
+    <div class="loader-club-name" style="margin-top:1.5rem;">
+      LA <span>PIGNOUFERIE</span> FC
+    </div>
+    <div style="font-size:0.6rem;letter-spacing:0.3em;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-top:0.4rem;position:relative;z-index:5;">
+      Fondé en 2005 · Site Officiel
+    </div>
+
+    <!-- Joueur SVG qui tire -->
+    <div class="loader-player-wrap">
+      <svg viewBox="0 0 100 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- Corps joueur stylisé -->
+        <!-- Tête -->
+        <circle cx="52" cy="20" r="12" fill="#E8779A"/>
+        <!-- Maillot rose -->
+        <path d="M34 38 Q38 34 52 34 Q66 34 70 38 L68 80 Q60 82 52 82 Q44 82 36 80 Z" fill="#E8779A"/>
+        <!-- Numero -->
+        <text x="52" y="65" text-anchor="middle" font-size="12" font-weight="bold" fill="white" font-family="Arial">7</text>
+        <!-- Short blanc -->
+        <path d="M36 80 L40 105 L52 102 L64 105 L68 80 Q60 84 52 84 Q44 84 36 80Z" fill="white"/>
+        <!-- Jambe gauche -->
+        <rect x="38" y="103" width="11" height="30" rx="4" fill="#c4506e"/>
+        <!-- Jambe droite (en position tir) -->
+        <path d="M53 103 Q70 95 80 78 Q84 72 80 68 Q75 64 70 70 Q62 80 54 103Z" fill="#c4506e"/>
+        <!-- Pied gauche -->
+        <ellipse cx="43" cy="133" rx="9" ry="5" fill="#333"/>
+        <!-- Pied droit (botte vers ballon) -->
+        <ellipse cx="78" cy="67" rx="9" ry="5" fill="#333" transform="rotate(-30 78 67)"/>
+        <!-- Bras gauche -->
+        <path d="M36 42 Q22 50 20 65" stroke="#E8779A" stroke-width="8" fill="none" stroke-linecap="round"/>
+        <!-- Bras droit -->
+        <path d="M68 42 Q75 38 78 30" stroke="#E8779A" stroke-width="8" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Ballon SVG -->
+    <div class="loader-ball-wrap">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="18" fill="white" stroke="#eee" stroke-width="1"/>
+        <polygon points="20,4 26,10 24,18 20,20 16,18 14,10" fill="#222"/>
+        <polygon points="4,16 10,12 16,18 14,26 8,28 4,22" fill="#222"/>
+        <polygon points="36,16 30,12 24,18 26,26 32,28 36,22" fill="#222"/>
+        <polygon points="12,34 14,26 20,24 26,26 28,34 20,36" fill="#222"/>
+      </svg>
+    </div>
+
+    <!-- Confettis roses -->
+    <div id="loader-confetti-container" style="position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden;"></div>
+
+    <!-- Progress bar -->
+    <div class="loader-progress-wrap">
+      <div class="loader-progress-track">
+        <div class="loader-progress-bar" id="loader-bar"></div>
+      </div>
+      <div class="loader-progress-label" id="loader-label">Chargement de <span>La Pignouferie FC</span></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ MOBILE BOTTOM TAB BAR ═══════════ -->
+  <div id="mobile-tab-bar">
+    <div class="tab-bar-inner">
+      <button class="tab-btn active" id="tab-accueil" onclick="mobileTabNav('accueil')">
+        <span class="tab-icon">🏠</span>
+        <span class="tab-label">Club</span>
+      </button>
+      <button class="tab-btn" id="tab-resultats" onclick="mobileTabNav('resultats')">
+        <span class="tab-icon">⚽</span>
+        <span class="tab-label">Résultats</span>
+      </button>
+      <button class="tab-btn" id="tab-actualites" onclick="mobileTabNav('actualites')">
+        <span class="tab-icon">📰</span>
+        <span class="tab-label">Actus</span>
+      </button>
+      <button class="tab-btn" id="tab-boutique" onclick="mobileTabNav('boutique')">
+        <span class="tab-icon">🛒</span>
+        <span class="tab-label">Shop</span>
+        <span class="tab-cart-badge" id="tab-cart-count">0</span>
+      </button>
+      <button class="tab-btn" id="tab-compte" onclick="mobileTabNav('compte')">
+        <span class="tab-icon">👤</span>
+        <span class="tab-label">Profil</span>
+      </button>
+    </div>
+  </div>
 
   <!-- Toast notifications -->
   <div id="toast-container"></div>
@@ -1003,6 +1387,25 @@
   </div>
 
   <div id="page-accueil" class="page active">
+    <!-- Header mobile accueil -->
+    <div class="mobile-page-header">
+      <div class="mph-logo">PIGNOUFERIE <span>FC</span></div>
+      <div class="mph-actions">
+        <button class="mph-btn" onclick="openGlobalSearch()" title="Recherche">🔍</button>
+        <button class="mph-btn" onclick="mobileTabNav('parametres')" title="Paramètres">⚙️</button>
+      </div>
+    </div>
+    <!-- Bannière prochain match (mobile only) -->
+    <div class="mobile-match-banner" id="mobile-match-banner-accueil" style="display:none;">
+      <div class="mmb-label">⚽ Prochain match</div>
+      <div class="mmb-content">
+        <div>
+          <div class="mmb-teams" id="mmb-teams">PFC vs —</div>
+          <div class="mmb-date" id="mmb-date">—</div>
+        </div>
+        <button class="mmb-btn" onclick="mobileTabNav('billetterie')">Billetterie →</button>
+      </div>
+    </div>
     <div class="hero">
       <div class="hero-marquee">
         <div class="hero-marquee-inner" id="hero-marquee-text">PIGNOUFERIE FC • PIGNOUFERIE FC •</div>
@@ -1059,6 +1462,10 @@
   </div>
 
   <div id="page-actualites" class="page">
+    <div class="mobile-page-header">
+      <div class="mph-logo">Actualités <span>&</span> Presse</div>
+      <div class="mph-actions"><button class="mph-btn" onclick="openGlobalSearch()">🔍</button></div>
+    </div>
     <div class="premium-header">
       <p class="section-eyebrow" id="news-eyebrow" data-i18n="news_eyebrow">Média</p>
       <h2 class="section-title" id="news-title">Actualités & <em>Presse</em></h2>
@@ -1096,6 +1503,10 @@
   </div>
 
   <div id="page-resultats" class="page">
+    <div class="mobile-page-header">
+      <div class="mph-logo">⚽ Résultats <span>&</span> Saisons</div>
+      <div class="mph-actions"><button class="mph-btn" onclick="openGlobalSearch()">🔍</button></div>
+    </div>
     <div class="premium-header">
       <p class="section-eyebrow" data-i18n="res_eyebrow">Compétition</p>
       <h2 class="section-title" data-i18n="res_title">Résultats <em>&amp; Saisons</em></h2>
@@ -1185,6 +1596,12 @@
   </div>
 
   <div id="page-boutique" class="page">
+    <div class="mobile-page-header">
+      <div class="mph-logo">🛒 <span>Boutique</span></div>
+      <div class="mph-actions">
+        <button class="mph-btn" onclick="toggleCartPanel(true)" style="position:relative;">🛍️<span id="cart-badge-mph" style="display:none;position:absolute;top:-2px;right:-2px;background:var(--rose);color:#fff;font-size:0.45rem;font-weight:800;min-width:14px;height:14px;border-radius:7px;display:flex;align-items:center;justify-content:center;padding:0 2px;"></span></button>
+      </div>
+    </div>
     <div class="shop-hero">
       <div class="shop-hero-bg"></div>
       <div class="shop-hero-overlay"></div>
@@ -1264,6 +1681,10 @@
   </div>
 
   <div id="page-compte" class="page">
+    <div class="mobile-page-header">
+      <div class="mph-logo">👤 Mon <span>Profil</span></div>
+      <div class="mph-actions"><button class="mph-btn" onclick="mobileTabNav('parametres')">⚙️</button></div>
+    </div>
     <div class="auth-container" id="auth-unlogged-view">
       <div class="auth-tabs">
         <button class="auth-tab active" id="tab-login" onclick="setAuthMode('login')" data-i18n="auth_login">Connexion</button>
@@ -2055,6 +2476,7 @@
     db.ref('match').on('value', (snapshot) => {
       if(snapshot.exists()) { matchData = snapshot.val(); }
       renderMatchs();
+      updateMobileMatchBanner();
     });
 
     db.ref('resultats').on('value', (snapshot) => {
@@ -2113,6 +2535,16 @@
         document.body.classList.add('is-admin-mode');
         document.getElementById('nav-admin-link').style.display = 'block';
         document.getElementById('mobile-admin-link').style.display = 'block';
+      }
+
+      // Mobile: init tab bar and match banner
+      updateMobileMatchBanner();
+
+      // On mobile, show prochain match banner
+      if(window.innerWidth <= 768) {
+        // Default active tab = accueil
+        const accueilTab = document.getElementById('tab-accueil');
+        if(accueilTab) accueilTab.classList.add('active');
       }
     };
 
@@ -2673,7 +3105,8 @@
       panier.push({ name, price });
       document.getElementById('cartBubble').classList.add('show');
       updateCartDisplay();
-      if(navigator.vibrate) navigator.vibrate(50); // Haptic feedback ajout au panier
+      syncTabCartBadge();
+      if(navigator.vibrate) navigator.vibrate([30,20,30]); // Haptic feedback ajout au panier
     }
 
     function updateCartDisplay() {
@@ -2700,6 +3133,7 @@
       panier.splice(index, 1);
       if(panier.length === 0) document.getElementById('cartBubble').classList.remove('show');
       updateCartDisplay();
+      syncTabCartBadge();
     }
 
     let selectedPaymentMethod = 'card';
@@ -2815,6 +3249,11 @@
       if(pageId === 'compte' && isUserLoggedIn) {
         toggleLoggedView(true);
       }
+      // Sync mobile tab bar active state
+      ['accueil','resultats','actualites','boutique','compte'].forEach(t => {
+        const btn = document.getElementById('tab-' + t);
+        if(btn) btn.classList.toggle('active', t === pageId);
+      });
       window.scrollTo(0,0);
     }
 
@@ -3568,6 +4007,113 @@
       document.getElementById('adm-prod-desc').value = '';
       document.getElementById('adm-prod-form-title').innerText = 'Créer / Modifier un Produit';
     }
+
+    // ═══════════ MOBILE TAB BAR ═══════════
+    function mobileTabNav(pageId) {
+      showPage(pageId);
+      // Update tab active state
+      const tabs = ['accueil','resultats','actualites','boutique','compte'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('tab-' + t);
+        if(btn) btn.classList.toggle('active', t === pageId);
+      });
+      // Also handle pages not in tab bar (fallback: keep current)
+      if(!tabs.includes(pageId)) {
+        // Clear all actives — page still shows
+        tabs.forEach(t => {
+          const btn = document.getElementById('tab-' + t);
+          if(btn) btn.classList.remove('active');
+        });
+      }
+    }
+
+    // Sync tab bar badge panier
+    function syncTabCartBadge() {
+      const badge = document.getElementById('tab-cart-count');
+      if(badge) {
+        if(panier.length > 0) {
+          badge.innerText = panier.length;
+          badge.classList.add('show');
+        } else {
+          badge.classList.remove('show');
+        }
+      }
+    }
+
+    // Bannière prochain match mobile
+    function updateMobileMatchBanner() {
+      const banner = document.getElementById('mobile-match-banner-accueil');
+      const teamsEl = document.getElementById('mmb-teams');
+      const dateEl = document.getElementById('mmb-date');
+      if(!banner || !matchData) return;
+      teamsEl.innerText = (matchData.home || 'PFC') + ' vs ' + (matchData.away || '—');
+      dateEl.innerText = matchData.date || '—';
+      banner.style.display = 'block';
+    }
+
+    // Override addToCart to also update mobile badge
+    const _origAddToCart = window.handleAddToCart;
+    // (sera patché après init)
+
+    // ═══════════ LOADING SCREEN ═══════════
+    (function initLoader() {
+      const bar = document.getElementById('loader-bar');
+      const label = document.getElementById('loader-label');
+      const loader = document.getElementById('lpf-loader');
+      const confettiContainer = document.getElementById('loader-confetti-container');
+
+      const messages = [
+        'Chargement de <span>La Pignouferie FC</span>',
+        'Connexion aux serveurs <span>Firebase</span>',
+        'Récupération de <span>l\'effectif</span>',
+        'Préparation du <span>terrain</span>',
+        'Bienvenue au <span>Pignouferie FC</span> !'
+      ];
+
+      let progress = 0;
+      let msgIdx = 0;
+
+      // Confettis
+      const colors = ['#E8779A','#C4506E','#FFF','#FFB3CB','#FF6B9D'];
+      for(let i = 0; i < 22; i++) {
+        const c = document.createElement('div');
+        c.className = 'loader-confetti';
+        c.style.cssText = `
+          left: ${Math.random() * 100}%;
+          top: ${-10 - Math.random() * 30}%;
+          background: ${colors[Math.floor(Math.random() * colors.length)]};
+          width: ${4 + Math.random() * 8}px;
+          height: ${4 + Math.random() * 8}px;
+          border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+          animation-delay: ${0.8 + Math.random() * 1.5}s;
+          animation-duration: ${2 + Math.random() * 1.5}s;
+        `;
+        confettiContainer.appendChild(c);
+      }
+
+      const interval = setInterval(() => {
+        progress += Math.random() * 14 + 4;
+        if(progress > 100) progress = 100;
+        bar.style.width = progress + '%';
+
+        const newIdx = Math.min(Math.floor(progress / 25), messages.length - 1);
+        if(newIdx !== msgIdx) {
+          msgIdx = newIdx;
+          label.innerHTML = messages[msgIdx];
+        }
+
+        if(progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            label.innerHTML = '🎉 <span>En route !</span>';
+            setTimeout(() => {
+              loader.classList.add('fade-out');
+              setTimeout(() => { loader.style.display = 'none'; }, 650);
+            }, 400);
+          }, 300);
+        }
+      }, 90);
+    })();
 
     function applyLanguage(l) {
       const t = translations[l];
