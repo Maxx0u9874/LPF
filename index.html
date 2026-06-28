@@ -2022,9 +2022,14 @@
       const data = snapshot.val();
       actualites = []; actualitesKeys = [];
       if(data) {
-        // On conserve l'ordre natif Firebase (insertion) comme fallback
-        // Le tri réel se fait dans renderActualites() et renderAdminNewsList() via le champ order
-        Object.keys(data).forEach(key => { actualites.push(data[key]); actualitesKeys.push(key); });
+        let pairs = Object.keys(data).map((key, i) => ({ key, val: data[key], insertIdx: i }));
+        // Trier par champ 'order' décroissant. Fallback : index d'insertion Firebase (croissant → inversé)
+        pairs.sort((a, b) => {
+          const oA = a.val.order !== undefined ? a.val.order : a.insertIdx;
+          const oB = b.val.order !== undefined ? b.val.order : b.insertIdx;
+          return oB - oA; // décroissant : plus grand order = plus récent = affiché en 1er
+        });
+        pairs.forEach(p => { actualites.push(p.val); actualitesKeys.push(p.key); });
       }
       renderActualites();
       renderAdminNewsList();
@@ -2468,64 +2473,53 @@
     // La liste admin affiche du plus récent (order élevé) au plus ancien (order bas)
     // = même sens que la page publique qui fait .reverse()
 
-    function _ensureArticleOrders(cb) {
-      // Si aucun article n'a de champ order, on les initialise sur Firebase
-      if(actualites.some(a => a.order === undefined)) {
-        const updates = {};
-        actualites.forEach((a, i) => { updates[actualitesKeys[i] + '/order'] = i; a.order = i; });
-        db.ref('actualites').update(updates).then(cb);
-      } else { cb(); }
-    }
-
     function moveNewsAdmin(visIdx, dir) {
-      // visIdx = position dans la vue admin (0 = article le plus récent affiché en tête)
-      // La vue affiche actualites trié par order DESC, donc visIdx 0 = dernier en termes d'order
-      // dir = -1 : monter dans la vue = augmenter son order (le rendre plus récent)
-      // dir = +1 : descendre dans la vue = diminuer son order
-      _ensureArticleOrders(() => {
-        // Trier par order décroissant pour obtenir l'ordre visuel
-        let pairs = actualites.map((a, i) => ({ a, key: actualitesKeys[i], arrIdx: i }));
-        pairs.sort((a, b) => (b.a.order ?? 0) - (a.a.order ?? 0));
+      const targetVisIdx = visIdx + dir;
+      if(targetVisIdx < 0 || targetVisIdx >= actualites.length) return;
 
-        const targetVisIdx = visIdx + dir;
-        if(targetVisIdx < 0 || targetVisIdx >= pairs.length) return;
-
-        const pA = pairs[visIdx];
-        const pB = pairs[targetVisIdx];
-        const tmpOrder = pA.a.order;
-        pA.a.order = pB.a.order;
-        pB.a.order = tmpOrder;
-
-        const updates = {};
-        updates[pA.key + '/order'] = pA.a.order;
-        updates[pB.key + '/order'] = pB.a.order;
-
-        // Mise à jour locale immédiate
-        actualites[pA.arrIdx].order = pA.a.order;
-        actualites[pB.arrIdx].order = pB.a.order;
-
-        db.ref('actualites').update(updates).then(() => {
-          renderActualites();
-          renderAdminNewsList();
-        });
-        // Rendu local immédiat sans attendre Firebase
-        renderActualites();
-        renderAdminNewsList();
+      // Initialiser les order en mémoire si manquants (sans appel Firebase supplémentaire)
+      // actualites est déjà trié par order DESC depuis le listener
+      actualites.forEach((a, i) => {
+        if(a.order === undefined) a.order = actualites.length - 1 - i; // le 1er (plus récent) = order le plus grand
       });
+
+      const aA = actualites[visIdx];
+      const aB = actualites[targetVisIdx];
+      const keyA = actualitesKeys[visIdx];
+      const keyB = actualitesKeys[targetVisIdx];
+
+      // Swap des valeurs order
+      const tmpOrder = aA.order;
+      aA.order = aB.order;
+      aB.order = tmpOrder;
+
+      // Swap dans le tableau local (pour que le rendu immédiat soit correct)
+      actualites[visIdx] = aB;
+      actualites[targetVisIdx] = aA;
+      actualitesKeys[visIdx] = keyB;
+      actualitesKeys[targetVisIdx] = keyA;
+
+      // Rendu immédiat (avant la réponse Firebase)
+      renderActualites();
+      renderAdminNewsList();
+
+      // Un seul update Firebase (déclenche le listener qui re-trie et re-render, mais sera identique)
+      const updates = {};
+      updates[keyA + '/order'] = aA.order;
+      updates[keyB + '/order'] = aB.order;
+      db.ref('actualites').update(updates);
     }
 
     function renderAdminNewsList() {
-      // Même ordre que la page publique : order décroissant = plus récent en premier
-      let pairs = actualites.map((a, i) => ({ a, i }));
-      pairs.sort((a, b) => (b.a.order ?? b.i) - (a.a.order ?? a.i));
-      document.getElementById('adm-news-list').innerHTML = pairs.map(({ a, i }, visIdx) => `
+      // actualites est déjà trié par order décroissant (même ordre que la page publique)
+      document.getElementById('adm-news-list').innerHTML = actualites.map((a, visIdx) => `
         <div class="admin-list-item">
           <span>${a.title}</span>
           <div class="admin-list-actions">
             <button class="admin-mini-btn" style="background:#555;" onclick="moveNewsAdmin(${visIdx}, -1)" ${visIdx===0?'disabled style="opacity:0.4;cursor:not-allowed;"':''}>↑</button>
-            <button class="admin-mini-btn" style="background:#555;" onclick="moveNewsAdmin(${visIdx}, 1)" ${visIdx===pairs.length-1?'disabled style="opacity:0.4;cursor:not-allowed;"':''}>↓</button>
-            <button class="admin-mini-btn btn-edit-mini" onclick="editNewsPro(${i})">Edit</button>
-            <button class="admin-mini-btn btn-del-mini" onclick="deleteNewsPro(${i})">Del</button>
+            <button class="admin-mini-btn" style="background:#555;" onclick="moveNewsAdmin(${visIdx}, 1)" ${visIdx===actualites.length-1?'disabled style="opacity:0.4;cursor:not-allowed;"':''}>↓</button>
+            <button class="admin-mini-btn btn-edit-mini" onclick="editNewsPro(${visIdx})">Edit</button>
+            <button class="admin-mini-btn btn-del-mini" onclick="deleteNewsPro(${visIdx})">Del</button>
           </div>
         </div>
       `).join('');
@@ -2905,12 +2899,9 @@
     }
 
     function renderActualites() {
-      // Trier par order décroissant (plus récent = order élevé, affiché en premier)
-      // Si pas de champ order, utiliser l'index d'insertion (comportement initial)
-      let pairs = actualites.map((a, i) => ({ a, i }));
-      pairs.sort((a, b) => (b.a.order ?? b.i) - (a.a.order ?? a.i));
-      const sorted = pairs.map(p => p.a);
-      const sortedIdxs = pairs.map(p => p.i);
+      // actualites est déjà trié par order décroissant par le listener Firebase
+      const sorted = actualites;
+      const sortedIdxs = actualites.map((_, i) => i);
 
       const featured = sorted.find(a => a.featured);
       const rest = sorted.filter(a => !a.featured);
@@ -3186,33 +3177,34 @@
       const targetVisIdx = visIdx + dir;
       if(targetVisIdx < 0 || targetVisIdx >= saisonsData.length) return;
 
-      // S'assurer que toutes les saisons ont un champ order
-      if(saisonsData.some(s => s.order === undefined)) {
-        const initUpdates = {};
-        saisonsData.forEach((s, i) => { initUpdates[saisonsKeys[i] + '/order'] = i; s.order = i; });
-        db.ref('saisons').update(initUpdates).then(() => _swapSaisonOrder(visIdx, targetVisIdx));
-        return;
-      }
-      _swapSaisonOrder(visIdx, targetVisIdx);
-    }
+      // Initialiser les order en mémoire si manquants
+      saisonsData.forEach((s, i) => { if(s.order === undefined) s.order = i; });
 
-    function _swapSaisonOrder(idxA, idxB) {
-      const orderA = saisonsData[idxA].order;
-      const orderB = saisonsData[idxB].order;
-      const updates = {};
-      updates[saisonsKeys[idxA] + '/order'] = orderB;
-      updates[saisonsKeys[idxB] + '/order'] = orderA;
-      // Mise à jour locale immédiate
-      saisonsData[idxA].order = orderB;
-      saisonsData[idxB].order = orderA;
-      db.ref('saisons').update(updates);
-      // Re-trier localement
-      let pairs = saisonsData.map((s, i) => ({ s, key: saisonsKeys[i] }));
-      pairs.sort((a, b) => (a.s.order ?? 0) - (b.s.order ?? 0));
-      saisonsData = pairs.map(p => p.s);
-      saisonsKeys = pairs.map(p => p.key);
+      const sA = saisonsData[visIdx];
+      const sB = saisonsData[targetVisIdx];
+      const keyA = saisonsKeys[visIdx];
+      const keyB = saisonsKeys[targetVisIdx];
+
+      // Swap des valeurs order
+      const tmpOrder = sA.order;
+      sA.order = sB.order;
+      sB.order = tmpOrder;
+
+      // Swap dans le tableau local pour rendu immédiat
+      saisonsData[visIdx] = sB;
+      saisonsData[targetVisIdx] = sA;
+      saisonsKeys[visIdx] = keyB;
+      saisonsKeys[targetVisIdx] = keyA;
+
+      // Rendu immédiat
       renderAdminSaisonsList();
       renderResultats();
+
+      // Un seul update Firebase
+      const updates = {};
+      updates[keyA + '/order'] = sA.order;
+      updates[keyB + '/order'] = sB.order;
+      db.ref('saisons').update(updates);
     }
 
     // ── Toast Notifications ──
@@ -3329,9 +3321,12 @@
       const data = snapshot.val();
       saisonsData = []; saisonsKeys = [];
       if(data) {
-        let pairs = Object.keys(data).map(key => ({ key, val: data[key] }));
-        // Trier par champ order (croissant)
-        pairs.sort((a, b) => (a.val.order ?? 0) - (b.val.order ?? 0));
+        let pairs = Object.keys(data).map((key, i) => ({ key, val: data[key], insertIdx: i }));
+        pairs.sort((a, b) => {
+          const oA = a.val.order !== undefined ? a.val.order : a.insertIdx;
+          const oB = b.val.order !== undefined ? b.val.order : b.insertIdx;
+          return oA - oB; // croissant : order 0 = première saison affichée
+        });
         pairs.forEach(p => { saisonsData.push(p.val); saisonsKeys.push(p.key); });
       }
       renderAdminSaisonsList();
