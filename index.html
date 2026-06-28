@@ -716,6 +716,160 @@
     [data-theme="dark"] .article-body { color: var(--texte); }
     [data-theme="dark"] #page-product-detail { background: var(--blanc); }
     [data-theme="dark"] .btn-unavailable { background: var(--gris-clair); color: var(--texte-sec); border-color: var(--rose-bord); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SAISONS / CATÉGORIES DE RÉSULTATS
+    ═══════════════════════════════════════════════════════════════ */
+    .saison-block { margin-bottom: 2rem; border: 1px solid var(--rose-bord); border-radius: 8px; overflow: hidden; background: var(--blanc); box-shadow: var(--card-shadow); }
+    .saison-header {
+      display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem;
+      cursor: pointer; user-select: none; background: var(--rose-pale); transition: background 0.2s;
+    }
+    .saison-header:hover { background: var(--rose-mid); }
+    .saison-header-left { display: flex; flex-direction: column; gap: 0.2rem; }
+    .saison-title-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .saison-name { font-family: var(--bebas); font-size: 1.4rem; color: var(--texte); letter-spacing: 0.03em; }
+    .saison-desc-small { font-size: 0.75rem; color: var(--texte-sec); }
+    .saison-form-dots { display: flex; gap: 5px; margin-top: 0.4rem; flex-wrap: wrap; }
+    .form-dot {
+      width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+    .form-dot.victoire { background: var(--succes); }
+    .form-dot.defaite { background: var(--danger); }
+    .form-dot.nul { background: var(--texte-sec); }
+    .saison-header-right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
+    .saison-stats-mini { display: flex; gap: 0.75rem; font-size: 0.72rem; font-weight: 700; }
+    .stat-mini-v { color: var(--succes); }
+    .stat-mini-n { color: var(--texte-sec); }
+    .stat-mini-d { color: var(--danger); }
+    .saison-chevron { font-size: 1rem; color: var(--rose); transition: transform 0.3s; }
+    .saison-block.open .saison-chevron { transform: rotate(180deg); }
+
+    .saison-body { display: none; padding: 0 1.5rem 1.5rem; }
+    .saison-block.open .saison-body { display: block; }
+    .saison-description { font-size: 0.85rem; color: var(--texte-sec); line-height: 1.7; margin: 1rem 0 1.5rem; padding: 0.75rem 1rem; background: var(--gris-clair); border-left: 3px solid var(--rose); border-radius: 0 4px 4px 0; }
+    
+    .saison-bilan { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; }
+    .bilan-chip { padding: 0.4rem 0.9rem; border-radius: 20px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+    .bilan-chip.v { background: rgba(91,173,122,0.15); color: var(--succes); border: 1px solid rgba(91,173,122,0.3); }
+    .bilan-chip.n { background: rgba(107,95,107,0.1); color: var(--texte-sec); border: 1px solid var(--rose-bord); }
+    .bilan-chip.d { background: rgba(217,83,79,0.12); color: var(--danger); border: 1px solid rgba(217,83,79,0.25); }
+    .bilan-chip.cs { background: rgba(79,130,217,0.12); color: #4a82d9; border: 1px solid rgba(79,130,217,0.25); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       MODAL JOUEUR PROFIL
+    ═══════════════════════════════════════════════════════════════ */
+    .player-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 700;
+      display: none; align-items: center; justify-content: center; padding: 1rem;
+    }
+    .player-modal-overlay.open { display: flex; }
+    .player-modal {
+      background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 12px;
+      max-width: 520px; width: 100%; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.25); position: relative;
+    }
+    .player-modal-hero {
+      background: linear-gradient(135deg, var(--rose-pale) 0%, var(--blanc) 100%);
+      padding: 2rem 2rem 1.5rem; border-bottom: 1px solid var(--rose-bord);
+      display: flex; gap: 1.5rem; align-items: center;
+    }
+    .player-modal-avatar {
+      width: 80px; height: 80px; border-radius: 50%; background: var(--rose-mid);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--bebas); font-size: 2rem; color: var(--rose);
+      border: 3px solid var(--rose-bord); flex-shrink: 0; overflow: hidden;
+    }
+    .player-modal-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .player-modal-info { flex: 1; }
+    .player-modal-num { font-family: var(--bebas); font-size: 1rem; color: var(--rose); letter-spacing: 0.1em; }
+    .player-modal-name { font-family: var(--bebas); font-size: 1.8rem; color: var(--texte); line-height: 1; }
+    .player-modal-poste { font-size: 0.78rem; font-weight: 600; color: var(--texte-sec); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.3rem; }
+    .player-modal-body { padding: 1.5rem 2rem 2rem; }
+    .player-modal-stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.5rem; }
+    .player-modal-stat { background: var(--gris-clair); border-radius: 8px; padding: 0.75rem; text-align: center; }
+    .player-modal-stat-val { font-family: var(--bebas); font-size: 1.6rem; color: var(--texte); }
+    .player-modal-stat-lbl { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--texte-sec); }
+    .player-modal-bio { font-size: 0.85rem; color: var(--texte-sec); line-height: 1.7; margin-bottom: 1.25rem; font-style: italic; }
+    .player-modal-close {
+      position: absolute; top: 1rem; right: 1rem; background: var(--blanc); border: 1px solid var(--rose-bord);
+      width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center; color: var(--texte-sec);
+    }
+    .player-modal-close:hover { color: var(--rose); border-color: var(--rose); }
+    .joueur-card { cursor: pointer; }
+    [data-theme="dark"] .player-modal { background: var(--blanc); }
+    [data-theme="dark"] .player-modal-hero { background: linear-gradient(135deg, var(--rose-mid) 0%, var(--blanc) 100%); }
+    [data-theme="dark"] .player-modal-stat { background: var(--gris-clair); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ARTICLE BADGES (Nouveau, Exclusif, À la une)
+    ═══════════════════════════════════════════════════════════════ */
+    .article-badge {
+      display: inline-block; font-size: 0.58rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0.22rem 0.6rem; border-radius: 3px; margin-right: 0.3rem;
+    }
+    .article-badge.nouveau { background: var(--succes); color: #fff; }
+    .article-badge.exclusif { background: var(--rose); color: #fff; }
+    .article-badge.une { background: var(--texte); color: #fff; }
+
+    .news-featured-card {
+      grid-column: 1 / -1; display: grid;
+      grid-template-columns: 1fr; gap: 0;
+      border: 2px solid var(--rose); border-radius: 8px;
+      overflow: hidden; background: var(--blanc);
+      box-shadow: 0 12px 40px rgba(232,119,154,0.18);
+      cursor: pointer; transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    @media (min-width: 768px) {
+      .news-featured-card { grid-template-columns: 1.4fr 1fr; }
+    }
+    .news-featured-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(232,119,154,0.25); }
+    .news-featured-img { height: 260px; overflow: hidden; }
+    @media (min-width: 768px) { .news-featured-img { height: auto; } }
+    .news-featured-img img { width: 100%; height: 100%; object-fit: cover; }
+    .news-featured-img-placeholder { width: 100%; height: 100%; min-height: 260px; background: var(--rose-mid); display: flex; align-items: center; justify-content: center; font-size: 5rem; }
+    .news-featured-body { padding: 2.5rem 2rem; display: flex; flex-direction: column; justify-content: center; }
+    .news-featured-eyebrow { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.75rem; }
+    .news-featured-title { font-family: var(--bebas); font-size: clamp(1.8rem, 3vw, 2.8rem); color: var(--texte); letter-spacing: 0.02em; line-height: 1.1; margin-bottom: 0.75rem; }
+    .news-featured-excerpt { font-size: 0.9rem; color: var(--texte-sec); line-height: 1.7; font-weight: 300; }
+    .news-featured-meta { font-size: 0.7rem; color: var(--texte-sec); margin-top: 1.25rem; font-weight: 500; }
+    [data-theme="dark"] .news-featured-card { background: var(--blanc); }
+
+    /* Hero article accueil */
+    #accueil-featured-article { display: none; }
+    .hero-article-card {
+      background: var(--blanc); border: 1px solid var(--rose-bord); border-radius: 8px;
+      overflow: hidden; cursor: pointer; display: flex; gap: 0; flex-direction: column;
+      transition: all 0.3s; max-width: 460px; box-shadow: var(--card-shadow);
+    }
+    @media (min-width: 500px) { .hero-article-card { flex-direction: row; } }
+    .hero-article-card:hover { border-color: var(--rose); }
+    .hero-article-img { width: 100%; height: 120px; overflow: hidden; flex-shrink: 0; }
+    @media (min-width: 500px) { .hero-article-img { width: 100px; } }
+    .hero-article-img img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-article-img-placeholder { width: 100%; height: 100%; background: var(--rose-mid); display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+    .hero-article-content { padding: 0.85rem 1rem; flex: 1; }
+    .hero-article-tag { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--rose); margin-bottom: 0.3rem; }
+    .hero-article-title { font-family: var(--bebas); font-size: 1.1rem; color: var(--texte); line-height: 1.15; }
+
+    /* Admin résultats — saisons */
+    .admin-saison-row { background: var(--gris-clair); border: 1px solid var(--rose-bord); border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
+    .admin-saison-label { font-weight: 700; font-size: 0.85rem; color: var(--texte); }
+    .admin-saison-meta { font-size: 0.72rem; color: var(--texte-sec); }
+    .admin-res-saison-select { padding: 0.5rem; border: 1px solid var(--rose-bord); border-radius: 4px; background: var(--blanc); color: var(--texte); font-family: var(--inter); font-size: 0.82rem; width: 100%; }
+
+    /* Image upload */
+    .img-upload-zone {
+      border: 2px dashed var(--rose-bord); border-radius: 6px; padding: 1rem;
+      text-align: center; cursor: pointer; transition: all 0.2s; background: var(--gris-clair);
+      font-size: 0.78rem; color: var(--texte-sec);
+    }
+    .img-upload-zone:hover { border-color: var(--rose); background: var(--rose-pale); }
+    .img-upload-zone input[type="file"] { display: none; }
+    .img-upload-preview { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .img-upload-thumb { width: 80px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid var(--rose-bord); }
   </style>
 
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -765,6 +919,11 @@
       <div class="hero-actions">
         <button class="btn-primary" id="hero-btn-ticket" onclick="showPage('boutique')" data-i18n="hero_btn_ticket">Commander un maillot</button>
         <button class="btn-ghost" id="hero-btn-eff" onclick="document.getElementById('effectif-sec').scrollIntoView()" data-i18n="hero_btn_squad">Découvrir l'effectif</button>
+      </div>
+      <!-- Article à la une sur la page d'accueil -->
+      <div id="accueil-featured-article" style="margin-top:2rem; display:none;">
+        <p style="font-size:0.62rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--rose); margin-bottom:0.6rem;">📌 À lire</p>
+        <div class="hero-article-card" id="accueil-featured-card" onclick=""></div>
       </div>
       <div class="hero-stats">
         <div><div class="hero-stat-num" id="hero-stat-year-val">2005</div><div class="hero-stat-label" id="hero-stat-lbl-year" data-i18n="hero_stat_year">Année de création</div></div>
@@ -845,10 +1004,10 @@
   <div id="page-resultats" class="page">
     <div class="premium-header">
       <p class="section-eyebrow" data-i18n="res_eyebrow">Compétition</p>
-      <h2 class="section-title" data-i18n="res_title">Résultats <em>Récent</em></h2>
+      <h2 class="section-title" data-i18n="res_title">Résultats <em>&amp; Saisons</em></h2>
     </div>
     <div class="sec">
-      <div class="match-container-box" id="resultats-container"></div>
+      <div id="saisons-container"></div>
     </div>
   </div>
 
@@ -1212,18 +1371,40 @@
       <div class="admin-sections-grid">
         
         <div class="admin-block">
-          <h3>Gérer les Résultats</h3>
+          <h3>Gérer les Saisons &amp; Résultats</h3>
+          <!-- Gestion des saisons -->
+          <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord); border-radius:4px; margin-bottom:1rem;">
+            <h4 style="font-size:0.8rem; margin-bottom:0.75rem; color:var(--rose);">Gérer les Saisons / Catégories</h4>
+            <div class="admin-scroll-list" id="adm-saisons-list" style="margin-bottom:0.75rem;"></div>
+            <input type="hidden" id="admin-saison-id" value="" />
+            <div class="form-group"><label>Nom de la saison</label><input type="text" id="admin-saison-nom" placeholder="Ex: Ligue 2 2025/2026" /></div>
+            <div class="form-group"><label>Description courte (optionnelle)</label><textarea id="admin-saison-desc" rows="2" placeholder="Ex: Deuxième saison en Ligue 2, objectif montée…"></textarea></div>
+            <div style="display:flex; gap:0.5rem;">
+              <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.7rem;" onclick="saveSaisonAdmin()">Sauvegarder la saison</button>
+              <button class="btn-ghost" style="font-size:0.65rem;" onclick="resetSaisonForm()">Annuler</button>
+            </div>
+          </div>
+          <!-- Gestion des résultats -->
           <div class="admin-scroll-list" id="adm-res-list"></div>
           <div style="background:var(--gris-clair); padding:1rem; border:1px dashed var(--rose-bord); border-radius:4px;">
             <h4 style="font-size:0.8rem; margin-bottom:0.5rem;">Nouveau / Modifier Résultat</h4>
             <input type="hidden" id="admin-res-id" value="" />
+            <div class="form-group"><label>Saison / Catégorie</label>
+              <select class="admin-res-saison-select" id="admin-res-saison"></select>
+            </div>
             <div class="form-group"><label>Équipe Domicile</label><input type="text" id="admin-res-home" value="La Pignouferie FC" /></div>
             <div class="form-group"><label>Équipe Extérieur</label><input type="text" id="admin-res-away" /></div>
             <div style="display:flex; gap:10px;">
                 <div class="form-group" style="flex:1;"><label>Score Dom</label><input type="number" id="admin-res-scoreH" value="0" /></div>
                 <div class="form-group" style="flex:1;"><label>Score Ext</label><input type="number" id="admin-res-scoreA" value="0" /></div>
             </div>
-            <div class="form-group"><label>Date / Compétition</label><input type="text" id="admin-res-date" placeholder="Ex: 12 Juin - Ligue Majeure" /></div>
+            <div class="form-group"><label>Date</label><input type="text" id="admin-res-date" placeholder="Ex: 12 Juin 2026" /></div>
+            <div class="form-group"><label>Clean Sheet (0 but encaissé) ?</label>
+              <select id="admin-res-cs">
+                <option value="0">Non</option>
+                <option value="1">Oui ✓</option>
+              </select>
+            </div>
             <div class="form-group"><label>Buteurs (Optionnel, sép. par virgules)</label><textarea id="admin-res-scorers" rows="2" placeholder="T. Epyneau (12'), Vitinha (89')"></textarea></div>
             <button class="btn-primary" style="padding: 0.5rem 1rem; font-size:0.7rem;" onclick="saveResultPro()">Sauvegarder le Résultat</button>
             <button class="btn-ghost" style="font-size:0.65rem; margin-left:0.5rem;" onclick="resetResultForm()">Annuler</button>
@@ -1251,10 +1432,30 @@
               <option value="attaquants">Attaquant</option>
             </select>
           </div>
+          <input type="hidden" id="adm-player-edit-idx" value="" />
+          <input type="hidden" id="adm-player-edit-cat" value="" />
           <div class="form-group"><label id="adm-lbl-pnum">Numéro (#)</label><input type="text" id="adm-player-num" placeholder="Ex: 9" /></div>
           <div class="form-group"><label id="adm-lbl-pnom">Nom Complet</label><input type="text" id="adm-player-nom" placeholder="Ex: T. Epyneau" /></div>
           <div class="form-group"><label id="adm-lbl-prole">Rôle/Poste abrégé</label><input type="text" id="adm-player-role" placeholder="Ex: BU" /></div>
-          <button class="btn-primary" style="width:100%; font-size:0.7rem;" id="adm-btn-addp" onclick="addPlayerPro()">Ajouter le Joueur</button>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div class="form-group"><label>Nationalité</label><input type="text" id="adm-player-nat" placeholder="Ex: Français" /></div>
+            <div class="form-group"><label>Âge</label><input type="number" id="adm-player-age" placeholder="Ex: 24" /></div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div class="form-group"><label>Taille (cm)</label><input type="number" id="adm-player-taille" placeholder="Ex: 182" /></div>
+            <div class="form-group"><label>Poids (kg)</label><input type="number" id="adm-player-poids" placeholder="Ex: 78" /></div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+            <div class="form-group"><label>Matchs</label><input type="number" id="adm-player-matchs" placeholder="0" /></div>
+            <div class="form-group"><label>Buts</label><input type="number" id="adm-player-buts" placeholder="0" /></div>
+            <div class="form-group"><label>Passes déc.</label><input type="number" id="adm-player-passes" placeholder="0" /></div>
+          </div>
+          <div class="form-group"><label>Photo (URL)</label><input type="text" id="adm-player-photo" placeholder="https://… ou laisser vide" /></div>
+          <div class="form-group"><label>Bio / Description</label><textarea id="adm-player-bio" rows="3" placeholder="Description, caractéristiques, parcours…"></textarea></div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button class="btn-primary" style="flex:1; font-size:0.7rem;" id="adm-btn-addp" onclick="addPlayerPro()">Ajouter le Joueur</button>
+            <button class="btn-ghost" style="font-size:0.65rem;" onclick="resetPlayerForm()">Annuler</button>
+          </div>
         </div>
 
         <div class="admin-block" style="grid-column: 1 / -1;">
@@ -1277,6 +1478,24 @@
 
             <div style="height:1rem;"></div>
 
+            <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:0.75rem;">
+              <div class="form-group" style="flex:1; min-width:160px; margin-bottom:0;">
+                <label>🏷️ Badge</label>
+                <select id="admin-news-badge">
+                  <option value="">Aucun badge</option>
+                  <option value="nouveau">🟢 Nouveau</option>
+                  <option value="exclusif">🌸 Exclusif</option>
+                  <option value="une">⭐ À la une</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin-bottom:0; display:flex; align-items:flex-end;">
+                <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-size:0.78rem; font-weight:600;">
+                  <input type="checkbox" id="admin-news-featured" style="width:16px; height:16px;" />
+                  📌 Article à la une (page d'accueil)
+                </label>
+              </div>
+            </div>
+
             <div class="form-group">
               <label>Accroche / Extrait court <span style="font-weight:400;opacity:0.7;">(affiché sur la card)</span></label>
               <textarea id="admin-news-excerpt" rows="2" placeholder="Résumé accrocheur de l'article (2-3 phrases max)…"></textarea>
@@ -1297,26 +1516,47 @@
             </div>
 
             <div style="margin-bottom:1rem;">
-              <label style="display:block; font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem; color:var(--texte-sec);">Images <span style="font-weight:400;opacity:0.7;">(URL directe — 1 hero obligatoire, 2 & 3 optionnelles)</span></label>
-              <div style="display:flex; flex-direction:column; gap:0.5rem;">
-                <div style="display:flex; gap:0.5rem; align-items:center;">
-                  <span style="font-size:0.7rem; font-weight:700; color:var(--rose); min-width:60px;">Image 1 ★</span>
-                  <input type="text" id="admin-news-img" placeholder="https://… (image principale / hero)" style="flex:1; padding:0.6rem; background:var(--blanc); border:1px solid var(--rose-bord); color:var(--texte); font-family:var(--inter); border-radius:4px; font-size:0.82rem;" />
-                  <button type="button" onclick="previewImg('admin-news-img','prev-img1')" style="font-size:0.65rem; padding:0.4rem 0.6rem; background:var(--rose); color:#fff; border:none; cursor:pointer; border-radius:3px; white-space:nowrap;">Aperçu</button>
+              <label style="display:block; font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem; color:var(--texte-sec);">Images <span style="font-weight:400;opacity:0.7;">(URL ou import — 1 hero obligatoire, 2 &amp; 3 optionnelles)</span></label>
+              <div style="display:flex; flex-direction:column; gap:0.75rem;">
+                <!-- Image 1 -->
+                <div style="background:var(--blanc); border:1px solid var(--rose-bord); border-radius:6px; padding:0.75rem;">
+                  <div style="font-size:0.7rem; font-weight:700; color:var(--rose); margin-bottom:0.5rem;">Image 1 ★ (principale)</div>
+                  <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+                    <input type="text" id="admin-news-img" placeholder="https://… ou utiliser l'import ci-dessous" style="flex:1; min-width:160px; padding:0.6rem; background:var(--gris-clair); border:1px solid var(--rose-bord); color:var(--texte); font-family:var(--inter); border-radius:4px; font-size:0.82rem;" />
+                    <button type="button" onclick="previewImg('admin-news-img','prev-img1')" style="font-size:0.65rem; padding:0.4rem 0.6rem; background:var(--rose); color:#fff; border:none; cursor:pointer; border-radius:3px; white-space:nowrap;">Aperçu</button>
+                  </div>
+                  <label class="img-upload-zone" style="margin-top:0.5rem;" onclick="document.getElementById('file-img1').click()">
+                    📁 Importer une image depuis votre appareil
+                    <input type="file" id="file-img1" accept="image/*" onchange="handleImageUpload(this,'admin-news-img','prev-img1')" />
+                  </label>
+                  <img id="prev-img1" src="" style="display:none; max-height:100px; border-radius:4px; border:1px solid var(--rose-bord); margin-top:0.5rem;" />
                 </div>
-                <img id="prev-img1" src="" style="display:none; max-height:100px; border-radius:4px; border:1px solid var(--rose-bord);" />
-                <div style="display:flex; gap:0.5rem; align-items:center;">
-                  <span style="font-size:0.7rem; font-weight:700; color:var(--texte-sec); min-width:60px;">Image 2</span>
-                  <input type="text" id="admin-news-img2" placeholder="https://… (galerie)" style="flex:1; padding:0.6rem; background:var(--blanc); border:1px solid var(--rose-bord); color:var(--texte); font-family:var(--inter); border-radius:4px; font-size:0.82rem;" />
-                  <button type="button" onclick="previewImg('admin-news-img2','prev-img2')" style="font-size:0.65rem; padding:0.4rem 0.6rem; background:var(--rose); color:#fff; border:none; cursor:pointer; border-radius:3px; white-space:nowrap;">Aperçu</button>
+                <!-- Image 2 -->
+                <div style="background:var(--blanc); border:1px solid var(--rose-bord); border-radius:6px; padding:0.75rem;">
+                  <div style="font-size:0.7rem; font-weight:700; color:var(--texte-sec); margin-bottom:0.5rem;">Image 2 (galerie)</div>
+                  <div style="display:flex; gap:0.5rem; align-items:center;">
+                    <input type="text" id="admin-news-img2" placeholder="https://… (galerie)" style="flex:1; padding:0.6rem; background:var(--gris-clair); border:1px solid var(--rose-bord); color:var(--texte); font-family:var(--inter); border-radius:4px; font-size:0.82rem;" />
+                    <button type="button" onclick="previewImg('admin-news-img2','prev-img2')" style="font-size:0.65rem; padding:0.4rem 0.6rem; background:var(--rose); color:#fff; border:none; cursor:pointer; border-radius:3px; white-space:nowrap;">Aperçu</button>
+                  </div>
+                  <label class="img-upload-zone" style="margin-top:0.5rem;" onclick="document.getElementById('file-img2').click()">
+                    📁 Importer
+                    <input type="file" id="file-img2" accept="image/*" onchange="handleImageUpload(this,'admin-news-img2','prev-img2')" />
+                  </label>
+                  <img id="prev-img2" src="" style="display:none; max-height:80px; border-radius:4px; border:1px solid var(--rose-bord); margin-top:0.5rem;" />
                 </div>
-                <img id="prev-img2" src="" style="display:none; max-height:80px; border-radius:4px; border:1px solid var(--rose-bord);" />
-                <div style="display:flex; gap:0.5rem; align-items:center;">
-                  <span style="font-size:0.7rem; font-weight:700; color:var(--texte-sec); min-width:60px;">Image 3</span>
-                  <input type="text" id="admin-news-img3" placeholder="https://… (galerie)" style="flex:1; padding:0.6rem; background:var(--blanc); border:1px solid var(--rose-bord); color:var(--texte); font-family:var(--inter); border-radius:4px; font-size:0.82rem;" />
-                  <button type="button" onclick="previewImg('admin-news-img3','prev-img3')" style="font-size:0.65rem; padding:0.4rem 0.6rem; background:var(--rose); color:#fff; border:none; cursor:pointer; border-radius:3px; white-space:nowrap;">Aperçu</button>
+                <!-- Image 3 -->
+                <div style="background:var(--blanc); border:1px solid var(--rose-bord); border-radius:6px; padding:0.75rem;">
+                  <div style="font-size:0.7rem; font-weight:700; color:var(--texte-sec); margin-bottom:0.5rem;">Image 3 (galerie)</div>
+                  <div style="display:flex; gap:0.5rem; align-items:center;">
+                    <input type="text" id="admin-news-img3" placeholder="https://… (galerie)" style="flex:1; padding:0.6rem; background:var(--gris-clair); border:1px solid var(--rose-bord); color:var(--texte); font-family:var(--inter); border-radius:4px; font-size:0.82rem;" />
+                    <button type="button" onclick="previewImg('admin-news-img3','prev-img3')" style="font-size:0.65rem; padding:0.4rem 0.6rem; background:var(--rose); color:#fff; border:none; cursor:pointer; border-radius:3px; white-space:nowrap;">Aperçu</button>
+                  </div>
+                  <label class="img-upload-zone" style="margin-top:0.5rem;" onclick="document.getElementById('file-img3').click()">
+                    📁 Importer
+                    <input type="file" id="file-img3" accept="image/*" onchange="handleImageUpload(this,'admin-news-img3','prev-img3')" />
+                  </label>
+                  <img id="prev-img3" src="" style="display:none; max-height:80px; border-radius:4px; border:1px solid var(--rose-bord); margin-top:0.5rem;" />
                 </div>
-                <img id="prev-img3" src="" style="display:none; max-height:80px; border-radius:4px; border:1px solid var(--rose-bord);" />
               </div>
             </div>
 
@@ -1403,8 +1643,9 @@
         </div>
 
         <div class="admin-block" style="grid-column: 1 / -1;">
-          <h3>Comptes & Profils Utilisateurs</h3>
-          <div class="admin-scroll-list" id="adm-users-list" style="max-height: 250px;"></div>
+          <h3>Comptes &amp; Profils Utilisateurs <span id="adm-users-count" style="font-size:0.75rem;font-weight:400;color:var(--texte-sec);"></span></h3>
+          <p style="font-size:0.78rem;color:var(--texte-sec);margin-bottom:1rem;">Tous les comptes créés depuis l'ouverture du site, synchronisés en temps réel depuis Firebase.</p>
+          <div class="admin-scroll-list" id="adm-users-list" style="max-height: 400px;"></div>
         </div>
 
       </div>
@@ -1510,6 +1751,32 @@
         <div class="order-confirm-num" id="order-confirm-num">N° PIG-000001</div>
         <p class="order-confirm-msg" id="order-confirm-msg">Merci pour votre commande ! Un email de confirmation vous a été envoyé. Vous retrouverez votre commande dans votre espace profil.</p>
         <button class="btn-primary" style="margin-top:2rem;" onclick="closeOrderModal()">Retour à la boutique</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Fiche Joueur -->
+  <div class="player-modal-overlay" id="playerModal" onclick="if(event.target===this)closePlayerModal()">
+    <div class="player-modal">
+      <button class="player-modal-close" onclick="closePlayerModal()">✕</button>
+      <div class="player-modal-hero">
+        <div class="player-modal-avatar" id="pm-avatar">#9</div>
+        <div class="player-modal-info">
+          <div class="player-modal-num" id="pm-num">#9</div>
+          <div class="player-modal-name" id="pm-name">T. Epyneau</div>
+          <div class="player-modal-poste" id="pm-poste">Buteur · Français</div>
+        </div>
+      </div>
+      <div class="player-modal-body">
+        <div class="player-modal-stat-grid">
+          <div class="player-modal-stat"><div class="player-modal-stat-val" id="pm-age">–</div><div class="player-modal-stat-lbl">Âge</div></div>
+          <div class="player-modal-stat"><div class="player-modal-stat-val" id="pm-taille">–</div><div class="player-modal-stat-lbl">Taille</div></div>
+          <div class="player-modal-stat"><div class="player-modal-stat-val" id="pm-poids">–</div><div class="player-modal-stat-lbl">Poids</div></div>
+          <div class="player-modal-stat"><div class="player-modal-stat-val" id="pm-matchs">–</div><div class="player-modal-stat-lbl">Matchs</div></div>
+          <div class="player-modal-stat"><div class="player-modal-stat-val" id="pm-buts">–</div><div class="player-modal-stat-lbl">Buts</div></div>
+          <div class="player-modal-stat"><div class="player-modal-stat-val" id="pm-passes">–</div><div class="player-modal-stat-lbl">Passes déc.</div></div>
+        </div>
+        <p class="player-modal-bio" id="pm-bio">Aucune description disponible.</p>
       </div>
     </div>
   </div>
@@ -1933,9 +2200,40 @@
       const nom = document.getElementById('adm-player-nom').value;
       const role = document.getElementById('adm-player-role').value;
       if(!num || !nom || !role) return alert('Champs requis.');
-      if(!effectifPro[poste]) effectifPro[poste] = [];
-      effectifPro[poste].push({ num, nom, poste: role });
-      db.ref('effectif').set(effectifPro).then(() => alert('Joueur synchronisé !'));
+      const playerData = {
+        num, nom, poste: role,
+        nationalite: document.getElementById('adm-player-nat').value,
+        age: document.getElementById('adm-player-age').value,
+        taille: document.getElementById('adm-player-taille').value,
+        poids: document.getElementById('adm-player-poids').value,
+        matchs: document.getElementById('adm-player-matchs').value,
+        buts: document.getElementById('adm-player-buts').value,
+        passes: document.getElementById('adm-player-passes').value,
+        photo: document.getElementById('adm-player-photo').value,
+        bio: document.getElementById('adm-player-bio').value
+      };
+      const editIdx = document.getElementById('adm-player-edit-idx').value;
+      const editCat = document.getElementById('adm-player-edit-cat').value;
+      if(editIdx !== '' && editCat) {
+        if(!effectifPro[editCat]) effectifPro[editCat] = [];
+        effectifPro[editCat][parseInt(editIdx)] = playerData;
+      } else {
+        if(!effectifPro[poste]) effectifPro[poste] = [];
+        effectifPro[poste].push(playerData);
+      }
+      db.ref('effectif').set(effectifPro).then(() => {
+        alert(editIdx !== '' ? 'Joueur modifié !' : 'Joueur ajouté !');
+        resetPlayerForm();
+      });
+    }
+
+    function resetPlayerForm() {
+      ['adm-player-num','adm-player-nom','adm-player-role','adm-player-nat','adm-player-age','adm-player-taille','adm-player-poids','adm-player-matchs','adm-player-buts','adm-player-passes','adm-player-photo','adm-player-bio'].forEach(id => {
+        const el = document.getElementById(id); if(el) el.value = '';
+      });
+      document.getElementById('adm-player-edit-idx').value = '';
+      document.getElementById('adm-player-edit-cat').value = '';
+      document.getElementById('adm-btn-addp').innerText = 'Ajouter le Joueur';
     }
 
     function deletePlayerPro(category, index) {
@@ -1982,6 +2280,20 @@
       if(url) { el.src = url; el.style.display = 'block'; el.onerror = () => el.style.display = 'none'; }
       else { el.style.display = 'none'; }
     }
+
+    function handleImageUpload(input, targetInputId, previewId) {
+      const file = input.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const dataUrl = e.target.result;
+        const targetInput = document.getElementById(targetInputId);
+        if(targetInput) targetInput.value = dataUrl;
+        const preview = document.getElementById(previewId);
+        if(preview) { preview.src = dataUrl; preview.style.display = 'block'; }
+      };
+      reader.readAsDataURL(file);
+    }
     function previewYoutube() {
       const ytId = document.getElementById('admin-news-yt').value.trim();
       const wrap = document.getElementById('yt-preview-wrap');
@@ -2000,8 +2312,10 @@
       const image3 = document.getElementById('admin-news-img3').value.trim();
       const youtube = document.getElementById('admin-news-yt').value.trim();
       const date = document.getElementById('admin-news-date').value.trim() || new Date().toLocaleDateString('fr-FR', {month:'long', year:'numeric'});
+      const badge = document.getElementById('admin-news-badge')?.value || '';
+      const featured = document.getElementById('admin-news-featured')?.checked || false;
       if(!title) { alert('Le titre est obligatoire.'); return; }
-      const articleData = { title, excerpt, body, date, image, image2, image3, youtube };
+      const articleData = { title, excerpt, body, date, image, image2, image3, youtube, badge, featured };
       const done = () => {
         const fb = document.getElementById('article-save-feedback');
         fb.style.display = 'inline';
@@ -2023,11 +2337,11 @@
       document.getElementById('admin-news-img3').value = a.image3 || '';
       document.getElementById('admin-news-yt').value = a.youtube || '';
       document.getElementById('admin-news-date').value = a.date || '';
+      if(document.getElementById('admin-news-badge')) document.getElementById('admin-news-badge').value = a.badge || '';
+      if(document.getElementById('admin-news-featured')) document.getElementById('admin-news-featured').checked = a.featured || false;
       document.getElementById('article-form-title').innerText = "✏️ Modification : " + a.title;
       document.getElementById('article-form-title').style.color = "var(--rose)";
-      // Show previews
       ['admin-news-img','admin-news-img2','admin-news-img3'].forEach((id, i) => previewImg(id, 'prev-img'+(i+1)));
-      // Scroll to editor
       document.getElementById('adm-h-news').scrollIntoView({ behavior:'smooth', block:'start' });
     }
 
@@ -2048,6 +2362,8 @@
         const el = document.getElementById(id);
         if(el) el.value = '';
       });
+      if(document.getElementById('admin-news-badge')) document.getElementById('admin-news-badge').value = '';
+      if(document.getElementById('admin-news-featured')) document.getElementById('admin-news-featured').checked = false;
       ['prev-img1','prev-img2','prev-img3'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
       const ytWrap = document.getElementById('yt-preview-wrap');
       if(ytWrap) { ytWrap.style.display='none'; document.getElementById('yt-preview-iframe').src=''; }
@@ -2118,8 +2434,10 @@
       const scoreA = document.getElementById('admin-res-scoreA').value;
       const date = document.getElementById('admin-res-date').value;
       const scorers = document.getElementById('admin-res-scorers').value;
-      if(id !== "") db.ref('resultats/' + id).set({ home, away, scoreH, scoreA, date, scorers });
-      else db.ref('resultats').push().set({ home, away, scoreH, scoreA, date, scorers });
+      const saison = document.getElementById('admin-res-saison')?.value || 'Sans saison';
+      const cs = document.getElementById('admin-res-cs')?.value || '0';
+      if(id !== "") db.ref('resultats/' + id).set({ home, away, scoreH, scoreA, date, scorers, saison, cs });
+      else db.ref('resultats').push().set({ home, away, scoreH, scoreA, date, scorers, saison, cs });
       resetResultForm();
     }
     function editResultPro(index) {
@@ -2131,6 +2449,8 @@
       document.getElementById('admin-res-scoreA').value = r.scoreA;
       document.getElementById('admin-res-date').value = r.date;
       document.getElementById('admin-res-scorers').value = r.scorers || "";
+      if(document.getElementById('admin-res-saison')) document.getElementById('admin-res-saison').value = r.saison || 'Sans saison';
+      if(document.getElementById('admin-res-cs')) document.getElementById('admin-res-cs').value = r.cs || '0';
     }
     function deleteResultPro(index) {
       if(confirm('Supprimer ce résultat ?')) db.ref('resultats/' + resultatsKeys[index]).remove();
@@ -2143,6 +2463,7 @@
       document.getElementById('admin-res-scoreA').value = "0";
       document.getElementById('admin-res-date').value = "";
       document.getElementById('admin-res-scorers').value = "";
+      if(document.getElementById('admin-res-cs')) document.getElementById('admin-res-cs').value = '0';
     }
     function renderAdminResList() {
       document.getElementById('adm-res-list').innerHTML = resultatsData.map((r, i) => `
@@ -2170,18 +2491,20 @@
 
     function renderAdminUsersList() {
       const el = document.getElementById('adm-users-list');
+      const countEl = document.getElementById('adm-users-count');
       if(!el) return;
+      if(countEl) countEl.innerText = `— ${allUsers.length} compte${allUsers.length > 1 ? 's' : ''} au total`;
       if(allUsers.length === 0) {
         el.innerHTML = '<p style="padding:1rem; font-size:0.8rem; color:var(--texte-sec);">Aucun compte enregistré pour le moment.</p>';
         return;
       }
       el.innerHTML = allUsers.map(u => `
         <div class="admin-list-item" style="display:flex; gap:15px; align-items:center;">
-          <div style="font-size:1.8rem; background:var(--blanc); width:40px; height:40px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:1px solid var(--rose-bord); flex-shrink:0;">${u.avatar || '👤'}</div>
+          <div style="font-size:1.8rem; background:var(--blanc); width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:1px solid var(--rose-bord); flex-shrink:0;">${u.avatar || '👤'}</div>
           <div style="flex:1;">
-            <div style="font-weight:700; color:var(--texte);">${u.pseudo || 'Inconnu'} <span style="font-weight:400; font-size:0.75rem; color:var(--texte-sec);">(${u.email})</span></div>
+            <div style="font-weight:700; color:var(--texte);">${u.pseudo || 'Inconnu'} <span style="font-weight:400; font-size:0.75rem; color:var(--texte-sec);">(${u.email || ''})</span></div>
             <div style="font-size:0.75rem; color:var(--texte-sec); margin-top:0.2rem;">
-              <span style="color:var(--rose); font-weight:600;">${u.badge || 'Fidèle Abonné'}</span> | Membre depuis ${u.memberSince || '2026'} | Thème : ${u.theme || 'classic'}
+              <span style="color:var(--rose); font-weight:600;">${u.badge || 'Fidèle Abonné'}</span> · Membre depuis ${u.memberSince || '2026'} · Thème : ${u.theme || 'classic'}
             </div>
             ${u.bio ? `<div style="font-size:0.7rem; color:var(--texte-sec); font-style:italic; margin-top:0.2rem;">"${u.bio}"</div>` : ''}
           </div>
@@ -2356,9 +2679,11 @@
       const renderGrid = (gridId, data, categoryKey) => {
         if(!data) data = []; totalCount += data.length;
         document.getElementById(gridId).innerHTML = data.map((j, index) => `
-          <div class="joueur-card">
-            <button class="admin-action-btn admin-del" onclick="deletePlayerPro('${categoryKey}', ${index})">✕</button>
+          <div class="joueur-card" onclick="openPlayerModal('${categoryKey}', ${index})">
+            <button class="admin-action-btn admin-del" onclick="event.stopPropagation();deletePlayerPro('${categoryKey}', ${index})">✕</button>
+            <button class="admin-action-btn admin-edit" onclick="event.stopPropagation();editPlayerAdmin('${categoryKey}', ${index})">✏</button>
             <div class="joueur-num">#${j.num}</div><div class="joueur-nom">${j.nom}</div><div class="joueur-nat">${j.poste}</div>
+            ${j.nationalite ? `<div style="font-size:0.65rem;color:var(--texte-sec);margin-top:0.2rem;">${j.nationalite}</div>` : ''}
           </div>
         `).join('');
       };
@@ -2369,14 +2694,84 @@
       document.getElementById('eff-total-count').innerText = totalCount;
     }
 
+    function openPlayerModal(category, index) {
+      const j = effectifPro[category]?.[index];
+      if(!j) return;
+      const modal = document.getElementById('playerModal');
+      document.getElementById('pm-num').innerText = '#' + j.num;
+      document.getElementById('pm-name').innerText = j.nom;
+      document.getElementById('pm-poste').innerText = j.poste + (j.nationalite ? ' · ' + j.nationalite : '');
+      document.getElementById('pm-age').innerText = j.age || '–';
+      document.getElementById('pm-taille').innerText = j.taille ? j.taille + ' cm' : '–';
+      document.getElementById('pm-poids').innerText = j.poids ? j.poids + ' kg' : '–';
+      document.getElementById('pm-matchs').innerText = j.matchs || '–';
+      document.getElementById('pm-buts').innerText = j.buts || '–';
+      document.getElementById('pm-passes').innerText = j.passes || '–';
+      document.getElementById('pm-bio').innerText = j.bio || 'Aucune description disponible.';
+      const avatarEl = document.getElementById('pm-avatar');
+      if(j.photo) {
+        avatarEl.innerHTML = `<img src="${j.photo}" alt="${j.nom}" onerror="this.parentElement.innerText='#${j.num}'" />`;
+      } else {
+        avatarEl.innerText = '#' + j.num;
+      }
+      modal.classList.add('open');
+    }
+
+    function closePlayerModal() {
+      document.getElementById('playerModal').classList.remove('open');
+    }
+
+    function editPlayerAdmin(category, index) {
+      const j = effectifPro[category]?.[index];
+      if(!j) return;
+      document.getElementById('adm-player-poste').value = category;
+      document.getElementById('adm-player-num').value = j.num;
+      document.getElementById('adm-player-nom').value = j.nom;
+      document.getElementById('adm-player-role').value = j.poste;
+      document.getElementById('adm-player-nat').value = j.nationalite || '';
+      document.getElementById('adm-player-age').value = j.age || '';
+      document.getElementById('adm-player-taille').value = j.taille || '';
+      document.getElementById('adm-player-poids').value = j.poids || '';
+      document.getElementById('adm-player-matchs').value = j.matchs || '';
+      document.getElementById('adm-player-buts').value = j.buts || '';
+      document.getElementById('adm-player-passes').value = j.passes || '';
+      document.getElementById('adm-player-photo').value = j.photo || '';
+      document.getElementById('adm-player-bio').value = j.bio || '';
+      document.getElementById('adm-player-edit-idx').value = index;
+      document.getElementById('adm-player-edit-cat').value = category;
+      document.getElementById('adm-btn-addp').innerText = 'Modifier le Joueur';
+    }
+
     function renderActualites() {
-      document.getElementById('news-container').innerHTML = actualites.map((a, index) => {
+      // Trier: l'article le plus récent (dernier ajouté) en premier
+      const sorted = [...actualites].reverse();
+      const featured = sorted.find(a => a.featured);
+      const rest = sorted.filter(a => !a.featured);
+      const ordered = featured ? [featured, ...rest] : sorted;
+
+      document.getElementById('news-container').innerHTML = ordered.map((a, visIdx) => {
+        const realIndex = actualites.indexOf(a);
         const imgHtml = a.image ? `<div style="height:180px;overflow:hidden;border-radius:6px 6px 0 0;"><img src="${a.image}" alt="${a.title}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.display='none'" /></div>` : '';
+        const badgeHtml = a.badge ? `<span class="article-badge ${a.badge}">${a.badge === 'nouveau' ? '🟢 Nouveau' : a.badge === 'exclusif' ? '🌸 Exclusif' : '⭐ À la une'}</span>` : '';
+        const isFeatured = a.featured;
+        if(isFeatured) {
+          return `
+            <div class="news-featured-card" onclick="openArticleDetail(${realIndex})">
+              <div class="news-featured-img">${a.image ? `<img src="${a.image}" alt="${a.title}" onerror="this.parentElement.innerHTML='<div class=news-featured-img-placeholder>📰</div>'" />` : `<div class="news-featured-img-placeholder">📰</div>`}</div>
+              <div class="news-featured-body">
+                <div class="news-featured-eyebrow">${badgeHtml}📌 Article à la une</div>
+                <h2 class="news-featured-title">${a.title}</h2>
+                <p class="news-featured-excerpt">${a.excerpt ? a.excerpt.substring(0,200) + (a.excerpt.length > 200 ? '…' : '') : ''}</p>
+                <div class="news-featured-meta">${a.date} — <span style="color:var(--rose);font-weight:700;">Lire l'article →</span></div>
+              </div>
+            </div>
+          `;
+        }
         return `
-          <div class="news-card" onclick="openArticleDetail(${index})" style="cursor:pointer;">
+          <div class="news-card" onclick="openArticleDetail(${realIndex})" style="cursor:pointer;">
             ${imgHtml}
             <div class="news-card-body">
-              <div class="news-tag">Club Actu</div>
+              <div class="news-tag">${badgeHtml}Club Actu</div>
               <h3 class="news-card-title">${a.title}</h3>
               <p class="news-card-excerpt">${a.excerpt ? a.excerpt.substring(0,140) + (a.excerpt.length > 140 ? '…' : '') : ''}</p>
               <div class="news-card-meta">${a.date} — <span style="color:var(--rose);font-weight:700;">Lire la suite →</span></div>
@@ -2384,6 +2779,25 @@
           </div>
         `;
       }).join('');
+
+      // Article à la une sur la page d'accueil
+      const accueilFeatured = actualites.slice().reverse().find(a => a.featured) || actualites[actualites.length - 1];
+      const featuredContainer = document.getElementById('accueil-featured-article');
+      const featuredCard = document.getElementById('accueil-featured-card');
+      if(accueilFeatured && featuredContainer && featuredCard) {
+        featuredContainer.style.display = 'block';
+        const realIdx = actualites.indexOf(accueilFeatured);
+        featuredCard.setAttribute('onclick', `openArticleDetail(${realIdx}); showPage('actualites')`);
+        featuredCard.innerHTML = `
+          <div class="hero-article-img">${accueilFeatured.image ? `<img src="${accueilFeatured.image}" alt="${accueilFeatured.title}" onerror="this.parentElement.innerHTML='<div class=hero-article-img-placeholder>📰</div>'" />` : `<div class="hero-article-img-placeholder">📰</div>`}</div>
+          <div class="hero-article-content">
+            <div class="hero-article-tag">📌 À la une</div>
+            <div class="hero-article-title">${accueilFeatured.title}</div>
+          </div>
+        `;
+      } else if(featuredContainer) {
+        featuredContainer.style.display = 'none';
+      }
     }
 
     function openArticleDetail(index) {
@@ -2447,40 +2861,177 @@
     }
 
     function renderResultats() {
-      document.getElementById('resultats-container').innerHTML = resultatsData.slice().reverse().map(r => {
-        let isHome = r.home.toLowerCase().includes('pignouf');
-        let isAway = r.away.toLowerCase().includes('pignouf');
-        let scoreH = parseInt(r.scoreH);
-        let scoreA = parseInt(r.scoreA);
+      const container = document.getElementById('saisons-container');
+      if(!container) return;
 
-        let outcomeClass = "";
-        let outcomeText = "";
+      // Grouper par saison
+      const saisonMap = {};
+      resultatsData.forEach(r => {
+        const s = r.saison || 'Sans saison';
+        if(!saisonMap[s]) saisonMap[s] = [];
+        saisonMap[s].push(r);
+      });
 
-        if (isHome || isAway) {
-          if (scoreH === scoreA) {
-            outcomeClass = "nul";
-            outcomeText = "NUL";
-          } else if ((isHome && scoreH > scoreA) || (isAway && scoreA > scoreH)) {
-            outcomeClass = "victoire";
-            outcomeText = "VICTOIRE";
-          } else {
-            outcomeClass = "defaite";
-            outcomeText = "DÉFAITE";
-          }
-        }
+      // Ordre des saisons : saisonsData d'abord, puis celles sans entrée
+      const allSaisonNames = saisonsData.map(s => s.nom);
+      resultatsData.forEach(r => { if(r.saison && !allSaisonNames.includes(r.saison)) allSaisonNames.push(r.saison); });
+
+      if(Object.keys(saisonMap).length === 0) {
+        container.innerHTML = '<p style="color:var(--texte-sec);text-align:center;padding:2rem;">Aucun résultat pour le moment.</p>';
+        return;
+      }
+
+      container.innerHTML = allSaisonNames.filter(n => saisonMap[n]).map(saisonName => {
+        const matchs = saisonMap[saisonName] || [];
+        const saisonInfo = saisonsData.find(s => s.nom === saisonName);
+        
+        // Calculer stats
+        let V=0, N=0, D=0, CS=0;
+        const form = matchs.slice().reverse().slice(0,5).map(r => {
+          const isHome = r.home?.toLowerCase().includes('pignouf');
+          const sH = parseInt(r.scoreH), sA = parseInt(r.scoreA);
+          if(sH === sA) { return 'nul'; }
+          if((isHome && sH > sA) || (!isHome && sA > sH)) return 'victoire';
+          return 'defaite';
+        }).reverse();
+
+        matchs.forEach(r => {
+          const isHome = r.home?.toLowerCase().includes('pignouf');
+          const sH = parseInt(r.scoreH), sA = parseInt(r.scoreA);
+          if(sH === sA) N++;
+          else if((isHome && sH > sA) || (!isHome && sA > sH)) V++;
+          else D++;
+          if(r.cs == '1' || r.cleanSheet) CS++;
+        });
+
+        const formDots = form.map(f => `<div class="form-dot ${f}" title="${f}"></div>`).join('');
+
+        const matchsHtml = matchs.slice().reverse().map(r => {
+          const isHome = r.home?.toLowerCase().includes('pignouf');
+          const sH = parseInt(r.scoreH), sA = parseInt(r.scoreA);
+          let outcomeClass = '', outcomeText = '';
+          if(sH === sA) { outcomeClass = 'nul'; outcomeText = 'NUL'; }
+          else if((isHome && sH > sA) || (!isHome && sA > sH)) { outcomeClass = 'victoire'; outcomeText = 'VICTOIRE'; }
+          else { outcomeClass = 'defaite'; outcomeText = 'DÉFAITE'; }
+          return `
+            <div class="match-card ${outcomeClass}" style="margin-bottom:12px;">
+              <div class="match-watermark">${outcomeText}</div>
+              <div class="match-team-side"><div class="match-home">${r.home}</div></div>
+              <div class="result-score">${r.scoreH} - ${r.scoreA}</div>
+              <div class="match-team-side" style="text-align:right;"><div class="match-away">${r.away}</div></div>
+              <div class="match-details-side" style="text-align:right;">
+                <div class="match-date">${r.date}</div>
+                ${r.cs=='1'||r.cleanSheet ? '<div style="font-size:0.65rem;color:#4a82d9;font-weight:700;">🔒 Clean Sheet</div>' : ''}
+              </div>
+              ${r.scorers ? `<div class="result-scorers">⚽ ${r.scorers}</div>` : ''}
+            </div>
+          `;
+        }).join('');
 
         return `
-        <div class="match-card ${outcomeClass}">
-          <div class="match-watermark">${outcomeText}</div>
-          <div class="match-team-side"><div class="match-home">${r.home}</div></div>
-          <div class="result-score">${r.scoreH} - ${r.scoreA}</div>
-          <div class="match-team-side" style="text-align:right;"><div class="match-away">${r.away}</div></div>
-          <div class="match-details-side" style="text-align:right;"><div class="match-date">${r.date}</div></div>
-          ${r.scorers ? `<div class="result-scorers">⚽ ${r.scorers}</div>` : ''}
-        </div>
+          <div class="saison-block" id="saison-block-${saisonName.replace(/\s/g,'_')}">
+            <div class="saison-header" onclick="toggleSaison('${saisonName.replace(/\s/g,'_')}')">
+              <div class="saison-header-left">
+                <div class="saison-title-row">
+                  <span class="saison-name">${saisonName}</span>
+                  <span class="saison-stats-mini">
+                    <span class="stat-mini-v">${V}V</span>
+                    <span class="stat-mini-n">${N}N</span>
+                    <span class="stat-mini-d">${D}D</span>
+                    ${CS > 0 ? `<span style="color:#4a82d9;">${CS} CS</span>` : ''}
+                  </span>
+                </div>
+                <div class="saison-form-dots">${formDots}</div>
+              </div>
+              <div class="saison-header-right">
+                <span class="saison-desc-small">${matchs.length} match${matchs.length>1?'s':''}</span>
+                <span class="saison-chevron">▼</span>
+              </div>
+            </div>
+            <div class="saison-body">
+              ${saisonInfo?.desc ? `<div class="saison-description">${saisonInfo.desc}</div>` : ''}
+              <div class="saison-bilan">
+                <span class="bilan-chip v">✓ ${V} Victoire${V>1?'s':''}</span>
+                <span class="bilan-chip n">— ${N} Nul${N>1?'s':''}</span>
+                <span class="bilan-chip d">✕ ${D} Défaite${D>1?'s':''}</span>
+                <span class="bilan-chip cs">🔒 ${CS} Clean Sheet${CS>1?'s':''}</span>
+              </div>
+              <div class="match-container-box" style="max-width:100%;">${matchsHtml}</div>
+            </div>
+          </div>
         `;
       }).join('');
     }
+
+    function toggleSaison(id) {
+      const block = document.getElementById('saison-block-' + id);
+      if(block) block.classList.toggle('open');
+    }
+
+    // ── Gestion des saisons admin ──
+    let saisonsData = [];
+    let saisonsKeys = [];
+
+    function saveSaisonAdmin() {
+      const id = document.getElementById('admin-saison-id').value;
+      const nom = document.getElementById('admin-saison-nom').value.trim();
+      const desc = document.getElementById('admin-saison-desc').value.trim();
+      if(!nom) return alert('Le nom est requis.');
+      const data = { nom, desc };
+      if(id !== '') db.ref('saisons/' + id).set(data);
+      else db.ref('saisons').push().set(data);
+      resetSaisonForm();
+    }
+
+    function editSaisonAdmin(index) {
+      const s = saisonsData[index];
+      document.getElementById('admin-saison-id').value = saisonsKeys[index];
+      document.getElementById('admin-saison-nom').value = s.nom;
+      document.getElementById('admin-saison-desc').value = s.desc || '';
+    }
+
+    function deleteSaisonAdmin(index) {
+      if(!confirm('Supprimer cette saison ? Les résultats associés garderont le nom.')) return;
+      db.ref('saisons/' + saisonsKeys[index]).remove();
+    }
+
+    function resetSaisonForm() {
+      document.getElementById('admin-saison-id').value = '';
+      document.getElementById('admin-saison-nom').value = '';
+      document.getElementById('admin-saison-desc').value = '';
+    }
+
+    function renderAdminSaisonsList() {
+      const el = document.getElementById('adm-saisons-list');
+      if(!el) return;
+      el.innerHTML = saisonsData.length ? saisonsData.map((s, i) => `
+        <div class="admin-saison-row">
+          <div><div class="admin-saison-label">${s.nom}</div><div class="admin-saison-meta">${s.desc ? s.desc.substring(0,60) + '…' : 'Aucune description'}</div></div>
+          <div class="admin-list-actions">
+            <button class="admin-mini-btn btn-edit-mini" onclick="editSaisonAdmin(${i})">Edit</button>
+            <button class="admin-mini-btn btn-del-mini" onclick="deleteSaisonAdmin(${i})">Del</button>
+          </div>
+        </div>
+      `).join('') : '<p style="font-size:0.75rem;color:var(--texte-sec);padding:0.5rem;">Aucune saison créée.</p>';
+
+      // Remplir le select dans le formulaire de résultats
+      const sel = document.getElementById('admin-res-saison');
+      if(sel) {
+        sel.innerHTML = saisonsData.map(s => `<option value="${s.nom}">${s.nom}</option>`).join('') +
+          '<option value="Sans saison">Sans saison</option>';
+      }
+    }
+
+    // Chargement des saisons depuis Firebase
+    db.ref('saisons').on('value', (snapshot) => {
+      const data = snapshot.val();
+      saisonsData = []; saisonsKeys = [];
+      if(data) {
+        Object.keys(data).forEach(key => { saisonsData.push(data[key]); saisonsKeys.push(key); });
+      }
+      renderAdminSaisonsList();
+      renderResultats();
+    });
 
     function renderMatchs() {
       const isAvailable = matchData.salesStatus === "enabled";
