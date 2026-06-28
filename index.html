@@ -2022,6 +2022,8 @@
       const data = snapshot.val();
       actualites = []; actualitesKeys = [];
       if(data) {
+        // On conserve l'ordre natif Firebase (insertion) comme fallback
+        // Le tri réel se fait dans renderActualites() et renderAdminNewsList() via le champ order
         Object.keys(data).forEach(key => { actualites.push(data[key]); actualitesKeys.push(key); });
       }
       renderActualites();
@@ -2409,8 +2411,11 @@
       const badge = document.getElementById('admin-news-badge')?.value || '';
       const featured = document.getElementById('admin-news-featured')?.checked || false;
       if(!title) { alert('Le titre est obligatoire.'); return; }
-      const articleData = { title, excerpt, body, date, image, image2, image3, youtube, badge, featured };
       const isNew = id === "";
+      // Nouvel article : order = max existant + 1 pour apparaître en tête de liste
+      const maxOrder = actualites.reduce((m, a) => Math.max(m, a.order ?? a.i ?? 0), 0) + 1;
+      const articleData = { title, excerpt, body, date, image, image2, image3, youtube, badge, featured };
+      if(isNew) articleData.order = maxOrder;
       const done = () => {
         const fb = document.getElementById('article-save-feedback');
         fb.style.display = 'inline';
@@ -2459,38 +2464,71 @@
       document.getElementById('article-form-title').style.color = "inherit";
     }
 
+    // ── Ordre articles : on stocke un champ 'order' dans chaque article ──
+    // La liste admin affiche du plus récent (order élevé) au plus ancien (order bas)
+    // = même sens que la page publique qui fait .reverse()
+
+    function _ensureArticleOrders(cb) {
+      // Si aucun article n'a de champ order, on les initialise sur Firebase
+      if(actualites.some(a => a.order === undefined)) {
+        const updates = {};
+        actualites.forEach((a, i) => { updates[actualitesKeys[i] + '/order'] = i; a.order = i; });
+        db.ref('actualites').update(updates).then(cb);
+      } else { cb(); }
+    }
+
+    function moveNewsAdmin(visIdx, dir) {
+      // visIdx = position dans la vue admin (0 = article le plus récent affiché en tête)
+      // La vue affiche actualites trié par order DESC, donc visIdx 0 = dernier en termes d'order
+      // dir = -1 : monter dans la vue = augmenter son order (le rendre plus récent)
+      // dir = +1 : descendre dans la vue = diminuer son order
+      _ensureArticleOrders(() => {
+        // Trier par order décroissant pour obtenir l'ordre visuel
+        let pairs = actualites.map((a, i) => ({ a, key: actualitesKeys[i], arrIdx: i }));
+        pairs.sort((a, b) => (b.a.order ?? 0) - (a.a.order ?? 0));
+
+        const targetVisIdx = visIdx + dir;
+        if(targetVisIdx < 0 || targetVisIdx >= pairs.length) return;
+
+        const pA = pairs[visIdx];
+        const pB = pairs[targetVisIdx];
+        const tmpOrder = pA.a.order;
+        pA.a.order = pB.a.order;
+        pB.a.order = tmpOrder;
+
+        const updates = {};
+        updates[pA.key + '/order'] = pA.a.order;
+        updates[pB.key + '/order'] = pB.a.order;
+
+        // Mise à jour locale immédiate
+        actualites[pA.arrIdx].order = pA.a.order;
+        actualites[pB.arrIdx].order = pB.a.order;
+
+        db.ref('actualites').update(updates).then(() => {
+          renderActualites();
+          renderAdminNewsList();
+        });
+        // Rendu local immédiat sans attendre Firebase
+        renderActualites();
+        renderAdminNewsList();
+      });
+    }
+
     function renderAdminNewsList() {
-      // Même ordre que la page publique : du plus récent au plus ancien (reverse)
-      const orderedWithIdx = actualites.map((a, i) => ({ a, i })).reverse();
-      document.getElementById('adm-news-list').innerHTML = orderedWithIdx.map(({ a, i }, visIdx) => `
+      // Même ordre que la page publique : order décroissant = plus récent en premier
+      let pairs = actualites.map((a, i) => ({ a, i }));
+      pairs.sort((a, b) => (b.a.order ?? b.i) - (a.a.order ?? a.i));
+      document.getElementById('adm-news-list').innerHTML = pairs.map(({ a, i }, visIdx) => `
         <div class="admin-list-item">
           <span>${a.title}</span>
           <div class="admin-list-actions">
-            <button class="admin-mini-btn" style="background:#555;" onclick="moveNewsAdmin(${i}, -1)" ${i===actualites.length-1?'style="opacity:0.5;cursor:not-allowed;" disabled':''}>↑</button>
-            <button class="admin-mini-btn" style="background:#555;" onclick="moveNewsAdmin(${i}, 1)" ${i===0?'style="opacity:0.5;cursor:not-allowed;" disabled':''}>↓</button>
+            <button class="admin-mini-btn" style="background:#555;" onclick="moveNewsAdmin(${visIdx}, -1)" ${visIdx===0?'disabled style="opacity:0.4;cursor:not-allowed;"':''}>↑</button>
+            <button class="admin-mini-btn" style="background:#555;" onclick="moveNewsAdmin(${visIdx}, 1)" ${visIdx===pairs.length-1?'disabled style="opacity:0.4;cursor:not-allowed;"':''}>↓</button>
             <button class="admin-mini-btn btn-edit-mini" onclick="editNewsPro(${i})">Edit</button>
             <button class="admin-mini-btn btn-del-mini" onclick="deleteNewsPro(${i})">Del</button>
           </div>
         </div>
       `).join('');
-    }
-
-    // Éditeur Histoire (Amélioré)
-    function moveNewsAdmin(index, dir) {
-      // dir = -1 → monte dans la liste (index augmente dans actualites car la liste est reversed)
-      // En page publique, les articles sont affichés reversed() donc index 0 = le plus ancien
-      // Monter dans la vue reversed = index+1 dans actualites ; descendre = index-1
-      const newIndex = index - dir; // inversé car la vue est reversed
-      if(newIndex < 0 || newIndex >= actualites.length) return;
-      [actualites[index], actualites[newIndex]] = [actualites[newIndex], actualites[index]];
-      [actualitesKeys[index], actualitesKeys[newIndex]] = [actualitesKeys[newIndex], actualitesKeys[index]];
-      // Réécrire dans Firebase dans le nouvel ordre
-      const updates = {};
-      actualites.forEach((a, i) => { updates[actualitesKeys[i]] = a; });
-      db.ref('actualites').set(updates).then(() => {
-        renderActualites();
-        renderAdminNewsList();
-      });
     }
 
     // Éditeur Histoire (Amélioré)
@@ -2867,14 +2905,20 @@
     }
 
     function renderActualites() {
-      // Trier: l'article le plus récent (dernier ajouté) en premier
-      const sorted = [...actualites].reverse();
+      // Trier par order décroissant (plus récent = order élevé, affiché en premier)
+      // Si pas de champ order, utiliser l'index d'insertion (comportement initial)
+      let pairs = actualites.map((a, i) => ({ a, i }));
+      pairs.sort((a, b) => (b.a.order ?? b.i) - (a.a.order ?? a.i));
+      const sorted = pairs.map(p => p.a);
+      const sortedIdxs = pairs.map(p => p.i);
+
       const featured = sorted.find(a => a.featured);
       const rest = sorted.filter(a => !a.featured);
       const ordered = featured ? [featured, ...rest] : sorted;
+      const orderedIdxs = ordered.map(a => sortedIdxs[sorted.indexOf(a)]);
 
       document.getElementById('news-container').innerHTML = ordered.map((a, visIdx) => {
-        const realIndex = actualites.indexOf(a);
+        const realIndex = orderedIdxs[visIdx];
         const imgHtml = a.image ? `<div style="height:180px;overflow:hidden;border-radius:6px 6px 0 0;"><img src="${a.image}" alt="${a.title}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.display='none'" /></div>` : '';
         const badgeHtml = a.badge ? `<span class="article-badge ${a.badge}">${a.badge === 'nouveau' ? '🟢 Nouveau' : a.badge === 'exclusif' ? '🌸 Exclusif' : '⭐ À la une'}</span>` : '';
         const isFeatured = a.featured;
@@ -2905,12 +2949,12 @@
       }).join('');
 
       // Article à la une sur la page d'accueil
-      const accueilFeatured = actualites.slice().reverse().find(a => a.featured) || actualites[actualites.length - 1];
+      const accueilFeatured = sorted.find(a => a.featured) || sorted[0];
       const featuredContainer = document.getElementById('accueil-featured-article');
       const featuredCard = document.getElementById('accueil-featured-card');
       if(accueilFeatured && featuredContainer && featuredCard) {
         featuredContainer.style.display = 'block';
-        const realIdx = actualites.indexOf(accueilFeatured);
+        const realIdx = sortedIdxs[sorted.indexOf(accueilFeatured)];
         featuredCard.setAttribute('onclick', `openArticleDetail(${realIdx}); showPage('actualites')`);
         featuredCard.innerHTML = `
           <div class="hero-article-img">${accueilFeatured.image ? `<img src="${accueilFeatured.image}" alt="${accueilFeatured.title}" onerror="this.parentElement.innerHTML='<div class=hero-article-img-placeholder>📰</div>'" />` : `<div class="hero-article-img-placeholder">📰</div>`}</div>
@@ -3025,7 +3069,9 @@
           if(sH === sA) N++;
           else if((isHome && sH > sA) || (!isHome && sA > sH)) V++;
           else D++;
-          if(r.cs == '1' || r.cleanSheet) CS++;
+          // Clean sheet : calculé automatiquement selon les scores (score adverse = 0)
+          const autoCs = (isHome && sA === 0) || (!isHome && sH === 0);
+          if(autoCs || r.cs == '1' || r.cleanSheet) CS++;
         });
 
         const formDots = form.map(f => `<div class="form-dot ${f}" title="${f}"></div>`).join('');
@@ -3037,6 +3083,8 @@
           if(sH === sA) { outcomeClass = 'nul'; outcomeText = 'NUL'; }
           else if((isHome && sH > sA) || (!isHome && sA > sH)) { outcomeClass = 'victoire'; outcomeText = 'VICTOIRE'; }
           else { outcomeClass = 'defaite'; outcomeText = 'DÉFAITE'; }
+          // Clean sheet automatique selon les scores
+          const isCs = (isHome && sA === 0) || (!isHome && sH === 0) || r.cs == '1' || r.cleanSheet;
           return `
             <div class="match-card ${outcomeClass}" style="margin-bottom:12px;">
               <div class="match-watermark">${outcomeText}</div>
@@ -3045,7 +3093,7 @@
               <div class="match-team-side" style="text-align:right;"><div class="match-away">${r.away}</div></div>
               <div class="match-details-side" style="text-align:right;">
                 <div class="match-date">${r.date}</div>
-                ${r.cs=='1'||r.cleanSheet ? '<div style="font-size:0.65rem;color:#4a82d9;font-weight:700;">🔒 Clean Sheet</div>' : ''}
+                ${isCs ? '<div style="font-size:0.65rem;color:#4a82d9;font-weight:700;">🔒 Clean Sheet</div>' : ''}
               </div>
               ${r.scorers ? `<div class="result-scorers">⚽ ${r.scorers}</div>` : ''}
             </div>
@@ -3101,9 +3149,17 @@
       const nom = document.getElementById('admin-saison-nom').value.trim();
       const desc = document.getElementById('admin-saison-desc').value.trim();
       if(!nom) return alert('Le nom est requis.');
-      const data = { nom, desc };
-      if(id !== '') db.ref('saisons/' + id).set(data);
-      else db.ref('saisons').push().set(data);
+      if(id !== '') {
+        // Édition : on conserve l'order existant
+        const existing = saisonsData[saisonsKeys.indexOf(id)] || {};
+        const data = { nom, desc, order: existing.order ?? 0 };
+        db.ref('saisons/' + id).set(data);
+      } else {
+        // Création : order = max + 1 pour apparaître en dernier (plus récent)
+        const maxOrder = saisonsData.reduce((m, s) => Math.max(m, s.order ?? 0), -1) + 1;
+        const data = { nom, desc, order: maxOrder };
+        db.ref('saisons').push().set(data);
+      }
       resetSaisonForm();
     }
 
@@ -3125,17 +3181,38 @@
       document.getElementById('admin-saison-desc').value = '';
     }
 
-    // Réordonner les saisons (Firebase : réécriture complète dans le nouvel ordre)
-    function moveSaisonAdmin(index, dir) {
-      const newIndex = index + dir;
-      if(newIndex < 0 || newIndex >= saisonsData.length) return;
-      // Swap
-      [saisonsData[index], saisonsData[newIndex]] = [saisonsData[newIndex], saisonsData[index]];
-      [saisonsKeys[index], saisonsKeys[newIndex]] = [saisonsKeys[newIndex], saisonsKeys[index]];
-      // Réécriture dans Firebase pour conserver l'ordre (on supprime tout et on recrée)
+    // Réordonner les saisons via champ 'order' stocké dans Firebase
+    function moveSaisonAdmin(visIdx, dir) {
+      const targetVisIdx = visIdx + dir;
+      if(targetVisIdx < 0 || targetVisIdx >= saisonsData.length) return;
+
+      // S'assurer que toutes les saisons ont un champ order
+      if(saisonsData.some(s => s.order === undefined)) {
+        const initUpdates = {};
+        saisonsData.forEach((s, i) => { initUpdates[saisonsKeys[i] + '/order'] = i; s.order = i; });
+        db.ref('saisons').update(initUpdates).then(() => _swapSaisonOrder(visIdx, targetVisIdx));
+        return;
+      }
+      _swapSaisonOrder(visIdx, targetVisIdx);
+    }
+
+    function _swapSaisonOrder(idxA, idxB) {
+      const orderA = saisonsData[idxA].order;
+      const orderB = saisonsData[idxB].order;
       const updates = {};
-      saisonsData.forEach((s, i) => { updates[saisonsKeys[i]] = s; });
-      db.ref('saisons').set(updates);
+      updates[saisonsKeys[idxA] + '/order'] = orderB;
+      updates[saisonsKeys[idxB] + '/order'] = orderA;
+      // Mise à jour locale immédiate
+      saisonsData[idxA].order = orderB;
+      saisonsData[idxB].order = orderA;
+      db.ref('saisons').update(updates);
+      // Re-trier localement
+      let pairs = saisonsData.map((s, i) => ({ s, key: saisonsKeys[i] }));
+      pairs.sort((a, b) => (a.s.order ?? 0) - (b.s.order ?? 0));
+      saisonsData = pairs.map(p => p.s);
+      saisonsKeys = pairs.map(p => p.key);
+      renderAdminSaisonsList();
+      renderResultats();
     }
 
     // ── Toast Notifications ──
@@ -3252,7 +3329,10 @@
       const data = snapshot.val();
       saisonsData = []; saisonsKeys = [];
       if(data) {
-        Object.keys(data).forEach(key => { saisonsData.push(data[key]); saisonsKeys.push(key); });
+        let pairs = Object.keys(data).map(key => ({ key, val: data[key] }));
+        // Trier par champ order (croissant)
+        pairs.sort((a, b) => (a.val.order ?? 0) - (b.val.order ?? 0));
+        pairs.forEach(p => { saisonsData.push(p.val); saisonsKeys.push(p.key); });
       }
       renderAdminSaisonsList();
       renderResultats();
