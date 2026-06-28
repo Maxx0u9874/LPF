@@ -251,9 +251,33 @@
        PAGE: BILLETTERIE & RESULTATS
     ═══════════════════════════════════════════════════════════════ */
     .match-container-box { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
-    .match-card { display: grid; grid-template-columns: 1fr; align-items: center; gap: 1.5rem; padding: 2rem 1.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; position: relative; transition: all 0.3s; text-align: center; }
+    .match-card { display: grid; grid-template-columns: 1fr; align-items: center; gap: 1.5rem; padding: 2rem 1.5rem; background: var(--blanc); border: 1px solid var(--rose-bord); box-shadow: var(--card-shadow); border-radius: 6px; position: relative; transition: all 0.3s; text-align: center; overflow: hidden; }
     @media (min-width: 768px) { .match-card { grid-template-columns: 1.5fr 0.5fr 1.5fr 1.2fr; gap: 2rem; padding: 2rem 2.5rem; text-align: left; } }
     .match-card:hover { border-color: var(--rose); }
+
+    /* Nouvelles règles pour les résultats (Victoire / Défaite / Nul) */
+    .match-team-side, .result-score, .match-details-side, .result-scorers, .match-ticket, .match-vs { position: relative; z-index: 2; }
+    .match-card.victoire { border: 2px solid var(--succes); box-shadow: 0 8px 32px rgba(91, 173, 122, 0.15); }
+    .match-card.defaite { border: 2px solid var(--danger); box-shadow: 0 8px 32px rgba(217, 83, 79, 0.15); }
+    .match-card.nul { border: 2px solid var(--texte-sec); box-shadow: 0 8px 32px rgba(107, 95, 107, 0.15); }
+    .match-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--bebas);
+      font-size: clamp(4rem, 12vw, 8rem);
+      color: transparent;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+      opacity: 0.15;
+    }
+    .match-card.victoire .match-watermark { -webkit-text-stroke: 2px var(--succes); }
+    .match-card.defaite .match-watermark { -webkit-text-stroke: 2px var(--danger); }
+    .match-card.nul .match-watermark { -webkit-text-stroke: 2px var(--texte-sec); }
+
     .match-team-side { display: flex; flex-direction: column; gap: 4px; }
     .match-home, .match-away { font-family: var(--bebas); font-size: 1.6rem; color: var(--texte); letter-spacing: 0.02em; }
     .match-vs { font-family: var(--bebas); font-size: 1.2rem; color: var(--rose); background: var(--rose-pale); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; justify-self: center; border: 1px solid var(--rose-bord); margin: 0 auto; }
@@ -2423,15 +2447,39 @@
     }
 
     function renderResultats() {
-      document.getElementById('resultats-container').innerHTML = resultatsData.map(r => `
-        <div class="match-card">
+      document.getElementById('resultats-container').innerHTML = resultatsData.slice().reverse().map(r => {
+        let isHome = r.home.toLowerCase().includes('pignouf');
+        let isAway = r.away.toLowerCase().includes('pignouf');
+        let scoreH = parseInt(r.scoreH);
+        let scoreA = parseInt(r.scoreA);
+
+        let outcomeClass = "";
+        let outcomeText = "";
+
+        if (isHome || isAway) {
+          if (scoreH === scoreA) {
+            outcomeClass = "nul";
+            outcomeText = "NUL";
+          } else if ((isHome && scoreH > scoreA) || (isAway && scoreA > scoreH)) {
+            outcomeClass = "victoire";
+            outcomeText = "VICTOIRE";
+          } else {
+            outcomeClass = "defaite";
+            outcomeText = "DÉFAITE";
+          }
+        }
+
+        return `
+        <div class="match-card ${outcomeClass}">
+          <div class="match-watermark">${outcomeText}</div>
           <div class="match-team-side"><div class="match-home">${r.home}</div></div>
           <div class="result-score">${r.scoreH} - ${r.scoreA}</div>
           <div class="match-team-side" style="text-align:right;"><div class="match-away">${r.away}</div></div>
           <div class="match-details-side" style="text-align:right;"><div class="match-date">${r.date}</div></div>
           ${r.scorers ? `<div class="result-scorers">⚽ ${r.scorers}</div>` : ''}
         </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function renderMatchs() {
