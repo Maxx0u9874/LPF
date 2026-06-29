@@ -953,42 +953,26 @@
       position: fixed; inset: 0; z-index: 9999;
       background: var(--blanc);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 1.5rem;
+      gap: 2rem;
       transition: opacity 0.55s ease;
     }
-    #lpf-loader.fade-out {
-      opacity: 0; pointer-events: none;
-    }
+    #lpf-loader.fade-out { opacity: 0; pointer-events: none; }
 
-    /* SVG ballon container */
     .loader-ball-svg {
-      width: clamp(100px, 28vw, 140px);
-      height: clamp(100px, 28vw, 140px);
-      filter: drop-shadow(0 8px 24px rgba(232, 119, 154, 0.25));
+      width: clamp(120px, 32vw, 160px);
+      height: clamp(120px, 32vw, 160px);
+      filter: drop-shadow(0 12px 32px rgba(232,119,154,0.22));
     }
 
-    /* Masque de remplissage */
-    #ball-fill-rect {
-      transform-origin: bottom center;
-      transform: scaleY(0);
-      transition: none;
-    }
-
-    /* Texte "La Pignouferie FC" */
     .loader-name {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.5rem, 6vw, 2.2rem);
-      letter-spacing: 0.1em;
+      font-size: clamp(1.6rem, 6vw, 2.4rem);
+      letter-spacing: 0.12em;
       color: var(--texte);
       text-align: center;
       line-height: 1;
     }
-    .loader-name em {
-      font-style: normal;
-      color: var(--rose);
-    }
-
-    [data-theme="dark"] #lpf-loader { background: var(--blanc); }
+    .loader-name em { font-style: normal; color: var(--rose); }
 
     /* ═══════════════════════════════════════════════════════════════
        MOBILE APP — BOTTOM TAB BAR
@@ -1134,54 +1118,72 @@
 
   <!-- ═══════════ LOADING SCREEN LPF ═══════════ -->
   <div id="lpf-loader">
-    <!-- Ballon SVG qui se remplit de couleur rose -->
+
+    <!--
+      Ballon de foot SVG — remplissage rose du bas vers le haut via clipPath imbriqués :
+      • ball-clip  : coupe tout au cercle du ballon
+      • fill-clip  : rect animé par JS (monte de bas en haut) → révèle la couche rose
+    -->
     <svg class="loader-ball-svg" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <!-- Masque de remplissage : rectangle qui monte de bas en haut -->
+        <!-- Clip circulaire du ballon -->
         <clipPath id="ball-clip">
-          <circle cx="70" cy="70" r="62"/>
+          <circle cx="70" cy="70" r="63"/>
         </clipPath>
+        <!-- Clip rect animé : commence vide en bas, monte vers le haut -->
         <clipPath id="fill-clip">
-          <rect id="ball-fill-rect" x="0" y="0" width="140" height="140"/>
+          <rect id="ball-fill-rect" x="0" y="133" width="140" height="0"/>
         </clipPath>
       </defs>
-      <!-- Fond blanc du ballon -->
-      <circle cx="70" cy="70" r="62" fill="#F7F3F5" stroke="#ECC5D6" stroke-width="2"/>
-      <!-- Pentagones noirs classiques du ballon -->
-      <g clip-path="url(#ball-clip)" fill="none">
-        <!-- Pentagone central -->
-        <polygon points="70,22 87,35 81,55 59,55 53,35" fill="#2a1520" opacity="0.15"/>
-        <!-- Pentagones autour -->
-        <polygon points="87,35 108,32 118,52 104,67 81,55" fill="#2a1520" opacity="0.15"/>
-        <polygon points="108,32 125,18 135,36 128,58 118,52" fill="#2a1520" opacity="0.10"/>
-        <polygon points="53,35 30,32 20,52 34,67 59,55" fill="#2a1520" opacity="0.15"/>
-        <polygon points="30,32 13,18 5,36 12,58 20,52" fill="#2a1520" opacity="0.10"/>
-        <polygon points="104,67 118,52 128,72 118,92 104,80" fill="#2a1520" opacity="0.15"/>
-        <polygon points="34,67 20,52 12,72 22,92 36,80" fill="#2a1520" opacity="0.15"/>
-        <polygon points="81,55 104,67 104,80 81,90 59,80 59,55" fill="#2a1520" opacity="0.08"/>
-        <polygon points="81,90 104,80 118,92 110,112 87,115 70,105" fill="#2a1520" opacity="0.15"/>
-        <polygon points="59,80 36,80 22,92 30,112 53,115 70,105" fill="#2a1520" opacity="0.15"/>
-        <polygon points="70,105 87,115 82,128 58,128 53,115" fill="#2a1520" opacity="0.10"/>
-      </g>
-      <!-- Couche rose qui monte (remplissage) -->
-      <g clip-path="url(#fill-clip)">
-        <circle cx="70" cy="70" r="62" fill="#E8779A" opacity="0.88"/>
-        <!-- Pentagones sur fond rose (légèrement plus foncés) -->
-        <polygon points="70,22 87,35 81,55 59,55 53,35" fill="#C4506E" opacity="0.35"/>
-        <polygon points="87,35 108,32 118,52 104,67 81,55" fill="#C4506E" opacity="0.35"/>
-        <polygon points="53,35 30,32 20,52 34,67 59,55" fill="#C4506E" opacity="0.35"/>
-        <polygon points="104,67 118,52 128,72 118,92 104,80" fill="#C4506E" opacity="0.35"/>
-        <polygon points="34,67 20,52 12,72 22,92 36,80" fill="#C4506E" opacity="0.35"/>
-        <polygon points="81,90 104,80 118,92 110,112 87,115 70,105" fill="#C4506E" opacity="0.35"/>
-        <polygon points="59,80 36,80 22,92 30,112 53,115 70,105" fill="#C4506E" opacity="0.35"/>
-        <!-- Reflet léger -->
-        <ellipse cx="54" cy="44" rx="18" ry="10" fill="white" opacity="0.18" transform="rotate(-25 54 44)"/>
-      </g>
-      <!-- Contour final du ballon -->
-      <circle cx="70" cy="70" r="62" fill="none" stroke="#ECC5D6" stroke-width="2.5"/>
+
+      <!-- ── Tout ce qui suit est clipé au cercle ── -->
+      <g clip-path="url(#ball-clip)">
+
+        <!-- Fond blanc du ballon -->
+        <circle cx="70" cy="70" r="63" fill="#FFFFFF"/>
+
+        <!-- ─ Patches sombres (motif Telstar classique) ─ -->
+        <!-- Pentagone central haut -->
+        <polygon points="70,7  88,20  82,41  58,41  52,20"          fill="#1A1A2E"/>
+        <!-- Haut-droite -->
+        <polygon points="88,20  111,15  122,35  108,53  82,41"      fill="#1A1A2E"/>
+        <!-- Haut-gauche -->
+        <polygon points="52,20  58,41  32,53  18,35  29,15"         fill="#1A1A2E"/>
+        <!-- Droite -->
+        <polygon points="108,53  129,56  133,78  119,92  97,78"     fill="#1A1A2E"/>
+        <!-- Gauche -->
+        <polygon points="32,53  43,78  21,92   7,78   11,56"        fill="#1A1A2E"/>
+        <!-- Bas-droite -->
+        <polygon points="119,92  133,106  122,123  98,123  88,101"  fill="#1A1A2E"/>
+        <!-- Bas-gauche -->
+        <polygon points="52,101  42,123   18,123   7,106  21,92"    fill="#1A1A2E"/>
+        <!-- Bas-centre -->
+        <polygon points="88,101  98,123  70,133  42,123  52,101  70,104" fill="#1A1A2E"/>
+
+        <!-- ── Couche rose : révélée par fill-clip (monte du bas) ── -->
+        <g clip-path="url(#fill-clip)">
+          <!-- Rose plein -->
+          <circle cx="70" cy="70" r="63" fill="#E8779A"/>
+          <!-- Mêmes patches en rose foncé pour garder le motif visible -->
+          <polygon points="70,7  88,20  82,41  58,41  52,20"          fill="#C4506E"/>
+          <polygon points="88,20  111,15  122,35  108,53  82,41"      fill="#C4506E"/>
+          <polygon points="52,20  58,41  32,53  18,35  29,15"         fill="#C4506E"/>
+          <polygon points="108,53  129,56  133,78  119,92  97,78"     fill="#C4506E"/>
+          <polygon points="32,53  43,78  21,92   7,78   11,56"        fill="#C4506E"/>
+          <polygon points="119,92  133,106  122,123  98,123  88,101"  fill="#C4506E"/>
+          <polygon points="52,101  42,123   18,123   7,106  21,92"    fill="#C4506E"/>
+          <polygon points="88,101  98,123  70,133  42,123  52,101  70,104" fill="#C4506E"/>
+          <!-- Reflet doux -->
+          <ellipse cx="50" cy="38" rx="15" ry="9" fill="white" opacity="0.14" transform="rotate(-28 50 38)"/>
+        </g>
+
+      </g><!-- /ball-clip -->
+
+      <!-- Contour du ballon (par-dessus tout) -->
+      <circle cx="70" cy="70" r="63" fill="none" stroke="#ECC5D6" stroke-width="2"/>
     </svg>
 
-    <!-- Nom du club -->
+    <!-- Texte sous le ballon -->
     <div class="loader-name">La <em>Pignouferie</em> FC</div>
   </div>
 
@@ -3932,26 +3934,30 @@
 
     // ═══════════ LOADING SCREEN ═══════════
     (function initLoader() {
-      const loader = document.getElementById('lpf-loader');
+      const loader  = document.getElementById('lpf-loader');
       const fillRect = document.getElementById('ball-fill-rect');
-      // Le rect couvre 140px de hauteur. On anime scaleY de 0 → 1 (depuis le bas)
-      // On utilise un transform CSS direct sur l'élément
+
+      // Le cercle du ballon va de y=7 (haut) à y=133 (bas) dans le viewBox 140×140.
+      // Le rect de remplissage part de y=133 height=0 (vide) → y=7 height=126 (plein).
+      const BALL_TOP    = 7;
+      const BALL_BOTTOM = 133;
+      const BALL_H      = BALL_BOTTOM - BALL_TOP; // 126
+
+      // État initial : rect vide en bas
+      fillRect.setAttribute('y',      String(BALL_BOTTOM));
+      fillRect.setAttribute('height', '0');
+
       let progress = 0;
 
       function setFill(pct) {
-        // scaleY de 0 à 1, transform-origin: bottom
-        const scale = pct / 100;
-        // Le rect est positionné y=0 hauteur 140
-        // Pour remplir depuis le bas, on translate puis scale
-        const yOffset = 140 * (1 - scale);
-        fillRect.setAttribute('y', yOffset);
-        fillRect.setAttribute('height', 140 * scale);
+        const h = (BALL_H * pct) / 100;
+        const y = BALL_BOTTOM - h;
+        fillRect.setAttribute('y',      String(y));
+        fillRect.setAttribute('height', String(h));
       }
 
-      setFill(0);
-
       const interval = setInterval(() => {
-        progress += Math.random() * 13 + 4;
+        progress += Math.random() * 11 + 5;
         if (progress > 100) progress = 100;
         setFill(progress);
 
@@ -3960,9 +3966,9 @@
           setTimeout(() => {
             loader.classList.add('fade-out');
             setTimeout(() => { loader.style.display = 'none'; }, 600);
-          }, 350);
+          }, 380);
         }
-      }, 80);
+      }, 75);
     })();
 
     function applyLanguage(l) {
